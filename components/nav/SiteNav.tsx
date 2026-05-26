@@ -7,49 +7,77 @@ import { Menu, X, Anchor, User, LogOut, LayoutDashboard, Ship } from 'lucide-rea
 import { createClient } from '@/lib/supabase/client'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 
+const NAV_LINKS = [
+  { href: '/search', label: 'Explore boats' },
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/blog', label: 'Charter guide' },
+  { href: '/become-a-host', label: 'List your boat' },
+]
+
 export default function SiteNav() {
   const [open, setOpen] = useState(false)
   const [user, setUser] = useState<SupabaseUser | null>(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-  const supabase = createClient()
 
   useEffect(() => {
+    const supabase = createClient()
     supabase.auth.getUser().then(({ data }) => setUser(data.user))
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
       setUser(session?.user ?? null)
     })
-    return () => subscription.unsubscribe()
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => { subscription.unsubscribe(); window.removeEventListener('scroll', onScroll) }
   }, [])
 
-  const isTransparent = pathname === '/'
-
   async function signOut() {
+    const supabase = createClient()
     await supabase.auth.signOut()
     window.location.href = '/'
   }
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
-        isTransparent
-          ? 'bg-white/90 backdrop-blur-md border-b border-slate-200/60'
-          : 'bg-white border-b border-slate-200'
-      }`}
+      className="sticky top-0 z-50 transition-all duration-300"
+      style={{
+        background: scrolled
+          ? 'rgba(7,16,30,0.97)'
+          : 'rgba(7,16,30,0.92)',
+        backdropFilter: 'blur(16px) saturate(160%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(160%)',
+        borderBottom: '1px solid rgba(201,168,78,0.15)',
+        boxShadow: scrolled ? '0 8px 28px rgba(0,0,0,0.45)' : 'none',
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container">
         <div className="flex items-center justify-between h-16">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-[#0f2547]">
-            <Anchor className="w-5 h-5 text-[#06b6d4]" />
-            <span className="text-lg">BoatAway</span>
+          <Link href="/" className="flex items-center gap-2 group">
+            <Anchor className="w-5 h-5 transition-colors" style={{ color: '#c9a84e' }} />
+            <span className="text-lg font-bold tracking-tight" style={{ color: '#f4f4f2' }}>
+              BoatAway
+            </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-            <Link href="/search" className="hover:text-[#0f2547] transition-colors">Explore</Link>
-            <Link href="/how-it-works" className="hover:text-[#0f2547] transition-colors">How it works</Link>
-            <Link href="/become-a-host" className="hover:text-[#0f2547] transition-colors">Become a host</Link>
+          <nav className="hidden md:flex items-center gap-7">
+            {NAV_LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="relative text-sm font-medium transition-colors group/link"
+                style={{ color: pathname === l.href ? '#c9a84e' : 'rgba(244,244,242,0.65)' }}
+              >
+                {l.label}
+                <span
+                  className="absolute -bottom-0.5 left-0 h-px w-0 group-hover/link:w-full transition-all duration-200"
+                  style={{ background: '#c9a84e' }}
+                />
+              </Link>
+            ))}
           </nav>
 
           {/* Desktop auth */}
@@ -58,26 +86,52 @@ export default function SiteNav() {
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-full border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all text-sm font-medium text-slate-700"
+                  className="flex items-center gap-2 px-3 py-2 rounded-full border transition-all text-sm font-medium"
+                  style={{
+                    border: '1px solid rgba(201,168,78,0.25)',
+                    color: '#f4f4f2',
+                    background: 'transparent',
+                  }}
                 >
                   <Menu className="w-4 h-4" />
-                  <div className="w-7 h-7 rounded-full bg-[#06b6d4] flex items-center justify-center text-white text-xs font-bold">
+                  <div
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
+                    style={{ background: '#c9a84e', color: '#07101e' }}
+                  >
                     {user.email?.[0]?.toUpperCase() ?? 'U'}
                   </div>
                 </button>
+
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-100 py-1 z-50">
-                    <Link href="/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50" onClick={() => setDropdownOpen(false)}>
-                      <LayoutDashboard className="w-4 h-4" /> My trips
-                    </Link>
-                    <Link href="/host" className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50" onClick={() => setDropdownOpen(false)}>
-                      <Ship className="w-4 h-4" /> Host dashboard
-                    </Link>
-                    <Link href="/dashboard/messages" className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50" onClick={() => setDropdownOpen(false)}>
-                      <User className="w-4 h-4" /> Messages
-                    </Link>
-                    <div className="border-t border-slate-100 my-1" />
-                    <button onClick={signOut} className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50">
+                  <div
+                    className="absolute right-0 mt-2 w-56 rounded-xl py-1 z-50"
+                    style={{
+                      background: '#0c1828',
+                      border: '1px solid rgba(201,168,78,0.20)',
+                      boxShadow: '0 18px 50px rgba(0,0,0,0.58)',
+                    }}
+                  >
+                    {[
+                      { href: '/dashboard', icon: LayoutDashboard, label: 'My trips' },
+                      { href: '/host', icon: Ship, label: 'Host dashboard' },
+                      { href: '/dashboard/messages', icon: User, label: 'Messages' },
+                    ].map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors hover:text-[#c9a84e]"
+                        style={{ color: 'rgba(244,244,242,0.75)' }}
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <item.icon className="w-4 h-4" /> {item.label}
+                      </Link>
+                    ))}
+                    <div style={{ borderTop: '1px solid rgba(201,168,78,0.12)', margin: '4px 0' }} />
+                    <button
+                      onClick={signOut}
+                      className="flex w-full items-center gap-2 px-4 py-2.5 text-sm transition-colors hover:text-[#c9a84e]"
+                      style={{ color: 'rgba(244,244,242,0.75)' }}
+                    >
                       <LogOut className="w-4 h-4" /> Sign out
                     </button>
                   </div>
@@ -85,21 +139,30 @@ export default function SiteNav() {
               </div>
             ) : (
               <>
-                <Link href="/login" className="text-sm font-medium text-slate-700 hover:text-[#0f2547] transition-colors">
+                <Link
+                  href="/login"
+                  className="text-sm font-medium transition-colors hover:text-[#c9a84e]"
+                  style={{ color: 'rgba(244,244,242,0.65)' }}
+                >
                   Log in
                 </Link>
                 <Link
                   href="/signup"
-                  className="px-4 py-2 bg-[#0f2547] text-white text-sm font-medium rounded-full hover:bg-[#1e3a6e] transition-colors"
+                  className="px-5 py-2 text-sm font-semibold rounded-full transition-all"
+                  style={{ background: '#c9a84e', color: '#07101e' }}
                 >
-                  Sign up
+                  Get started
                 </Link>
               </>
             )}
           </div>
 
-          {/* Mobile menu toggle */}
-          <button className="md:hidden p-2 text-slate-600" onClick={() => setOpen(!open)}>
+          {/* Mobile toggle */}
+          <button
+            className="md:hidden p-2 rounded-lg"
+            style={{ color: 'rgba(244,244,242,0.7)' }}
+            onClick={() => setOpen(!open)}
+          >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -107,22 +170,37 @@ export default function SiteNav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-t border-slate-200 py-4 px-4 space-y-3">
-          <Link href="/search" className="block text-sm font-medium text-slate-700 py-2" onClick={() => setOpen(false)}>Explore</Link>
-          <Link href="/how-it-works" className="block text-sm font-medium text-slate-700 py-2" onClick={() => setOpen(false)}>How it works</Link>
-          <Link href="/become-a-host" className="block text-sm font-medium text-slate-700 py-2" onClick={() => setOpen(false)}>Become a host</Link>
-          <div className="pt-2 border-t border-slate-100 flex gap-3">
-            {user ? (
-              <>
-                <Link href="/dashboard" className="flex-1 text-center py-2 text-sm font-medium border border-slate-200 rounded-full" onClick={() => setOpen(false)}>Dashboard</Link>
-                <button onClick={signOut} className="flex-1 py-2 text-sm font-medium bg-[#0f2547] text-white rounded-full">Sign out</button>
-              </>
-            ) : (
-              <>
-                <Link href="/login" className="flex-1 text-center py-2 text-sm font-medium border border-slate-200 rounded-full" onClick={() => setOpen(false)}>Log in</Link>
-                <Link href="/signup" className="flex-1 text-center py-2 text-sm font-medium bg-[#0f2547] text-white rounded-full" onClick={() => setOpen(false)}>Sign up</Link>
-              </>
-            )}
+        <div
+          style={{
+            background: 'rgba(7,16,30,0.98)',
+            borderTop: '1px solid rgba(201,168,78,0.10)',
+          }}
+        >
+          <div className="container py-5 space-y-1">
+            {NAV_LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="block py-3 text-sm font-medium border-b transition-colors hover:text-[#c9a84e]"
+                style={{ color: 'rgba(244,244,242,0.75)', borderColor: 'rgba(255,255,255,0.05)' }}
+                onClick={() => setOpen(false)}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <div className="pt-4 flex gap-3">
+              {user ? (
+                <>
+                  <Link href="/dashboard" className="flex-1 text-center py-2.5 text-sm font-medium rounded-full border" style={{ border: '1px solid rgba(201,168,78,0.25)', color: '#c9a84e' }} onClick={() => setOpen(false)}>Dashboard</Link>
+                  <button onClick={signOut} className="flex-1 py-2.5 text-sm font-semibold rounded-full" style={{ background: '#c9a84e', color: '#07101e' }}>Sign out</button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="flex-1 text-center py-2.5 text-sm font-medium rounded-full border" style={{ border: '1px solid rgba(201,168,78,0.25)', color: 'rgba(244,244,242,0.75)' }} onClick={() => setOpen(false)}>Log in</Link>
+                  <Link href="/signup" className="flex-1 text-center py-2.5 text-sm font-semibold rounded-full" style={{ background: '#c9a84e', color: '#07101e' }} onClick={() => setOpen(false)}>Get started</Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -1,139 +1,139 @@
 import Link from 'next/link'
-import { Anchor, Star, Shield, Zap, Globe, ChevronRight } from 'lucide-react'
-import SearchBar from '@/components/search/SearchBar'
-import { Button } from '@/components/ui/button'
+import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
+import HeroSlideshow from '@/components/home/HeroSlideshow'
 
-const FEATURED_LOCATIONS = [
-  { slug: 'marbella', name: 'Marbella', country: 'Spain', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', boats: 18 },
-  { slug: 'ibiza', name: 'Ibiza', country: 'Spain', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80', boats: 0 },
-  { slug: 'mykonos', name: 'Mykonos', country: 'Greece', image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&q=80', boats: 0 },
-  { slug: 'amalfi', name: 'Amalfi Coast', country: 'Italy', image: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&q=80', boats: 0 },
-  { slug: 'miami', name: 'Miami', country: 'USA', image: 'https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=600&q=80', boats: 0 },
-  { slug: 'bali', name: 'Bali', country: 'Indonesia', image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80', boats: 0 },
-]
+/* ── helpers ── */
+const Gold = ({ children }: { children: React.ReactNode }) => (
+  <span style={{ color: '#c9a84e' }}>{children}</span>
+)
+const GoldBtn = ({ href, children, large }: { href: string; children: React.ReactNode; large?: boolean }) => (
+  <Link
+    href={href}
+    className={`inline-flex items-center gap-2 font-semibold rounded-full transition-all ${large ? 'px-8 py-4 text-base' : 'px-6 py-3 text-sm'}`}
+    style={{ background: '#c9a84e', color: '#07101e', boxShadow: '0 8px 24px rgba(201,168,78,0.22)' }}
+  >
+    {children}
+  </Link>
+)
+const GhostBtn = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <Link
+    href={href}
+    className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-full transition-all hover:text-[#c9a84e]"
+    style={{ border: '1px solid rgba(201,168,78,0.30)', color: 'rgba(244,244,242,0.80)' }}
+  >
+    {children}
+  </Link>
+)
+const SectionHeader = ({ eyebrow, title, sub }: { eyebrow?: string; title: React.ReactNode; sub?: string }) => (
+  <div className="text-center mb-14">
+    {eyebrow && <p className="eyebrow mb-4 mx-auto w-fit">{eyebrow}</p>}
+    <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#f4f4f2' }}>{title}</h2>
+    {sub && <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)' }}>{sub}</p>}
+  </div>
+)
 
+/* ── data ── */
 const BOAT_TYPES = [
-  { type: 'motor_yacht', label: 'Motor Yachts', emoji: '🛥️', desc: 'Luxury and speed' },
-  { type: 'catamaran', label: 'Catamarans', emoji: '⛵', desc: 'Stability & space' },
-  { type: 'sailing', label: 'Sailing Boats', emoji: '🌊', desc: 'Wind-powered adventure' },
-  { type: 'speedboat', label: 'Speedboats', emoji: '💨', desc: 'Thrilling rides' },
-  { type: 'fishing', label: 'Fishing Boats', emoji: '🎣', desc: 'Reel in the big catch' },
-  { type: 'luxury', label: 'Superyachts', emoji: '✨', desc: 'Ultimate luxury' },
+  { slug: 'motor_yacht', icon: '🛥️', label: 'Motor Yacht',     desc: 'Purpose-built for performance and comfort. Ideal for day charters where speed, a generous sun deck, and a well-appointed saloon matter most.' },
+  { slug: 'catamaran',   icon: '⛵',  label: 'Catamaran',       desc: 'Unmatched stability and deck space. Wide beam means more room, a roomier saloon, and twin hulls that barely feel the swell.' },
+  { slug: 'sailing',     icon: '🌊',  label: 'Sailing Yacht',   desc: 'Wind-powered and soul-stirring. Choose sail when you want to feel the ocean properly — no engine noise, no fuel bill, just speed and silence.' },
+  { slug: 'speedboat',   icon: '⚡',  label: 'Speedboat',       desc: 'When ten knots is not fast enough. Our speedboat fleet gets you to your anchorage, beach club, or island stop in record time.' },
+  { slug: 'fishing',     icon: '🎣',  label: 'Sport Fishing',   desc: 'Fully rigged with professional tackle, fighting chairs, and local captains who know where the tuna, dorado, and marlin run.' },
+  { slug: 'luxury',      icon: '👑',  label: 'Superyacht',      desc: 'Step aboard something extraordinary. Full crew, private chef, tender garage — the absolute pinnacle of the charter experience.' },
 ]
 
-const HOW_IT_WORKS = [
+const DESTINATIONS = [
   {
-    step: '01',
-    title: 'Search & discover',
-    desc: 'Browse thousands of verified boats worldwide. Filter by type, size, price, and more.',
+    slug: 'marbella', city: 'Marbella', country: 'Spain', count: '18+ boats',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    desc: 'Puerto Banús sits at the heart of the Costa del Sol with year-round sunshine, calm Mediterranean water, and a backdrop of the Sierra Blanca mountains. Charter anything from a sleek day speedboat to a 30-metre superyacht, cruise east to the limestone cliffs of Nerja, or anchor off the private beach clubs of Estepona. The season runs April through November — July and August deliver the finest light and the most glamorous sunsets on the coast.',
   },
   {
-    step: '02',
-    title: 'Book securely',
-    desc: 'Instant book or request to book. Secure Stripe payments — you\'re protected every step.',
+    slug: 'ibiza', city: 'Ibiza', country: 'Spain', count: '24+ boats',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+    desc: 'The Balearic flagship of the European charter scene. Ibiza by boat means discovering sea caves at Cala d\'Hort, floating off the ivory sands of Ses Salines, and reaching the cathedral rock of Es Vedrà by sundown from 200 metres offshore. The island\'s north coast is a different world from the party south — pine-scented silence, anchor-out lunches, and water clarity you only find half a mile from shore. Season: June through September.',
   },
   {
-    step: '03',
-    title: 'Set sail',
-    desc: 'Meet your skipper at the marina and enjoy your perfect day on the water.',
+    slug: 'miami', city: 'Miami', country: 'USA', count: '30+ boats',
+    image: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80',
+    desc: 'The year-round charter capital of the Americas. Miami\'s Biscayne Bay offers warm water, access to the Florida Keys, and a skyline backdrop that makes every sunset photographic. Charter a centre console for the Sandbar scene, step up to a sport cruiser for an overnight to Key Largo, or commission a full superyacht for Art Basel week when the world\'s most serious collectors are on the water.',
   },
 ]
 
+const TRUST_ITEMS = [
+  { icon: Shield, title: 'Fully Verified Fleet',       body: 'Every boat on BoatAway passes a physical inspection before accepting a booking. We check the vessel against maritime authority records, verify the skipper\'s licence for the operating zone, and confirm insurance is current. No exceptions — not even for high-revenue listings.' },
+  { icon: Anchor, title: 'Real, Transparent Pricing',  body: 'The price on every listing is the price you pay — plus a 15% service fee shown clearly before checkout. No fuel surcharges added on departure day, no administration fees buried in small print, and no negotiation required. What you see is what you pay.' },
+  { icon: Zap,    title: 'Instant Confirmation',        body: 'Instant-book listings confirm the moment you pay. No waiting for a broker to consult a handwritten diary. Your confirmation, with the captain\'s number and marina coordinates, arrives before you close the browser tab.' },
+  { icon: Shield, title: 'Protected Payments',          body: 'Stripe holds your payment in escrow until 24 hours after your charter day. If the host cancels for any reason, your full payment is returned automatically. BoatAway\'s dispute team is available seven days a week for anything more complex.' },
+  { icon: Clock,  title: '24/7 Charter Support',        body: 'Our operations team monitors every active charter. If something goes wrong at sea — mechanical issue, weather change, medical event — you have a direct line to BoatAway support from the moment you board. We coordinate, communicate, and resolve.' },
+]
+
+const TESTIMONIALS = [
+  { name: 'James R.',      location: 'London',    rating: 5, text: 'We chartered an Azimut 50 out of Puerto Banús for my wife\'s fortieth birthday. Twelve guests, eight hours, one perfect day. The booking took less than ten minutes. Our skipper — a local who has sailed this coast for twenty years — took us to three anchoring spots that don\'t exist on any tourist map. We\'ve already booked again for next August.' },
+  { name: 'Sophie & Marc', location: 'Amsterdam', rating: 5, text: 'As people who have used traditional brokers before, BoatAway is a completely different world. Everything is on screen: the real boat, the real price, the real availability. We found a catamaran in Ibiza, booked the same afternoon, and sailed two days later. Zero email chains. Zero spreadsheets. Zero surprises. The boat was exactly as advertised.' },
+  { name: 'Aoife K.',      location: 'Dublin',    rating: 5, text: 'I was nervous booking a boat online for the first time — visions of turning up to a marina and finding nothing there. The verification badges, the real photographs, and the full price transparency before I entered my card number made all the difference. The whole experience, from booking to mooring back up, was genuinely outstanding.' },
+]
+
+const FAQS = [
+  { q: 'Is a skipper always included?',         a: 'Yes, always. Every booking made through BoatAway includes a licensed, insured skipper as standard. We do not offer bareboat (self-sail) charters. This protects every guest, keeps every host covered under their maritime insurance, and ensures local knowledge comes with every charter.' },
+  { q: 'What happens if the weather is bad?',   a: 'Your skipper begins monitoring forecasts 72 hours before departure. If sustained wind exceeds Force 6, they will recommend postponing. BoatAway\'s weather policy provides a full credit or refund in these circumstances — no arguments, no fees. We would rather you sail on a beautiful day than a dangerous one.' },
+  { q: 'What should I bring on a charter?',     a: 'SPF 50 sunscreen, a wide-brim hat, soft-sole non-marking shoes, a light windproof layer for the return leg, and a waterproof phone case. Most boats provide towels and snorkel equipment — check the amenities tab on each listing. The skipper can arrange food and drinks if requested in advance.' },
+  { q: 'How far ahead should I book?',          a: 'For peak season — June through September — in popular destinations like Marbella and Ibiza, we recommend four to eight weeks in advance. Shoulder season has more availability and lower prices. Use the Instant Book filter to find vessels that confirm today.' },
+  { q: 'How are my payments protected?',        a: 'All payments are processed by Stripe and held in escrow until 24 hours after your charter. If your host cancels for any reason, the full amount returns automatically within five to seven business days. BoatAway\'s dispute team handles anything more complex. We never touch your card details directly.' },
+  { q: 'Can I bring my dog?',                   a: 'Many hosts genuinely love welcoming dogs aboard. Use the Pet Friendly filter on the search page, or message the host before booking — some breeds or sizes may need individual agreement. The final decision always rests with the boat owner, and we ask all guests to respect that.' },
+]
+
+/* ══════════════════════════════════════════════════ PAGE ══ */
 export default function HomePage() {
   return (
-    <>
-      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-[#0a1a32]">
-        {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-40"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1563565279-4b3b5b5b5b5b?w=1600&q=80')" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1a32]/60 via-[#0a1a32]/40 to-[#0a1a32]/80" />
+    <div style={{ background: '#07101e', color: '#f4f4f2' }}>
 
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4 py-24">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full px-4 py-1.5 text-sm mb-6">
-            <Globe className="w-3.5 h-3.5 text-[#06b6d4]" />
-            Boats available in 50+ destinations worldwide
-          </div>
-
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
-            Your next adventure
-            <br />
-            <span className="text-[#06b6d4]">starts at sea</span>
-          </h1>
-
-          <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto">
-            Discover and instantly book boats, yachts, and catamarans from verified hosts worldwide.
-            Every charter includes a licensed skipper.
-          </p>
-
-          {/* Search bar */}
-          <SearchBar />
-
-          {/* Trust badges */}
-          <div className="flex flex-wrap justify-center gap-6 mt-8 text-white/60 text-sm">
-            <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-[#06b6d4]" /> Secure payments</span>
-            <span className="flex items-center gap-1.5"><Star className="w-4 h-4 text-amber-400" /> Verified listings</span>
-            <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-[#06b6d4]" /> Instant book available</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Boat types ───────────────────────────────────────────────────────── */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-slate-900">Explore by boat type</h2>
-          <p className="text-slate-500 mt-2">From nimble speedboats to superyachts — find the perfect vessel.</p>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {BOAT_TYPES.map((bt) => (
-            <Link
-              key={bt.type}
-              href={`/search?type=${bt.type}`}
-              className="group flex flex-col items-center gap-2 p-4 rounded-2xl border border-slate-200 hover:border-[#06b6d4] hover:shadow-sm transition-all text-center"
-            >
-              <span className="text-3xl">{bt.emoji}</span>
-              <span className="font-semibold text-sm text-slate-900 group-hover:text-[#0891b2] transition-colors">{bt.label}</span>
-              <span className="text-xs text-slate-400">{bt.desc}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Featured destinations ─────────────────────────────────────────────── */}
-      <section className="py-16 bg-[#fdfaf6]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900">Top destinations</h2>
-              <p className="text-slate-500 mt-1">From the Mediterranean to the tropics.</p>
+      {/* ══ 1 · HERO ══ */}
+      <section className="relative" style={{ height: 'calc(100svh - 64px)', minHeight: '600px', maxHeight: '900px' }}>
+        <HeroSlideshow />
+        <div className="relative z-10 container h-full flex flex-col justify-center">
+          <div className="max-w-2xl">
+            <p className="eyebrow mb-5">Trusted by 15,000 guests · 48 destinations worldwide</p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6" style={{ color: '#f4f4f2' }}>
+              Find Your Perfect<br /><Gold>Boat Charter.</Gold>
+            </h1>
+            <p className="text-lg md:text-xl mb-10 max-w-xl leading-relaxed" style={{ color: 'rgba(244,244,242,0.72)' }}>
+              From Marbella to Miami — browse verified yachts, catamarans, speedboats, and sailing boats.
+              Instant booking. Licensed skippers. Secure payments. Zero surprises.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <GoldBtn href="/search" large><Waves className="w-5 h-5" /> Explore Available Boats</GoldBtn>
+              <GhostBtn href="/how-it-works">How it works <ChevronRight className="w-4 h-4" /></GhostBtn>
             </div>
-            <Link href="/search" className="hidden md:flex items-center gap-1 text-sm font-medium text-[#06b6d4] hover:text-[#0891b2] transition-colors">
-              View all <ChevronRight className="w-4 h-4" />
-            </Link>
           </div>
+        </div>
+        {/* Stats bar */}
+        <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: 'rgba(7,16,30,0.82)', borderTop: '1px solid rgba(201,168,78,0.12)', backdropFilter: 'blur(8px)' }}>
+          <div className="container">
+            <div className="grid grid-cols-2 md:grid-cols-4 py-5 gap-4">
+              {[{ n: '1,200+', l: 'Verified boats' }, { n: '48', l: 'Destinations' }, { n: '4.9 / 5', l: 'Average rating' }, { n: '15,000+', l: 'Happy guests' }].map((s) => (
+                <div key={s.l} className="text-center">
+                  <div className="text-2xl font-bold" style={{ color: '#c9a84e' }}>{s.n}</div>
+                  <div className="text-xs mt-0.5" style={{ color: 'rgba(244,244,242,0.50)' }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* ══ 2 · BOAT TYPES ══ */}
+      <section className="section">
+        <div className="container">
+          <SectionHeader eyebrow="Choose your vessel" title={<>Charter by <Gold>Vessel Type</Gold></>} sub="Every charter begins with the right boat. We carry verified listings across every category — from open-deck speedboats for a sun-soaked afternoon to full-crew superyachts for a week-long expedition. Each vessel type offers a fundamentally different experience on the water, and choosing correctly is the single biggest factor in whether your day exceeds expectations or falls short of them." />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {FEATURED_LOCATIONS.map((loc) => (
-              <Link
-                key={loc.slug}
-                href={`/${loc.slug}`}
-                className="group relative aspect-[4/3] rounded-2xl overflow-hidden"
-              >
-                <img
-                  src={loc.image}
-                  alt={loc.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 text-white">
-                  <div className="font-bold text-lg leading-none">{loc.name}</div>
-                  <div className="text-sm text-white/80 mt-0.5">{loc.country}</div>
-                  {loc.boats > 0 && (
-                    <div className="text-xs text-[#06b6d4] mt-1">{loc.boats} boats available</div>
-                  )}
+            {BOAT_TYPES.map((t) => (
+              <Link key={t.slug} href={`/search?type=${t.slug}`} className="group glass-card p-6 block">
+                <div className="text-3xl mb-3">{t.icon}</div>
+                <h3 className="font-bold mb-2" style={{ color: '#f4f4f2' }}>{t.label}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.55)' }}>{t.desc}</p>
+                <div className="mt-4 text-xs font-semibold flex items-center gap-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: 'rgba(201,168,78,0.70)' }}>
+                  Browse {t.label}s <ChevronRight className="w-3.5 h-3.5" />
                 </div>
               </Link>
             ))}
@@ -141,52 +141,245 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── How it works ─────────────────────────────────────────────────────── */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-slate-900">How BoatAway works</h2>
-          <p className="text-slate-500 mt-2">From search to sea in three easy steps.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {HOW_IT_WORKS.map((step) => (
-            <div key={step.step} className="text-center">
-              <div className="text-5xl font-bold text-[#06b6d4]/20 mb-4">{step.step}</div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">{step.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Button asChild variant="sea" size="lg">
-            <Link href="/how-it-works">Learn more</Link>
-          </Button>
+      <div className="gold-line" />
+
+      {/* ══ 3 · HOW IT WORKS ══ */}
+      <section className="section">
+        <div className="container">
+          <SectionHeader eyebrow="Simple process" title={<>Three Steps to <Gold>Open Water</Gold></>} sub="We removed everything that makes boat charters complicated — brokers, back-and-forth emails, hidden fees, and 48-hour response times. BoatAway puts you directly in front of the boat, the price, and the calendar." />
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { n: '01', icon: MapPin,  title: 'Search & Discover',  body: 'Browse over 1,200 verified vessels across 48 destinations. Filter by boat type, guest capacity, departure port, price range, and available dates so you only see boats that match your exact requirements. Every listing carries real photographs, accurate specifications, and honest pricing — no registration required to see what you will actually pay. Genuine reviews from previous guests are visible on every listing page before you commit to anything.' },
+              { n: '02', icon: Shield,  title: 'Book Securely',      body: 'Select your date and duration from the live availability calendar. Review the full price breakdown — charter fee, platform service fee, and any included extras such as skipper, fuel, or catering — before you commit. Pay securely with your credit card, Apple Pay, or Google Pay. Funds are held by Stripe and released to the host only after your charter day, protecting your money at every step of the process.' },
+              { n: '03', icon: Anchor,  title: 'Set Sail',           body: 'Your confirmation arrives instantly with the captain\'s direct contact number, marina coordinates in Google Maps format, and a pre-departure checklist. Arrive at the marina, meet your fully licensed and locally experienced skipper, and cast off. Navigation, safety, and local knowledge are entirely handled for you from that moment forward. Your only job is to decide where to go next and enjoy every second of it.' },
+            ].map((step) => (
+              <div key={step.n} className="glass-card p-8">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-4xl font-bold" style={{ color: 'rgba(201,168,78,0.18)' }}>{step.n}</span>
+                  <step.icon className="w-6 h-6" style={{ color: '#c9a84e' }} />
+                </div>
+                <h3 className="text-xl font-bold mb-4" style={{ color: '#f4f4f2' }}>{step.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.60)' }}>{step.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── Become a host CTA ────────────────────────────────────────────────── */}
-      <section className="py-20 bg-[#0f2547]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Anchor className="w-12 h-12 text-[#06b6d4] mx-auto mb-4" />
-          <h2 className="text-4xl font-bold text-white mb-4">Own a boat? Earn with it.</h2>
-          <p className="text-white/70 text-lg mb-8 max-w-xl mx-auto">
-            List your vessel on BoatAway and reach thousands of guests worldwide.
-            You set the price, we handle payments and guest support.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="sea" size="lg">
-              <Link href="/become-a-host">Start hosting</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 bg-transparent hover:text-white">
-              <Link href="/how-it-works#hosts">How hosting works</Link>
-            </Button>
-          </div>
-          <div className="flex justify-center gap-8 mt-10 text-sm text-white/60">
-            <span>✓ Free to list</span>
-            <span>✓ You keep 85%</span>
-            <span>✓ Secure payouts</span>
+      <div className="gold-line" />
+
+      {/* ══ 4 · DESTINATIONS ══ */}
+      <section className="section">
+        <div className="container">
+          <SectionHeader eyebrow="Active fleet locations" title={<>Where Will <Gold>You Sail?</Gold></>} sub="BoatAway maintains an active, inspected fleet in the world's most desirable charter destinations — each curated for water quality, boat availability, and year-round viability." />
+          <div className="grid md:grid-cols-3 gap-6">
+            {DESTINATIONS.map((dest) => (
+              <Link key={dest.slug} href={`/${dest.slug}`} className="group glass-card overflow-hidden block">
+                <div className="relative aspect-[4/3] overflow-hidden" style={{ background: '#0a1420' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={dest.image} alt={dest.city} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,16,30,0.80) 0%, transparent 55%)' }} />
+                  <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
+                    <div>
+                      <div className="font-bold text-lg" style={{ color: '#f4f4f2' }}>{dest.city}</div>
+                      <div className="text-sm" style={{ color: 'rgba(244,244,242,0.60)' }}>{dest.country}</div>
+                    </div>
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: '#c9a84e', color: '#07101e' }}>{dest.count}</span>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)' }}>{dest.desc}</p>
+                  <div className="mt-4 text-xs font-semibold flex items-center gap-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: 'rgba(201,168,78,0.65)' }}>
+                    View fleet in {dest.city} <ChevronRight className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
-    </>
+
+      {/* ══ 5 · WHY BOATAWAY ══ */}
+      <section className="section" style={{ background: 'linear-gradient(135deg,#0c1927 0%,#0e2040 50%,#0c1927 100%)', borderTop: '1px solid rgba(201,168,78,0.18)', borderBottom: '1px solid rgba(201,168,78,0.18)' }}>
+        <div className="container">
+          <SectionHeader eyebrow="Our commitment" title={<>Why Charter with <Gold>BoatAway?</Gold></>} sub="The charter market has a transparency problem — prices hidden behind enquiry forms, stock-photo listings, and invented availability. We built BoatAway to fix every one of those problems from the ground up." />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {TRUST_ITEMS.map((item) => (
+              <div key={item.title} className="glass-card p-6">
+                <item.icon className="w-6 h-6 mb-4" style={{ color: '#c9a84e' }} />
+                <h3 className="font-bold mb-2" style={{ color: '#f4f4f2' }}>{item.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)' }}>{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 6 · TESTIMONIALS ══ */}
+      <section className="section">
+        <div className="container">
+          <SectionHeader eyebrow="Guest reviews" title={<>What Our <Gold>Guests Say</Gold></>} />
+          <div className="grid md:grid-cols-3 gap-6">
+            {TESTIMONIALS.map((t) => (
+              <div key={t.name} className="glass-card p-7 flex flex-col gap-5">
+                <div className="flex gap-0.5">{Array.from({ length: t.rating }).map((_, i) => <Star key={i} className="w-4 h-4 fill-[#c9a84e] text-[#c9a84e]" />)}</div>
+                <p className="text-sm leading-relaxed flex-1" style={{ color: 'rgba(244,244,242,0.72)' }}>&ldquo;{t.text}&rdquo;</p>
+                <div>
+                  <div className="font-semibold text-sm" style={{ color: '#f4f4f2' }}>{t.name}</div>
+                  <div className="text-xs mt-0.5 flex items-center gap-1" style={{ color: 'rgba(244,244,242,0.45)' }}><MapPin className="w-3 h-3" /> {t.location}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="gold-line" />
+
+      {/* ══ 7 · BLOG PREVIEW ══ */}
+      <section className="section">
+        <div className="container">
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <p className="eyebrow mb-3">Editorial</p>
+              <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#f4f4f2' }}>From the <Gold>Captain&apos;s Log</Gold></h2>
+              <p className="mt-3 text-base" style={{ color: 'rgba(244,244,242,0.55)' }}>Practical guides, destination deep-dives, and insider knowledge from the BoatAway fleet.</p>
+            </div>
+            <Link href="/blog" className="hidden md:flex items-center gap-1.5 text-sm font-semibold hover:text-[#f4f4f2] transition-colors" style={{ color: '#c9a84e' }}>All articles <ChevronRight className="w-4 h-4" /></Link>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { slug: 'ultimate-guide-renting-yacht-marbella',  tag: 'Destination guide',   read: '8 min', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',  title: 'The Ultimate Guide to Renting a Yacht in Marbella',                excerpt: 'Everything first-time charterers need to know — what to bring, what to expect from your skipper, how to read a weather window, and which departure port suits which itinerary on the Costa del Sol.' },
+              { slug: 'catamaran-vs-motor-yacht',                tag: 'Boat guide',           read: '6 min', img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80',  title: 'Catamaran vs Motor Yacht: Which Charter Suits Your Group?',        excerpt: 'Two fundamentally different philosophies. Catamarans win on deck space and stability; motor yachts win on speed and amenity. We break down every trade-off by group size, budget, and occasion.' },
+              { slug: 'best-anchorages-costa-del-sol',           tag: 'Insider knowledge',   read: '7 min', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80',  title: 'Ten Anchorages on the Costa del Sol Only Reachable by Boat',      excerpt: 'These spots don\'t appear on Google Maps and are completely inaccessible from shore. Compiled by BoatAway\'s fleet captains who sail this coast every single week of the season.' },
+            ].map((post) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="group glass-card overflow-hidden block">
+                <div className="relative aspect-[16/9] overflow-hidden" style={{ background: '#0a1420' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={post.img} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="eyebrow text-xs">{post.tag}</span>
+                    <span className="text-xs" style={{ color: 'rgba(244,244,242,0.40)' }}>{post.read} read</span>
+                  </div>
+                  <h3 className="font-bold leading-snug mb-3" style={{ color: '#f4f4f2' }}>{post.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.55)' }}>{post.excerpt}</p>
+                  <div className="mt-4 text-xs font-semibold flex items-center gap-1 group-hover:text-[#f4f4f2] transition-colors" style={{ color: '#c9a84e' }}>Read article <ChevronRight className="w-3.5 h-3.5" /></div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 8 · HOST CTA ══ */}
+      <section className="section" style={{ background: 'linear-gradient(135deg,#0c1927 0%,#091322 100%)', borderTop: '1px solid rgba(201,168,78,0.15)', borderBottom: '1px solid rgba(201,168,78,0.15)' }}>
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="eyebrow mb-5 mx-auto w-fit">For boat owners</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#f4f4f2' }}>Own a Boat? <Gold>Start Earning.</Gold></h2>
+            <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.65)' }}>The most expensive thing about owning a boat is the time it spends tied to a dock. BoatAway turns idle marina days into income — without changing your schedule or your relationship with the vessel. You set the dates you want to share and the dates you want to keep. We handle everything else: guest communication, payment processing, and all booking logistics from enquiry to confirmation.</p>
+            <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.65)' }}>More than 800 boat owners across 48 destinations already use BoatAway to manage their charter income. The average active host earns between €3,000 and €6,000 per month during peak season — with some high-demand vessels generating over €15,000 in a single July. Your earnings depend on your boat, your availability, and your location.</p>
+            <p className="text-base leading-relaxed mb-10" style={{ color: 'rgba(244,244,242,0.65)' }}>Listing your boat costs nothing. You pay a 15% commission only when a booking is confirmed and the guest boards. That fee covers Stripe payment processing, guest insurance, and access to BoatAway&apos;s 24/7 operations support. Connect your bank account via Stripe Express, set your availability calendar, and receive your first booking enquiry within days of going live. Whether you have one Sunseeker or an entire fleet, BoatAway is built to grow with your operation.</p>
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
+              <GoldBtn href="/become-a-host" large>List Your Boat — It&apos;s Free</GoldBtn>
+              <GhostBtn href="/how-it-works">Learn how hosting works</GhostBtn>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {[{ n: '€0', l: 'To list your boat' }, { n: '15%', l: 'Commission only on bookings' }, { n: '24/7', l: 'Host support line' }].map((s) => (
+                <div key={s.l}>
+                  <div className="text-2xl font-bold" style={{ color: '#c9a84e' }}>{s.n}</div>
+                  <div className="text-xs mt-1" style={{ color: 'rgba(244,244,242,0.45)' }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 9 · CHARTER PROMISE ══ */}
+      <section className="section">
+        <div className="container max-w-4xl">
+          <SectionHeader
+            eyebrow="The BoatAway standard"
+            title={<>Our Charter <Gold>Promise</Gold></>}
+          />
+          <div className="grid md:grid-cols-2 gap-10">
+            <div>
+              <h3 className="text-lg font-bold mb-3" style={{ color: '#f4f4f2' }}>Every boat is what it says it is.</h3>
+              <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.60)' }}>
+                The photographs on every BoatAway listing were taken by a member of our team or a verified partner
+                photographer — never stock imagery, never borrowed from a sister vessel. The specifications were
+                checked against the vessel's technical documentation. The capacity figure reflects the vessel's
+                actual certified limit, not a sales estimate. What you see on the listing is the boat you will
+                board on the day of your charter. We stake our reputation on that guarantee.
+              </p>
+              <h3 className="text-lg font-bold mb-3" style={{ color: '#f4f4f2' }}>Your skipper is genuinely qualified.</h3>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,244,0.60)' }}>
+                Before any skipper is permitted to take bookings through BoatAway, we verify their coastal or
+                offshore qualification with the issuing maritime authority, confirm their insurance is current
+                and valid for the vessel class they are operating, and check that their experience profile
+                matches the routes they are offering. We repeat this verification annually. A BoatAway skipper
+                badge is not a courtesy title — it represents a genuine compliance check that most charter
+                platforms do not perform at all.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-bold mb-3" style={{ color: '#f4f4f2' }}>You will not be surprised by the price.</h3>
+              <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.60)' }}>
+                Hidden fees are the most common complaint in the charter industry. A listing advertises €400
+                for a half-day. The guest arrives and discovers a €60 fuel surcharge, a €30 port fee, and a
+                €20 &quot;cleaning deposit.&quot; The total was never €400. On BoatAway, the listing price is
+                the charter price. Our 15% service fee is displayed clearly before you reach the payment page.
+                There are no additional charges at the dock, no surcharges added after booking, and no
+                &quot;extras&quot; that were not disclosed in the listing. The price we show is the price you pay.
+              </p>
+              <h3 className="text-lg font-bold mb-3" style={{ color: '#f4f4f2' }}>If something goes wrong, we are responsible.</h3>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.60)' }}>
+                Charter platforms that act purely as directories disclaim all responsibility when things go wrong.
+                BoatAway does not. Our operations team is reachable by phone and WhatsApp from the moment you board
+                until the moment you step back onto the dock. If a mechanical issue cancels your day, we find a
+                replacement vessel or issue a full refund — same day. If your host does not show, we are on the
+                phone within fifteen minutes arranging an alternative. We do not hide behind terms and conditions
+                when our guests need us to act. That is the BoatAway standard and it is non-negotiable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="gold-line" />
+
+      {/* ══ 10 · FAQ ══ */}
+      <section className="section">
+        <div className="container max-w-3xl">
+          <SectionHeader eyebrow="Questions answered" title={<>Common <Gold>Questions</Gold></>} />
+          <div className="space-y-3">
+            {FAQS.map((faq) => (
+              <details key={faq.q} className="glass-card group" style={{ borderRadius: '14px' }}>
+                <summary className="flex items-center justify-between p-6 cursor-pointer list-none font-semibold" style={{ color: '#f4f4f2' }}>
+                  {faq.q}
+                  <ChevronRight className="w-4 h-4 shrink-0 transition-transform group-open:rotate-90" style={{ color: '#c9a84e' }} />
+                </summary>
+                <div className="px-6 pb-6 -mt-2">
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.62)' }}>{faq.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <p className="text-sm mb-2" style={{ color: 'rgba(244,244,242,0.50)' }}>
+            Can&apos;t find the answer above? Our charter specialists are available by WhatsApp, email, and phone
+            seven days a week from 08:00 to 22:00. We know our fleet personally and can help you choose the right
+            vessel, departure time, and itinerary for your specific occasion — at no charge, with no sales pressure.
+          </p>
+          <p className="text-sm mb-4" style={{ color: 'rgba(244,244,242,0.50)' }}>Response time is typically under one hour during operating hours.</p>
+            <GhostBtn href="/contact">Contact support</GhostBtn>
+          </div>
+        </div>
+      </section>
+
+    </div>
   )
 }

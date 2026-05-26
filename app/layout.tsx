@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import SiteNav from '@/components/nav/SiteNav'
+import Link from 'next/link'
+import { Anchor } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: {
@@ -8,59 +10,117 @@ export const metadata: Metadata = {
     template: '%s | BoatAway',
   },
   description:
-    'Find and book boats, yachts, catamarans and sailing boats worldwide. Verified listings, instant booking, secure payments.',
-  openGraph: { type: 'website', siteName: 'BoatAway' },
+    'Find and book verified boats, yachts, catamarans and sailing boats worldwide. Licensed skippers, instant booking, secure payments. No surprises.',
+  keywords: ['boat rental', 'yacht charter', 'boat hire', 'Marbella', 'Ibiza', 'Miami'],
+  openGraph: {
+    type: 'website',
+    siteName: 'BoatAway',
+    images: [{ url: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1200&q=80' }],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="h-full flex flex-col antialiased">
+      <body className="h-full flex flex-col antialiased" style={{ background: '#07101e' }}>
         <SiteNav />
         <main className="flex-1">{children}</main>
-        <footer className="bg-[#0f2547] text-white py-12 mt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="col-span-2 md:col-span-1">
-                <span className="text-xl font-bold text-[#06b6d4]">BoatAway</span>
-                <p className="mt-2 text-sm text-slate-400">
-                  Find and book boats worldwide. Verified listings, secure payments.
+
+        {/* ── Dark Luxury Footer ── */}
+        <footer style={{ background: 'linear-gradient(180deg, #070f1c 0%, #050d18 100%)', borderTop: '1px solid rgba(201,168,78,0.12)' }}>
+          <div className="container py-16">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
+
+              {/* Brand */}
+              <div className="col-span-2">
+                <Link href="/" className="inline-flex items-center gap-2 mb-4">
+                  <Anchor className="w-5 h-5" style={{ color: '#c9a84e' }} />
+                  <span className="text-xl font-bold" style={{ color: '#f4f4f2' }}>BoatAway</span>
+                </Link>
+                <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.50)' }}>
+                  The global marketplace for verified boat charters.
+                  Licensed skippers, real prices, instant booking — in
+                  48 destinations worldwide.
                 </p>
+                <div className="flex gap-3">
+                  <a
+                    href="https://wa.me/34600000000"
+                    className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full transition-all"
+                    style={{ background: '#25d366', color: '#fff' }}
+                  >
+                    WhatsApp Support
+                  </a>
+                </div>
               </div>
+
+              {/* Explore */}
               <div>
-                <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Explore</h3>
-                <ul className="mt-3 space-y-2 text-sm text-slate-400">
-                  <li><a href="/search" className="hover:text-white transition-colors">Search boats</a></li>
-                  <li><a href="/marbella" className="hover:text-white transition-colors">Marbella</a></li>
-                  <li><a href="/how-it-works" className="hover:text-white transition-colors">How it works</a></li>
+                <h3 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#c9a84e' }}>Explore</h3>
+                <ul className="space-y-2.5">
+                  {[
+                    { href: '/search', label: 'All boats' },
+                    { href: '/marbella', label: 'Marbella' },
+                    { href: '/how-it-works', label: 'How it works' },
+                    { href: '/blog', label: 'Charter guide' },
+                  ].map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-sm transition-colors hover:text-[#c9a84e]" style={{ color: 'rgba(244,244,242,0.50)' }}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
+
+              {/* Host */}
               <div>
-                <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Host</h3>
-                <ul className="mt-3 space-y-2 text-sm text-slate-400">
-                  <li><a href="/become-a-host" className="hover:text-white transition-colors">Become a host</a></li>
-                  <li><a href="/host" className="hover:text-white transition-colors">Host dashboard</a></li>
+                <h3 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#c9a84e' }}>Host</h3>
+                <ul className="space-y-2.5">
+                  {[
+                    { href: '/become-a-host', label: 'List your boat' },
+                    { href: '/host', label: 'Host dashboard' },
+                    { href: '/host/earnings', label: 'Earnings' },
+                    { href: '/host/onboarding', label: 'Stripe setup' },
+                  ].map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-sm transition-colors hover:text-[#c9a84e]" style={{ color: 'rgba(244,244,242,0.50)' }}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
+
+              {/* Company */}
               <div>
-                <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Company</h3>
-                <ul className="mt-3 space-y-2 text-sm text-slate-400">
-                  <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
+                <h3 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#c9a84e' }}>Company</h3>
+                <ul className="space-y-2.5">
+                  {[
+                    { href: '/about', label: 'About us' },
+                    { href: '/contact', label: 'Contact' },
+                    { href: '/privacy', label: 'Privacy policy' },
+                    { href: '/terms', label: 'Terms of service' },
+                  ].map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-sm transition-colors hover:text-[#c9a84e]" style={{ color: 'rgba(244,244,242,0.50)' }}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
-            <div className="mt-8 pt-8 border-t border-slate-700 text-center text-xs text-slate-500">
-              © {new Date().getFullYear()} BoatAway. All rights reserved.
+          </div>
+
+          {/* Legal bar */}
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="container py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <p className="text-xs" style={{ color: 'rgba(244,244,242,0.35)' }}>
+                © {new Date().getFullYear()} BoatAway Ltd. All rights reserved. Payments secured by Stripe.
+              </p>
+              <p className="text-xs" style={{ color: 'rgba(244,244,242,0.25)' }}>
+                All charters include a licensed skipper. BoatAway does not operate vessels.
+              </p>
             </div>
           </div>
         </footer>
