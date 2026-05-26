@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'BoatAway',
-    images: [{ url: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1200&q=80' }],
+    images: [{ url: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80' }],
   },
 }
 

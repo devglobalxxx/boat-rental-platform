@@ -5,19 +5,19 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const SLIDES = [
   {
-    image: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1920&q=80',
+    image: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1920&q=80',
     caption: 'Marbella, Spain',
   },
   {
-    image: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=1920&q=80',
-    caption: 'Costa del Sol fleet',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80',
+    image: 'https://images.unsplash.com/photo-1589642073293-d0d511afb66e?w=1920&q=80',
     caption: 'Puerto Banús marina',
   },
   {
-    image: 'https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=1920&q=80',
+    image: 'https://images.unsplash.com/photo-1507609613174-49e7b9ab7b09?w=1920&q=80',
+    caption: 'Costa del Sol fleet',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1535024966840-e7424dc2635b?w=1920&q=80',
     caption: 'Mediterranean charter',
   },
 ]

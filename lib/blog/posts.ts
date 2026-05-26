@@ -24,7 +24,7 @@ export const POSTS: BlogPost[] = [
     date:       'May 12, 2026',
     author:     'Carlos Mendoza',
     authorRole: 'BoatAway Fleet Captain, Marbella',
-    heroImage:  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1400&q=80',
     content: `
 <p>Marbella is one of the finest charter destinations in the Mediterranean — and also one of the most misunderstood. First-time visitors often underestimate how different the experience is from a typical beach holiday. This guide covers everything you need to arrive at the marina confident, prepared, and ready to get the most out of every hour on the water.</p>
 
@@ -72,7 +72,7 @@ export const POSTS: BlogPost[] = [
     date:       'May 5, 2026',
     author:     'Isabelle Fonteneau',
     authorRole: 'Charter Specialist, BoatAway HQ',
-    heroImage:  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1562281302-809108fd533c?w=1400&q=80',
     content: `
 <p>It's the question every first-time charterer eventually asks: catamaran or motor yacht? The honest answer depends entirely on what you want from your day on the water. Both have genuine advantages — and understanding them will help you choose with confidence rather than guess.</p>
 
@@ -110,7 +110,7 @@ export const POSTS: BlogPost[] = [
     date:       'April 28, 2026',
     author:     'Miguel Ángel Torres',
     authorRole: 'Senior Fleet Captain, Marbella',
-    heroImage:  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1625528193934-4cb230e7267d?w=1400&q=80',
     content: `
 <p>The Costa del Sol has 160 kilometres of coastline. Perhaps forty kilometres of it is accessible from shore — by road, by path, by beach. The other 120 kilometres belongs entirely to those who arrive by water. These are ten of the best spots our captains return to every season.</p>
 
@@ -150,7 +150,7 @@ export const POSTS: BlogPost[] = [
     date:       'April 20, 2026',
     author:     'Isabelle Fonteneau',
     authorRole: 'Charter Specialist, BoatAway HQ',
-    heroImage:  'https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1523496922380-91d5afba98a3?w=1400&q=80',
     content: `
 <p>After thousands of guest days on the water across our fleet, a consistent pattern emerges: the guests who have the best charters are the ones who arrived prepared. Not over-packed — prepared. This list is everything you need, nothing you don't.</p>
 

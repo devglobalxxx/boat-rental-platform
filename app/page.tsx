@@ -45,17 +45,17 @@ const BOAT_TYPES = [
 const DESTINATIONS = [
   {
     slug: 'marbella', city: 'Marbella', country: 'Spain', count: '18+ boats',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1589642073293-d0d511afb66e?w=800&q=80',
     desc: 'Puerto Banús sits at the heart of the Costa del Sol with year-round sunshine, calm Mediterranean water, and a backdrop of the Sierra Blanca mountains. Charter anything from a sleek day speedboat to a 30-metre superyacht, cruise east to the limestone cliffs of Nerja, or anchor off the private beach clubs of Estepona. The season runs April through November — July and August deliver the finest light and the most glamorous sunsets on the coast.',
   },
   {
     slug: 'ibiza', city: 'Ibiza', country: 'Spain', count: '24+ boats',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1677280790582-6d1cfe9fcc51?w=800&q=80',
     desc: 'The Balearic flagship of the European charter scene. Ibiza by boat means discovering sea caves at Cala d\'Hort, floating off the ivory sands of Ses Salines, and reaching the cathedral rock of Es Vedrà by sundown from 200 metres offshore. The island\'s north coast is a different world from the party south — pine-scented silence, anchor-out lunches, and water clarity you only find half a mile from shore. Season: June through September.',
   },
   {
     slug: 'miami', city: 'Miami', country: 'USA', count: '30+ boats',
-    image: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1722937293268-62237f5e5435?w=800&q=80',
     desc: 'The year-round charter capital of the Americas. Miami\'s Biscayne Bay offers warm water, access to the Florida Keys, and a skyline backdrop that makes every sunset photographic. Charter a centre console for the Sandbar scene, step up to a sport cruiser for an overnight to Key Largo, or commission a full superyacht for Art Basel week when the world\'s most serious collectors are on the water.',
   },
 ]
@@ -249,9 +249,9 @@ export default function HomePage() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { slug: 'ultimate-guide-renting-yacht-marbella',  tag: 'Destination guide',   read: '8 min', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',  title: 'The Ultimate Guide to Renting a Yacht in Marbella',                excerpt: 'Everything first-time charterers need to know — what to bring, what to expect from your skipper, how to read a weather window, and which departure port suits which itinerary on the Costa del Sol.' },
-              { slug: 'catamaran-vs-motor-yacht',                tag: 'Boat guide',           read: '6 min', img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80',  title: 'Catamaran vs Motor Yacht: Which Charter Suits Your Group?',        excerpt: 'Two fundamentally different philosophies. Catamarans win on deck space and stability; motor yachts win on speed and amenity. We break down every trade-off by group size, budget, and occasion.' },
-              { slug: 'best-anchorages-costa-del-sol',           tag: 'Insider knowledge',   read: '7 min', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80',  title: 'Ten Anchorages on the Costa del Sol Only Reachable by Boat',      excerpt: 'These spots don\'t appear on Google Maps and are completely inaccessible from shore. Compiled by BoatAway\'s fleet captains who sail this coast every single week of the season.' },
+              { slug: 'ultimate-guide-renting-yacht-marbella',  tag: 'Destination guide',   read: '8 min', img: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=600&q=80',  title: 'The Ultimate Guide to Renting a Yacht in Marbella',                excerpt: 'Everything first-time charterers need to know — what to bring, what to expect from your skipper, how to read a weather window, and which departure port suits which itinerary on the Costa del Sol.' },
+              { slug: 'catamaran-vs-motor-yacht',                tag: 'Boat guide',           read: '6 min', img: 'https://images.unsplash.com/photo-1562281302-809108fd533c?w=600&q=80',  title: 'Catamaran vs Motor Yacht: Which Charter Suits Your Group?',        excerpt: 'Two fundamentally different philosophies. Catamarans win on deck space and stability; motor yachts win on speed and amenity. We break down every trade-off by group size, budget, and occasion.' },
+              { slug: 'best-anchorages-costa-del-sol',           tag: 'Insider knowledge',   read: '7 min', img: 'https://images.unsplash.com/photo-1625528193934-4cb230e7267d?w=600&q=80',  title: 'Ten Anchorages on the Costa del Sol Only Reachable by Boat',      excerpt: 'These spots don\'t appear on Google Maps and are completely inaccessible from shore. Compiled by BoatAway\'s fleet captains who sail this coast every single week of the season.' },
             ].map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="group glass-card overflow-hidden block">
                 <div className="relative aspect-[16/9] overflow-hidden" style={{ background: '#0a1420' }}>
