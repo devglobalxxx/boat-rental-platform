@@ -1,6 +1,5 @@
--- Enable UUID extension
-create extension if not exists "uuid-ossp";
-create extension if not exists "postgis";
+-- uuid-ossp no longer needed — gen_random_uuid() is built-in since Postgres 13
+-- create extension if not exists "uuid-ossp";
 
 -- ─── ENUMS ────────────────────────────────────────────────────────────────────
 create type boat_type as enum ('motor_yacht','catamaran','sailing','speedboat','fishing','rib','luxury');
@@ -45,7 +44,7 @@ create trigger on_auth_user_created
 
 -- ─── LOCATIONS ────────────────────────────────────────────────────────────────
 create table locations (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   slug text not null unique,
   name text not null,
   city text not null,
@@ -61,7 +60,7 @@ create table locations (
 
 -- ─── BOATS ────────────────────────────────────────────────────────────────────
 create table boats (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   host_id uuid not null references profiles(id) on delete cascade,
   location_id uuid not null references locations(id),
   slug text not null unique,
@@ -96,7 +95,7 @@ create index boats_type_idx on boats(type);
 
 -- ─── BOAT PRICING ─────────────────────────────────────────────────────────────
 create table boat_pricing (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   boat_id uuid not null references boats(id) on delete cascade,
   duration_hours smallint,
   duration_days smallint,
@@ -115,7 +114,7 @@ create index boat_pricing_boat_idx on boat_pricing(boat_id);
 
 -- ─── BOAT IMAGES ──────────────────────────────────────────────────────────────
 create table boat_images (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   boat_id uuid not null references boats(id) on delete cascade,
   storage_url text not null,
   alt text,
@@ -127,7 +126,7 @@ create index boat_images_boat_idx on boat_images(boat_id);
 
 -- ─── BOAT FEATURES ────────────────────────────────────────────────────────────
 create table boat_features (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   boat_id uuid not null references boats(id) on delete cascade,
   feature text not null
 );
@@ -136,7 +135,7 @@ create index boat_features_boat_idx on boat_features(boat_id);
 
 -- ─── AVAILABILITY ─────────────────────────────────────────────────────────────
 create table availability (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   boat_id uuid not null references boats(id) on delete cascade,
   date date not null,
   status availability_status not null default 'available',
@@ -147,7 +146,7 @@ create index availability_boat_date_idx on availability(boat_id, date);
 
 -- ─── BOOKINGS ─────────────────────────────────────────────────────────────────
 create table bookings (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   boat_id uuid not null references boats(id),
   renter_id uuid not null references profiles(id),
   start_datetime timestamptz not null,
@@ -171,7 +170,7 @@ create index bookings_status_idx on bookings(status);
 
 -- ─── REVIEWS ──────────────────────────────────────────────────────────────────
 create table reviews (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   booking_id uuid not null references bookings(id),
   reviewer_id uuid not null references profiles(id),
   reviewee_id uuid not null references profiles(id),
@@ -188,7 +187,7 @@ create index reviews_reviewee_idx on reviews(reviewee_id);
 
 -- ─── CONVERSATIONS + MESSAGES ─────────────────────────────────────────────────
 create table conversations (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   boat_id uuid references boats(id),
   booking_id uuid references bookings(id),
   participant_ids uuid[] not null,
@@ -197,7 +196,7 @@ create table conversations (
 );
 
 create table messages (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   conversation_id uuid not null references conversations(id) on delete cascade,
   sender_id uuid not null references profiles(id),
   body text not null,
@@ -210,7 +209,7 @@ create index messages_sender_idx on messages(sender_id);
 
 -- ─── WISHLISTS ────────────────────────────────────────────────────────────────
 create table wishlists (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   user_id uuid not null references profiles(id) on delete cascade,
   boat_id uuid not null references boats(id) on delete cascade,
   created_at timestamptz not null default now(),
