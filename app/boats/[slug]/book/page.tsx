@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
@@ -91,7 +91,7 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
   )
 }
 
-export default function BookPage() {
+function BookPageInner() {
   const { slug } = useParams<{ slug: string }>()
   const params = useSearchParams()
   const router = useRouter()
@@ -211,5 +211,13 @@ export default function BookPage() {
         />
       </Elements>
     </div>
+  )
+}
+
+export default function BookPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="text-slate-500">Loading checkout…</div></div>}>
+      <BookPageInner />
+    </Suspense>
   )
 }

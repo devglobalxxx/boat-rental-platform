@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import HostCalendarClient from './HostCalendarClient'
@@ -39,15 +40,17 @@ export default async function HostCalendarPage({
     : { data: [] }
 
   return (
-    <HostCalendarClient
-      boats={boats ?? []}
-      selectedBoat={selectedBoat}
-      availability={(availability ?? []).map((a) => ({ date: a.date, status: a.status }))}
-      bookings={(bookings ?? []).map((b) => ({
-        start: b.start_datetime,
-        end: b.end_datetime,
-        status: b.status,
-      }))}
-    />
+    <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading calendar…</div>}>
+      <HostCalendarClient
+        boats={boats ?? []}
+        selectedBoat={selectedBoat}
+        availability={(availability ?? []).map((a) => ({ date: a.date, status: a.status }))}
+        bookings={(bookings ?? []).map((b) => ({
+          start: b.start_datetime,
+          end: b.end_datetime,
+          status: b.status,
+        }))}
+      />
+    </Suspense>
   )
 }
