@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://boathire24.com'),
   title: {
     default: 'BoatAway — Rent Boats & Yachts Worldwide',
     template: '%s | BoatAway',
@@ -12,10 +13,44 @@ export const metadata: Metadata = {
   description:
     'Find and book verified boats, yachts, catamarans and sailing boats worldwide. Licensed skippers, instant booking, secure payments. No surprises.',
   keywords: ['boat rental', 'yacht charter', 'boat hire', 'Marbella', 'Ibiza', 'Miami'],
+  authors: [{ name: 'BoatAway', url: 'https://boathire24.com' }],
+  creator: 'BoatAway',
+  publisher: 'BoatAway',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
     type: 'website',
     siteName: 'BoatAway',
-    images: [{ url: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80' }],
+    locale: 'en_GB',
+    images: [{
+      url: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80',
+      width: 1200,
+      height: 630,
+      alt: 'Luxury yacht charter — BoatAway',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@boataway',
+    creator: '@boataway',
+    images: ['https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80'],
+  },
+  verification: {
+    google: 'boathire24-google-verification',
+  },
+  alternates: {
+    types: {
+      'application/rss+xml': 'https://boathire24.com/blog/rss.xml',
+    },
   },
 }
 

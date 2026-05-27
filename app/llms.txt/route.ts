@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { ALL_POSTS } from '@/lib/blog/posts'
 
 export const dynamic = 'force-dynamic'
 
@@ -79,6 +80,17 @@ export async function GET(): Promise<NextResponse> {
     return `- **${boat.name}** — ${type}, ${boat.capacity_pax} guests, ${length}, ${price}${tags ? `. ${tags}` : ''}`
   })
 
+  // Blog posts grouped by type
+  const editorialPosts = ALL_POSTS.filter((p) => p.tag !== 'Boat review')
+  const boatReviews    = ALL_POSTS.filter((p) => p.tag === 'Boat review')
+
+  const editorialLines = editorialPosts.map(
+    (p) => `- [${p.title}](/blog/${p.slug}) — ${p.excerpt.slice(0, 100)}…`
+  )
+  const reviewLines = boatReviews.map(
+    (p) => `- [${p.title}](/blog/${p.slug}) — ${p.excerpt.slice(0, 90)}…`
+  )
+
   const body = `# BoatAway — Boat & Yacht Charter Marketplace
 
 > Find and book verified boats, yachts, catamarans, and sailing boats worldwide. Licensed skippers, instant booking, secure payments.
@@ -87,34 +99,60 @@ export async function GET(): Promise<NextResponse> {
 
 BoatAway is an online marketplace for boat charter in Marbella, Spain and beyond. All bookings include a licensed skipper, fuel, and drinks. Instant confirmation available on selected vessels.
 
+**Platform:** boathire24.com
+**Headquarters:** Marbella, Spain
+**Service area:** Marbella, Ibiza, Miami and 45+ destinations globally
+**Payment:** Stripe (card, Apple Pay, Google Pay) — funds held in escrow until charter day
+**Commission:** 15% service fee; hosts keep 85%
+
 ## Fleet (Marbella / Puerto Banús)
 
 ${fleetLines.join('\n')}
 
 ## Locations
 
-- Marbella, Spain (Puerto Banús marina) — ${fleet.length} vessel${fleet.length !== 1 ? 's' : ''} available
+- Marbella, Spain (Puerto Banús marina) — ${fleet.length} vessel${fleet.length !== 1 ? 's' : ''} active
+- Ibiza, Spain — 24+ vessels (coming soon)
+- Miami, USA — 30+ vessels (coming soon)
+
+## What's always included
+
+Every BoatAway charter includes: licensed skipper, fuel, drinks (water, soft drinks, beer, white wine, cava), light snacks, full insurance, safety equipment, and VAT.
 
 ## How booking works
 
-1. Search by location, date, and guest count
-2. Choose duration (2–8 hours or full day)
-3. Instant book or request-to-book
-4. Secure payment via Stripe
-5. Meet your licensed skipper at Puerto Banús marina
+1. Search by location, date, and guest count at /search
+2. Choose duration (2 hours minimum, up to full day or multi-day)
+3. Instant book (confirms immediately) or request-to-book (host has 24h)
+4. Secure payment via Stripe — held in escrow until 24h after charter
+5. Receive confirmation with captain's number and marina coordinates
+6. Meet your licensed skipper at the marina and set sail
 
 ## Pricing
 
-Boats start from €230/2h (entry-level speedboats) to €4,719/day (superyachts).
-A 15% service fee applies. All prices include skipper, fuel, and drinks.
+- Entry level (licence-free day boat): €230 / 2 hours
+- Standard 12 m motor yacht: €749–€2,299 (2–8 hours)
+- Mid-size (14–17 m): priced on request
+- Flagship 24 m superyacht: from €4,719 / 4 hours
+- A 15% service fee applies to all bookings
 
-## Links
+## Editorial content — Charter guides
 
-- /search — Browse all available boats
-- /marbella — Marbella fleet page
-- /blog — Charter guides and destination articles
-- /how-it-works — Platform overview
-- /llms.txt — This file (machine-readable fleet index)
+${editorialLines.join('\n')}
+
+## Boat reviews — Complete Marbella fleet
+
+${reviewLines.join('\n')}
+
+## Key pages
+
+- /search — Browse and filter all available boats
+- /marbella — Marbella destination + fleet overview
+- /blog — All charter guides and boat reviews
+- /how-it-works — Full platform explainer (renters + hosts)
+- /become-a-host — Host onboarding and earnings info
+- /llms.txt — This file (machine-readable index, refreshed live)
+- /sitemap.xml — Full XML sitemap
 `
 
   return new NextResponse(body, {

@@ -2,8 +2,21 @@ import Link from 'next/link'
 import { Search, CreditCard, Anchor, Star, Ship, Shield, ArrowRight, CheckCircle2 } from 'lucide-react'
 
 export const metadata = {
-  title: 'How BoatAway Works',
-  description: 'The simplest way to book a boat charter or list your vessel. Instant booking, licensed skippers, secure payments.',
+  title: 'How BoatAway Works — Instant Boat Charter Booking',
+  description: 'The simplest way to book a boat charter or list your vessel. Instant booking, licensed skippers, secure payments. No hidden fees, no hassle.',
+  alternates: { canonical: 'https://boathire24.com/how-it-works' },
+  openGraph: {
+    title: 'How BoatAway Works — Instant Boat Charter Booking',
+    description: 'Search, book, and sail in three steps. Licensed skippers, secure Stripe payments, free cancellation.',
+    url: 'https://boathire24.com/how-it-works',
+    type: 'website',
+    siteName: 'BoatAway',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'How BoatAway Works',
+    description: 'The simplest way to book a verified boat charter.',
+  },
 }
 
 const RENTER_STEPS = [

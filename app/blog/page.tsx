@@ -6,6 +6,23 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: "Charter Guide & Boat Reviews — BoatAway Blog",
   description: "Practical guides, destination deep-dives, and in-depth reviews of every boat in the Marbella fleet from BoatAway's fleet captains and charter specialists.",
+  alternates: {
+    canonical: 'https://boathire24.com/blog',
+    types: { 'application/rss+xml': 'https://boathire24.com/blog/rss.xml' },
+  },
+  openGraph: {
+    title: 'Charter Guide & Boat Reviews — BoatAway',
+    description: 'In-depth boat reviews, destination guides, and insider knowledge from the BoatAway fleet captains.',
+    url: 'https://boathire24.com/blog',
+    type: 'website',
+    siteName: 'BoatAway',
+    images: [{ url: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Charter Guide & Boat Reviews — BoatAway',
+    description: 'In-depth boat reviews and destination guides from Marbella charter specialists.',
+  },
 }
 
 export default function BlogPage() {

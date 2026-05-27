@@ -1,6 +1,29 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
+import { siteJsonLd } from '@/lib/seo/structured-data'
+
+export const metadata: Metadata = {
+  title: 'BoatAway — Book Verified Boat Charters Worldwide',
+  description: 'Find and book verified boats, yachts, catamarans and sailing boats in Marbella, Ibiza, Miami and 45+ destinations. Licensed skippers, instant booking, secure payments. No surprises.',
+  keywords: ['boat rental', 'yacht charter', 'boat hire', 'Marbella', 'Ibiza', 'Miami', 'Puerto Banús', 'catamaran charter', 'speedboat hire'],
+  alternates: { canonical: 'https://boathire24.com' },
+  openGraph: {
+    title: 'BoatAway — Book Verified Boat Charters Worldwide',
+    description: 'Verified yachts, catamarans & speedboats in 48 destinations. Licensed skippers, instant booking, secure payments.',
+    url: 'https://boathire24.com',
+    type: 'website',
+    siteName: 'BoatAway',
+    images: [{ url: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80', width: 1200, height: 630, alt: 'Luxury yacht charter in Marbella' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BoatAway — Book Verified Boat Charters Worldwide',
+    description: 'Verified yachts, catamarans & speedboats in 48 destinations. Licensed skippers, instant booking.',
+    images: ['https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80'],
+  },
+}
 
 /* ── helpers ── */
 const Gold = ({ children }: { children: React.ReactNode }) => (
@@ -85,8 +108,22 @@ const FAQS = [
 
 /* ══════════════════════════════════════════════════ PAGE ══ */
 export default function HomePage() {
+  const websiteSchema = siteJsonLd()
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
+      {/* Structured data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ══ 1 · HERO ══ */}
       <section className="relative" style={{ height: 'calc(100svh - 64px)', minHeight: '600px', maxHeight: '900px' }}>

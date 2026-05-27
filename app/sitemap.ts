@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { POSTS } from '@/lib/blog/posts'
+import { ALL_POSTS } from '@/lib/blog/posts'
 
 export const revalidate = 3600
 
@@ -57,12 +57,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  // ── Blog posts (static from lib/blog/posts.ts) ───────────────────────────
-  const blogEntries: SitemapEntry[] = POSTS.map((post) => ({
+  // ── Blog posts (all 21: editorial + 17 boat reviews) ───────────────────────
+  const blogEntries: SitemapEntry[] = ALL_POSTS.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly' as const,
-    priority: 0.6,
+    priority: post.tag === 'Boat review' ? 0.8 : 0.6,  // boat reviews rank higher — direct transaction intent
   }))
 
   // ── Active boats ──────────────────────────────────────────────────────────

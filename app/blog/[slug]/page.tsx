@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Clock, User } from 'lucide-react'
+// ChevronLeft kept for potential back-nav use; Clock+User used in hero meta
 import { getAllPost, getAllPostSlugs, POSTS } from '@/lib/blog/posts'
+import ReadingProgress from '@/components/blog/ReadingProgress'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -15,11 +17,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `https://boathire24.com/blog/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: [{ url: post.heroImage }],
+      images: [{ url: post.heroImage, width: 1400, height: 700, alt: post.title }],
       type: 'article',
+      authors: [post.author],
+      publishedTime: post.date,
+      siteName: 'BoatAway',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [post.heroImage],
     },
   }
 }
@@ -60,13 +72,30 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       }
     : null
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://boathire24.com' },
+      { '@type': 'ListItem', position: 2, name: 'Charter Guide', item: 'https://boathire24.com/blog' },
+      { '@type': 'ListItem', position: 3, name: post.title, item: `https://boathire24.com/blog/${post.slug}` },
+    ],
+  }
+
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
+      <ReadingProgress />
 
       {/* JSON-LD: Article */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+
+      {/* JSON-LD: BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* JSON-LD: FAQPage (only when faqs exist) */}
@@ -78,47 +107,56 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       )}
 
       {/* Hero */}
-      <div className="relative" style={{ height: '420px', background: '#0a1420' }}>
+      <div className="relative" style={{ height: '480px', background: '#0a1420' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={post.heroImage} alt={post.title} className="absolute inset-0 w-full h-full object-cover" />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(7,16,30,0.30) 0%, rgba(7,16,30,0.85) 75%, #07101e 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(7,16,30,0.20) 0%, rgba(7,16,30,0.70) 50%, rgba(7,16,30,0.96) 85%, #07101e 100%)' }}
         />
-        <div className="relative z-10 container h-full flex flex-col justify-end pb-10">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm mb-6 transition-colors hover:text-[#c9a84e]"
-            style={{ color: 'rgba(244,244,242,0.55)' }}
-          >
-            <ChevronLeft className="w-4 h-4" /> All articles
-          </Link>
+        <div className="relative z-10 container h-full flex flex-col justify-end pb-12">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-xs mb-5" aria-label="Breadcrumb" style={{ color: 'rgba(244,244,242,0.45)' }}>
+            <Link href="/" className="hover:text-[#c9a84e] transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3 opacity-40" />
+            <Link href="/blog" className="hover:text-[#c9a84e] transition-colors">Charter Guide</Link>
+            <ChevronRight className="w-3 h-3 opacity-40" />
+            <span style={{ color: 'rgba(244,244,242,0.65)' }}>{post.tag}</span>
+          </nav>
           <span className="eyebrow mb-4 w-fit">{post.tag}</span>
-          <h1 className="text-3xl md:text-4xl font-bold leading-snug max-w-3xl" style={{ color: '#f4f4f2' }}>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-snug max-w-3xl mb-4" style={{ color: '#f4f4f2' }}>
             {post.title}
           </h1>
+          {/* Meta row below heading */}
+          <div className="flex flex-wrap items-center gap-4 text-sm" style={{ color: 'rgba(244,244,242,0.55)' }}>
+            <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5" />{post.author}</span>
+            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
+            <span style={{ color: 'rgba(244,244,242,0.35)' }}>{post.date}</span>
+          </div>
         </div>
       </div>
 
-      {/* Meta bar */}
+      {/* Sticky floating book button */}
       <div
-        className="sticky top-16 z-40"
+        className="sticky top-[68px] z-40"
         style={{
-          background: 'rgba(7,16,30,0.94)',
-          borderBottom: '1px solid rgba(201,168,78,0.12)',
-          backdropFilter: 'blur(12px)',
+          background: 'rgba(7,16,30,0.92)',
+          borderBottom: '1px solid rgba(201,168,78,0.10)',
+          backdropFilter: 'blur(14px)',
         }}
       >
-        <div className="container py-3 flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-5 text-sm" style={{ color: 'rgba(244,244,242,0.55)' }}>
-            <span className="flex items-center gap-1.5"><User className="w-4 h-4" />{post.author}</span>
-            <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" />{post.readTime}</span>
-            <span style={{ color: 'rgba(244,244,242,0.35)' }}>{post.date}</span>
-          </div>
+        <div className="container py-2.5 flex items-center justify-between gap-4">
+          <p className="text-xs hidden sm:block truncate" style={{ color: 'rgba(244,244,242,0.45)' }}>
+            {post.author} · {post.readTime} · {post.date}
+          </p>
           <Link
             href="/search"
-            className="text-xs font-semibold px-4 py-2 rounded-full transition-all"
-            style={{ background: '#c9a84e', color: '#07101e' }}
+            className="ml-auto text-xs font-bold px-5 py-2 rounded-full transition-all hover:scale-[1.03]"
+            style={{
+              background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+              color: '#07101e',
+              boxShadow: '0 4px 14px rgba(201,168,78,0.28)',
+            }}
           >
             Book a charter →
           </Link>
