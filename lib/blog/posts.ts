@@ -9,6 +9,8 @@ export interface BlogPost {
   authorRole:  string
   heroImage:   string
   content:     string   // HTML string
+  boatSlug?:   string
+  faqs?:       Array<{ q: string; a: string }>
 }
 
 export const POSTS: BlogPost[] = [
@@ -193,4 +195,17 @@ export function getPost(slug: string): BlogPost | undefined {
 
 export function getAllSlugs(): string[] {
   return POSTS.map((p) => p.slug)
+}
+
+import { BOAT_POSTS_1 } from './boat-posts-1'
+import { BOAT_POSTS_2 } from './boat-posts-2'
+
+export const ALL_POSTS: BlogPost[] = [...POSTS, ...BOAT_POSTS_1, ...BOAT_POSTS_2]
+
+export function getAllPost(slug: string): BlogPost | undefined {
+  return ALL_POSTS.find((p) => p.slug === slug)
+}
+
+export function getAllPostSlugs(): string[] {
+  return ALL_POSTS.map((p) => p.slug)
 }

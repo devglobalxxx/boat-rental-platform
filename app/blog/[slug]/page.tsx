@@ -1,16 +1,16 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Clock, User } from 'lucide-react'
-import { getPost, POSTS } from '@/lib/blog/posts'
+import { getAllPost, getAllPostSlugs, POSTS } from '@/lib/blog/posts'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
-  return POSTS.map((p) => ({ slug: p.slug }))
+  return getAllPostSlugs().map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const post = getPost(slug)
+  const post = getAllPost(slug)
   if (!post) return { title: 'Article not found' }
   return {
     title: post.title,
@@ -26,13 +26,56 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const post = getPost(slug)
+  const post = getAllPost(slug)
   if (!post) notFound()
 
   const related = POSTS.filter((p) => p.slug !== post.slug).slice(0, 2)
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    image: post.heroImage,
+    datePublished: post.date,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+      jobTitle: post.authorRole,
+    },
+  }
+
+  const faqJsonLd = post.faqs && post.faqs.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: post.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.a,
+          },
+        })),
+      }
+    : null
+
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
+
+      {/* JSON-LD: Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+
+      {/* JSON-LD: FAQPage (only when faqs exist) */}
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
 
       {/* Hero */}
       <div className="relative" style={{ height: '420px', background: '#0a1420' }}>
@@ -100,6 +143,54 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             style={{ color: 'rgba(244,244,242,0.72)' }}
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
+
+          {/* Boat-specific CTA (only when boatSlug is set) */}
+          {post.boatSlug && (
+            <div
+              className="my-10 p-6 rounded-2xl flex items-center justify-between gap-6"
+              style={{
+                background: 'linear-gradient(135deg, #0e1e35 0%, #0c1828 100%)',
+                border: '1px solid rgba(201,168,78,0.30)',
+              }}
+            >
+              <div>
+                <p className="font-bold text-base" style={{ color: '#f4f4f2' }}>Ready to book this charter?</p>
+                <p className="text-sm mt-0.5" style={{ color: 'rgba(244,244,242,0.55)' }}>Check live availability and instant pricing</p>
+              </div>
+              <Link
+                href={`/boats/${post.boatSlug}`}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap"
+                style={{ background: '#c9a84e', color: '#07101e' }}
+              >
+                View boat &amp; book →
+              </Link>
+            </div>
+          )}
+
+          {/* FAQ section (only when faqs exist) */}
+          {post.faqs && post.faqs.length > 0 && (
+            <div className="mt-12">
+              <h2 className="text-xl font-bold mb-6" style={{ color: '#f4f4f2' }}>Frequently Asked Questions</h2>
+              <div className="space-y-4">
+                {post.faqs.map((faq, i) => (
+                  <details
+                    key={i}
+                    className="group rounded-xl p-5"
+                    style={{ background: '#0c1828', border: '1px solid rgba(201,168,78,0.15)' }}
+                  >
+                    <summary
+                      className="font-semibold cursor-pointer list-none flex justify-between items-center"
+                      style={{ color: '#f4f4f2' }}
+                    >
+                      {faq.q}
+                      <span className="ml-4 text-[#c9a84e] group-open:rotate-180 transition-transform">▾</span>
+                    </summary>
+                    <p className="mt-3 text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.65)' }}>{faq.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Author card */}
           <div
