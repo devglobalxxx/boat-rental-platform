@@ -49,6 +49,9 @@ export const metadata: Metadata = {
       'X2eUUZ7APRJWlW1WksThzh6ylZRQstup7K7PLNHJpY0',
       'QSfSombLmS6Op_4Kz1ypx07X70NuivcXYeoTkoAKLNQ',
     ],
+    other: {
+      'msvalidate.01': 'CF4FA3F0F1CEAC43E77E46C1D522ABCF',
+    },
   },
   alternates: {
     types: {
