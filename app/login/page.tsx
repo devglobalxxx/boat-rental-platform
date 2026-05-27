@@ -3,7 +3,7 @@
 import { Suspense, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Anchor } from 'lucide-react'
+import Logo from '@/components/ui/Logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -36,7 +36,7 @@ function LoginForm() {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-5">
+    <div className="rounded-2xl p-8 space-y-5" style={{ background: '#0c1828', border: '1px solid rgba(201,168,78,0.18)' }}>
       <Button type="button" variant="outline" className="w-full" onClick={handleGoogle}>
         <svg className="w-4 h-4" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -80,16 +80,16 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: '#07101e' }}>
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-[#0f2547] font-bold text-xl">
-            <Anchor className="w-5 h-5 text-[#06b6d4]" /> BoatAway
+          <Link href="/" className="inline-flex">
+            <Logo size={40} />
           </Link>
-          <h1 className="text-2xl font-bold text-slate-900 mt-4">Welcome back</h1>
-          <p className="text-slate-500 mt-1">Sign in to your account</p>
+          <h1 className="text-2xl font-bold mt-4" style={{ color: '#f4f4f2' }}>Welcome back</h1>
+          <p className="mt-1 text-sm" style={{ color: 'rgba(244,244,242,0.50)' }}>Sign in to your account</p>
         </div>
-        <Suspense fallback={<div className="h-64 bg-white rounded-2xl border border-slate-200 animate-pulse" />}>
+        <Suspense fallback={<div className="h-64 rounded-2xl animate-pulse" style={{ background: '#0c1828', border: '1px solid rgba(201,168,78,0.12)' }} />}>
           <LoginForm />
         </Suspense>
       </div>

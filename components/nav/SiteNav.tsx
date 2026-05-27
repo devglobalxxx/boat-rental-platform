@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Anchor, User, LogOut, LayoutDashboard, Ship } from 'lucide-react'
+import { Menu, X, User, LogOut, LayoutDashboard, Ship } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import Logo from '@/components/ui/Logo'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 
 const NAV_LINKS = [
@@ -52,14 +53,11 @@ export default function SiteNav() {
       }}
     >
       <div className="container">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-[68px]">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <Anchor className="w-5 h-5 transition-colors" style={{ color: '#c9a84e' }} />
-            <span className="text-lg font-bold tracking-tight" style={{ color: '#f4f4f2' }}>
-              BoatAway
-            </span>
+          <Link href="/" className="flex items-center group">
+            <Logo size={38} />
           </Link>
 
           {/* Desktop nav */}
@@ -148,8 +146,18 @@ export default function SiteNav() {
                 </Link>
                 <Link
                   href="/signup"
-                  className="px-5 py-2 text-sm font-semibold rounded-full transition-all"
-                  style={{ background: '#c9a84e', color: '#07101e' }}
+                  className="inline-flex items-center gap-1.5 px-6 py-2.5 text-sm font-bold rounded-full transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
+                  style={{
+                    background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+                    color: '#07101e',
+                    boxShadow: '0 0 0 0 rgba(201,168,78,0)',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 22px rgba(201,168,78,0.38)'
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 0 rgba(201,168,78,0)'
+                  }}
                 >
                   Get started
                 </Link>
@@ -197,7 +205,7 @@ export default function SiteNav() {
               ) : (
                 <>
                   <Link href="/login" className="flex-1 text-center py-2.5 text-sm font-medium rounded-full border" style={{ border: '1px solid rgba(201,168,78,0.25)', color: 'rgba(244,244,242,0.75)' }} onClick={() => setOpen(false)}>Log in</Link>
-                  <Link href="/signup" className="flex-1 text-center py-2.5 text-sm font-semibold rounded-full" style={{ background: '#c9a84e', color: '#07101e' }} onClick={() => setOpen(false)}>Get started</Link>
+                  <Link href="/signup" className="flex-1 text-center py-3 text-sm font-bold rounded-full" style={{ background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e' }} onClick={() => setOpen(false)}>Get started</Link>
                 </>
               )}
             </div>

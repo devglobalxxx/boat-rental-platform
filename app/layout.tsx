@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import SiteNav from '@/components/nav/SiteNav'
 import Link from 'next/link'
-import { Anchor } from 'lucide-react'
+import Logo from '@/components/ui/Logo'
 
 export const metadata: Metadata = {
   title: {
@@ -33,9 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
               {/* Brand */}
               <div className="col-span-2">
-                <Link href="/" className="inline-flex items-center gap-2 mb-4">
-                  <Anchor className="w-5 h-5" style={{ color: '#c9a84e' }} />
-                  <span className="text-xl font-bold" style={{ color: '#f4f4f2' }}>BoatAway</span>
+                <Link href="/" className="inline-flex mb-4">
+                  <Logo size={32} />
                 </Link>
                 <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.50)' }}>
                   The global marketplace for verified boat charters.
