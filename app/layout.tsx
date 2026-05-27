@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     images: ['https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80'],
   },
   verification: {
-    google: 'boathire24-google-verification',
+    google: 'QSfSombLmS6Op_4Kz1ypx07X70NuivcXYeoTkoAKLNQ',
   },
   alternates: {
     types: {
