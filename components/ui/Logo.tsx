@@ -1,19 +1,27 @@
 interface LogoProps {
   size?: number
-  /** Show just the mark without the wordmark */
   markOnly?: boolean
   className?: string
 }
 
 /**
- * BoatAway brand logo — custom SVG anchor mark + styled wordmark.
- * The mark uses a geometric anchor with a wave-rope ring and weighted flukes
- * so it reads clearly at 24 px (favicon) through 120 px (splash / hero).
+ * BoatAway brand logo — redesigned premium anchor mark + refined wordmark.
+ *
+ * Mark geometry (40×40 viewBox):
+ *  – Outer badge ring (very faint, defines mark boundary)
+ *  – Anchor eye (ring) with centre plug at top
+ *  – Clean shaft with proportional stock/crossbar (no circle caps)
+ *  – Smooth blade flukes that curl up to meet the stock ends
+ *  – Short crown bar at fluke base
+ *  – Single sinusoidal wave at bottom
+ *
+ * Reads clearly from 20 px (favicon) to 120 px (hero/splash).
  */
 export default function Logo({ size = 36, markOnly = false, className = '' }: LogoProps) {
   return (
-    <span className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      {/* ── Anchor mark ─────────────────────────────────────────────────── */}
+    <span className={`inline-flex items-center gap-2 select-none ${className}`}>
+
+      {/* ── Mark ──────────────────────────────────────────────── */}
       <svg
         width={size}
         height={size}
@@ -22,70 +30,62 @@ export default function Logo({ size = 36, markOnly = false, className = '' }: Lo
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {/* Outer ring */}
-        <circle cx="20" cy="9.5" r="6.2" stroke="#c9a84e" strokeWidth="2.4" />
-        {/* Centre knot */}
-        <circle cx="20" cy="9.5" r="2.4" fill="#c9a84e" />
+        {/* Badge ring — very faint, gives mark a contained icon quality */}
+        <circle cx="20" cy="20" r="19" stroke="#c9a84e" strokeWidth="0.6" opacity="0.20" />
+
+        {/* Anchor eye – clean open ring */}
+        <circle cx="20" cy="10" r="5.2" stroke="#c9a84e" strokeWidth="1.9" />
+        {/* Centre plug – the shackle attachment point */}
+        <circle cx="20" cy="10" r="2.3" fill="#c9a84e" />
 
         {/* Shaft */}
-        <path d="M20 14V32" stroke="#c9a84e" strokeWidth="2.6" strokeLinecap="round" />
+        <line x1="20" y1="15" x2="20" y2="33.5" stroke="#c9a84e" strokeWidth="2.2" strokeLinecap="round" />
 
-        {/* Crossbar */}
-        <path d="M10.5 20H29.5" stroke="#c9a84e" strokeWidth="2.6" strokeLinecap="round" />
+        {/* Stock / crossbar – no cap circles, just clean round ends */}
+        <line x1="10.5" y1="21.5" x2="29.5" y2="21.5" stroke="#c9a84e" strokeWidth="2.2" strokeLinecap="round" />
 
-        {/* Crossbar end caps */}
-        <circle cx="10.5" cy="20" r="2.4" fill="#c9a84e" />
-        <circle cx="29.5" cy="20" r="2.4" fill="#c9a84e" />
-
-        {/* Left fluke */}
+        {/* Left blade — curves from crown up to meet stock end */}
         <path
-          d="M20 32 C14.5 32 10.5 29 10.5 24.5"
-          stroke="#c9a84e"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          fill="none"
+          d="M20 33.5 C15 33.5 10.5 30.5 10.5 26"
+          stroke="#c9a84e" strokeWidth="2.0" strokeLinecap="round" fill="none"
         />
-        {/* Right fluke */}
+        {/* Right blade — symmetric */}
         <path
-          d="M20 32 C25.5 32 29.5 29 29.5 24.5"
-          stroke="#c9a84e"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          fill="none"
+          d="M20 33.5 C25 33.5 29.5 30.5 29.5 26"
+          stroke="#c9a84e" strokeWidth="2.0" strokeLinecap="round" fill="none"
         />
 
-        {/* Wave accent below flukes */}
+        {/* Crown bar — small horizontal at the very bottom of the shaft */}
+        <line x1="16.5" y1="33.5" x2="23.5" y2="33.5" stroke="#c9a84e" strokeWidth="2.0" strokeLinecap="round" />
+
+        {/* Wave — single clean arc beneath the crown */}
         <path
-          d="M10 36.5 Q15 34 20 36.5 Q25 39 30 36.5"
-          stroke="#c9a84e"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          fill="none"
-          opacity="0.65"
+          d="M8.5 37.5 Q14 35.5 20 37.5 Q26 39.5 31.5 37.5"
+          stroke="#c9a84e" strokeWidth="1.5" strokeLinecap="round" fill="none"
+          opacity="0.60"
         />
       </svg>
 
-      {/* ── Wordmark ─────────────────────────────────────────────────────── */}
+      {/* ── Wordmark ───────────────────────────────────────────── */}
       {!markOnly && (
-        <span
-          className="leading-none"
-          style={{ fontFamily: 'inherit' }}
-        >
+        <span className="leading-none" style={{ fontFamily: 'inherit' }}>
+          {/* "Boat" — thin, slightly tracked, muted */}
           <span
             style={{
-              fontSize: size * 0.525,
-              fontWeight: 400,
-              letterSpacing: '0.01em',
-              color: 'rgba(244,244,242,0.78)',
+              fontSize: size * 0.545,
+              fontWeight: 300,
+              letterSpacing: '0.04em',
+              color: 'rgba(244,244,242,0.70)',
             }}
           >
             Boat
           </span>
+          {/* "Away" — heavy, tight, bright — high contrast */}
           <span
             style={{
-              fontSize: size * 0.525,
-              fontWeight: 800,
-              letterSpacing: '-0.01em',
+              fontSize: size * 0.545,
+              fontWeight: 900,
+              letterSpacing: '-0.02em',
               color: '#f4f4f2',
             }}
           >

@@ -9,9 +9,9 @@ import Logo from '@/components/ui/Logo'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 
 const NAV_LINKS = [
-  { href: '/search', label: 'Explore boats' },
-  { href: '/how-it-works', label: 'How it works' },
-  { href: '/blog', label: 'Charter guide' },
+  { href: '/search',        label: 'Explore boats' },
+  { href: '/how-it-works',  label: 'How it works'  },
+  { href: '/blog',          label: 'Blog'           },
   { href: '/become-a-host', label: 'List your boat' },
 ]
 
@@ -61,7 +61,7 @@ export default function SiteNav() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-7">
+          <nav className="hidden md:flex items-center gap-5">
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.href}
@@ -79,7 +79,7 @@ export default function SiteNav() {
           </nav>
 
           {/* Desktop auth */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5">
             {user ? (
               <div className="relative">
                 <button
@@ -146,17 +146,17 @@ export default function SiteNav() {
                 </Link>
                 <Link
                   href="/signup"
-                  className="inline-flex items-center gap-1.5 px-6 py-2.5 text-sm font-bold rounded-full transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap px-8 py-2.5 text-sm font-bold rounded-full transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
                   style={{
                     background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
                     color: '#07101e',
-                    boxShadow: '0 0 0 0 rgba(201,168,78,0)',
+                    boxShadow: '0 2px 14px rgba(201,168,78,0.22)',
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 22px rgba(201,168,78,0.38)'
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 22px rgba(201,168,78,0.45)'
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 0 rgba(201,168,78,0)'
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 14px rgba(201,168,78,0.22)'
                   }}
                 >
                   Get started
