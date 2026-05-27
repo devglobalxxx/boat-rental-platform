@@ -45,7 +45,10 @@ export const metadata: Metadata = {
     images: ['https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80'],
   },
   verification: {
-    google: 'X2eUUZ7APRJWlW1WksThzh6ylZRQstup7K7PLNHJpY0',
+    google: [
+      'X2eUUZ7APRJWlW1WksThzh6ylZRQstup7K7PLNHJpY0',
+      'QSfSombLmS6Op_4Kz1ypx07X70NuivcXYeoTkoAKLNQ',
+    ],
   },
   alternates: {
     types: {
