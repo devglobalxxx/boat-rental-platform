@@ -80,7 +80,7 @@ export default function Logo({ size = 36, markOnly = false, className = '' }: Lo
           >
             Boat
           </span>
-          {/* "Away" — heavy, tight, bright — high contrast */}
+          {/* "Hire24" — heavy, tight, bright — high contrast */}
           <span
             style={{
               fontSize: size * 0.545,
@@ -89,7 +89,7 @@ export default function Logo({ size = 36, markOnly = false, className = '' }: Lo
               color: '#f4f4f2',
             }}
           >
-            Away
+            Hire24
           </span>
         </span>
       )}
