@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import BoatCard from '@/components/search/BoatCard'
 import SearchBar from '@/components/search/SearchBar'
-import { MapPin, Anchor } from 'lucide-react'
+import { MapPin, Anchor, Ship } from 'lucide-react'
 import type { BoatWithDetails, LocationRow } from '@/types/database'
 
 interface Props {
@@ -19,10 +19,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .eq('slug', location)
     .single()
   const loc = locRaw as Pick<LocationRow, 'name' | 'city' | 'country' | 'description'> | null
-
   if (!loc) return { title: 'Location not found' }
   return {
-    title: `Boat Rental ${loc.city} — Yachts & Catamarans`,
+    title: `Boat Rental ${loc.city} — Yachts & Catamarans | BoatAway`,
     description: loc.description ?? `Find and book boats in ${loc.city}, ${loc.country}. Motor yachts, catamarans, sailing boats and more.`,
   }
 }
@@ -37,19 +36,11 @@ export default async function LocationPage({ params }: Props) {
     .eq('slug', location)
     .single()
   const loc = locDataRaw as LocationRow | null
-
   if (!loc) notFound()
 
   const { data: rawBoats } = await supabase
     .from('boats')
-    .select(`
-      *,
-      boat_images(*),
-      boat_pricing(*),
-      boat_features(*),
-      locations(*),
-      profiles(id, full_name, avatar_url)
-    `)
+    .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url)`)
     .eq('location_id', loc!.id)
     .eq('status', 'active')
     .order('created_at', { ascending: false })
@@ -60,50 +51,101 @@ export default async function LocationPage({ params }: Props) {
     review_count: 0,
   })) as BoatWithDetails[]
 
+  const gold = '#c9a84e'
+  const goldFaint = 'rgba(201,168,78,0.12)'
+  const goldBorder = 'rgba(201,168,78,0.22)'
+
   return (
-    <div>
-      {/* Hero */}
-      <div className="relative h-64 sm:h-80 bg-[#0a1a32] overflow-hidden">
-        {loc.image_url && (
-          <img src={loc.image_url} alt={loc.name} className="w-full h-full object-cover opacity-50" />
+    <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
+
+      {/* ── Hero ── */}
+      <section style={{ position: 'relative', height: '380px', overflow: 'hidden' }}>
+        {loc.image_url ? (
+          <img src={loc.image_url} alt={loc.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.45 }} />
+        ) : (
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#0a1a32,#071122)' }} />
         )}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
-          <div className="flex items-center gap-2 text-white/70 text-sm mb-2">
-            <MapPin className="w-4 h-4" /> {loc.country}
+        {/* Gradient overlay */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(7,16,30,0.3) 0%, rgba(7,16,30,0.75) 100%)' }} />
+        {/* Gold radial glow */}
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 100%, rgba(201,168,78,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+        <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 24px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(244,244,242,0.65)', marginBottom: '14px' }}>
+            <MapPin style={{ width: '13px', height: '13px' }} /> {loc.country}
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold">Boat Rental {loc.city}</h1>
-          <p className="mt-3 text-white/70 max-w-xl">
-            {loc.description ?? `Discover ${boats.length} verified boats in ${loc.city}. Instant book, skipper included.`}
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.1, marginBottom: '14px' }}>
+            Boat Rental <span style={{ color: gold }}>{loc.city}</span>
+          </h1>
+          <p style={{ fontSize: '16px', color: 'rgba(244,244,242,0.62)', maxWidth: '540px', lineHeight: 1.65 }}>
+            {loc.description ?? `Discover ${boats.length} verified boats in ${loc.city}. Instant book, licensed skipper included.`}
           </p>
+        </div>
+      </section>
+
+      {/* ── Stats bar ── */}
+      <div style={{ borderBottom: '1px solid rgba(201,168,78,0.10)', background: 'rgba(201,168,78,0.04)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px 24px', display: 'flex', gap: '36px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {[
+            { value: `${boats.length}`, label: 'boats available' },
+            { value: 'From €300', label: 'per half-day' },
+            { value: '✓ Skipper', label: 'always included' },
+            { value: 'Instant', label: 'confirmation' },
+          ].map((s) => (
+            <div key={s.label} style={{ textAlign: 'center' }}>
+              <p style={{ fontSize: '16px', fontWeight: 700, color: gold, marginBottom: '2px' }}>{s.value}</p>
+              <p style={{ fontSize: '12px', color: 'rgba(244,244,242,0.42)' }}>{s.label}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Search */}
-        <div className="mb-8">
+      {/* ── Search + Results ── */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 24px 96px' }}>
+
+        {/* Search bar */}
+        <div style={{ marginBottom: '44px' }}>
           <SearchBar defaultLocation={loc.city} />
         </div>
 
-        {/* Boats */}
+        {/* Results header */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '12px' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f4f4f2' }}>
+            {boats.length > 0 ? (
+              <>{boats.length} boat{boats.length !== 1 ? 's' : ''} in {loc.city}</>
+            ) : (
+              <>Coming soon to {loc.city}</>
+            )}
+          </h2>
+          {boats.length > 0 && (
+            <span style={{ fontSize: '13px', color: 'rgba(244,244,242,0.40)', background: goldFaint, border: `1px solid ${goldBorder}`, borderRadius: '99px', padding: '4px 14px' }}>
+              All include licensed skipper
+            </span>
+          )}
+        </div>
+
+        {/* Boats grid or empty state */}
         {boats.length === 0 ? (
-          <div className="text-center py-20">
-            <Anchor className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-slate-900 mb-2">Coming soon to {loc.city}</h2>
-            <p className="text-slate-500">We&apos;re onboarding boats in this destination. Check back soon!</p>
+          <div style={{ textAlign: 'center', paddingTop: '80px', paddingBottom: '80px' }}>
+            <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: goldFaint, border: `1px solid ${goldBorder}`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+              <Ship style={{ width: '28px', height: '28px', color: gold }} />
+            </div>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#f4f4f2', marginBottom: '10px' }}>
+              Coming soon to {loc.city}
+            </h3>
+            <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.45)', maxWidth: '360px', margin: '0 auto 28px', lineHeight: 1.6 }}>
+              We&apos;re onboarding boats in this destination. Check back soon — or explore another location.
+            </p>
+            <a href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none' }}>
+              Browse all destinations
+            </a>
           </div>
         ) : (
-          <>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
-                {boats.length} boat{boats.length !== 1 ? 's' : ''} in {loc.city}
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {boats.map((boat) => (
-                <BoatCard key={boat.id} boat={boat} />
-              ))}
-            </div>
-          </>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
+            {boats.map((boat) => (
+              <BoatCard key={boat.id} boat={boat} />
+            ))}
+          </div>
         )}
       </div>
 

@@ -58,7 +58,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     date:       'May 10, 2026',
     author:     'Isabelle Fonteneau',
     authorRole: 'Charter Specialist, BoatAway HQ',
-    heroImage:  'https://images.unsplash.com/photo-1521361218783-2f3b0de3a17d?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1562281302-809108fd533c?w=1400&q=80',
     boatSlug:   'lagoon-380',
     faqs: [
       { q: 'Is the Lagoon 380 good for people who get seasick?', a: 'Yes — twin-hull catamarans are significantly more stable than monohull motor yachts. The Lagoon 380 is the recommended option for guests with motion sensitivity.' },
@@ -248,7 +248,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     date:       'May 6, 2026',
     author:     'Carlos Mendoza',
     authorRole: 'BoatAway Fleet Captain, Marbella',
-    heroImage:  'https://images.unsplash.com/photo-1622987182830-84f0d9f59e34?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=1400&q=80',
     boatSlug:   'pershing-46',
     faqs: [
       { q: 'How fast is the Pershing 46?', a: '30+ knots top speed — one of the fastest charter boats available from Puerto Banús.' },
@@ -296,7 +296,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     date:       'May 5, 2026',
     author:     'Miguel Ángel Torres',
     authorRole: 'Senior Fleet Captain, Marbella',
-    heroImage:  'https://images.unsplash.com/photo-1545436789-5a6c95fc1c68?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1625528193934-4cb230e7267d?w=1400&q=80',
     boatSlug:   'red-tide-fishing-boat',
     faqs: [
       { q: 'What is the difference between Red Tide and the Bandido for fishing?', a: 'Both are sport-fishing boats from Puerto Banús. The Red Tide is slightly smaller (11 m vs 11.5 m) and takes up to 6 anglers vs 8 on the Bandido. Red Tide has a fighting chair — preferred for targeting larger pelagic species.' },

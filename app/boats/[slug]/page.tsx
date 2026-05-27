@@ -5,10 +5,8 @@ import Gallery from '@/components/listing/Gallery'
 import Reviews from '@/components/listing/Reviews'
 import AvailabilityCalendar from '@/components/listing/AvailabilityCalendar'
 import BookingWidget from '@/components/booking/BookingWidget'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
 import { formatPrice } from '@/lib/utils/pricing'
-import { MapPin, Users, Ruler, Anchor, Star, Check, Waves } from 'lucide-react'
+import { MapPin, Users, Ruler, Anchor, Star, Check, Waves, Zap } from 'lucide-react'
 import type { BoatWithDetails } from '@/types/database'
 
 const TYPE_LABELS: Record<string, string> = {
@@ -20,6 +18,12 @@ const TYPE_LABELS: Record<string, string> = {
   rib: 'RIB',
   luxury: 'Luxury yacht',
 }
+
+const gold = '#c9a84e'
+const goldFaint = 'rgba(201,168,78,0.12)'
+const goldBorder = 'rgba(201,168,78,0.22)'
+const textMuted = 'rgba(244,244,242,0.55)'
+const card = '#0c1828'
 
 async function getBoat(slug: string): Promise<BoatWithDetails | null> {
   const supabase = await createClient()
@@ -90,186 +94,218 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
 
   const sortedPricing = [...boat.boat_pricing].sort((a, b) => (a.duration_hours ?? 0) - (b.duration_hours ?? 0))
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Breadcrumb */}
-      <nav className="text-sm text-slate-500 mb-4 flex items-center gap-1.5">
-        <a href="/" className="hover:text-slate-700">Home</a>
-        <span>/</span>
-        <a href={`/${boat.locations.slug}`} className="hover:text-slate-700">{boat.locations.city}</a>
-        <span>/</span>
-        <span className="text-slate-900">{boat.name}</span>
-      </nav>
+  const specItems = [
+    { icon: Users,  value: String(boat.capacity_pax),  label: 'Guests' },
+    ...(boat.length_m   ? [{ icon: Ruler,  value: `${boat.length_m}m`,    label: 'Length'     }] : []),
+    ...(boat.cabins     ? [{ icon: Anchor, value: String(boat.cabins),    label: 'Cabins'     }] : []),
+    ...(boat.model_year ? [{ icon: Waves,  value: String(boat.model_year), label: 'Model year' }] : []),
+  ]
 
-      {/* Title row */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-900">{boat.name}</h1>
-          {boat.tagline && <p className="text-slate-500 mt-1">{boat.tagline}</p>}
-          <div className="flex items-center gap-4 mt-2 text-sm text-slate-500">
-            {reviews && reviews.length > 0 && (
-              <span className="flex items-center gap-1">
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                <span className="font-medium text-slate-900">{avgRating.toFixed(1)}</span>
-                <span>({reviews.length} reviews)</span>
+  return (
+    <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '36px 24px 96px' }}>
+
+        {/* ── Breadcrumb ── */}
+        <nav style={{ fontSize: '13px', color: 'rgba(244,244,242,0.40)', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+          <a href="/" style={{ color: 'rgba(244,244,242,0.40)', textDecoration: 'none' }}>Home</a>
+          <span>/</span>
+          <a href={`/${boat.locations.slug}`} style={{ color: 'rgba(244,244,242,0.40)', textDecoration: 'none' }}>{boat.locations.city}</a>
+          <span>/</span>
+          <span style={{ color: '#f4f4f2' }}>{boat.name}</span>
+        </nav>
+
+        {/* ── Title row ── */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', marginBottom: '32px' }}>
+          <div>
+            <h1 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.15, marginBottom: '8px' }}>
+              {boat.name}
+            </h1>
+            {boat.tagline && (
+              <p style={{ fontSize: '16px', color: textMuted, marginBottom: '12px' }}>{boat.tagline}</p>
+            )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '18px', fontSize: '14px', color: textMuted, flexWrap: 'wrap' }}>
+              {reviews && reviews.length > 0 && (
+                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <Star style={{ width: '15px', height: '15px', fill: gold, color: gold }} />
+                  <span style={{ fontWeight: 600, color: '#f4f4f2' }}>{avgRating.toFixed(1)}</span>
+                  <span>({reviews.length} reviews)</span>
+                </span>
+              )}
+              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <MapPin style={{ width: '14px', height: '14px', color: gold }} />
+                {boat.locations.city}, {boat.locations.country}
+              </span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', fontSize: '12px', fontWeight: 700, padding: '6px 16px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}` }}>
+              {TYPE_LABELS[boat.type] ?? boat.type}
+            </span>
+            {boat.instant_book && (
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 700, padding: '6px 16px', borderRadius: '99px', background: 'rgba(37,211,102,0.12)', color: '#5edb8a', border: '1px solid rgba(94,219,138,0.40)' }}>
+                <Zap style={{ width: '12px', height: '12px' }} /> Instant book
               </span>
             )}
-            <span className="flex items-center gap-1">
-              <MapPin className="w-4 h-4 text-[#06b6d4]" />
-              {boat.locations.city}, {boat.locations.country}
-            </span>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="sea">{TYPE_LABELS[boat.type] ?? boat.type}</Badge>
-          {boat.instant_book && <Badge variant="success">Instant book</Badge>}
+
+        {/* ── Gallery ── */}
+        <div style={{ marginBottom: '48px' }}>
+          <Gallery images={boat.boat_images} boatName={boat.name} />
         </div>
-      </div>
 
-      {/* Gallery */}
-      <div className="mb-8">
-        <Gallery images={boat.boat_images} boatName={boat.name} />
-      </div>
+        {/* ── Two-column layout ── */}
+        <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
-      {/* Main content + sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <div className="lg:col-span-2 space-y-8">
-          {/* Quick specs */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-slate-50 rounded-xl">
-              <Users className="w-6 h-6 text-[#06b6d4] mx-auto mb-1" />
-              <div className="font-bold text-slate-900">{boat.capacity_pax}</div>
-              <div className="text-xs text-slate-500">Guests</div>
-            </div>
-            {boat.length_m && (
-              <div className="text-center p-4 bg-slate-50 rounded-xl">
-                <Ruler className="w-6 h-6 text-[#06b6d4] mx-auto mb-1" />
-                <div className="font-bold text-slate-900">{boat.length_m}m</div>
-                <div className="text-xs text-slate-500">Length</div>
-              </div>
-            )}
-            {boat.cabins && (
-              <div className="text-center p-4 bg-slate-50 rounded-xl">
-                <Anchor className="w-6 h-6 text-[#06b6d4] mx-auto mb-1" />
-                <div className="font-bold text-slate-900">{boat.cabins}</div>
-                <div className="text-xs text-slate-500">Cabins</div>
-              </div>
-            )}
-            {boat.model_year && (
-              <div className="text-center p-4 bg-slate-50 rounded-xl">
-                <Waves className="w-6 h-6 text-[#06b6d4] mx-auto mb-1" />
-                <div className="font-bold text-slate-900">{boat.model_year}</div>
-                <div className="text-xs text-slate-500">Model year</div>
-              </div>
-            )}
-          </div>
+          {/* ── Main content ── */}
+          <div style={{ flex: '2 1 520px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: '40px' }}>
 
-          {/* Inclusions */}
-          <div>
-            <h2 className="text-xl font-bold text-slate-900 mb-4">What&apos;s included</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {boat.includes_skipper && (
-                <div className="flex items-center gap-2 text-sm text-slate-700">
-                  <Check className="w-4 h-4 text-emerald-500 shrink-0" /> Licensed skipper
-                </div>
-              )}
-              {boat.includes_fuel && (
-                <div className="flex items-center gap-2 text-sm text-slate-700">
-                  <Check className="w-4 h-4 text-emerald-500 shrink-0" /> Fuel
-                </div>
-              )}
-              {boat.includes_drinks && (
-                <div className="flex items-center gap-2 text-sm text-slate-700">
-                  <Check className="w-4 h-4 text-emerald-500 shrink-0" /> Drinks & snacks
-                </div>
-              )}
-              {boat.boat_features.map((f) => (
-                <div key={f.id} className="flex items-center gap-2 text-sm text-slate-700">
-                  <Check className="w-4 h-4 text-emerald-500 shrink-0" /> {f.feature}
+            {/* Quick specs */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '12px' }}>
+              {specItems.map((spec) => (
+                <div key={spec.label} style={{ textAlign: 'center', padding: '20px 12px', background: card, borderRadius: '14px', border: '1px solid rgba(255,255,255,0.07)' }}>
+                  <spec.icon style={{ width: '22px', height: '22px', color: gold, margin: '0 auto 8px', display: 'block' }} />
+                  <div style={{ fontWeight: 700, fontSize: '17px', color: '#f4f4f2', marginBottom: '3px' }}>{spec.value}</div>
+                  <div style={{ fontSize: '11px', color: 'rgba(244,244,242,0.40)' }}>{spec.label}</div>
                 </div>
               ))}
             </div>
-          </div>
 
-          <Separator />
-
-          {/* Description */}
-          {boat.description && (
+            {/* Inclusions */}
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-3">About this boat</h2>
-              <p className="text-slate-600 leading-relaxed whitespace-pre-line">{boat.description}</p>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f2', marginBottom: '18px' }}>What&apos;s included</h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '10px' }}>
+                {boat.includes_skipper && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: 'rgba(244,244,242,0.78)' }}>
+                    <Check style={{ width: '16px', height: '16px', color: '#5edb8a', flexShrink: 0 }} />
+                    Licensed skipper
+                  </div>
+                )}
+                {boat.includes_fuel && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: 'rgba(244,244,242,0.78)' }}>
+                    <Check style={{ width: '16px', height: '16px', color: '#5edb8a', flexShrink: 0 }} />
+                    Fuel
+                  </div>
+                )}
+                {boat.includes_drinks && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: 'rgba(244,244,242,0.78)' }}>
+                    <Check style={{ width: '16px', height: '16px', color: '#5edb8a', flexShrink: 0 }} />
+                    Drinks &amp; snacks
+                  </div>
+                )}
+                {boat.boat_features.map((f) => (
+                  <div key={f.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: 'rgba(244,244,242,0.78)' }}>
+                    <Check style={{ width: '16px', height: '16px', color: '#5edb8a', flexShrink: 0 }} />
+                    {f.feature}
+                  </div>
+                ))}
+              </div>
             </div>
-          )}
 
-          <Separator />
+            {/* Divider */}
+            <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)' }} />
 
-          {/* Pricing table */}
-          <div>
-            <h2 className="text-xl font-bold text-slate-900 mb-4">Pricing</h2>
-            <div className="overflow-hidden rounded-xl border border-slate-200">
-              <table className="w-full text-sm">
-                <thead className="bg-slate-50">
-                  <tr>
-                    <th className="text-left p-3 font-semibold text-slate-700">Duration</th>
-                    <th className="text-right p-3 font-semibold text-slate-700">Price</th>
-                    <th className="text-right p-3 font-semibold text-slate-700">Per hour</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {sortedPricing.map((p) => (
-                    <tr key={p.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="p-3 text-slate-700">
-                        {p.duration_hours ? `${p.duration_hours} hours` : `${p.duration_days} day${p.duration_days !== 1 ? 's' : ''}`}
-                      </td>
-                      <td className="p-3 text-right font-semibold text-slate-900">
-                        {formatPrice(p.price, p.currency)}
-                      </td>
-                      <td className="p-3 text-right text-slate-500">
-                        {p.duration_hours ? formatPrice(Math.round(p.price / p.duration_hours), p.currency) : '—'}
-                      </td>
+            {/* Description */}
+            {boat.description && (
+              <>
+                <div>
+                  <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f2', marginBottom: '14px' }}>About this boat</h2>
+                  <p style={{ fontSize: '15px', color: textMuted, lineHeight: 1.78, whiteSpace: 'pre-line' }}>{boat.description}</p>
+                </div>
+                <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)' }} />
+              </>
+            )}
+
+            {/* Pricing table */}
+            <div>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f2', marginBottom: '18px' }}>Pricing</h2>
+              <div style={{ overflow: 'hidden', borderRadius: '14px', border: `1px solid ${goldBorder}` }}>
+                <table style={{ width: '100%', fontSize: '14px', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ background: goldFaint }}>
+                      <th style={{ textAlign: 'left', padding: '12px 18px', fontWeight: 600, color: 'rgba(244,244,242,0.65)' }}>Duration</th>
+                      <th style={{ textAlign: 'right', padding: '12px 18px', fontWeight: 600, color: 'rgba(244,244,242,0.65)' }}>Price</th>
+                      <th style={{ textAlign: 'right', padding: '12px 18px', fontWeight: 600, color: 'rgba(244,244,242,0.65)' }}>Per hour</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="text-xs text-slate-500 mt-2">All prices include a 15% platform service fee at checkout.</p>
-          </div>
-
-          <Separator />
-
-          {/* Availability */}
-          <div>
-            <h2 className="text-xl font-bold text-slate-900 mb-4">Availability</h2>
-            <AvailabilityCalendar blockedDates={blockedDates} mode="view" />
-          </div>
-
-          <Separator />
-
-          {/* Reviews */}
-          <div>
-            <h2 className="text-xl font-bold text-slate-900 mb-6">Reviews</h2>
-            <Reviews reviews={(reviews as any) ?? []} avgRating={avgRating} />
-          </div>
-
-          {/* Host */}
-          <Separator />
-          <div>
-            <h2 className="text-xl font-bold text-slate-900 mb-4">Hosted by</h2>
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-[#06b6d4] flex items-center justify-center text-white text-xl font-bold">
-                {boat.profiles.full_name?.[0]?.toUpperCase() ?? 'H'}
+                  </thead>
+                  <tbody>
+                    {sortedPricing.map((p, i) => (
+                      <tr key={p.id} style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: i % 2 !== 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
+                        <td style={{ padding: '13px 18px', color: 'rgba(244,244,242,0.70)' }}>
+                          {p.duration_hours
+                            ? `${p.duration_hours} hours`
+                            : `${p.duration_days} day${p.duration_days !== 1 ? 's' : ''}`}
+                        </td>
+                        <td style={{ padding: '13px 18px', textAlign: 'right', fontWeight: 700, color: '#f4f4f2' }}>
+                          {formatPrice(p.price, p.currency)}
+                        </td>
+                        <td style={{ padding: '13px 18px', textAlign: 'right', color: textMuted }}>
+                          {p.duration_hours ? formatPrice(Math.round(p.price / p.duration_hours), p.currency) : '—'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-              <div>
-                <div className="font-semibold text-slate-900">{boat.profiles.full_name ?? 'Host'}</div>
-                <div className="text-sm text-slate-500">Verified host</div>
+              <p style={{ fontSize: '12px', color: 'rgba(244,244,242,0.32)', marginTop: '10px' }}>
+                All prices include a 15% platform service fee at checkout.
+              </p>
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)' }} />
+
+            {/* Availability */}
+            <div>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f2', marginBottom: '18px' }}>Availability</h2>
+              <AvailabilityCalendar blockedDates={blockedDates} mode="view" />
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)' }} />
+
+            {/* Reviews */}
+            <div>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f2', marginBottom: '24px' }}>
+                Reviews
+                {reviews && reviews.length > 0 && (
+                  <span style={{ fontSize: '14px', fontWeight: 500, color: textMuted, marginLeft: '10px' }}>
+                    ({reviews.length})
+                  </span>
+                )}
+              </h2>
+              <Reviews reviews={(reviews as any) ?? []} avgRating={avgRating} />
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)' }} />
+
+            {/* Host */}
+            <div>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f2', marginBottom: '18px' }}>Hosted by</h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: goldFaint, border: `1px solid ${goldBorder}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 700, color: gold, flexShrink: 0 }}>
+                  {boat.profiles.full_name?.[0]?.toUpperCase() ?? 'H'}
+                </div>
+                <div>
+                  <div style={{ fontWeight: 600, fontSize: '15px', color: '#f4f4f2' }}>
+                    {boat.profiles.full_name ?? 'Host'}
+                  </div>
+                  <div style={{ fontSize: '13px', color: textMuted, marginTop: '2px' }}>Verified host</div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Booking widget */}
-        <div>
-          <BookingWidget boat={{ ...boat, avg_rating: avgRating, review_count: reviews?.length ?? 0 }} blockedDates={blockedDates} />
+          </div>
+
+          {/* ── Booking widget sidebar ── */}
+          <div style={{ flex: '1 1 340px', position: 'sticky', top: '24px' }}>
+            <BookingWidget
+              boat={{ ...boat, avg_rating: avgRating, review_count: reviews?.length ?? 0 }}
+              blockedDates={blockedDates}
+            />
+          </div>
+
         </div>
       </div>
 

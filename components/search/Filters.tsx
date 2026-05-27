@@ -1,41 +1,87 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Button } from '@/components/ui/button'
-import { SlidersHorizontal, Zap } from 'lucide-react'
+import { Zap } from 'lucide-react'
 
 const BOAT_TYPES = [
-  { value: 'all', label: 'All types' },
+  { value: 'all',         label: 'All types' },
   { value: 'motor_yacht', label: 'Motor yacht' },
-  { value: 'catamaran', label: 'Catamaran' },
-  { value: 'sailing', label: 'Sailing boat' },
-  { value: 'speedboat', label: 'Speedboat' },
-  { value: 'fishing', label: 'Fishing boat' },
-  { value: 'rib', label: 'RIB' },
-  { value: 'luxury', label: 'Luxury yacht' },
+  { value: 'catamaran',   label: 'Catamaran' },
+  { value: 'sailing',     label: 'Sailing' },
+  { value: 'speedboat',   label: 'Speedboat' },
+  { value: 'luxury',      label: 'Luxury' },
+  { value: 'fishing',     label: 'Fishing' },
+  { value: 'rib',         label: 'RIB' },
 ]
 
 const CAPACITIES = [
-  { value: 'any', label: 'Any size' },
-  { value: '1', label: '1–4 guests' },
-  { value: '5', label: '5–8 guests' },
-  { value: '9', label: '9–12 guests' },
-  { value: '13', label: '13+ guests' },
+  { value: 'any',  label: 'Any size' },
+  { value: '1',    label: '1–4' },
+  { value: '5',    label: '5–8' },
+  { value: '9',    label: '9–12' },
+  { value: '13',   label: '13+' },
 ]
 
 const SORT_OPTIONS = [
   { value: 'recommended', label: 'Recommended' },
-  { value: 'price_asc', label: 'Price: low to high' },
-  { value: 'price_desc', label: 'Price: high to low' },
-  { value: 'rating', label: 'Top rated' },
+  { value: 'price_asc',   label: 'Price ↑' },
+  { value: 'price_desc',  label: 'Price ↓' },
+  { value: 'rating',      label: 'Top rated' },
 ]
+
+const gold = '#c9a84e'
+const goldFaint = 'rgba(201,168,78,0.12)'
+const goldBorder = 'rgba(201,168,78,0.28)'
+
+function Pill({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean
+  onClick: () => void
+  children: React.ReactNode
+}) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '5px',
+        padding: '7px 16px',
+        borderRadius: '99px',
+        fontSize: '13px',
+        fontWeight: active ? 700 : 500,
+        cursor: 'pointer',
+        border: active ? `1px solid ${goldBorder}` : '1px solid rgba(255,255,255,0.10)',
+        background: active ? goldFaint : 'rgba(255,255,255,0.04)',
+        color: active ? gold : 'rgba(244,244,242,0.60)',
+        transition: 'all 0.15s',
+        whiteSpace: 'nowrap' as const,
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+function FilterGroup({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+      <span style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.1em', color: 'rgba(244,244,242,0.30)', minWidth: '56px' }}>
+        {label}
+      </span>
+      {children}
+    </div>
+  )
+}
 
 export default function Filters() {
   const router = useRouter()
   const params = useSearchParams()
 
-  function updateParam(key: string, value: string) {
+  function set(key: string, value: string) {
     const p = new URLSearchParams(params.toString())
     if (value === 'all' || value === 'any' || value === 'recommended') {
       p.delete(key)
@@ -45,67 +91,78 @@ export default function Filters() {
     router.push(`/search?${p.toString()}`)
   }
 
-  const instantOnly = params.get('instant') === '1'
+  const currentType     = params.get('type')     ?? 'all'
+  const currentCapacity = params.get('capacity') ?? 'any'
+  const currentSort     = params.get('sort')     ?? 'recommended'
+  const instantOnly     = params.get('instant')  === '1'
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <SlidersHorizontal className="w-4 h-4 text-slate-500" />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', padding: '20px 24px', borderRadius: '18px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
 
-      <Select
-        value={params.get('type') ?? 'all'}
-        onValueChange={(v) => updateParam('type', v)}
-      >
-        <SelectTrigger className="w-[160px] h-9 text-sm">
-          <SelectValue placeholder="Boat type" />
-        </SelectTrigger>
-        <SelectContent>
-          {BOAT_TYPES.map((t) => (
-            <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      {/* Boat type */}
+      <FilterGroup label="Type">
+        {BOAT_TYPES.map((t) => (
+          <Pill key={t.value} active={currentType === t.value} onClick={() => set('type', t.value)}>
+            {t.label}
+          </Pill>
+        ))}
+      </FilterGroup>
 
-      <Select
-        value={params.get('capacity') ?? 'any'}
-        onValueChange={(v) => updateParam('capacity', v)}
-      >
-        <SelectTrigger className="w-[140px] h-9 text-sm">
-          <SelectValue placeholder="Guests" />
-        </SelectTrigger>
-        <SelectContent>
+      {/* Divider */}
+      <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }} />
+
+      {/* Second row: capacity + sort + instant */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+
+        <FilterGroup label="Guests">
           {CAPACITIES.map((c) => (
-            <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
+            <Pill key={c.value} active={currentCapacity === c.value} onClick={() => set('capacity', c.value)}>
+              {c.label}
+            </Pill>
           ))}
-        </SelectContent>
-      </Select>
+        </FilterGroup>
 
-      <Select
-        value={params.get('sort') ?? 'recommended'}
-        onValueChange={(v) => updateParam('sort', v)}
-      >
-        <SelectTrigger className="w-[180px] h-9 text-sm">
-          <SelectValue placeholder="Sort by" />
-        </SelectTrigger>
-        <SelectContent>
+        <div style={{ width: '1px', height: '28px', background: 'rgba(255,255,255,0.07)', flexShrink: 0 }} />
+
+        <FilterGroup label="Sort">
           {SORT_OPTIONS.map((s) => (
-            <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+            <Pill key={s.value} active={currentSort === s.value} onClick={() => set('sort', s.value)}>
+              {s.label}
+            </Pill>
           ))}
-        </SelectContent>
-      </Select>
+        </FilterGroup>
 
-      <Button
-        variant={instantOnly ? 'sea' : 'outline'}
-        size="sm"
-        onClick={() => {
-          const p = new URLSearchParams(params.toString())
-          if (instantOnly) p.delete('instant')
-          else p.set('instant', '1')
-          router.push(`/search?${p.toString()}`)
-        }}
-      >
-        <Zap className="w-3.5 h-3.5" />
-        Instant book
-      </Button>
+        <div style={{ width: '1px', height: '28px', background: 'rgba(255,255,255,0.07)', flexShrink: 0 }} />
+
+        {/* Instant book toggle */}
+        <button
+          onClick={() => {
+            const p = new URLSearchParams(params.toString())
+            if (instantOnly) p.delete('instant')
+            else p.set('instant', '1')
+            router.push(`/search?${p.toString()}`)
+          }}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '7px',
+            padding: '7px 18px',
+            borderRadius: '99px',
+            fontSize: '13px',
+            fontWeight: instantOnly ? 700 : 500,
+            cursor: 'pointer',
+            border: instantOnly ? '1px solid rgba(94,219,138,0.40)' : '1px solid rgba(255,255,255,0.10)',
+            background: instantOnly ? 'rgba(37,211,102,0.12)' : 'rgba(255,255,255,0.04)',
+            color: instantOnly ? '#5edb8a' : 'rgba(244,244,242,0.60)',
+            transition: 'all 0.15s',
+            whiteSpace: 'nowrap' as const,
+          }}
+        >
+          <Zap style={{ width: '13px', height: '13px' }} />
+          Instant book
+        </button>
+      </div>
+
     </div>
   )
 }

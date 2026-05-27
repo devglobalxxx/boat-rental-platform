@@ -20,51 +20,16 @@ export const metadata = {
 }
 
 const RENTER_STEPS = [
-  {
-    num: '01',
-    icon: Search,
-    title: 'Search & discover',
-    desc: 'Browse boats by destination, date, boat type, and group size. Read verified reviews from real guests.',
-  },
-  {
-    num: '02',
-    icon: CreditCard,
-    title: 'Book & pay securely',
-    desc: 'Choose instant book or send a request. Pay by card — your money is held safely until the day of your trip.',
-  },
-  {
-    num: '03',
-    icon: Anchor,
-    title: 'Set sail',
-    desc: 'Meet your licensed captain at the marina. Skipper, fuel, drinks, and safety gear are all included.',
-  },
-  {
-    num: '04',
-    icon: Star,
-    title: 'Review your trip',
-    desc: 'After your charter, leave an honest review to help future guests find the perfect boat.',
-  },
+  { num: '01', icon: Search,     title: 'Search & discover',   desc: 'Browse boats by destination, date, boat type, and group size. Read verified reviews from real guests.' },
+  { num: '02', icon: CreditCard, title: 'Book & pay securely', desc: 'Choose instant book or send a request. Pay by card — your money is held safely until the day of your trip.' },
+  { num: '03', icon: Anchor,     title: 'Set sail',            desc: 'Meet your licensed captain at the marina. Skipper, fuel, drinks, and safety gear are all included.' },
+  { num: '04', icon: Star,       title: 'Review your trip',    desc: 'After your charter, leave an honest review to help future guests find the perfect boat.' },
 ]
 
 const HOST_STEPS = [
-  {
-    icon: Ship,
-    title: 'List your boat',
-    desc: 'Create a listing in minutes. Set your own prices, availability, and house rules.',
-    badge: 'Free',
-  },
-  {
-    icon: Shield,
-    title: 'We handle guests',
-    desc: 'BoatAway verifies renters, handles payments, and provides 24/7 support for you and your guests.',
-    badge: 'Hands-off',
-  },
-  {
-    icon: CreditCard,
-    title: 'Get paid',
-    desc: 'Earnings are transferred to your bank account 7 days after each completed charter. You keep 85%.',
-    badge: '85% yours',
-  },
+  { icon: Ship,    title: 'List your boat',  desc: 'Create a listing in minutes. Set your own prices, availability, and house rules.',                            badge: 'Free' },
+  { icon: Shield,  title: 'We handle guests', desc: 'BoatAway verifies renters, handles payments, and provides 24/7 support for you and your guests.',           badge: 'Hands-off' },
+  { icon: CreditCard, title: 'Get paid',      desc: 'Earnings are transferred to your bank account 7 days after each completed charter. You keep 85%.',          badge: '85% yours' },
 ]
 
 const RENTER_INCLUDES = [
@@ -75,192 +40,137 @@ const RENTER_INCLUDES = [
   'Free cancellation (flexible policy)',
 ]
 
+/* ── shared tokens ── */
+const gold = '#c9a84e'
+const goldFaint = 'rgba(201,168,78,0.12)'
+const goldBorder = 'rgba(201,168,78,0.22)'
+const textMuted = 'rgba(244,244,242,0.55)'
+const card = { background: '#0c1828', border: `1px solid ${goldBorder}`, borderRadius: '18px' }
+
 export default function HowItWorksPage() {
   return (
-    <div style={{ background: '#07101e' }}>
+    <div style={{ background: '#07101e', color: '#f4f4f2' }}>
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden py-24 px-4 text-center">
-        {/* Subtle radial glow */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,78,0.10) 0%, transparent 70%)',
-          }}
-        />
-        <div className="relative max-w-3xl mx-auto">
-          <div
-            className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full mb-6"
-            style={{ background: 'rgba(201,168,78,0.12)', color: '#c9a84e', border: '1px solid rgba(201,168,78,0.25)' }}
-          >
+      <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '100px', paddingBottom: '80px' }}>
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,78,0.10) 0%, transparent 70%)' }} />
+        <div style={{ position: 'relative', maxWidth: '680px', margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 600, padding: '6px 18px', borderRadius: '99px', marginBottom: '28px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}` }}>
             Simple · Secure · Trusted
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold mb-5 leading-tight" style={{ color: '#f4f4f2' }}>
-            How <span style={{ color: '#c9a84e' }}>BoatAway</span> works
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 800, marginBottom: '20px', lineHeight: 1.12, color: '#f4f4f2' }}>
+            How <span style={{ color: gold }}>BoatAway</span> works
           </h1>
-          <p className="text-lg" style={{ color: 'rgba(244,244,242,0.60)' }}>
+          <p style={{ fontSize: '17px', color: textMuted, lineHeight: 1.7, marginBottom: '36px' }}>
             The simplest way to book a verified boat charter — or earn money listing yours.
           </p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 30px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none', boxShadow: '0 6px 24px rgba(201,168,78,0.28)' }}>
+              Find a boat <ArrowRight style={{ width: '15px', height: '15px' }} />
+            </Link>
+            <Link href="/become-a-host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 30px', borderRadius: '99px', border: `1px solid ${goldBorder}`, color: 'rgba(244,244,242,0.80)', fontWeight: 600, fontSize: '14px', textDecoration: 'none', background: 'transparent' }}>
+              List my boat
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── For Renters ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-24">
+      {/* ── Gold divider ── */}
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
+      </div>
 
-        {/* Section label */}
-        <div className="flex items-center gap-3 mb-10">
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold"
-            style={{ background: 'rgba(201,168,78,0.15)', color: '#c9a84e', border: '1px solid rgba(201,168,78,0.25)' }}
-          >
-            R
-          </div>
-          <h2 className="text-2xl font-bold" style={{ color: '#f4f4f2' }}>For renters</h2>
+      {/* ── For Renters ── */}
+      <section style={{ maxWidth: '900px', margin: '0 auto', padding: '88px 24px 0' }}>
+
+        {/* Centered heading */}
+        <div style={{ textAlign: 'center', marginBottom: '52px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '16px' }}>
+            For renters
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.2 }}>
+            Book in 3 minutes, sail the same day
+          </h2>
         </div>
 
         {/* Steps grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '32px' }}>
           {RENTER_STEPS.map((step) => (
-            <div
-              key={step.num}
-              className="relative p-6 rounded-2xl transition-all duration-200 hover:[border-color:rgba(201,168,78,0.35)]"
-              style={{
-                background: '#0c1828',
-                border: '1px solid rgba(201,168,78,0.12)',
-              }}
-            >
-              {/* Large step number (background) */}
-              <span
-                className="absolute top-4 right-5 text-5xl font-black leading-none select-none"
-                style={{ color: 'rgba(201,168,78,0.07)' }}
-              >
+            <div key={step.num} style={{ ...card, position: 'relative', padding: '28px 24px 30px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <span style={{ position: 'absolute', top: '14px', right: '18px', fontSize: '2.8rem', fontWeight: 900, lineHeight: 1, userSelect: 'none', color: 'rgba(201,168,78,0.07)' }}>
                 {step.num}
               </span>
-
-              {/* Icon */}
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: 'rgba(201,168,78,0.12)' }}
-              >
-                <step.icon className="w-5 h-5" style={{ color: '#c9a84e' }} />
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: goldFaint, flexShrink: 0 }}>
+                <step.icon style={{ width: '20px', height: '20px', color: gold }} />
               </div>
-
-              <h3 className="font-bold text-base mb-2" style={{ color: '#f4f4f2' }}>{step.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.55)' }}>{step.desc}</p>
+              <h3 style={{ fontWeight: 700, fontSize: '15px', color: '#f4f4f2' }}>{step.title}</h3>
+              <p style={{ fontSize: '13px', lineHeight: 1.7, color: textMuted, margin: 0 }}>{step.desc}</p>
             </div>
           ))}
         </div>
 
-        {/* What's always included */}
-        <div
-          className="rounded-2xl p-6 mb-10"
-          style={{ background: 'rgba(201,168,78,0.06)', border: '1px solid rgba(201,168,78,0.18)' }}
-        >
-          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#c9a84e' }}>
+        {/* Always included */}
+        <div style={{ borderRadius: '18px', padding: '28px 32px', marginBottom: '44px', background: 'rgba(201,168,78,0.06)', border: `1px solid ${goldBorder}` }}>
+          <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '18px', color: gold }}>
             Always included — every charter
           </p>
-          <div className="flex flex-wrap gap-x-8 gap-y-2">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 36px' }}>
             {RENTER_INCLUDES.map((item) => (
-              <span key={item} className="flex items-center gap-2 text-sm" style={{ color: 'rgba(244,244,242,0.75)' }}>
-                <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: '#c9a84e' }} />
+              <span key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: 'rgba(244,244,242,0.78)' }}>
+                <CheckCircle2 style={{ width: '16px', height: '16px', flexShrink: 0, color: gold }} />
                 {item}
               </span>
             ))}
           </div>
         </div>
-
-        {/* CTA */}
-        <Link
-          href="/search"
-          className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-bold transition-all hover:scale-[1.03]"
-          style={{
-            background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
-            color: '#07101e',
-            boxShadow: '0 6px 24px rgba(201,168,78,0.30)',
-          }}
-        >
-          Find a boat <ArrowRight className="w-4 h-4" />
-        </Link>
       </section>
 
-      {/* Divider */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      {/* ── Gold divider ── */}
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
         <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
       </div>
 
       {/* ── For Hosts ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-24">
+      <section style={{ maxWidth: '900px', margin: '0 auto', padding: '88px 24px 100px' }}>
 
-        {/* Section label */}
-        <div className="flex items-center gap-3 mb-10">
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold"
-            style={{ background: 'rgba(201,168,78,0.15)', color: '#c9a84e', border: '1px solid rgba(201,168,78,0.25)' }}
-          >
-            H
-          </div>
-          <h2 className="text-2xl font-bold" style={{ color: '#f4f4f2' }}>For hosts</h2>
+        {/* Centered heading */}
+        <div style={{ textAlign: 'center', marginBottom: '52px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '16px' }}>
+            For hosts
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.2 }}>
+            Your boat earns while you keep the keys
+          </h2>
         </div>
 
         {/* Host steps */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '36px' }}>
           {HOST_STEPS.map((step) => (
-            <div
-              key={step.title}
-              className="p-6 rounded-2xl flex flex-col items-start gap-4"
-              style={{
-                background: '#0c1828',
-                border: '1px solid rgba(201,168,78,0.12)',
-              }}
-            >
-              {/* Icon + badge row */}
-              <div className="flex items-center justify-between w-full">
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center"
-                  style={{ background: 'rgba(201,168,78,0.12)' }}
-                >
-                  <step.icon className="w-5 h-5" style={{ color: '#c9a84e' }} />
+            <div key={step.title} style={{ ...card, padding: '28px 24px 30px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: goldFaint }}>
+                  <step.icon style={{ width: '20px', height: '20px', color: gold }} />
                 </div>
-                <span
-                  className="text-xs font-bold px-2.5 py-1 rounded-full"
-                  style={{ background: 'rgba(201,168,78,0.15)', color: '#c9a84e' }}
-                >
+                <span style={{ fontSize: '12px', fontWeight: 700, padding: '4px 12px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}` }}>
                   {step.badge}
                 </span>
               </div>
-
               <div>
-                <h3 className="font-bold mb-1.5" style={{ color: '#f4f4f2' }}>{step.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.55)' }}>{step.desc}</p>
+                <h3 style={{ fontWeight: 700, fontSize: '15px', color: '#f4f4f2', marginBottom: '8px' }}>{step.title}</h3>
+                <p style={{ fontSize: '13px', lineHeight: 1.7, color: textMuted, margin: 0 }}>{step.desc}</p>
               </div>
             </div>
           ))}
         </div>
 
         {/* Host CTA block */}
-        <div
-          className="rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
-          style={{
-            background: 'linear-gradient(135deg, #0e1e35 0%, #0c1828 100%)',
-            border: '1px solid rgba(201,168,78,0.22)',
-          }}
-        >
+        <div style={{ borderRadius: '20px', padding: '36px 40px', background: 'linear-gradient(135deg,#0e1e35,#0c1828)', border: `1px solid ${goldBorder}`, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
           <div>
-            <p className="font-bold text-lg mb-1" style={{ color: '#f4f4f2' }}>Start earning from your boat</p>
-            <p className="text-sm" style={{ color: 'rgba(244,244,242,0.55)' }}>
-              Free to list · You keep 85% · Payout in 7 days
-            </p>
+            <p style={{ fontWeight: 700, fontSize: '18px', color: '#f4f4f2', marginBottom: '6px' }}>Start earning from your boat</p>
+            <p style={{ fontSize: '14px', color: textMuted, margin: 0 }}>Free to list · You keep 85% · Payout in 7 days</p>
           </div>
-          <Link
-            href="/become-a-host"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-bold whitespace-nowrap transition-all hover:scale-[1.03]"
-            style={{
-              background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
-              color: '#07101e',
-              boxShadow: '0 6px 24px rgba(201,168,78,0.28)',
-            }}
-          >
-            Start hosting <ArrowRight className="w-4 h-4" />
+          <Link href="/become-a-host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, whiteSpace: 'nowrap', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', boxShadow: '0 6px 24px rgba(201,168,78,0.28)', textDecoration: 'none' }}>
+            Start hosting <ArrowRight style={{ width: '16px', height: '16px' }} />
           </Link>
         </div>
       </section>

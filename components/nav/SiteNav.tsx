@@ -146,11 +146,15 @@ export default function SiteNav() {
                 </Link>
                 <Link
                   href="/signup"
-                  className="inline-flex items-center gap-1.5 whitespace-nowrap px-8 py-2.5 text-sm font-bold rounded-full transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-bold rounded-full transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
                   style={{
                     background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
                     color: '#07101e',
                     boxShadow: '0 2px 14px rgba(201,168,78,0.22)',
+                    paddingTop: '10px',
+                    paddingBottom: '10px',
+                    paddingLeft: '28px',
+                    paddingRight: '28px',
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 22px rgba(201,168,78,0.45)'

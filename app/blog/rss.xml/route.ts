@@ -35,8 +35,8 @@ export async function GET(): Promise<NextResponse> {
     <link>${BASE_URL}/blog</link>
     <description>Practical guides, destination deep-dives, and in-depth reviews of every boat in the Marbella charter fleet. Updated weekly by BoatAway fleet captains and charter specialists.</description>
     <language>en-gb</language>
-    <managingEditor>hello@boathire24.com (BoatAway Editorial)</managingEditor>
-    <webMaster>hello@boathire24.com (BoatAway)</webMaster>
+    <managingEditor>info@boathire24.com (BoatAway Editorial)</managingEditor>
+    <webMaster>info@boathire24.com (BoatAway)</webMaster>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${BASE_URL}/blog/rss.xml" rel="self" type="application/rss+xml" />
     <image>

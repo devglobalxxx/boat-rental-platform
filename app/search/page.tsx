@@ -4,7 +4,7 @@ import BoatCard from '@/components/search/BoatCard'
 import Filters from '@/components/search/Filters'
 import SearchBar from '@/components/search/SearchBar'
 import type { BoatWithDetails } from '@/types/database'
-import { MapPin } from 'lucide-react'
+import { MapPin, Ship } from 'lucide-react'
 
 interface SearchPageProps {
   searchParams: Promise<{
@@ -36,11 +36,9 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
   if (params.type && params.type !== 'all') {
     query = query.eq('type', params.type as any)
   }
-
   if (params.instant === '1') {
     query = query.eq('instant_book', true)
   }
-
   if (params.capacity && params.capacity !== 'any') {
     const min = Number(params.capacity)
     query = query.gte('capacity_pax', min)
@@ -48,13 +46,10 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
     else if (min === 5) query = query.lte('capacity_pax', 8)
     else if (min === 9) query = query.lte('capacity_pax', 12)
   }
-
   if (params.guests) {
     query = query.gte('capacity_pax', Number(params.guests))
   }
-
   if (params.location) {
-    // Search by location city/name
     const { data: locations } = await supabase
       .from('locations')
       .select('id')
@@ -66,8 +61,6 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
 
   const { data, error } = await query.limit(48)
   if (error || !data) return []
-
-  // Add avg_rating and review_count (simplified — no join yet)
   return (data as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
 }
 
@@ -75,51 +68,72 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const params = await searchParams
   const boats = await getBoats(params)
 
+  const hasFilters = params.location || params.type || params.capacity || params.instant || params.date
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      {/* Search bar */}
-      <div className="mb-6">
-        <SearchBar
-          defaultLocation={params.location ?? ''}
-          defaultDate={params.date ?? ''}
-          defaultGuests={Number(params.guests ?? 2)}
-          compact
-        />
-      </div>
+    <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '36px 24px 96px' }}>
 
-      {/* Filters */}
-      <div className="mb-6">
-        <Suspense>
-          <Filters />
-        </Suspense>
-      </div>
+        {/* ── Search bar ── */}
+        <div style={{ marginBottom: '28px' }}>
+          <SearchBar
+            defaultLocation={params.location ?? ''}
+            defaultDate={params.date ?? ''}
+            defaultGuests={Number(params.guests ?? 2)}
+            compact
+          />
+        </div>
 
-      {/* Result count */}
-      <div className="flex items-center gap-2 mb-6 text-sm text-slate-500">
-        {params.location && (
-          <span className="flex items-center gap-1">
-            <MapPin className="w-3.5 h-3.5" />
-            {params.location}
+        {/* ── Filters ── */}
+        <div style={{ marginBottom: '32px' }}>
+          <Suspense>
+            <Filters />
+          </Suspense>
+        </div>
+
+        {/* ── Result meta ── */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px', flexWrap: 'wrap' }}>
+          {params.location && (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: 'rgba(244,244,242,0.50)', background: 'rgba(201,168,78,0.08)', border: '1px solid rgba(201,168,78,0.18)', borderRadius: '99px', padding: '4px 12px' }}>
+              <MapPin style={{ width: '12px', height: '12px' }} />
+              {params.location}
+            </span>
+          )}
+          {params.date && (
+            <span style={{ fontSize: '13px', color: 'rgba(244,244,242,0.40)', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '99px', padding: '4px 12px' }}>
+              {new Date(params.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </span>
+          )}
+          <span style={{ fontSize: '14px', fontWeight: 600, color: '#c9a84e', marginLeft: 'auto' }}>
+            {boats.length} boat{boats.length !== 1 ? 's' : ''} available
           </span>
-        )}
-        <span className="font-medium text-slate-900">{boats.length} boat{boats.length !== 1 ? 's' : ''}</span>
-        {params.date && <span>on {new Date(params.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>}
-      </div>
+        </div>
 
-      {/* Results */}
-      {boats.length === 0 ? (
-        <div className="text-center py-20">
-          <div className="text-6xl mb-4">⚓</div>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">No boats found</h2>
-          <p className="text-slate-500">Try adjusting your filters or searching a different location.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {boats.map((boat) => (
-            <BoatCard key={boat.id} boat={boat} />
-          ))}
-        </div>
-      )}
+        {/* ── Results ── */}
+        {boats.length === 0 ? (
+          <div style={{ textAlign: 'center', paddingTop: '96px', paddingBottom: '96px' }}>
+            <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+              <Ship style={{ width: '32px', height: '32px', color: '#c9a84e' }} />
+            </div>
+            <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f4f4f2', marginBottom: '12px' }}>No boats found</h2>
+            <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.45)', maxWidth: '360px', margin: '0 auto 32px', lineHeight: 1.65 }}>
+              Try adjusting your filters or searching a different location.
+            </p>
+            {hasFilters && (
+              <a href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '99px', background: 'rgba(201,168,78,0.12)', border: '1px solid rgba(201,168,78,0.25)', color: '#c9a84e', fontWeight: 600, fontSize: '14px', textDecoration: 'none' }}>
+                Clear all filters
+              </a>
+            )}
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
+            {boats.map((boat) => (
+              <BoatCard key={boat.id} boat={boat} />
+            ))}
+          </div>
+        )}
+
+      </div>
     </div>
   )
 }

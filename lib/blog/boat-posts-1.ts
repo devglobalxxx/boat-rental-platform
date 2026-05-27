@@ -235,7 +235,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     date:       'May 16, 2026',
     author:     'Miguel Ángel Torres',
     authorRole: 'Senior Fleet Captain, Marbella',
-    heroImage:  'https://images.unsplash.com/photo-1545436789-5a6c95fc1c68?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1523496922380-91d5afba98a3?w=1400&q=80',
     boatSlug:   'bandido',
     faqs: [
       { q: 'What fish can I catch on a Bandido offshore charter from Marbella?', a: 'The waters off Marbella hold bluefin tuna, mahi-mahi (dorado), wahoo, white marlin, and various species of shark depending on the season. Bottom fishing produces sea bream, snapper, and grouper.' },
@@ -429,7 +429,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     date:       'May 12, 2026',
     author:     'Carlos Mendoza',
     authorRole: 'BoatAway Fleet Captain, Marbella',
-    heroImage:  'https://images.unsplash.com/photo-1622987182830-84f0d9f59e34?w=1400&q=80',
+    heroImage:  'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1400&q=80',
     boatSlug:   'ferretti-94',
     faqs: [
       { q: 'Is the Ferretti 94 the largest yacht in Marbella?', a: 'Yes — at 29 metres, the Ferretti 94 is the largest boat available for charter from Puerto Banús in the BoatAway fleet.' },

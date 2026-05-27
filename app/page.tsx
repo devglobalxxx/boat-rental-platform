@@ -32,13 +32,15 @@ const Gold = ({ children }: { children: React.ReactNode }) => (
 const GoldBtn = ({ href, children, large }: { href: string; children: React.ReactNode; large?: boolean }) => (
   <Link
     href={href}
-    className={`inline-flex items-center gap-2 font-bold whitespace-nowrap rounded-full transition-all hover:scale-[1.03] active:scale-[0.97] ${large ? 'px-11 text-base' : 'px-7 text-sm'}`}
+    className={`inline-flex items-center gap-2 font-bold whitespace-nowrap rounded-full transition-all hover:scale-[1.03] active:scale-[0.97] ${large ? 'text-base' : 'text-sm'}`}
     style={{
       background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
       color: '#07101e',
       boxShadow: '0 6px 28px rgba(201,168,78,0.30)',
       paddingTop: large ? '18px' : '14px',
       paddingBottom: large ? '18px' : '14px',
+      paddingLeft: large ? '56px' : '32px',
+      paddingRight: large ? '56px' : '32px',
     }}
   >
     {children}
@@ -47,22 +49,24 @@ const GoldBtn = ({ href, children, large }: { href: string; children: React.Reac
 const GhostBtn = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <Link
     href={href}
-    className="inline-flex items-center gap-2 px-10 text-base font-semibold whitespace-nowrap rounded-full transition-all hover:text-[#c9a84e] hover:border-[rgba(201,168,78,0.55)]"
+    className="inline-flex items-center gap-2 text-base font-semibold whitespace-nowrap rounded-full transition-all hover:text-[#c9a84e] hover:border-[rgba(201,168,78,0.55)]"
     style={{
       border: '1px solid rgba(201,168,78,0.35)',
       color: 'rgba(244,244,242,0.82)',
       paddingTop: '17px',
       paddingBottom: '17px',
+      paddingLeft: '48px',
+      paddingRight: '48px',
     }}
   >
     {children}
   </Link>
 )
 const SectionHeader = ({ eyebrow, title, sub }: { eyebrow?: string; title: React.ReactNode; sub?: string }) => (
-  <div className="text-center mb-14">
+  <div className="mb-14" style={{ textAlign: 'center' }}>
     {eyebrow && <p className="eyebrow mb-4 mx-auto w-fit">{eyebrow}</p>}
     <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#f4f4f2' }}>{title}</h2>
-    {sub && <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)' }}>{sub}</p>}
+    {sub && <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)', textAlign: 'center' }}>{sub}</p>}
   </div>
 )
 
@@ -176,11 +180,11 @@ export default function HomePage() {
           <SectionHeader eyebrow="Choose your vessel" title={<>Charter by <Gold>Vessel Type</Gold></>} sub="Every charter begins with the right boat. We carry verified listings across every category — from open-deck speedboats for a sun-soaked afternoon to full-crew superyachts for a week-long expedition. Each vessel type offers a fundamentally different experience on the water, and choosing correctly is the single biggest factor in whether your day exceeds expectations or falls short of them." />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {BOAT_TYPES.map((t) => (
-              <Link key={t.slug} href={`/search?type=${t.slug}`} className="group glass-card p-6 block">
-                <div className="text-3xl mb-3">{t.icon}</div>
-                <h3 className="font-bold mb-2" style={{ color: '#f4f4f2' }}>{t.label}</h3>
+              <Link key={t.slug} href={`/search?type=${t.slug}`} className="group glass-card block" style={{ padding: '28px 28px 32px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="text-3xl">{t.icon}</div>
+                <h3 className="font-bold" style={{ color: '#f4f4f2' }}>{t.label}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.55)' }}>{t.desc}</p>
-                <div className="mt-4 text-xs font-semibold flex items-center gap-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: 'rgba(201,168,78,0.70)' }}>
+                <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: 'rgba(201,168,78,0.70)', marginTop: '4px' }}>
                   Browse {t.label}s <ChevronRight className="w-3.5 h-3.5" />
                 </div>
               </Link>
@@ -201,12 +205,12 @@ export default function HomePage() {
               { n: '02', icon: Shield,  title: 'Book Securely',      body: 'Select your date and duration from the live availability calendar. Review the full price breakdown — charter fee, platform service fee, and any included extras such as skipper, fuel, or catering — before you commit. Pay securely with your credit card, Apple Pay, or Google Pay. Funds are held by Stripe and released to the host only after your charter day, protecting your money at every step of the process.' },
               { n: '03', icon: Anchor,  title: 'Set Sail',           body: 'Your confirmation arrives instantly with the captain\'s direct contact number, marina coordinates in Google Maps format, and a pre-departure checklist. Arrive at the marina, meet your fully licensed and locally experienced skipper, and cast off. Navigation, safety, and local knowledge are entirely handled for you from that moment forward. Your only job is to decide where to go next and enjoy every second of it.' },
             ].map((step) => (
-              <div key={step.n} className="glass-card p-8">
-                <div className="flex items-center gap-3 mb-5">
+              <div key={step.n} className="glass-card" style={{ padding: '28px 28px 36px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div className="flex items-center gap-3">
                   <span className="text-4xl font-bold" style={{ color: 'rgba(201,168,78,0.18)' }}>{step.n}</span>
                   <step.icon className="w-6 h-6" style={{ color: '#c9a84e' }} />
                 </div>
-                <h3 className="text-xl font-bold mb-4" style={{ color: '#f4f4f2' }}>{step.title}</h3>
+                <h3 className="text-xl font-bold" style={{ color: '#f4f4f2' }}>{step.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.60)' }}>{step.body}</p>
               </div>
             ))}
@@ -235,9 +239,9 @@ export default function HomePage() {
                     <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: '#c9a84e', color: '#07101e' }}>{dest.count}</span>
                   </div>
                 </div>
-                <div className="p-5">
+                <div style={{ padding: '28px 28px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)' }}>{dest.desc}</p>
-                  <div className="mt-4 text-xs font-semibold flex items-center gap-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: 'rgba(201,168,78,0.65)' }}>
+                  <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: 'rgba(201,168,78,0.65)' }}>
                     View fleet in {dest.city} <ChevronRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
@@ -253,7 +257,7 @@ export default function HomePage() {
           <SectionHeader eyebrow="Our commitment" title={<>Why Charter with <Gold>BoatAway?</Gold></>} sub="The charter market has a transparency problem — prices hidden behind enquiry forms, stock-photo listings, and invented availability. We built BoatAway to fix every one of those problems from the ground up." />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TRUST_ITEMS.map((item) => (
-              <div key={item.title} className="glass-card p-6">
+              <div key={item.title} className="glass-card" style={{ padding: '32px' }}>
                 <item.icon className="w-6 h-6 mb-4" style={{ color: '#c9a84e' }} />
                 <h3 className="font-bold mb-2" style={{ color: '#f4f4f2' }}>{item.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)' }}>{item.body}</p>
@@ -306,14 +310,14 @@ export default function HomePage() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={post.img} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
+                <div style={{ padding: '28px 28px 24px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  <div className="flex items-center justify-between">
                     <span className="eyebrow text-xs">{post.tag}</span>
                     <span className="text-xs" style={{ color: 'rgba(244,244,242,0.40)' }}>{post.read} read</span>
                   </div>
-                  <h3 className="font-bold leading-snug mb-3" style={{ color: '#f4f4f2' }}>{post.title}</h3>
+                  <h3 className="font-bold leading-snug" style={{ color: '#f4f4f2' }}>{post.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.55)' }}>{post.excerpt}</p>
-                  <div className="mt-4 text-xs font-semibold flex items-center gap-1 group-hover:text-[#f4f4f2] transition-colors" style={{ color: '#c9a84e' }}>Read article <ChevronRight className="w-3.5 h-3.5" /></div>
+                  <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#f4f4f2] transition-colors" style={{ color: '#c9a84e' }}>Read article <ChevronRight className="w-3.5 h-3.5" /></div>
                 </div>
               </Link>
             ))}
@@ -400,29 +404,35 @@ export default function HomePage() {
       <div className="gold-line" />
 
       {/* ══ 10 · FAQ ══ */}
-      <section className="section">
-        <div className="container max-w-3xl">
+      <section className="section" style={{ background: 'rgba(201,168,78,0.025)' }}>
+        <div className="container" style={{ maxWidth: '760px', marginLeft: 'auto', marginRight: 'auto' }}>
           <SectionHeader eyebrow="Questions answered" title={<>Common <Gold>Questions</Gold></>} />
-          <div className="space-y-3">
-            {FAQS.map((faq) => (
-              <details key={faq.q} className="glass-card group" style={{ borderRadius: '14px' }}>
-                <summary className="flex items-center justify-between p-6 cursor-pointer list-none font-semibold" style={{ color: '#f4f4f2' }}>
-                  {faq.q}
-                  <ChevronRight className="w-4 h-4 shrink-0 transition-transform group-open:rotate-90" style={{ color: '#c9a84e' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {FAQS.map((faq, i) => (
+              <details key={faq.q} className="glass-card group" style={{ borderRadius: '16px', overflow: 'hidden' }}>
+                <summary style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 28px', cursor: 'pointer', listStyle: 'none', gap: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '34px', height: '34px', borderRadius: '50%', background: 'rgba(201,168,78,0.13)', color: '#c9a84e', fontSize: '12px', fontWeight: 700, flexShrink: 0, letterSpacing: '0.03em' }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span style={{ fontWeight: 600, fontSize: '15px', color: '#f4f4f2', lineHeight: 1.4 }}>{faq.q}</span>
+                  </div>
+                  <ChevronRight className="w-5 h-5 shrink-0 transition-transform group-open:rotate-90" style={{ color: '#c9a84e' }} />
                 </summary>
-                <div className="px-6 pb-6 -mt-2">
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.62)' }}>{faq.a}</p>
+                <div style={{ padding: '4px 28px 26px 78px' }}>
+                  <p style={{ fontSize: '14px', lineHeight: '1.75', color: 'rgba(244,244,242,0.62)' }}>{faq.a}</p>
                 </div>
               </details>
             ))}
           </div>
-          <div className="mt-12 text-center">
-            <p className="text-sm mb-2" style={{ color: 'rgba(244,244,242,0.50)' }}>
-            Can&apos;t find the answer above? Our charter specialists are available by WhatsApp, email, and phone
-            seven days a week from 08:00 to 22:00. We know our fleet personally and can help you choose the right
-            vessel, departure time, and itinerary for your specific occasion — at no charge, with no sales pressure.
-          </p>
-          <p className="text-sm mb-4" style={{ color: 'rgba(244,244,242,0.50)' }}>Response time is typically under one hour during operating hours.</p>
+
+          {/* Still have questions card */}
+          <div style={{ marginTop: '44px', background: 'rgba(201,168,78,0.07)', border: '1px solid rgba(201,168,78,0.20)', borderRadius: '20px', padding: '36px 32px', textAlign: 'center' }}>
+            <div style={{ fontSize: '30px', marginBottom: '14px', lineHeight: 1 }}>💬</div>
+            <h3 style={{ fontWeight: 700, fontSize: '18px', color: '#f4f4f2', marginBottom: '10px' }}>Still have questions?</h3>
+            <p style={{ fontSize: '14px', color: 'rgba(244,244,242,0.55)', lineHeight: '1.65', maxWidth: '420px', marginLeft: 'auto', marginRight: 'auto', marginBottom: '22px' }}>
+              Our charter specialists are on hand 7 days a week, 08:00–22:00. Reach us by WhatsApp, email, or phone — we typically reply within the hour.
+            </p>
             <GhostBtn href="/contact">Contact support</GhostBtn>
           </div>
         </div>
