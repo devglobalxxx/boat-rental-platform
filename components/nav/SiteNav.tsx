@@ -79,7 +79,7 @@ export default function SiteNav() {
           </nav>
 
           {/* Desktop auth */}
-          <div className="hidden md:flex items-center gap-2.5">
+          <div className="hidden md:flex items-center gap-2.5 pr-1">
             {user ? (
               <div className="relative">
                 <button

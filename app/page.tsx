@@ -32,7 +32,7 @@ const Gold = ({ children }: { children: React.ReactNode }) => (
 const GoldBtn = ({ href, children, large }: { href: string; children: React.ReactNode; large?: boolean }) => (
   <Link
     href={href}
-    className={`inline-flex items-center gap-2 font-bold whitespace-nowrap rounded-full transition-all hover:scale-[1.03] active:scale-[0.97] ${large ? 'px-11 py-5 text-base' : 'px-7 py-3.5 text-sm'}`}
+    className={`inline-flex items-center gap-2 font-bold whitespace-nowrap rounded-full transition-all hover:scale-[1.03] active:scale-[0.97] ${large ? 'px-11 py-[18px] text-base' : 'px-7 py-3.5 text-sm'}`}
     style={{
       background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
       color: '#07101e',
@@ -45,7 +45,7 @@ const GoldBtn = ({ href, children, large }: { href: string; children: React.Reac
 const GhostBtn = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <Link
     href={href}
-    className="inline-flex items-center gap-2 px-10 py-5 text-sm font-semibold whitespace-nowrap rounded-full transition-all hover:text-[#c9a84e] hover:border-[rgba(201,168,78,0.55)]"
+    className="inline-flex items-center gap-2 px-10 py-[17px] text-base font-semibold whitespace-nowrap rounded-full transition-all hover:text-[#c9a84e] hover:border-[rgba(201,168,78,0.55)]"
     style={{ border: '1px solid rgba(201,168,78,0.35)', color: 'rgba(244,244,242,0.82)' }}
   >
     {children}
