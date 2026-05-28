@@ -95,8 +95,8 @@ def drive_service(creds):
 
 
 def list_drive_media(drive, folder_id: str) -> list:
-    """All image/video files in the shared media-pool folder. Files must be shared
-    'anyone with the link' so they render on the public blog."""
+    """Image/video files in the shared media-pool folder, normalized to
+    {type, url}. Files must be shared 'anyone with the link' to render publicly."""
     files, page = [], None
     q = (f"'{folder_id}' in parents and trashed=false and "
          f"(mimeType contains 'image/' or mimeType contains 'video/')")
@@ -110,53 +110,72 @@ def list_drive_media(drive, folder_id: str) -> list:
         page = resp.get("nextPageToken")
         if not page:
             break
-    return files
+    media = []
+    for f in files:
+        if f["mimeType"].startswith("video/"):
+            media.append({"type": "video", "url": f"https://drive.google.com/file/d/{f['id']}/preview"})
+        else:
+            media.append({"type": "image", "url": f"https://lh3.googleusercontent.com/d/{f['id']}=w1200"})
+    return media
 
 
-def media_for(slug: str, media: list, n_images: int = 3) -> tuple[str, str]:
-    """Deterministic per-slug selection: returns (hero_html, inline_html)."""
+def _img(url: str, alt: str) -> str:
+    return f'<p><img src="{url}" alt="{alt}" style="max-width:100%;height:auto" /></p>'
+
+
+def _video(url: str) -> str:
+    return (f'<p><iframe src="{url}" width="640" height="360" allow="autoplay" '
+            f'style="max-width:100%"></iframe></p>')
+
+
+def media_for(slug: str, media: list, n: int = 3) -> tuple[str, str]:
+    """Deterministic per-slug selection from a normalized [{type,url}] pool
+    (Drive + open-library blended). Returns (hero_html, inline_html)."""
     if not media:
         return "", ""
-    imgs = [m for m in media if m["mimeType"].startswith("image/")]
-    vids = [m for m in media if m["mimeType"].startswith("video/")]
+    imgs = [m for m in media if m["type"] == "image"]
+    vids = [m for m in media if m["type"] == "video"]
     h = int(hashlib.md5(slug.encode()).hexdigest(), 16)
     hero, inline = "", ""
     if imgs:
-        sel = [imgs[(h + i) % len(imgs)] for i in range(min(n_images, len(imgs)))]
-        hero = (f'<p><img src="https://lh3.googleusercontent.com/d/{sel[0]["id"]}=w1200" '
-                f'alt="{slug}" style="max-width:100%;height:auto" /></p>')
-        for m in sel[1:]:
-            inline += (f'<p><img src="https://lh3.googleusercontent.com/d/{m["id"]}=w1000" '
-                       f'alt="{slug}" style="max-width:100%;height:auto" /></p>')
+        sel = [imgs[(h + i) % len(imgs)] for i in range(min(n, len(imgs)))]
+        # de-dup while preserving order
+        seen, picks = set(), []
+        for m in sel:
+            if m["url"] not in seen:
+                seen.add(m["url"]); picks.append(m)
+        hero = _img(picks[0]["url"], slug)
+        for m in picks[1:]:
+            inline += _img(m["url"], slug)
     if vids:
-        v = vids[h % len(vids)]
-        inline += (f'<p><iframe src="https://drive.google.com/file/d/{v["id"]}/preview" '
-                   f'width="640" height="360" allow="autoplay" style="max-width:100%"></iframe></p>')
+        inline += _video(vids[h % len(vids)]["url"])
     return hero, inline
 
 
-def fallback_hero(item: dict) -> str:
-    """Use the page's own heroImage (set by the generator) when no Drive media exists."""
-    url = item.get("heroImage")
-    if not url:
-        return ""
-    return (f'<p><img src="{url}" alt="{item.get("title", item.get("slug", ""))}" '
-            f'style="max-width:100%;height:auto" /></p>')
+def combined_media(item: dict, drive_media: list, stock_n: int = 3) -> list:
+    """Blend the Drive pool with open-license images keyed to the page's topic."""
+    from stock_images import open_library_images
+    query = item.get("keyword") or item.get("primary_keyword") or item.get("title") or ""
+    pool = list(drive_media)
+    # Page's own generator heroImage first (kept as one option in the blend).
+    if item.get("heroImage"):
+        pool.append({"type": "image", "url": item["heroImage"]})
+    for u in open_library_images(query, n=stock_n):
+        pool.append({"type": "image", "url": u})
+    return pool
 
 
-def render_post_html(post: dict, media: list) -> str:
-    hero, inline = media_for(post["slug"], media)
-    if not hero:
-        hero = fallback_hero(post)
+def render_post_html(post: dict, drive_media: list) -> str:
+    pool = combined_media(post, drive_media)
+    hero, inline = media_for(post["slug"], pool)
     return _render(post.get("content", ""), post.get("faqs"),
                    f"{BASE_URL}/blog/{post['slug']}", hero, inline)
 
 
-def render_page_html(page: dict, media: list) -> str:
+def render_page_html(page: dict, drive_media: list) -> str:
     body = (page.get("intro", "") or "") + "\n" + (page.get("bodyHtml", "") or "")
-    hero, inline = media_for(page["slug"], media)
-    if not hero:
-        hero = fallback_hero(page)
+    pool = combined_media(page, drive_media)
+    hero, inline = media_for(page["slug"], pool)
     return _render(body, page.get("faqs"), f"{BASE_URL}/{page['slug']}", hero, inline)
 
 

@@ -270,6 +270,18 @@ def expand_html(system: str, item: dict, existing: str, min_words: int = 2000, t
     return html
 
 
+def pick_hero(keyword: str) -> str:
+    """Open-license image keyed to the topic; falls back to the curated pool."""
+    try:
+        from stock_images import open_library_images
+        urls = open_library_images(keyword, n=3)
+        if urls:
+            return random.choice(urls)
+    except Exception:
+        pass
+    return random.choice(HERO_IMAGES)
+
+
 def gen_blog(item: dict) -> dict:
     system = blog_system()
     data = extract_json(call_model(system, build_blog_user(item)))
@@ -286,7 +298,7 @@ def gen_blog(item: dict) -> dict:
         "date": datetime.date.today().strftime("%B %d, %Y"),
         "author": author,
         "authorRole": role,
-        "heroImage": random.choice(HERO_IMAGES),
+        "heroImage": pick_hero(item["primary_keyword"]),
         "content": content,
         "faqs": [{"q": clean_html(f.get("q", "")), "a": clean_html(f.get("a", ""))} for f in data.get("faqs", [])],
     }
@@ -307,7 +319,7 @@ def gen_landing(item: dict) -> dict:
         "keyword": item["primary_keyword"],
         "intro": intro,
         "bodyHtml": body,
-        "heroImage": random.choice(HERO_IMAGES),
+        "heroImage": pick_hero(item["primary_keyword"]),
         "faqs": [{"q": clean_html(f.get("q", "")), "a": clean_html(f.get("a", ""))} for f in data.get("faqs", [])],
         "date": datetime.date.today().isoformat(),
     }
