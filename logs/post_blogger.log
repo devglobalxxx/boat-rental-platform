@@ -6,3 +6,22 @@
 [2026-05-28 11:51:42]   ✓ page https://boathire24.blogspot.com/p/yacht-charter-puerto-banus-day-sunset.html
 [2026-05-28 11:51:42] Blogger: 2/2 published
 [2026-05-28 12:00:16] login OK — token saved
+[2026-05-28 21:03:07] Blogger: publishing 9 post(s) + 8 page(s) to blog 4858233363667605156
+[2026-05-28 21:03:08]   ✓ post https://blog.boathire24.com/2026/05/marbella-vs-puerto-banus-which.html
+[2026-05-28 21:03:11]   ✓ post https://blog.boathire24.com/2026/05/how-much-does-yacht-charter-in-marbella.html
+[2026-05-28 21:03:12]   ✓ post https://blog.boathire24.com/2026/05/dolphin-watching-boat-trips-from.html
+[2026-05-28 21:03:16]   ✓ post https://blog.boathire24.com/2026/05/what-to-pack-for-boat-day-on-costa-del.html
+[2026-05-28 21:03:18]   ✓ post https://blog.boathire24.com/2026/05/catamaran-vs-motor-yacht-which-to.html
+[2026-05-28 21:03:19]   ✗ post best-anchorages-near-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:20]   ✗ post do-you-need-licence-to-rent-boat-spain: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:22]   ✗ post stag-hen-boat-party-ideas-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:24]   ✗ post family-boat-day-marbella-guide: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:24]   ✗ page boat-rental-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/pages?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:24]   ✗ page catamaran-charter-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/pages?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:24]   ✗ page sunset-boat-trip-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/pages?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:25]   ✗ page luxury-yacht-rental-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/pages?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:25]   ✗ page fishing-charter-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/pages?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:25]   ✗ page licence-free-boat-hire-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/pages?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:25]   ✗ page private-boat-party-marbella: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/pages?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:25]   ✗ page boat-hire-estepona: HttpError: <HttpError 429 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/pages?isDraft=false&alt=json returned "Resource has been exhausted (e
+[2026-05-28 21:03:25] Blogger: 5/17 published
