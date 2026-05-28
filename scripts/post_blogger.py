@@ -138,13 +138,19 @@ def media_for(slug: str, media: list, n: int = 3) -> tuple[str, list]:
     h = int(hashlib.md5(slug.encode()).hexdigest(), 16)
     hero, inline = "", []
     if imgs:
-        sel = [imgs[(h + i) % len(imgs)] for i in range(min(n, len(imgs)))]
-        seen, picks = set(), []
-        for m in sel:
-            if m["url"] not in seen:
-                seen.add(m["url"]); picks.append(m)
-        hero = _img(picks[0]["url"], slug)
-        inline = [_img(m["url"], slug) for m in picks[1:]]
+        # Hero = first image in pool order (Drive or the page's own boat heroImage),
+        # which is always relevant. Inline = hash-rotated selection of the rest.
+        hero = _img(imgs[0]["url"], slug)
+        rest = imgs[1:]
+        picks, seen = [], {imgs[0]["url"]}
+        for i in range(len(rest)):
+            m = rest[(h + i) % len(rest)]
+            if m["url"] in seen:
+                continue
+            seen.add(m["url"]); picks.append(m)
+            if len(picks) >= max(0, n - 1):
+                break
+        inline = [_img(m["url"], slug) for m in picks]
     if vids:
         inline.append(_video(vids[h % len(vids)]["url"]))
     return hero, inline

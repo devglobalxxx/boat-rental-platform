@@ -38,13 +38,20 @@ def _save(d: dict):
         pass
 
 
-# Only keep open-library images whose title/tags actually relate to boating —
-# Openverse "boat" queries otherwise return graffiti, gym photos, etc.
-RELEVANT = {
-    "boat", "boats", "yacht", "yachts", "sail", "sailing", "sailboat", "catamaran",
-    "marina", "harbour", "harbor", "port", "sea", "ocean", "coast", "coastal",
-    "beach", "water", "ship", "vessel", "cruise", "nautical", "marine", "dock",
-    "speedboat", "motorboat", "dinghy", "regatta", "anchor", "deck", "bay",
+# Only keep open-library images that clearly show a vessel/marina — Openverse
+# "boat" queries otherwise return graffiti, gym photos, business meetings, etc.
+# Require a STRONG vessel term (weak words like "water"/"coast"/"deck" caused
+# false positives), and reject obvious non-boat subjects.
+STRONG = {
+    "boat", "boats", "yacht", "yachts", "sail", "sailing", "sailboat", "sailboats",
+    "catamaran", "catamarans", "ship", "ships", "vessel", "vessels", "speedboat",
+    "motorboat", "dinghy", "regatta", "marina", "marinas", "harbour", "harbor",
+    "schooner", "sloop", "powerboat", "watercraft",
+}
+BLOCK = {
+    "meeting", "office", "business", "conference", "graffiti", "gym", "workout",
+    "person", "people", "man", "woman", "portrait", "wedding", "food", "car",
+    "building", "street", "indoor", "desk", "computer",
 }
 
 
@@ -52,7 +59,9 @@ def _is_relevant(item: dict) -> bool:
     text = (item.get("title") or "").lower()
     tags = " ".join(t.get("name", "") for t in (item.get("tags") or [])).lower()
     blob = f"{text} {tags}"
-    return any(w in blob for w in RELEVANT)
+    if any(b in blob for b in BLOCK):
+        return False
+    return any(w in blob for w in STRONG)
 
 
 def _fetch(query: str, n: int) -> list[str]:
