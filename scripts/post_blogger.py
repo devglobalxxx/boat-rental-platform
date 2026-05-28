@@ -135,8 +135,19 @@ def media_for(slug: str, media: list, n_images: int = 3) -> tuple[str, str]:
     return hero, inline
 
 
+def fallback_hero(item: dict) -> str:
+    """Use the page's own heroImage (set by the generator) when no Drive media exists."""
+    url = item.get("heroImage")
+    if not url:
+        return ""
+    return (f'<p><img src="{url}" alt="{item.get("title", item.get("slug", ""))}" '
+            f'style="max-width:100%;height:auto" /></p>')
+
+
 def render_post_html(post: dict, media: list) -> str:
     hero, inline = media_for(post["slug"], media)
+    if not hero:
+        hero = fallback_hero(post)
     return _render(post.get("content", ""), post.get("faqs"),
                    f"{BASE_URL}/blog/{post['slug']}", hero, inline)
 
@@ -144,6 +155,8 @@ def render_post_html(post: dict, media: list) -> str:
 def render_page_html(page: dict, media: list) -> str:
     body = (page.get("intro", "") or "") + "\n" + (page.get("bodyHtml", "") or "")
     hero, inline = media_for(page["slug"], media)
+    if not hero:
+        hero = fallback_hero(page)
     return _render(body, page.get("faqs"), f"{BASE_URL}/{page['slug']}", hero, inline)
 
 
