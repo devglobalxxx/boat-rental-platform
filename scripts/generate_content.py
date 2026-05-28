@@ -271,26 +271,29 @@ def expand_html(system: str, item: dict, existing: str, min_words: int = 2000, t
 
 
 def _siblings(exclude_slug: str) -> list[dict]:
-    """Existing/planned pages to cross-link to: [{href, anchor}]."""
-    out = []
+    """Pages to cross-link to: already-PUBLISHED pages first (won't 404), then
+    queued/planned topics only to top up. Each item: {href, anchor}."""
+    published, queued = [], []
     try:
         for it in json.loads(BLOG_STORE.read_text()):
-            out.append({"href": f"/blog/{it['slug']}/", "anchor": it.get("title", it["slug"])})
+            published.append({"href": f"/blog/{it['slug']}/", "anchor": it.get("title", it["slug"])})
     except Exception:
         pass
     try:
         for it in json.loads(LANDING_STORE.read_text()):
-            out.append({"href": f"/{it['slug']}/", "anchor": it.get("h1") or it.get("title", it["slug"])})
+            published.append({"href": f"/{it['slug']}/", "anchor": it.get("h1") or it.get("title", it["slug"])})
     except Exception:
         pass
     try:
         cfg = json.loads(QUEUE_PATH.read_text())
         for it in cfg.get("queue", []):
             href = f"/blog/{it['slug']}/" if it.get("kind") == "blog" else f"/{it['slug']}/"
-            out.append({"href": href, "anchor": it.get("title", it["slug"])})
+            queued.append({"href": href, "anchor": it.get("title", it["slug"])})
     except Exception:
         pass
-    return [s for s in out if exclude_slug not in s["href"]]
+    # published first, queued as fallback fill
+    ordered = published + queued
+    return [s for s in ordered if exclude_slug not in s["href"]]
 
 
 def add_internal_links(html: str, item: dict) -> str:
@@ -302,13 +305,12 @@ def add_internal_links(html: str, item: dict) -> str:
             html = re.sub(r"(?<!>)BoatHire24(?!<)", '<a href="/">BoatHire24</a>', html, count=1)
         else:
             html = (f'<p>Browse the full fleet at <a href="/">BoatHire24</a>.</p>\n' + html)
-    # 2) Related cluster — up to 4 sibling cross-links chosen deterministically.
+    # 2) Related cluster — up to 4 sibling cross-links. _siblings returns
+    # published pages first, so taking them in order prefers live (non-404) links.
     sibs = _siblings(item["slug"])
     if sibs:
-        h = int(hashlib.md5(item["slug"].encode()).hexdigest(), 16)
         picks, seen = [], set()
-        for i in range(len(sibs)):
-            s = sibs[(h + i) % len(sibs)]
+        for s in sibs:
             if s["href"] in seen:
                 continue
             seen.add(s["href"]); picks.append(s)
@@ -354,6 +356,39 @@ def gen_blog(item: dict) -> dict:
     }
 
 
+# ---------- semantic dedupe guard ----------
+STOP = {"the", "a", "an", "in", "to", "of", "for", "and", "boat", "marbella", "hire", "rental", "charter"}
+
+
+def _kw_tokens(text: str) -> set:
+    return {w for w in re.findall(r"[a-z0-9]+", (text or "").lower()) if w not in STOP and len(w) > 2}
+
+
+def existing_keyword_sets() -> list[set]:
+    sets = []
+    for path in (BLOG_STORE, LANDING_STORE):
+        try:
+            for it in json.loads(path.read_text()):
+                sets.append(_kw_tokens(f"{it.get('keyword') or it.get('title','')} {it.get('title','')}"))
+        except Exception:
+            pass
+    return [s for s in sets if s]
+
+
+def is_near_duplicate(item: dict, existing: list[set], threshold: float = 0.7) -> bool:
+    """Jaccard token overlap on keyword+title vs already-published pages."""
+    a = _kw_tokens(f"{item.get('primary_keyword','')} {item.get('title','')}")
+    if not a:
+        return False
+    for b in existing:
+        if not b:
+            continue
+        j = len(a & b) / len(a | b)
+        if j >= threshold:
+            return True
+    return False
+
+
 def gen_landing(item: dict) -> dict:
     system = landing_system()
     data = extract_json(call_model(system, build_landing_user(item)))
@@ -394,6 +429,8 @@ def refill_queue(queue_cfg: dict, n: int, existing_slugs: set) -> list[dict]:
               "Mix ~50% blog, ~50% landing. Landing = commercial intent (rent/charter/hire/price). "
               "Return JSON array only.")
     arr = extract_json(call_model(sys_p, user_p, timeout_s=300), kind="array")
+    # Semantic dedupe: reject topics too similar to existing pages or to each other.
+    kw_sets = existing_keyword_sets()
     cleaned = []
     for it in arr:
         slug = (it.get("slug") or "").strip("/").replace("blog/", "")
@@ -401,13 +438,17 @@ def refill_queue(queue_cfg: dict, n: int, existing_slugs: set) -> list[dict]:
             continue
         if not it.get("primary_keyword") or not it.get("title"):
             continue
+        cand = {"primary_keyword": it["primary_keyword"].strip(), "title": it["title"].strip()}
+        if is_near_duplicate(cand, kw_sets):
+            continue
         cleaned.append({
             "kind": it["kind"], "slug": slug,
-            "primary_keyword": it["primary_keyword"].strip(),
-            "title": it["title"].strip(),
+            "primary_keyword": cand["primary_keyword"],
+            "title": cand["title"],
             "target_words": int(it.get("target_words") or 1100),
         })
         seen.add(slug)
+        kw_sets.append(_kw_tokens(f"{cand['primary_keyword']} {cand['title']}"))
     return cleaned
 
 
@@ -478,6 +519,7 @@ def main():
     blog_store = load_store(BLOG_STORE)
     landing_store = load_store(LANDING_STORE)
     have = {b.get("slug") for b in blog_store} | {l.get("slug") for l in landing_store}
+    kw_sets = existing_keyword_sets()   # for semantic dedupe
 
     succeeded, failed = [], []
     for i, item in enumerate(batch, 1):
@@ -485,6 +527,10 @@ def main():
         if item["slug"] in have:
             log("  (already exists, skipping)")
             succeeded.append(item)
+            continue
+        if is_near_duplicate(item, kw_sets):
+            log(f"  (near-duplicate topic, skipping: {item['primary_keyword']})")
+            succeeded.append(item)   # drop from queue, don't generate
             continue
         if args.dry_run:
             log("  (dry-run)")
@@ -495,6 +541,7 @@ def main():
             else:
                 landing_store.append(gen_landing(item))
             have.add(item["slug"])
+            kw_sets.append(_kw_tokens(f"{item['primary_keyword']} {item['title']}"))
             succeeded.append(item)
             log("  ✓ generated")
         except Exception as e:
