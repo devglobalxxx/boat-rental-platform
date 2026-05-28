@@ -20,7 +20,7 @@ Usage:
   python3 scripts/post_blogger.py --login
 """
 from __future__ import annotations
-import argparse, datetime, hashlib, json, os, pathlib, re, sys
+import argparse, datetime, hashlib, json, os, pathlib, re, sys, time
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BLOG_STORE = ROOT / "lib" / "blog" / "auto-posts.json"
@@ -299,27 +299,45 @@ def main():
         return 0
 
     log(f"Blogger: publishing {len(todo_posts)} post(s) + {len(todo_pages)} page(s) to blog {blog_id}")
+    throttle = float(os.environ.get("BLOGGER_THROTTLE", "6"))   # seconds between writes
     ok = 0
+
+    def insert_with_retry(request, label: str) -> bool:
+        """Execute a Blogger write, backing off on 429/quota errors. Returns True on success."""
+        nonlocal ok
+        delay = 30
+        for attempt in range(6):
+            try:
+                res = request().execute()
+                ok += 1
+                log(f"  ✓ {label} {res.get('url')}")
+                return True
+            except Exception as e:
+                msg = str(e)
+                is_quota = "429" in msg or "exhausted" in msg.lower() or "rateLimit" in msg or "quota" in msg.lower()
+                if is_quota and attempt < 5:
+                    log(f"  … rate limited on {label}; backing off {delay}s (attempt {attempt+1}/5)")
+                    time.sleep(delay)
+                    delay = min(delay * 2, 600)
+                    continue
+                log(f"  ✗ {label}: {type(e).__name__}: {msg[:140]}")
+                return False
+        return False
+
     # ── Blogger posts (from blog articles) ──
     for p in todo_posts:
-        try:
-            body = {"kind": "blogger#post", "title": p["title"], "content": render_post_html(p, media)}
-            res = svc.posts().insert(blogId=blog_id, body=body, isDraft=False).execute()
+        body = {"kind": "blogger#post", "title": p["title"], "content": render_post_html(p, media)}
+        if insert_with_retry(lambda b=body: svc.posts().insert(blogId=blog_id, body=b, isDraft=False), f"post {p['slug']}"):
             posted.add(f"post:{p['slug']}")
-            ok += 1
-            log(f"  ✓ post {res.get('url')}")
-        except Exception as e:
-            log(f"  ✗ post {p['slug']}: {type(e).__name__}: {str(e)[:160]}")
+            save_posted(posted)   # persist progress so a later failure doesn't repost
+            time.sleep(throttle)
     # ── Blogger pages (from keyword landing pages) ──
     for p in todo_pages:
-        try:
-            body = {"kind": "blogger#page", "title": p["title"], "content": render_page_html(p, media)}
-            res = svc.pages().insert(blogId=blog_id, body=body, isDraft=False).execute()
+        body = {"kind": "blogger#page", "title": p["title"], "content": render_page_html(p, media)}
+        if insert_with_retry(lambda b=body: svc.pages().insert(blogId=blog_id, body=b, isDraft=False), f"page {p['slug']}"):
             posted.add(f"page:{p['slug']}")
-            ok += 1
-            log(f"  ✓ page {res.get('url')}")
-        except Exception as e:
-            log(f"  ✗ page {p['slug']}: {type(e).__name__}: {str(e)[:160]}")
+            save_posted(posted)
+            time.sleep(throttle)
     save_posted(posted)
     log(f"Blogger: {ok}/{len(todo_posts) + len(todo_pages)} published")
     return 0
