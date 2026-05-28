@@ -199,8 +199,12 @@ export function getAllSlugs(): string[] {
 
 import { BOAT_POSTS_1 } from './boat-posts-1'
 import { BOAT_POSTS_2 } from './boat-posts-2'
+import autoPostsRaw from './auto-posts.json'
 
-export const ALL_POSTS: BlogPost[] = [...POSTS, ...BOAT_POSTS_1, ...BOAT_POSTS_2]
+// Auto-generated posts (appended daily by scripts/generate_content.py)
+export const AUTO_POSTS: BlogPost[] = autoPostsRaw as BlogPost[]
+
+export const ALL_POSTS: BlogPost[] = [...POSTS, ...BOAT_POSTS_1, ...BOAT_POSTS_2, ...AUTO_POSTS]
 
 export function getAllPost(slug: string): BlogPost | undefined {
   return ALL_POSTS.find((p) => p.slug === slug)

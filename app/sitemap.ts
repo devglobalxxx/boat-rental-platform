@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { ALL_POSTS } from '@/lib/blog/posts'
+import { LANDING_PAGES } from '@/lib/landing/pages'
 
 export const revalidate = 3600
 
@@ -129,6 +130,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
+  // ── Keyword landing pages (auto-generated) ────────────────────────────────
+  const landingEntries: SitemapEntry[] = LANDING_PAGES.map((lp) => ({
+    url: `${BASE_URL}/${lp.slug}`,
+    lastModified: new Date(lp.date),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
+
   return [
     ...staticPages,
     ...blogEntries,
@@ -136,5 +145,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...galleryEntries,
     ...tagEntries,
     ...locationEntries,
+    ...landingEntries,
   ]
 }

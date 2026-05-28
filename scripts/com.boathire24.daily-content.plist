@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.boathire24.daily-content</string>
+
+    <!-- 1) generate 40 blog + 40 landing  2) crosspost the blog posts to Blogger -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/sh</string>
+        <string>-c</string>
+        <string>/usr/bin/python3 /Users/master/boat-rental-platform/scripts/generate_content.py &amp;&amp; /usr/bin/python3 /Users/master/boat-rental-platform/scripts/post_blogger.py --limit 40</string>
+    </array>
+
+    <!-- Run daily at 03:00 (80 pages of 2000-4000 words takes a while) -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>3</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/master/boat-rental-platform</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/master/boat-rental-platform/logs/generate_content.stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/master/boat-rental-platform/logs/generate_content.stderr.log</string>
+
+    <!-- Secrets (DEEPSEEK_API_KEY, blog id, etc.) are read from the gitignored
+         .env.local by the scripts — do NOT put them here (this plist is committed). -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>CLAUDE_BACKEND</key>
+        <string>deepseek</string>
+        <key>PATH</key>
+        <string>/opt/local/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

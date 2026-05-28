@@ -5,9 +5,16 @@ import BoatCard from '@/components/search/BoatCard'
 import SearchBar from '@/components/search/SearchBar'
 import { MapPin, Anchor, Ship } from 'lucide-react'
 import type { BoatWithDetails, LocationRow } from '@/types/database'
+import { getLandingPage, getLandingSlugs } from '@/lib/landing/pages'
+import LandingView from '@/components/landing/LandingView'
 
 interface Props {
   params: Promise<{ location: string }>
+}
+
+// Pre-render the keyword landing pages at build; Supabase locations still resolve on-demand.
+export async function generateStaticParams() {
+  return getLandingSlugs().map((location) => ({ location }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -19,11 +26,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .eq('slug', location)
     .single()
   const loc = locRaw as Pick<LocationRow, 'name' | 'city' | 'country' | 'description'> | null
-  if (!loc) return { title: 'Location not found' }
-  return {
-    title: `Boat Rental ${loc.city} — Yachts & Catamarans | BoatAway`,
-    description: loc.description ?? `Find and book boats in ${loc.city}, ${loc.country}. Motor yachts, catamarans, sailing boats and more.`,
+  if (loc) {
+    return {
+      title: `Boat Rental ${loc.city} — Yachts & Catamarans | BoatHire24`,
+      description: loc.description ?? `Find and book boats in ${loc.city}, ${loc.country}. Motor yachts, catamarans, sailing boats and more.`,
+    }
   }
+  const lp = getLandingPage(location)
+  if (lp) {
+    return {
+      title: lp.title,
+      description: lp.metaDescription,
+      alternates: { canonical: `https://boathire24.com/${lp.slug}` },
+      openGraph: {
+        title: lp.title,
+        description: lp.metaDescription,
+        type: 'article',
+        ...(lp.heroImage ? { images: [{ url: lp.heroImage }] } : {}),
+      },
+    }
+  }
+  return { title: 'Page not found' }
 }
 
 export default async function LocationPage({ params }: Props) {
@@ -36,7 +59,11 @@ export default async function LocationPage({ params }: Props) {
     .eq('slug', location)
     .single()
   const loc = locDataRaw as LocationRow | null
-  if (!loc) notFound()
+  if (!loc) {
+    const lp = getLandingPage(location)
+    if (lp) return <LandingView page={lp} />
+    notFound()
+  }
 
   const { data: rawBoats } = await supabase
     .from('boats')
