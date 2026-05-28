@@ -337,12 +337,10 @@ def main():
             body = {"kind": "blogger#post", "title": p["title"], "content": render_post_html(p, media)}
             if insert_with_retry(lambda b=body: svc.posts().insert(blogId=blog_id, body=b, isDraft=False), f"post {p['slug']}"):
                 posted.add(f"post:{p['slug']}"); save_posted(posted); time.sleep(throttle)
-        # ── Landing pages → published as Blogger POSTS (Blogger caps static pages at ~20;
-        #    posts have no count cap, so this lets all landings reach Blogger). ──
+        # ── Landing pages → published as Blogger PAGES (Pages section). ──
         for p in todo_pages:
-            body = {"kind": "blogger#post", "title": p["title"], "content": render_page_html(p, media),
-                    "labels": ["Boat rental guide"]}
-            if insert_with_retry(lambda b=body: svc.posts().insert(blogId=blog_id, body=b, isDraft=False), f"landing {p['slug']}"):
+            body = {"kind": "blogger#page", "title": p["title"], "content": render_page_html(p, media)}
+            if insert_with_retry(lambda b=body: svc.pages().insert(blogId=blog_id, body=b, isDraft=False), f"page {p['slug']}"):
                 posted.add(f"page:{p['slug']}"); save_posted(posted); time.sleep(throttle)
     except Blocked as b:
         log(f"Blogger WRITE-BLOCKED (quota/rate limit): {b}. Stopping; remaining items will publish on the next run.")
