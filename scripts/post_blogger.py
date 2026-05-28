@@ -20,7 +20,7 @@ Usage:
   python3 scripts/post_blogger.py --login
 """
 from __future__ import annotations
-import argparse, datetime, json, os, pathlib, sys
+import argparse, datetime, hashlib, json, os, pathlib, sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BLOG_STORE = ROOT / "lib" / "blog" / "auto-posts.json"
@@ -31,7 +31,10 @@ LOG_DIR = ROOT / "logs"; LOG_DIR.mkdir(exist_ok=True)
 LOG_PATH = LOG_DIR / "post_blogger.log"
 
 BASE_URL = "https://boathire24.com"
-GOOGLE_SCOPES = ["https://www.googleapis.com/auth/blogger"]
+GOOGLE_SCOPES = [
+    "https://www.googleapis.com/auth/blogger",
+    "https://www.googleapis.com/auth/drive.readonly",
+]
 
 
 def log(msg: str):
@@ -47,7 +50,7 @@ def load_env():
         if not p.exists():
             continue
         for line in p.read_text().splitlines():
-            for k in ("BOATHIRE24_BLOGGER_ID", "BOATHIRE24_GOOGLE_CREDENTIALS"):
+            for k in ("BOATHIRE24_BLOGGER_ID", "BOATHIRE24_GOOGLE_CREDENTIALS", "BOATHIRE24_DRIVE_FOLDER_ID"):
                 if line.startswith(k + "=") and not os.environ.get(k):
                     os.environ[k] = line.split("=", 1)[1].strip().strip('"').strip("'")
 
@@ -86,17 +89,72 @@ def blogger_service(creds):
     return build("blogger", "v3", credentials=creds, cache_discovery=False)
 
 
-def render_post_html(post: dict) -> str:
-    return _render(post.get("content", ""), post.get("faqs"), f"{BASE_URL}/blog/{post['slug']}")
+def drive_service(creds):
+    from googleapiclient.discovery import build
+    return build("drive", "v3", credentials=creds, cache_discovery=False)
 
 
-def render_page_html(page: dict) -> str:
+def list_drive_media(drive, folder_id: str) -> list:
+    """All image/video files in the shared media-pool folder. Files must be shared
+    'anyone with the link' so they render on the public blog."""
+    files, page = [], None
+    q = (f"'{folder_id}' in parents and trashed=false and "
+         f"(mimeType contains 'image/' or mimeType contains 'video/')")
+    while True:
+        resp = drive.files().list(
+            q=q, fields="nextPageToken, files(id,name,mimeType)",
+            pageSize=200, pageToken=page,
+            includeItemsFromAllDrives=True, supportsAllDrives=True,
+        ).execute()
+        files.extend(resp.get("files", []))
+        page = resp.get("nextPageToken")
+        if not page:
+            break
+    return files
+
+
+def media_for(slug: str, media: list, n_images: int = 3) -> tuple[str, str]:
+    """Deterministic per-slug selection: returns (hero_html, inline_html)."""
+    if not media:
+        return "", ""
+    imgs = [m for m in media if m["mimeType"].startswith("image/")]
+    vids = [m for m in media if m["mimeType"].startswith("video/")]
+    h = int(hashlib.md5(slug.encode()).hexdigest(), 16)
+    hero, inline = "", ""
+    if imgs:
+        sel = [imgs[(h + i) % len(imgs)] for i in range(min(n_images, len(imgs)))]
+        hero = (f'<p><img src="https://lh3.googleusercontent.com/d/{sel[0]["id"]}=w1200" '
+                f'alt="{slug}" style="max-width:100%;height:auto" /></p>')
+        for m in sel[1:]:
+            inline += (f'<p><img src="https://lh3.googleusercontent.com/d/{m["id"]}=w1000" '
+                       f'alt="{slug}" style="max-width:100%;height:auto" /></p>')
+    if vids:
+        v = vids[h % len(vids)]
+        inline += (f'<p><iframe src="https://drive.google.com/file/d/{v["id"]}/preview" '
+                   f'width="640" height="360" allow="autoplay" style="max-width:100%"></iframe></p>')
+    return hero, inline
+
+
+def render_post_html(post: dict, media: list) -> str:
+    hero, inline = media_for(post["slug"], media)
+    return _render(post.get("content", ""), post.get("faqs"),
+                   f"{BASE_URL}/blog/{post['slug']}", hero, inline)
+
+
+def render_page_html(page: dict, media: list) -> str:
     body = (page.get("intro", "") or "") + "\n" + (page.get("bodyHtml", "") or "")
-    return _render(body, page.get("faqs"), f"{BASE_URL}/{page['slug']}")
+    hero, inline = media_for(page["slug"], media)
+    return _render(body, page.get("faqs"), f"{BASE_URL}/{page['slug']}", hero, inline)
 
 
-def _render(body: str, faqs, canonical: str) -> str:
-    parts = [body]
+def _render(body: str, faqs, canonical: str, hero: str = "", inline: str = "") -> str:
+    # Insert inline media after the first </h2> section break; fall back to appending.
+    if inline and "</h2>" in body:
+        i = body.index("</h2>") + len("</h2>")
+        body = body[:i] + inline + body[i:]
+    elif inline:
+        body = body + inline
+    parts = [hero, body] if hero else [body]
     for f in (faqs or []):
         if parts[-1] != "<h2>Common questions</h2>":
             parts.append("<h2>Common questions</h2>")
@@ -124,6 +182,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--login", action="store_true", help="run interactive OAuth login")
     ap.add_argument("--list-blogs", action="store_true")
+    ap.add_argument("--list-folders", action="store_true", help="list Drive folders to find the media pool")
     ap.add_argument("--limit", type=int, default=40)
     args = ap.parse_args()
     load_env()
@@ -145,10 +204,31 @@ def main():
             log(f"  {b['id']}  {b.get('name')}  {b.get('url')}")
         return 0
 
+    if args.list_folders:
+        drive = drive_service(creds)
+        resp = drive.files().list(
+            q="mimeType='application/vnd.google-apps.folder' and trashed=false",
+            fields="files(id,name)", pageSize=200,
+            includeItemsFromAllDrives=True, supportsAllDrives=True,
+        ).execute()
+        for f in resp.get("files", []):
+            log(f"  {f['id']}  {f['name']}")
+        return 0
+
     blog_id = os.environ.get("BOATHIRE24_BLOGGER_ID", "").strip()
     if not blog_id:
         log("Blogger: BOATHIRE24_BLOGGER_ID not set (run --list-blogs). Skipped.")
         return 0
+
+    # ── Drive media pool (optional) ──
+    media = []
+    folder_id = os.environ.get("BOATHIRE24_DRIVE_FOLDER_ID", "").strip()
+    if folder_id:
+        try:
+            media = list_drive_media(drive_service(creds), folder_id)
+            log(f"Drive: {len(media)} media file(s) in pool {folder_id}")
+        except Exception as e:
+            log(f"Drive: media listing failed ({type(e).__name__}: {str(e)[:120]}). Posting without media.")
 
     posts = json.loads(BLOG_STORE.read_text()) if BLOG_STORE.exists() else []
     pages = json.loads(LANDING_STORE.read_text()) if LANDING_STORE.exists() else []
@@ -168,7 +248,7 @@ def main():
     # ── Blogger posts (from blog articles) ──
     for p in todo_posts:
         try:
-            body = {"kind": "blogger#post", "title": p["title"], "content": render_post_html(p)}
+            body = {"kind": "blogger#post", "title": p["title"], "content": render_post_html(p, media)}
             res = svc.posts().insert(blogId=blog_id, body=body, isDraft=False).execute()
             posted.add(f"post:{p['slug']}")
             ok += 1
@@ -178,7 +258,7 @@ def main():
     # ── Blogger pages (from keyword landing pages) ──
     for p in todo_pages:
         try:
-            body = {"kind": "blogger#page", "title": p["title"], "content": render_page_html(p)}
+            body = {"kind": "blogger#page", "title": p["title"], "content": render_page_html(p, media)}
             res = svc.pages().insert(blogId=blog_id, body=body, isDraft=False).execute()
             posted.add(f"page:{p['slug']}")
             ok += 1
