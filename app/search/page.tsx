@@ -72,10 +72,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '36px 24px 96px' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '24px 20px 80px' }}>
 
         {/* ── Search bar ── */}
-        <div style={{ marginBottom: '28px' }}>
+        <div style={{ marginBottom: '16px' }}>
           <SearchBar
             defaultLocation={params.location ?? ''}
             defaultDate={params.date ?? ''}
@@ -85,14 +85,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </div>
 
         {/* ── Filters ── */}
-        <div style={{ marginBottom: '32px' }}>
+        <div style={{ marginBottom: '20px' }}>
           <Suspense>
             <Filters />
           </Suspense>
         </div>
 
         {/* ── Result meta ── */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
           {params.location && (
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: 'rgba(244,244,242,0.50)', background: 'rgba(201,168,78,0.08)', border: '1px solid rgba(201,168,78,0.18)', borderRadius: '99px', padding: '4px 12px' }}>
               <MapPin style={{ width: '12px', height: '12px' }} />

@@ -10,7 +10,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     readTime:   '6 min read',
     date:       'May 20, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.pexels.com/photos/144024/pexels-photo-144024.jpeg?auto=compress&cs=tinysrgb&w=1400',
     boatSlug:   'astondoa-40',
     faqs: [
@@ -76,7 +76,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     readTime:   '6 min read',
     date:       'May 19, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.pexels.com/photos/12837089/pexels-photo-12837089.jpeg?auto=compress&cs=tinysrgb&w=1400',
     boatSlug:   'azimut-39',
     faqs: [
@@ -87,7 +87,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
       { q: 'What is included in the Azimut 39 charter price?', a: 'Licensed skipper, fuel, unlimited drinks (water, soft drinks, beer, white wine, cava), light snacks, insurance, safety equipment, and VAT.' },
     ],
     content: `
-<p>The <strong>Azimut 39</strong> is the Italian answer to the Mediterranean flybridge motor yacht. Where the Astondoa 40 draws on Spanish shipbuilding tradition, the Azimut brings the design language and engineering precision that made the Azimut brand one of the most recognisable names in global motor-yacht manufacturing. For a day charter from Puerto Banús, Marbella, the Azimut 39 offers up to 11 guests — the highest capacity of any boat in the 12.5 m tier on the BoatAway fleet.</p>
+<p>The <strong>Azimut 39</strong> is the Italian answer to the Mediterranean flybridge motor yacht. Where the Astondoa 40 draws on Spanish shipbuilding tradition, the Azimut brings the design language and engineering precision that made the Azimut brand one of the most recognisable names in global motor-yacht manufacturing. For a day charter from Puerto Banús, Marbella, the Azimut 39 offers up to 11 guests — the highest capacity of any boat in the 12.5 m tier on the BoatHire24 fleet.</p>
 
 <h2>Design and specifications</h2>
 <ul>
@@ -136,11 +136,11 @@ export const BOAT_POSTS_1: BlogPost[] = [
     readTime:   '8 min read',
     date:       'May 18, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.pexels.com/photos/30483267/pexels-photo-30483267.jpeg?auto=compress&cs=tinysrgb&w=1400',
     boatSlug:   'mangusta-80',
     faqs: [
-      { q: 'Is the Mangusta 80 the biggest yacht you can charter in Marbella?', a: 'Yes — at 24 metres, "Nina" is the largest boat available for day charter from Puerto Banús, and the flagship of the BoatAway Marbella fleet.' },
+      { q: 'Is the Mangusta 80 the biggest yacht you can charter in Marbella?', a: 'Yes — at 24 metres, "Nina" is the largest boat available for day charter from Puerto Banús, and the flagship of the BoatHire24 Marbella fleet.' },
       { q: 'What does a Mangusta 80 charter cost in Marbella?', a: 'From €4,719 for a 4-hour charter. Full-day and overnight charters are quoted on WhatsApp. All prices include skipper, fuel, drinks, jet ski, and VAT.' },
       { q: 'Is the jet ski included?', a: 'Yes — a Sea-Doo jet ski is on the swim platform for every charter and is free for guests to use throughout the booking.' },
       { q: 'How many guests can the Mangusta 80 take?', a: '12 guests for a day charter, crewed by a captain and deckhand.' },
@@ -148,7 +148,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     ],
     content: `
 <p>There is one question every Marbella first-timer asks after arriving at Puerto Banús and walking the dock past the superyachts: <em>can I actually book one of those?</em> The answer, in the case of the <strong>Mangusta 80 "Nina"</strong>, is yes — and it's more accessible than you might think.</p>
-<p>"Nina" is a 24-metre Italian sport superyacht built by Overmarine, in the BoatAway charter fleet since 2020, and the largest boat available for a day charter anywhere in Marbella. At €4,719 for a 4-hour charter split between 12 guests, that works out to under €400 per person for an afternoon on a genuine superyacht — a figure that often surprises people who assumed this class of boat was reserved for oligarchs and film premiers.</p>
+<p>"Nina" is a 24-metre Italian sport superyacht built by Overmarine, in the BoatHire24 charter fleet since 2020, and the largest boat available for a day charter anywhere in Marbella. At €4,719 for a 4-hour charter split between 12 guests, that works out to under €400 per person for an afternoon on a genuine superyacht — a figure that often surprises people who assumed this class of boat was reserved for oligarchs and film premiers.</p>
 
 <h2>The Mangusta 80 in numbers</h2>
 <ul>
@@ -195,7 +195,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     readTime:   '5 min read',
     date:       'May 17, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1400&q=80',
     boatSlug:   'azimut-58',
     faqs: [
@@ -245,7 +245,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
       { q: 'When is the best season for offshore fishing in Marbella?', a: 'June through October for pelagic species (tuna, marlin, mahi-mahi). Bottom fishing produces year-round. May and November can also be productive for tuna.' },
     ],
     content: `
-<p>The <strong>Bandido</strong> is the dedicated sport-fishing option in the BoatAway Marbella fleet — an 11.5-metre boat rigged specifically for offshore fishing from Puerto Banús. While the motor yachts are designed to carry groups in comfort along the Costa del Sol coastline, the Bandido is built for a fundamentally different purpose: finding, fighting, and landing fish in the productive offshore grounds south of Marbella.</p>
+<p>The <strong>Bandido</strong> is the dedicated sport-fishing option in the BoatHire24 Marbella fleet — an 11.5-metre boat rigged specifically for offshore fishing from Puerto Banús. While the motor yachts are designed to carry groups in comfort along the Costa del Sol coastline, the Bandido is built for a fundamentally different purpose: finding, fighting, and landing fish in the productive offshore grounds south of Marbella.</p>
 
 <h2>What makes an offshore charter different</h2>
 <p>A sport-fishing charter is a different experience from a day cruise. You'll spend the first hour running south from Puerto Banús toward the offshore banks and seamounts where the pelagic species concentrate. The skipper and mate will rig the trolling lines as you transit, and by the time you reach the fishing grounds the boat is set up and working.</p>
@@ -283,7 +283,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     readTime:   '6 min read',
     date:       'May 15, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1400&q=80',
     boatSlug:   'canados-86',
     faqs: [
@@ -332,7 +332,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     readTime:   '5 min read',
     date:       'May 14, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=80',
     boatSlug:   'dubhe',
     faqs: [
@@ -378,7 +378,7 @@ export const BOAT_POSTS_1: BlogPost[] = [
     readTime:   '5 min read',
     date:       'May 13, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.unsplash.com/photo-1562281302-809108fd533c?w=1400&q=80',
     boatSlug:   'fairline-targa-12m',
     faqs: [
@@ -428,11 +428,11 @@ export const BOAT_POSTS_1: BlogPost[] = [
     readTime:   '6 min read',
     date:       'May 12, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1400&q=80',
     boatSlug:   'ferretti-94',
     faqs: [
-      { q: 'Is the Ferretti 94 the largest yacht in Marbella?', a: 'Yes — at 29 metres, the Ferretti 94 is the largest boat available for charter from Puerto Banús in the BoatAway fleet.' },
+      { q: 'Is the Ferretti 94 the largest yacht in Marbella?', a: 'Yes — at 29 metres, the Ferretti 94 is the largest boat available for charter from Puerto Banús in the BoatHire24 fleet.' },
       { q: 'What crew comes with the Ferretti 94?', a: 'Captain, first mate, chef, and stewardess — the full four-person superyacht crew standard.' },
       { q: 'How many cabins does the Ferretti 94 have?', a: 'Four ensuite cabins sleeping up to 8 guests overnight. Day charter capacity is 12.' },
       { q: 'Can the Ferretti 94 do weekly Mediterranean charter?', a: 'Yes — the Ferretti 94 is fully equipped for weekly charters in the Western Mediterranean, including passages to Ibiza, Mallorca, Sardinia, and beyond.' },

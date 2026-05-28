@@ -1,9 +1,11 @@
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import ListingWizard from '@/components/host/ListingWizard'
+
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
 
 export default async function EditListingPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -34,14 +36,16 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
     .order('name')
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8">
-      <div className="flex items-center gap-3 mb-6">
-        <Button asChild variant="ghost" size="sm">
-          <Link href="/host/listings"><ArrowLeft className="w-4 h-4" /></Link>
-        </Button>
-        <h1 className="text-2xl font-bold text-slate-900">Edit listing</h1>
+    <div style={{ background: '#07101e', minHeight: '100vh', color: text }}>
+      <div style={{ maxWidth: '720px', margin: '0 auto', padding: '40px 20px 80px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
+          <Link href="/host/listings" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', color: muted, textDecoration: 'none', flexShrink: 0 }}>
+            <ArrowLeft style={{ width: 16, height: 16 }} />
+          </Link>
+          <h1 style={{ fontSize: '22px', fontWeight: 800, color: text }}>Edit listing</h1>
+        </div>
+        <ListingWizard locations={locations ?? []} initialData={boat as any} />
       </div>
-      <ListingWizard locations={locations ?? []} initialData={boat as any} />
     </div>
   )
 }

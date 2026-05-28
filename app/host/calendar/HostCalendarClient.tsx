@@ -1,12 +1,20 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/style.css'
 import { createClient } from '@/lib/supabase/client'
-import { Button } from '@/components/ui/button'
 import { ChevronDown, Lock, Unlock, Loader2 } from 'lucide-react'
+
+const gold = '#c9a84e'
+const card = '#0c1828'
+const border = 'rgba(201,168,78,0.15)'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
+const dim = 'rgba(244,244,242,0.35)'
+const inputBg = 'rgba(255,255,255,0.05)'
+const inputBorder = 'rgba(255,255,255,0.14)'
 
 interface Boat { id: string; name: string; slug: string }
 interface AvailabilityRow { date: string; status: string }
@@ -92,143 +100,134 @@ export default function HostCalendarClient({
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">Calendar</h1>
-          <p className="text-slate-500 mt-1">Block or unblock dates for your listings</p>
+    <div style={{ background: '#07101e', minHeight: '100vh', color: text }}>
+      <div style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 20px 80px' }}>
+
+        <div style={{ marginBottom: '32px' }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '6px' }}>Calendar</h1>
+          <p style={{ fontSize: '15px', color: muted }}>Block or unblock dates for your listings</p>
         </div>
-      </div>
 
-      {/* Boat selector */}
-      {boats.length > 1 && (
-        <div className="mb-6">
-          <div className="relative inline-block">
-            <select
-              value={selectedBoat?.id ?? ''}
-              onChange={(e) => switchBoat(e.target.value)}
-              className="appearance-none pl-4 pr-10 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#06b6d4] cursor-pointer"
-            >
-              {boats.map((b) => (
-                <option key={b.id} value={b.id}>{b.name}</option>
-              ))}
-            </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-          </div>
-        </div>
-      )}
-
-      {!selectedBoat ? (
-        <div className="text-center py-16 text-slate-500">
-          You need to create a listing first to manage its calendar.
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Calendar */}
-          <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-4">
-            <DayPicker
-              mode="multiple"
-              selected={selected}
-              onSelect={(dates) => setSelected(dates ?? [])}
-              disabled={[
-                { before: new Date() },
-                ...bookedDates,
-              ]}
-              modifiers={{
-                blocked: blockedDates,
-                booked: bookedDates,
-              }}
-              modifiersClassNames={{
-                blocked: 'rdp-day-blocked',
-                booked: 'rdp-day-booked',
-              }}
-              numberOfMonths={2}
-            />
-
-            <style>{`
-              .rdp-day-blocked button { background: #fef3c7; color: #92400e; border-radius: 50%; }
-              .rdp-day-booked button { background: #fee2e2; color: #991b1b; border-radius: 50%; pointer-events: none; }
-            `}</style>
-
-            <div className="flex flex-wrap items-center gap-4 mt-3 text-xs text-slate-500 border-t border-slate-100 pt-3">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#06b6d4]" />
-                Selected
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-amber-100 border border-amber-200" />
-                Blocked
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-100 border border-red-200" />
-                Booked
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-slate-200" />
-                Available
-              </div>
+        {/* Boat selector */}
+        {boats.length > 1 && (
+          <div style={{ marginBottom: '24px' }}>
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+              <select
+                value={selectedBoat?.id ?? ''}
+                onChange={(e) => switchBoat(e.target.value)}
+                style={{ appearance: 'none', WebkitAppearance: 'none', paddingLeft: '14px', paddingRight: '36px', paddingTop: '10px', paddingBottom: '10px', background: inputBg, border: `1px solid ${inputBorder}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: text, outline: 'none', cursor: 'pointer' }}
+              >
+                {boats.map((b) => (
+                  <option key={b.id} value={b.id} style={{ background: '#0c1828', color: text }}>{b.name}</option>
+                ))}
+              </select>
+              <ChevronDown style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', width: 15, height: 15, color: muted, pointerEvents: 'none' }} />
             </div>
           </div>
+        )}
 
-          {/* Actions panel */}
-          <div className="space-y-4">
-            <div className="bg-white rounded-2xl border border-slate-200 p-5">
-              <h3 className="font-semibold text-slate-900 mb-1">Selected dates</h3>
-              <p className="text-sm text-slate-500 mb-4">
-                {selected.length === 0
-                  ? 'Click dates on the calendar to select them'
-                  : `${selected.length} date${selected.length > 1 ? 's' : ''} selected`}
-              </p>
+        {!selectedBoat ? (
+          <div style={{ textAlign: 'center', padding: '64px 24px', color: muted, fontSize: '15px' }}>
+            You need to create a listing first to manage its calendar.
+          </div>
+        ) : (
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+            {/* Calendar */}
+            <div style={{ flex: '1 1 400px', minWidth: 0, background: card, border, borderRadius: '16px', padding: '16px' }}>
+              <style>{`
+                .rdp { --rdp-accent-color: ${gold}; --rdp-background-color: rgba(201,168,78,0.12); color: ${text}; }
+                .rdp-day { color: ${text}; }
+                .rdp-day_disabled { color: ${dim} !important; }
+                .rdp-day-blocked button { background: rgba(245,158,11,0.20) !important; color: #f59e0b !important; border-radius: 50%; }
+                .rdp-day-booked button { background: rgba(248,113,113,0.18) !important; color: #f87171 !important; border-radius: 50%; pointer-events: none; }
+                .rdp-caption_label { color: ${text}; font-weight: 700; }
+                .rdp-head_cell { color: ${muted}; font-weight: 600; }
+                .rdp-nav_button { color: ${muted}; }
+                .rdp-nav_button:hover { background: rgba(255,255,255,0.08); }
+              `}</style>
+              <DayPicker
+                mode="multiple"
+                selected={selected}
+                onSelect={(dates) => setSelected(dates ?? [])}
+                disabled={[{ before: new Date() }, ...bookedDates]}
+                modifiers={{ blocked: blockedDates, booked: bookedDates }}
+                modifiersClassNames={{ blocked: 'rdp-day-blocked', booked: 'rdp-day-booked' }}
+                numberOfMonths={2}
+              />
 
-              {selected.length > 0 && (
-                <div className="mb-4 max-h-40 overflow-y-auto space-y-1">
-                  {selected
-                    .sort((a, b) => a.getTime() - b.getTime())
-                    .map((d) => (
-                      <div key={d.toISOString()} className="text-sm text-slate-600">
-                        {d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
-                      </div>
-                    ))}
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '16px', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.07)', fontSize: '12px', color: muted }}>
+                {[
+                  { color: gold,                    label: 'Selected' },
+                  { color: '#f59e0b',               label: 'Blocked' },
+                  { color: '#f87171',               label: 'Booked' },
+                  { color: 'rgba(255,255,255,0.20)', label: 'Available' },
+                ].map((item) => (
+                  <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: item.color }} />
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Actions panel */}
+            <div style={{ width: '260px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ background: card, border, borderRadius: '16px', padding: '20px' }}>
+                <h3 style={{ fontWeight: 700, color: text, fontSize: '14px', marginBottom: '6px' }}>Selected dates</h3>
+                <p style={{ fontSize: '13px', color: muted, marginBottom: '16px' }}>
+                  {selected.length === 0
+                    ? 'Click dates on the calendar to select them'
+                    : `${selected.length} date${selected.length > 1 ? 's' : ''} selected`}
+                </p>
+
+                {selected.length > 0 && (
+                  <div style={{ marginBottom: '16px', maxHeight: '160px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    {selected
+                      .sort((a, b) => a.getTime() - b.getTime())
+                      .map((d) => (
+                        <div key={d.toISOString()} style={{ fontSize: '12px', color: muted }}>
+                          {d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
+                        </div>
+                      ))}
+                  </div>
+                )}
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <button
+                    onClick={blockDates}
+                    disabled={selected.length === 0 || saving}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 16px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '13px', fontWeight: 700, cursor: selected.length === 0 || saving ? 'not-allowed' : 'pointer', border: 'none', opacity: selected.length === 0 || saving ? 0.5 : 1 }}
+                  >
+                    {saving ? <Loader2 style={{ width: 14, height: 14 }} /> : <Lock style={{ width: 14, height: 14 }} />}
+                    Block dates
+                  </button>
+                  <button
+                    onClick={unblockDates}
+                    disabled={selected.length === 0 || saving}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 16px', borderRadius: '99px', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: muted, fontSize: '13px', fontWeight: 600, cursor: selected.length === 0 || saving ? 'not-allowed' : 'pointer', opacity: selected.length === 0 || saving ? 0.5 : 1 }}
+                  >
+                    {saving ? <Loader2 style={{ width: 14, height: 14 }} /> : <Unlock style={{ width: 14, height: 14 }} />}
+                    Unblock dates
+                  </button>
                 </div>
-              )}
 
-              <div className="flex flex-col gap-2">
-                <Button
-                  onClick={blockDates}
-                  disabled={selected.length === 0 || saving}
-                  variant="default"
-                  className="w-full"
-                >
-                  {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
-                  Block dates
-                </Button>
-                <Button
-                  onClick={unblockDates}
-                  disabled={selected.length === 0 || saving}
-                  variant="outline"
-                  className="w-full"
-                >
-                  {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Unlock className="w-4 h-4" />}
-                  Unblock dates
-                </Button>
+                {message && (
+                  <p style={{ marginTop: '12px', fontSize: '13px', color: '#22c55e', fontWeight: 600 }}>{message}</p>
+                )}
               </div>
 
-              {message && (
-                <p className="mt-3 text-sm text-[#06b6d4] font-medium">{message}</p>
-              )}
-            </div>
-
-            <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 text-sm text-slate-600">
-              <p className="font-medium text-slate-700 mb-1">Tips</p>
-              <ul className="space-y-1 text-xs leading-relaxed">
-                <li>• Select multiple dates then block or unblock them at once.</li>
-                <li>• Red dates are booked — you cannot change those.</li>
-                <li>• Yellow dates are blocked by you.</li>
-              </ul>
+              <div style={{ background: card, border, borderRadius: '16px', padding: '16px' }}>
+                <p style={{ fontWeight: 700, color: text, fontSize: '13px', marginBottom: '8px' }}>Tips</p>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', color: muted, lineHeight: 1.5, listStyle: 'none', margin: 0, padding: 0 }}>
+                  <li>• Select multiple dates then block or unblock them at once.</li>
+                  <li>• Red dates are booked — you cannot change those.</li>
+                  <li>• Yellow dates are blocked by you.</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

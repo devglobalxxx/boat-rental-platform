@@ -7,15 +7,15 @@ import Logo from '@/components/ui/Logo'
 export const metadata: Metadata = {
   metadataBase: new URL('https://boathire24.com'),
   title: {
-    default: 'BoatAway — Rent Boats & Yachts Worldwide',
-    template: '%s | BoatAway',
+    default: 'BoatHire24 — Rent Boats & Yachts Worldwide',
+    template: '%s | BoatHire24',
   },
   description:
     'Find and book verified boats, yachts, catamarans and sailing boats worldwide. Licensed skippers, instant booking, secure payments. No surprises.',
   keywords: ['boat rental', 'yacht charter', 'boat hire', 'Marbella', 'Ibiza', 'Miami'],
-  authors: [{ name: 'BoatAway', url: 'https://boathire24.com' }],
-  creator: 'BoatAway',
-  publisher: 'BoatAway',
+  authors: [{ name: 'BoatHire24', url: 'https://boathire24.com' }],
+  creator: 'BoatHire24',
+  publisher: 'BoatHire24',
   robots: {
     index: true,
     follow: true,
@@ -29,20 +29,20 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    siteName: 'BoatAway',
+    siteName: 'BoatHire24',
     locale: 'en_GB',
     images: [{
-      url: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80',
+      url: '/opengraph-image',
       width: 1200,
       height: 630,
-      alt: 'Luxury yacht charter — BoatAway',
+      alt: 'BoatHire24 — Rent Boats & Yachts Worldwide',
     }],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@boataway',
-    creator: '@boataway',
-    images: ['https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80'],
+    site: '@boathire24',
+    creator: '@boathire24',
+    images: ['/opengraph-image'],
   },
   verification: {
     google: [
@@ -100,7 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Brand */}
               <div style={{ gridColumn: 'span 2' }}>
                 <Link href="/" style={{ display: 'inline-flex', marginBottom: '16px' }}>
-                  <Logo size={32} />
+                  <Logo size={56} />
                 </Link>
                 <p style={{ fontSize: '13px', lineHeight: '1.7', color: 'rgba(244,244,242,0.48)', marginBottom: '24px', maxWidth: '260px' }}>
                   The global marketplace for verified boat charters. Licensed skippers, transparent prices, instant booking.
@@ -210,7 +210,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 ))}
               </div>
               <p style={{ fontSize: '11px', color: 'rgba(244,244,242,0.25)', textAlign: 'center' }}>
-                © {new Date().getFullYear()} BoatAway Ltd. All rights reserved. · Payments secured by Stripe · All charters include a licensed skipper
+                © {new Date().getFullYear()} BoatHire24 Ltd. All rights reserved. · Payments secured by Stripe · All charters include a licensed skipper
               </p>
             </div>
           </div>

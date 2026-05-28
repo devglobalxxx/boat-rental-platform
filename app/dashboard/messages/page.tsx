@@ -4,6 +4,13 @@ import { createClient } from '@/lib/supabase/server'
 import ChatThread from '@/components/messaging/ChatThread'
 import { MessageSquare } from 'lucide-react'
 
+const gold = '#c9a84e'
+const card = '#0c1828'
+const border = 'rgba(201,168,78,0.15)'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
+const dim = 'rgba(244,244,242,0.35)'
+
 export default async function MessagesPage({
   searchParams,
 }: {
@@ -14,17 +21,12 @@ export default async function MessagesPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login?next=/dashboard/messages')
 
-  // Fetch all conversations for this user
   const { data: conversations } = await supabase
     .from('conversations')
-    .select(`
-      id, created_at,
-      boats(name, slug, boat_images(storage_url, is_hero))
-    `)
+    .select(`id, created_at, boats(name, slug, boat_images(storage_url, is_hero))`)
     .contains('participant_ids', [user.id])
     .order('created_at', { ascending: false })
 
-  // For each conversation, get the latest message
   const convIds = (conversations ?? []).map((c) => c.id)
   const { data: latestMessages } = convIds.length
     ? await supabase
@@ -46,7 +48,6 @@ export default async function MessagesPage({
     ? (conversations ?? []).find((c) => c.id === conversationId)
     : (conversations ?? [])[0]
 
-  // Load messages for active conversation
   const { data: messages } = activeConv
     ? await supabase
         .from('messages')
@@ -56,13 +57,8 @@ export default async function MessagesPage({
         .limit(100)
     : { data: [] }
 
-  // Identify the other participant in the active conversation
   const { data: activeConvFull } = activeConv
-    ? await supabase
-        .from('conversations')
-        .select('participant_ids')
-        .eq('id', activeConv.id)
-        .single()
+    ? await supabase.from('conversations').select('participant_ids').eq('id', activeConv.id).single()
     : { data: null }
 
   const otherUserId = (activeConvFull?.participant_ids as string[] | null)?.find((id) => id !== user.id)
@@ -71,75 +67,81 @@ export default async function MessagesPage({
     : { data: null }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Messages</h1>
+    <div style={{ background: '#07101e', minHeight: '100vh', color: text }}>
+      <div style={{ maxWidth: '1060px', margin: '0 auto', padding: '40px 20px 80px' }}>
+        <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '24px' }}>Messages</h1>
 
-      {!(conversations ?? []).length ? (
-        <div className="text-center py-20">
-          <MessageSquare className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-          <h2 className="text-lg font-bold text-slate-900 mb-2">No messages yet</h2>
-          <p className="text-slate-500">Contact a host from any boat listing to start a conversation.</p>
-        </div>
-      ) : (
-        <div className="flex gap-0 bg-white rounded-2xl border border-slate-200 overflow-hidden" style={{ height: '600px' }}>
-          {/* Conversation list */}
-          <div className="w-72 border-r border-slate-200 overflow-y-auto shrink-0">
-            {(conversations ?? []).map((conv) => {
-              const boat = conv.boats as any
-              const hero = boat?.boat_images?.find((i: any) => i.is_hero) ?? boat?.boat_images?.[0]
-              const latest = latestByConv[conv.id]
-              const isActive = conv.id === (activeConv?.id ?? '')
-              const hasUnread = latest && !latest.read_at && latest.sender_id !== user.id
-              return (
-                <Link
-                  key={conv.id}
-                  href={`/dashboard/messages?conversation=${conv.id}`}
-                  className={`flex items-start gap-3 p-4 border-b border-slate-100 hover:bg-slate-50 transition-colors ${
-                    isActive ? 'bg-slate-50 border-l-2 border-l-[#06b6d4]' : ''
-                  }`}
-                >
-                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-100 shrink-0">
-                    {hero && <img src={hero.storage_url} alt={boat?.name} className="w-full h-full object-cover" />}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-1">
-                      <span className={`text-sm truncate ${hasUnread ? 'font-semibold text-slate-900' : 'font-medium text-slate-700'}`}>
-                        {boat?.name ?? 'Conversation'}
-                      </span>
-                      {hasUnread && <span className="w-2 h-2 rounded-full bg-[#06b6d4] shrink-0" />}
+        {!(conversations ?? []).length ? (
+          <div style={{ textAlign: 'center', padding: '80px 24px' }}>
+            <MessageSquare style={{ width: 48, height: 48, color: 'rgba(201,168,78,0.25)', margin: '0 auto 16px' }} />
+            <h2 style={{ fontSize: '20px', fontWeight: 700, color: text, marginBottom: '10px' }}>No messages yet</h2>
+            <p style={{ fontSize: '15px', color: muted }}>Contact a host from any boat listing to start a conversation.</p>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', background: card, border: `1px solid ${border}`, borderRadius: '16px', overflow: 'hidden', height: '600px' }}>
+            {/* Conversation list */}
+            <div style={{ width: '280px', borderRight: '1px solid rgba(255,255,255,0.07)', overflowY: 'auto', flexShrink: 0 }}>
+              {(conversations ?? []).map((conv) => {
+                const boat = conv.boats as any
+                const hero = boat?.boat_images?.find((i: any) => i.is_hero) ?? boat?.boat_images?.[0]
+                const latest = latestByConv[conv.id]
+                const isActive = conv.id === (activeConv?.id ?? '')
+                const hasUnread = latest && !latest.read_at && latest.sender_id !== user.id
+                return (
+                  <Link
+                    key={conv.id}
+                    href={`/dashboard/messages?conversation=${conv.id}`}
+                    style={{
+                      display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 16px',
+                      borderBottom: '1px solid rgba(255,255,255,0.05)',
+                      textDecoration: 'none', transition: 'background 0.15s',
+                      background: isActive ? 'rgba(201,168,78,0.08)' : 'transparent',
+                      borderLeft: isActive ? `3px solid ${gold}` : '3px solid transparent',
+                    }}
+                  >
+                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', flexShrink: 0 }}>
+                      {hero && <img src={hero.storage_url} alt={boat?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
                     </div>
-                    {latest && (
-                      <p className="text-xs text-slate-500 truncate mt-0.5">{latest.body}</p>
-                    )}
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4px' }}>
+                        <span style={{ fontSize: '13px', fontWeight: hasUnread ? 700 : 500, color: text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {boat?.name ?? 'Conversation'}
+                        </span>
+                        {hasUnread && <span style={{ width: 8, height: 8, borderRadius: '50%', background: gold, flexShrink: 0 }} />}
+                      </div>
+                      {latest && (
+                        <p style={{ fontSize: '12px', color: dim, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '2px' }}>{latest.body}</p>
+                      )}
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
 
-          {/* Chat panel */}
-          <div className="flex-1 min-w-0">
-            {activeConv ? (
-              <ChatThread
-                conversationId={activeConv.id}
-                currentUserId={user.id}
-                initialMessages={(messages ?? []).map((m) => ({
-                  id: m.id,
-                  sender_id: m.sender_id,
-                  body: m.body,
-                  created_at: m.created_at,
-                  read_at: m.read_at,
-                }))}
-                otherPartyName={(otherProfile as any)?.full_name ?? 'Boat owner'}
-              />
-            ) : (
-              <div className="flex items-center justify-center h-full text-slate-400">
-                Select a conversation
-              </div>
-            )}
+            {/* Chat panel */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {activeConv ? (
+                <ChatThread
+                  conversationId={activeConv.id}
+                  currentUserId={user.id}
+                  initialMessages={(messages ?? []).map((m) => ({
+                    id: m.id,
+                    sender_id: m.sender_id,
+                    body: m.body,
+                    created_at: m.created_at,
+                    read_at: m.read_at,
+                  }))}
+                  otherPartyName={(otherProfile as any)?.full_name ?? 'Boat owner'}
+                />
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: dim, fontSize: '14px' }}>
+                  Select a conversation
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

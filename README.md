@@ -1,4 +1,4 @@
-# BoatAway 🚢
+# BoatHire24 🚢
 
 **Global boat rental marketplace** — Airbnb for boats. Built with Next.js 14, Supabase, and Stripe Connect.
 

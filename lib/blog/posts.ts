@@ -26,7 +26,7 @@ export const POSTS: BlogPost[] = [
     readTime:   '8 min read',
     date:       'May 12, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1400&q=80',
     content: `
 <p>Marbella is one of the finest charter destinations in the Mediterranean — and also one of the most misunderstood. First-time visitors often underestimate how different the experience is from a typical beach holiday. This guide covers everything you need to arrive at the marina confident, prepared, and ready to get the most out of every hour on the water.</p>
@@ -59,7 +59,7 @@ export const POSTS: BlogPost[] = [
 <p><strong>The Straight Shot (Puerto Banús → Gibraltar):</strong> Best for wildlife. Dolphins are almost guaranteed in the Strait of Gibraltar — the tidal flows concentrate food and the pod sizes can be extraordinary. Allow the full day and start early.</p>
 
 <h2>Booking your charter</h2>
-<p>The Marbella fleet on BoatAway runs from compact two-hour speedboat experiences at €230 to full-day superyacht charters at €4,700 and above. Every listing shows the real price from the first click. Filter by departure port, capacity, and date — your availability calendar updates in real time. Instant book is available on most vessels in the fleet.</p>
+<p>The Marbella fleet on BoatHire24 runs from compact two-hour speedboat experiences at €230 to full-day superyacht charters at €4,700 and above. Every listing shows the real price from the first click. Filter by departure port, capacity, and date — your availability calendar updates in real time. Instant book is available on most vessels in the fleet.</p>
     `,
   },
 
@@ -74,7 +74,7 @@ export const POSTS: BlogPost[] = [
     readTime:   '6 min read',
     date:       'May 5, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.unsplash.com/photo-1562281302-809108fd533c?w=1400&q=80',
     content: `
 <p>It's the question every first-time charterer eventually asks: catamaran or motor yacht? The honest answer depends entirely on what you want from your day on the water. Both have genuine advantages — and understanding them will help you choose with confidence rather than guess.</p>
@@ -107,7 +107,7 @@ export const POSTS: BlogPost[] = [
   {
     slug:       'best-anchorages-costa-del-sol',
     title:      'Ten Anchorages on the Costa del Sol Only Reachable by Boat',
-    excerpt:    'These spots don\'t appear on Google Maps and are completely inaccessible from shore. Compiled by BoatAway\'s fleet captains who sail this coast every single week of the season.',
+    excerpt:    'These spots don\'t appear on Google Maps and are completely inaccessible from shore. Compiled by BoatHire24\'s fleet captains who sail this coast every single week of the season.',
     tag:        'Insider knowledge',
     readTime:   '7 min read',
     date:       'April 28, 2026',
@@ -137,7 +137,7 @@ export const POSTS: BlogPost[] = [
 
 <h2>7 — 10. The Fuengirola reef system</h2>
 <p>A series of low-profile underwater reefs stretching from Fuengirola east to Mijas that never break the surface. Invisible from shore, invisible from satellite imagery, known only to the captains who learned them from the generation before. The best snorkelling on the western Costa del Sol is directly above these reefs on a calm morning.</p>
-<p>Our Marbella fleet captains know every one of these spots and will adjust the day's itinerary around conditions to make sure you reach the best one. When you book through BoatAway and your skipper asks what kind of day you want — tell them you want the spot tourists never find. They'll know exactly what to do.</p>
+<p>Our Marbella fleet captains know every one of these spots and will adjust the day's itinerary around conditions to make sure you reach the best one. When you book through BoatHire24 and your skipper asks what kind of day you want — tell them you want the spot tourists never find. They'll know exactly what to do.</p>
     `,
   },
 
@@ -147,12 +147,12 @@ export const POSTS: BlogPost[] = [
   {
     slug:       'perfect-boat-day-packing-list',
     title:      'How to Plan the Perfect Boat Day: The Complete Packing List',
-    excerpt:    'From sunscreen to seasickness tablets — the definitive list of what to bring on a charter, built from thousands of guest days on the water across the BoatAway fleet.',
+    excerpt:    'From sunscreen to seasickness tablets — the definitive list of what to bring on a charter, built from thousands of guest days on the water across the BoatHire24 fleet.',
     tag:        'Charter tips',
     readTime:   '5 min read',
     date:       'April 20, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.unsplash.com/photo-1523496922380-91d5afba98a3?w=1400&q=80',
     content: `
 <p>After thousands of guest days on the water across our fleet, a consistent pattern emerges: the guests who have the best charters are the ones who arrived prepared. Not over-packed — prepared. This list is everything you need, nothing you don't.</p>

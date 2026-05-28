@@ -3,16 +3,19 @@ import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
 import { TrendingUp, DollarSign, Calendar, Ship } from 'lucide-react'
 
+const gold = '#c9a84e'
+const card = '#0c1828'
+const border = 'rgba(201,168,78,0.15)'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
+const dim = 'rgba(244,244,242,0.35)'
+
 export default async function HostEarningsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login?next=/host/earnings')
 
-  const { data: boats } = await supabase
-    .from('boats')
-    .select('id')
-    .eq('host_id', user.id)
-
+  const { data: boats } = await supabase.from('boats').select('id').eq('host_id', user.id)
   const boatIds = (boats ?? []).map((b) => b.id)
 
   const { data: bookings } = boatIds.length
@@ -25,8 +28,8 @@ export default async function HostEarningsPage() {
     : { data: [] }
 
   const allBookings = bookings ?? []
-
   const now = new Date()
+
   const thisMonth = allBookings.filter((b) => {
     const d = new Date(b.start_datetime)
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()
@@ -50,125 +53,98 @@ export default async function HostEarningsPage() {
       acc[key] = (acc[key] ?? 0) + (b.total ?? 0)
       return acc
     }, {})
-  )
-    .slice(-6)
-    .reverse()
+  ).slice(-6).reverse()
+
+  const stats = [
+    { label: 'Total earnings',  value: formatPrice(hostShare(totalGross)),    sub: `${allBookings.length} bookings`, Icon: DollarSign, color: '#22c55e' },
+    { label: 'This month',      value: formatPrice(hostShare(thisMonthGross)), sub: `${thisMonth.length} bookings`,   Icon: Calendar,   color: gold },
+    { label: 'Last month',      value: formatPrice(hostShare(lastMonthGross)), sub: `${lastMonth.length} bookings`,   Icon: TrendingUp, color: muted },
+    { label: 'Gross revenue',   value: formatPrice(totalGross),               sub: 'before platform fee',            Icon: Ship,       color: muted },
+  ]
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-2xl font-bold text-slate-900 mb-8">Earnings</h1>
+    <div style={{ background: '#07101e', minHeight: '100vh', color: text }}>
+      <div style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 20px 80px' }}>
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-        {[
-          {
-            label: 'Total earnings',
-            value: formatPrice(hostShare(totalGross)),
-            sub: `${allBookings.length} bookings`,
-            icon: DollarSign,
-            color: 'text-emerald-500',
-          },
-          {
-            label: 'This month',
-            value: formatPrice(hostShare(thisMonthGross)),
-            sub: `${thisMonth.length} bookings`,
-            icon: Calendar,
-            color: 'text-[#06b6d4]',
-          },
-          {
-            label: 'Last month',
-            value: formatPrice(hostShare(lastMonthGross)),
-            sub: `${lastMonth.length} bookings`,
-            icon: TrendingUp,
-            color: 'text-slate-400',
-          },
-          {
-            label: 'Gross revenue',
-            value: formatPrice(totalGross),
-            sub: 'before platform fee',
-            icon: Ship,
-            color: 'text-slate-400',
-          },
-        ].map((stat) => (
-          <div key={stat.label} className="bg-white rounded-2xl border border-slate-200 p-5">
-            <stat.icon className={`w-5 h-5 ${stat.color} mb-2`} />
-            <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
-            <div className="text-sm text-slate-500 leading-snug">{stat.label}</div>
-            <div className="text-xs text-slate-400 mt-0.5">{stat.sub}</div>
-          </div>
-        ))}
-      </div>
+        <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '32px' }}>Earnings</h1>
 
-      {/* Monthly breakdown */}
-      {monthlyData.length > 0 && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-6">
-          <h2 className="text-lg font-bold text-slate-900 mb-4">Monthly breakdown</h2>
-          <div className="space-y-3">
-            {monthlyData.map(([month, gross]) => {
-              const pct = totalGross > 0 ? (gross / totalGross) * 100 : 0
-              return (
-                <div key={month} className="flex items-center gap-4">
-                  <div className="w-24 text-sm text-slate-500 shrink-0">{month}</div>
-                  <div className="flex-1 bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div
-                      className="h-full bg-[#06b6d4] rounded-full transition-all"
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                  <div className="w-24 text-sm font-semibold text-slate-900 text-right">
-                    {formatPrice(hostShare(gross))}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-          <p className="text-xs text-slate-400 mt-4">Amounts shown after 15% platform fee. Payouts processed via Stripe.</p>
+        {/* Stats grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '32px' }}>
+          {stats.map((stat) => (
+            <div key={stat.label} style={{ background: card, borderRadius: '16px', border, padding: '20px' }}>
+              <stat.Icon style={{ width: 20, height: 20, color: stat.color, marginBottom: '12px' }} />
+              <div style={{ fontSize: '24px', fontWeight: 800, color: text, marginBottom: '4px' }}>{stat.value}</div>
+              <div style={{ fontSize: '13px', color: muted }}>{stat.label}</div>
+              <div style={{ fontSize: '12px', color: dim, marginTop: '2px' }}>{stat.sub}</div>
+            </div>
+          ))}
         </div>
-      )}
 
-      {/* Transaction history */}
-      {allBookings.length > 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-          <div className="p-5 border-b border-slate-100">
-            <h2 className="text-lg font-bold text-slate-900">Transaction history</h2>
-          </div>
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-100">
-              <tr>
-                <th className="text-left p-3 font-semibold text-slate-600">Boat</th>
-                <th className="text-left p-3 font-semibold text-slate-600">Date</th>
-                <th className="text-right p-3 font-semibold text-slate-600">Gross</th>
-                <th className="text-right p-3 font-semibold text-slate-600">Your earnings</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {allBookings.map((booking) => {
-                const boat = booking.boats as any
+        {/* Monthly breakdown */}
+        {monthlyData.length > 0 && (
+          <div style={{ background: card, borderRadius: '16px', border, padding: '24px', marginBottom: '24px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '20px' }}>Monthly breakdown</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {monthlyData.map(([month, gross]) => {
+                const pct = totalGross > 0 ? (gross / totalGross) * 100 : 0
                 return (
-                  <tr key={booking.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="p-3 text-slate-700">{boat?.name}</td>
-                    <td className="p-3 text-slate-500">
-                      {new Date(booking.start_datetime).toLocaleDateString('en-GB', {
-                        day: 'numeric', month: 'short', year: 'numeric',
-                      })}
-                    </td>
-                    <td className="p-3 text-right text-slate-500">
-                      {formatPrice(booking.total, booking.currency)}
-                    </td>
-                    <td className="p-3 text-right font-semibold text-slate-900">
-                      {formatPrice(hostShare(booking.total ?? 0), booking.currency)}
-                    </td>
-                  </tr>
+                  <div key={month} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div style={{ width: '80px', fontSize: '13px', color: muted, flexShrink: 0 }}>{month}</div>
+                    <div style={{ flex: 1, background: 'rgba(255,255,255,0.08)', borderRadius: '99px', height: '6px', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', background: gold, borderRadius: '99px', width: `${pct}%`, transition: 'width 0.5s' }} />
+                    </div>
+                    <div style={{ width: '80px', fontSize: '13px', fontWeight: 700, color: text, textAlign: 'right' }}>
+                      {formatPrice(hostShare(gross))}
+                    </div>
+                  </div>
                 )
               })}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <div className="text-center py-16 text-slate-500">
-          No earnings yet. Your confirmed bookings will appear here.
-        </div>
-      )}
+            </div>
+            <p style={{ fontSize: '12px', color: dim, marginTop: '16px' }}>Amounts shown after 15% platform fee. Payouts processed via Stripe.</p>
+          </div>
+        )}
+
+        {/* Transaction history */}
+        {allBookings.length > 0 ? (
+          <div style={{ background: card, borderRadius: '16px', border, overflow: 'hidden' }}>
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: text }}>Transaction history</h2>
+            </div>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+                  {['Boat', 'Date', 'Gross', 'Your earnings'].map((h, i) => (
+                    <th key={h} style={{ padding: '12px 16px', textAlign: i >= 2 ? 'right' : 'left', fontWeight: 600, color: muted, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {allBookings.map((booking, i, arr) => {
+                  const boat = booking.boats as any
+                  return (
+                    <tr key={booking.id} style={{ borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                      <td style={{ padding: '14px 16px', color: text, fontWeight: 500 }}>{boat?.name}</td>
+                      <td style={{ padding: '14px 16px', color: muted }}>
+                        {new Date(booking.start_datetime).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </td>
+                      <td style={{ padding: '14px 16px', textAlign: 'right', color: muted }}>
+                        {formatPrice(booking.total, booking.currency)}
+                      </td>
+                      <td style={{ padding: '14px 16px', textAlign: 'right', fontWeight: 700, color: gold }}>
+                        {formatPrice(hostShare(booking.total ?? 0), booking.currency)}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '64px 24px', color: muted, fontSize: '15px' }}>
+            No earnings yet. Your confirmed bookings will appear here.
+          </div>
+        )}
+      </div>
     </div>
   )
 }

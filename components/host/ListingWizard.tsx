@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { createClient } from '@/lib/supabase/client'
@@ -29,78 +28,47 @@ const COMMON_FEATURES = [
   'Sun canopy', 'Fresh water shower', 'Tender/dinghy', 'Jet ski',
 ]
 
+/* ── tokens ── */
+const card    = '#0c1828'
+const border  = 'rgba(201,168,78,0.18)'
+const gold    = '#c9a84e'
+const goldFaint = 'rgba(201,168,78,0.10)'
+const goldBorder = 'rgba(201,168,78,0.28)'
+const text    = '#f4f4f2'
+const muted   = 'rgba(244,244,242,0.55)'
+const dim     = 'rgba(244,244,242,0.35)'
+const inputBg = 'rgba(255,255,255,0.05)'
+const inputBorder = 'rgba(255,255,255,0.14)'
+
 interface FormData {
-  name: string
-  tagline: string
-  description: string
-  type: string
-  locationId: string
-  departurePort: string
-  capacityPax: number
-  lengthM: string
-  cabins: number
-  builder: string
-  modelYear: string
-  includesSkipper: boolean
-  includesFuel: boolean
-  includesDrinks: boolean
-  instantBook: boolean
-  cancellationPolicy: string
-  minHours: number
-  pricingType: string
-  selectedFeatures: string[]
-  pricing: { durationHours: number; price: string }[]
+  name: string; tagline: string; description: string; type: string; locationId: string
+  departurePort: string; capacityPax: number; lengthM: string; cabins: number
+  builder: string; modelYear: string; includesSkipper: boolean; includesFuel: boolean
+  includesDrinks: boolean; instantBook: boolean; cancellationPolicy: string; minHours: number
+  pricingType: string; selectedFeatures: string[]; pricing: { durationHours: number; price: string }[]
   images: File[]
 }
 
 const INITIAL: FormData = {
-  name: '',
-  tagline: '',
-  description: '',
-  type: 'motor_yacht',
-  locationId: '',
-  departurePort: '',
-  capacityPax: 8,
-  lengthM: '',
-  cabins: 0,
-  builder: '',
-  modelYear: '',
-  includesSkipper: true,
-  includesFuel: true,
-  includesDrinks: false,
-  instantBook: false,
-  cancellationPolicy: 'moderate',
-  minHours: 2,
-  pricingType: 'hourly',
-  selectedFeatures: [],
-  pricing: [
-    { durationHours: 2, price: '' },
-    { durationHours: 4, price: '' },
-    { durationHours: 8, price: '' },
-  ],
+  name: '', tagline: '', description: '', type: 'motor_yacht', locationId: '', departurePort: '',
+  capacityPax: 8, lengthM: '', cabins: 0, builder: '', modelYear: '', includesSkipper: true,
+  includesFuel: true, includesDrinks: false, instantBook: false, cancellationPolicy: 'moderate',
+  minHours: 2, pricingType: 'hourly', selectedFeatures: [],
+  pricing: [{ durationHours: 2, price: '' }, { durationHours: 4, price: '' }, { durationHours: 8, price: '' }],
   images: [],
 }
 
 function formFromInitial(d?: any): FormData {
   if (!d) return INITIAL
   return {
-    name: d.name ?? '',
-    tagline: d.tagline ?? '',
-    description: d.description ?? '',
-    type: d.type ?? 'motor_yacht',
-    locationId: d.location_id ?? '',
-    departurePort: d.departure_port ?? '',
-    capacityPax: d.capacity_pax ?? 8,
-    lengthM: d.length_m ? String(d.length_m) : '',
-    cabins: d.cabins ?? 0,
-    builder: d.builder ?? '',
-    modelYear: d.model_year ? String(d.model_year) : '',
-    includesSkipper: d.includes_skipper ?? true,
-    includesFuel: d.includes_fuel ?? true,
-    includesDrinks: d.includes_drinks ?? false,
-    instantBook: d.instant_book ?? false,
-    cancellationPolicy: d.cancellation_policy ?? 'moderate',
-    minHours: d.min_hours ?? 2,
+    name: d.name ?? '', tagline: d.tagline ?? '', description: d.description ?? '',
+    type: d.type ?? 'motor_yacht', locationId: d.location_id ?? '',
+    departurePort: d.departure_port ?? '', capacityPax: d.capacity_pax ?? 8,
+    lengthM: d.length_m ? String(d.length_m) : '', cabins: d.cabins ?? 0,
+    builder: d.builder ?? '', modelYear: d.model_year ? String(d.model_year) : '',
+    includesSkipper: d.includes_skipper ?? true, includesFuel: d.includes_fuel ?? true,
+    includesDrinks: d.includes_drinks ?? false, instantBook: d.instant_book ?? false,
+    cancellationPolicy: d.cancellation_policy ?? 'moderate', minHours: d.min_hours ?? 2,
     pricingType: d.pricing_type ?? 'hourly',
     selectedFeatures: (d.boat_features ?? []).map((f: any) => f.feature),
     pricing: (d.boat_pricing ?? []).length > 0
@@ -108,6 +76,84 @@ function formFromInitial(d?: any): FormData {
       : INITIAL.pricing,
     images: [],
   }
+}
+
+/* ── shared field wrapper ── */
+function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <label style={{ fontSize: '13px', fontWeight: 600, color: text, letterSpacing: '0.01em' }}>
+        {label}{required && <span style={{ color: gold, marginLeft: '3px' }}>*</span>}
+      </label>
+      {children}
+    </div>
+  )
+}
+
+/* ── dark-styled input override wrapper ── */
+const inputStyle: React.CSSProperties = {
+  background: inputBg,
+  border: `1px solid ${inputBorder}`,
+  borderRadius: '10px',
+  color: text,
+  fontSize: '14px',
+  padding: '11px 14px',
+  outline: 'none',
+  width: '100%',
+  transition: 'border-color 0.15s',
+}
+
+function DarkInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      {...props}
+      style={{
+        ...inputStyle,
+        ...props.style,
+      }}
+      onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = goldBorder }}
+      onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = inputBorder }}
+    />
+  )
+}
+
+function DarkTextarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <textarea
+      {...props}
+      style={{
+        ...inputStyle,
+        resize: 'vertical',
+        minHeight: '120px',
+        fontFamily: 'inherit',
+        lineHeight: 1.6,
+      }}
+      onFocus={(e) => { e.target.style.borderColor = goldBorder }}
+      onBlur={(e) => { e.target.style.borderColor = inputBorder }}
+    />
+  )
+}
+
+function DarkSelect({ value, onChange, children }: { value: string; onChange: (v: string) => void; children: React.ReactNode }) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      style={{
+        ...inputStyle,
+        appearance: 'none',
+        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(244,244,242,0.5)' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'right 14px center',
+        paddingRight: '36px',
+        cursor: 'pointer',
+      }}
+      onFocus={(e) => { e.target.style.borderColor = goldBorder }}
+      onBlur={(e) => { e.target.style.borderColor = inputBorder }}
+    >
+      {children}
+    </select>
+  )
 }
 
 export default function ListingWizard({ locations, initialData, boatId }: WizardProps) {
@@ -153,96 +199,52 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
       if (!user) throw new Error('Not authenticated')
 
       const boatFields = {
-        location_id: form.locationId,
-        name: form.name,
-        tagline: form.tagline || null,
-        description: form.description || null,
-        type: form.type as any,
-        length_m: form.lengthM ? Number(form.lengthM) : null,
-        capacity_pax: form.capacityPax,
-        cabins: form.cabins || null,
-        builder: form.builder || null,
+        location_id: form.locationId, name: form.name, tagline: form.tagline || null,
+        description: form.description || null, type: form.type as any,
+        length_m: form.lengthM ? Number(form.lengthM) : null, capacity_pax: form.capacityPax,
+        cabins: form.cabins || null, builder: form.builder || null,
         model_year: form.modelYear ? Number(form.modelYear) : null,
-        departure_port: form.departurePort || null,
-        includes_skipper: form.includesSkipper,
-        includes_fuel: form.includesFuel,
-        includes_drinks: form.includesDrinks,
-        min_hours: form.minHours,
-        pricing_type: form.pricingType as any,
-        instant_book: form.instantBook,
-        cancellation_policy: form.cancellationPolicy as any,
+        departure_port: form.departurePort || null, includes_skipper: form.includesSkipper,
+        includes_fuel: form.includesFuel, includes_drinks: form.includesDrinks,
+        min_hours: form.minHours, pricing_type: form.pricingType as any,
+        instant_book: form.instantBook, cancellation_policy: form.cancellationPolicy as any,
       }
 
       let targetBoatId: string
 
       if (boatId) {
-        // Edit mode — update existing boat
-        const { error: updateErr } = await supabase
-          .from('boats')
-          .update(boatFields)
-          .eq('id', boatId)
+        const { error: updateErr } = await supabase.from('boats').update(boatFields).eq('id', boatId)
         if (updateErr) throw new Error(updateErr.message)
         targetBoatId = boatId
-
-        // Replace pricing (delete old, insert new)
         await supabase.from('boat_pricing').delete().eq('boat_id', boatId)
       } else {
-        // Create mode — insert new boat
         const slug = form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + Date.now()
         const { data: boat, error: boatErr } = await supabase
-          .from('boats')
-          .insert({ host_id: user.id, slug, status: 'draft', ...boatFields })
-          .select('id')
-          .single()
+          .from('boats').insert({ host_id: user.id, slug, status: 'draft', ...boatFields })
+          .select('id').single()
         if (boatErr || !boat) throw new Error(boatErr?.message ?? 'Failed to create listing')
         targetBoatId = boat.id
       }
 
-      // Insert pricing
       const pricingRecords = form.pricing
         .filter((p) => p.price && Number(p.price) > 0)
-        .map((p) => ({
-          boat_id: targetBoatId,
-          duration_hours: p.durationHours,
-          price: Number(p.price),
-          currency: 'EUR',
-          season: 'all' as const,
-        }))
+        .map((p) => ({ boat_id: targetBoatId, duration_hours: p.durationHours, price: Number(p.price), currency: 'EUR', season: 'all' as const }))
+      if (pricingRecords.length > 0) await supabase.from('boat_pricing').insert(pricingRecords)
 
-      if (pricingRecords.length > 0) {
-        await supabase.from('boat_pricing').insert(pricingRecords)
-      }
-
-      // Update features (replace in edit mode)
-      if (boatId) {
-        await supabase.from('boat_features').delete().eq('boat_id', boatId)
-      }
+      if (boatId) await supabase.from('boat_features').delete().eq('boat_id', boatId)
       if (form.selectedFeatures.length > 0) {
-        await supabase.from('boat_features').insert(
-          form.selectedFeatures.map((f) => ({ boat_id: targetBoatId, feature: f }))
-        )
+        await supabase.from('boat_features').insert(form.selectedFeatures.map((f) => ({ boat_id: targetBoatId, feature: f })))
       }
 
-      // Upload new images (in edit mode, append to existing)
       if (form.images.length > 0) {
         const urls = await uploadImages(targetBoatId)
         const existingCount = initialData?.boat_images?.length ?? 0
         await supabase.from('boat_images').insert(
-          urls.map((url, i) => ({
-            boat_id: targetBoatId,
-            storage_url: url,
-            alt: `${form.name} photo ${existingCount + i + 1}`,
-            sort_order: existingCount + i,
-            is_hero: existingCount === 0 && i === 0,
-          }))
+          urls.map((url, i) => ({ boat_id: targetBoatId, storage_url: url, alt: `${form.name} photo ${existingCount + i + 1}`, sort_order: existingCount + i, is_hero: existingCount === 0 && i === 0 }))
         )
       }
 
-      // Activate if we have pricing
-      if (pricingRecords.length > 0) {
-        await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
-      }
-
+      if (pricingRecords.length > 0) await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
       router.push('/host')
     } catch (err: any) {
       setError(err.message)
@@ -252,157 +254,157 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
 
   return (
     <div>
-      {/* Step indicator */}
-      <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-1">
+      {/* ── Step indicator ── */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '28px', overflowX: 'auto', paddingBottom: '4px' }}>
         {STEPS.map((s, i) => (
-          <div key={s} className="flex items-center gap-2 shrink-0">
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
-              i < step ? 'bg-emerald-500 text-white' : i === step ? 'bg-[#06b6d4] text-white' : 'bg-slate-200 text-slate-500'
-            }`}>
-              {i < step ? <Check className="w-3.5 h-3.5" /> : i + 1}
+          <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+            <div style={{
+              width: '28px', height: '28px', borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '12px', fontWeight: 700, transition: 'all 0.2s',
+              background: i < step ? '#22c55e' : i === step ? gold : 'rgba(255,255,255,0.10)',
+              color: i < step || i === step ? '#07101e' : muted,
+              border: i === step ? `2px solid ${gold}` : '2px solid transparent',
+            }}>
+              {i < step ? <Check style={{ width: 14, height: 14 }} /> : i + 1}
             </div>
-            <span className={`text-sm ${i === step ? 'font-semibold text-slate-900' : 'text-slate-400'}`}>{s}</span>
-            {i < STEPS.length - 1 && <ChevronRight className="w-4 h-4 text-slate-300" />}
+            <span style={{ fontSize: '13px', fontWeight: i === step ? 700 : 400, color: i === step ? text : muted }}>
+              {s}
+            </span>
+            {i < STEPS.length - 1 && (
+              <ChevronRight style={{ width: 16, height: 16, color: dim, flexShrink: 0 }} />
+            )}
           </div>
         ))}
       </div>
 
-      {/* Step content */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-6 space-y-5">
+      {/* ── Step content ── */}
+      <div style={{ background: card, borderRadius: '16px', border: `1px solid ${border}`, padding: '28px 24px', marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+        {/* ── Step 0: Basics ── */}
         {step === 0 && (
           <>
-            <h2 className="text-lg font-bold text-slate-900 mb-4">Tell guests about your boat</h2>
-            <div className="space-y-1.5">
-              <Label>Listing name *</Label>
-              <Input value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="e.g. Azimut 40 – Sun Seeker" />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Tagline</Label>
-              <Input value={form.tagline} onChange={(e) => update('tagline', e.target.value)} placeholder="Short catchy description (optional)" />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Full description</Label>
-              <Textarea value={form.description} onChange={(e) => update('description', e.target.value)} placeholder="Describe the boat, the experience, what to expect…" rows={5} />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Boat type *</Label>
-              <Select value={form.type} onValueChange={(v) => update('type', v)}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {BOAT_TYPES.map((t) => (
-                    <SelectItem key={t} value={t}>{t.replace('_', ' ')}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-1.5">
-              <Label>Location *</Label>
-              <Select value={form.locationId} onValueChange={(v) => update('locationId', v)}>
-                <SelectTrigger><SelectValue placeholder="Select a city" /></SelectTrigger>
-                <SelectContent>
-                  {locations.map((loc) => (
-                    <SelectItem key={loc.id} value={loc.id}>{loc.city}, {loc.country}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-1.5">
-              <Label>Departure port / marina</Label>
-              <Input value={form.departurePort} onChange={(e) => update('departurePort', e.target.value)} placeholder="e.g. Puerto Banús, Marbella" />
-            </div>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Tell guests about your boat</h2>
+            <Field label="Listing name" required>
+              <DarkInput value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="e.g. Azimut 40 – Sun Seeker" />
+            </Field>
+            <Field label="Tagline">
+              <DarkInput value={form.tagline} onChange={(e) => update('tagline', e.target.value)} placeholder="Short catchy description (optional)" />
+            </Field>
+            <Field label="Full description">
+              <DarkTextarea value={form.description} onChange={(e) => update('description', e.target.value)} placeholder="Describe the boat, the experience, what to expect…" rows={5} />
+            </Field>
+            <Field label="Boat type" required>
+              <DarkSelect value={form.type} onChange={(v) => update('type', v)}>
+                {BOAT_TYPES.map((t) => <option key={t} value={t}>{t.replace('_', ' ')}</option>)}
+              </DarkSelect>
+            </Field>
+            <Field label="Location" required>
+              <DarkSelect value={form.locationId} onChange={(v) => update('locationId', v)}>
+                <option value="">Select a city</option>
+                {locations.map((loc) => <option key={loc.id} value={loc.id}>{loc.city}, {loc.country}</option>)}
+              </DarkSelect>
+            </Field>
+            <Field label="Departure port / marina">
+              <DarkInput value={form.departurePort} onChange={(e) => update('departurePort', e.target.value)} placeholder="e.g. Puerto Banús, Marbella" />
+            </Field>
           </>
         )}
 
+        {/* ── Step 1: Specs & features ── */}
         {step === 1 && (
           <>
-            <h2 className="text-lg font-bold text-slate-900 mb-4">Boat specifications</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <Label>Max guests *</Label>
-                <Input type="number" value={form.capacityPax} onChange={(e) => update('capacityPax', Number(e.target.value))} min={1} max={100} />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Length (m)</Label>
-                <Input type="number" value={form.lengthM} onChange={(e) => update('lengthM', e.target.value)} step={0.1} min={1} placeholder="12.5" />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Cabins</Label>
-                <Input type="number" value={form.cabins} onChange={(e) => update('cabins', Number(e.target.value))} min={0} />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Builder / brand</Label>
-                <Input value={form.builder} onChange={(e) => update('builder', e.target.value)} placeholder="Azimut, Sunseeker…" />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Model year</Label>
-                <Input type="number" value={form.modelYear} onChange={(e) => update('modelYear', e.target.value)} min={1970} max={2030} placeholder="2019" />
-              </div>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Boat specifications</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <Field label="Max guests" required>
+                <DarkInput type="number" value={form.capacityPax} onChange={(e) => update('capacityPax', Number(e.target.value))} min={1} max={100} />
+              </Field>
+              <Field label="Length (m)">
+                <DarkInput type="number" value={form.lengthM} onChange={(e) => update('lengthM', e.target.value)} step={0.1} min={1} placeholder="12.5" />
+              </Field>
+              <Field label="Cabins">
+                <DarkInput type="number" value={form.cabins} onChange={(e) => update('cabins', Number(e.target.value))} min={0} />
+              </Field>
+              <Field label="Builder / brand">
+                <DarkInput value={form.builder} onChange={(e) => update('builder', e.target.value)} placeholder="Azimut, Sunseeker…" />
+              </Field>
+              <Field label="Model year">
+                <DarkInput type="number" value={form.modelYear} onChange={(e) => update('modelYear', e.target.value)} min={1970} max={2030} placeholder="2019" />
+              </Field>
             </div>
 
-            <div className="space-y-2">
-              <Label>What&apos;s included?</Label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>What&apos;s included?</label>
               {[
                 { key: 'includesSkipper', label: 'Licensed skipper' },
                 { key: 'includesFuel', label: 'Fuel' },
                 { key: 'includesDrinks', label: 'Drinks & snacks' },
                 { key: 'instantBook', label: 'Instant book (guests book without approval)' },
               ].map((opt) => (
-                <label key={opt.key} className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={form[opt.key as keyof FormData] as boolean}
-                    onChange={(e) => update(opt.key as keyof FormData, e.target.checked)}
-                    className="w-4 h-4 rounded accent-[#06b6d4]"
-                  />
-                  <span className="text-sm text-slate-700">{opt.label}</span>
+                <label key={opt.key} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
+                  <div
+                    style={{
+                      width: '20px', height: '20px', borderRadius: '6px', flexShrink: 0,
+                      border: `2px solid ${form[opt.key as keyof FormData] ? gold : inputBorder}`,
+                      background: form[opt.key as keyof FormData] ? goldFaint : 'transparent',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      transition: 'all 0.15s',
+                    }}
+                    onClick={() => update(opt.key as keyof FormData, !form[opt.key as keyof FormData])}
+                  >
+                    {form[opt.key as keyof FormData] && <Check style={{ width: 12, height: 12, color: gold }} />}
+                  </div>
+                  <span style={{ fontSize: '14px', color: text }}>{opt.label}</span>
                 </label>
               ))}
             </div>
 
-            <div className="space-y-2">
-              <Label>Amenities</Label>
-              <div className="flex flex-wrap gap-2">
-                {COMMON_FEATURES.map((feat) => (
-                  <button
-                    key={feat}
-                    type="button"
-                    onClick={() => toggleFeature(feat)}
-                    className={`px-3 py-1.5 rounded-full text-sm border transition-all ${
-                      form.selectedFeatures.includes(feat)
-                        ? 'bg-[#06b6d4]/10 border-[#06b6d4] text-[#0891b2]'
-                        : 'border-slate-200 text-slate-600 hover:border-slate-300'
-                    }`}
-                  >
-                    {feat}
-                  </button>
-                ))}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>Amenities</label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {COMMON_FEATURES.map((feat) => {
+                  const active = form.selectedFeatures.includes(feat)
+                  return (
+                    <button
+                      key={feat}
+                      type="button"
+                      onClick={() => toggleFeature(feat)}
+                      style={{
+                        padding: '7px 14px', borderRadius: '99px', fontSize: '13px', cursor: 'pointer',
+                        transition: 'all 0.15s', fontWeight: active ? 600 : 400,
+                        background: active ? goldFaint : 'transparent',
+                        border: `1px solid ${active ? gold : inputBorder}`,
+                        color: active ? gold : muted,
+                      }}
+                    >
+                      {feat}
+                    </button>
+                  )
+                })}
               </div>
             </div>
           </>
         )}
 
+        {/* ── Step 2: Pricing ── */}
         {step === 2 && (
           <>
-            <h2 className="text-lg font-bold text-slate-900 mb-4">Set your prices</h2>
-            <div className="space-y-1.5 mb-4">
-              <Label>Cancellation policy</Label>
-              <Select value={form.cancellationPolicy} onValueChange={(v) => update('cancellationPolicy', v)}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="flexible">Flexible — full refund up to 24h before</SelectItem>
-                  <SelectItem value="moderate">Moderate — full refund up to 5 days before</SelectItem>
-                  <SelectItem value="strict">Strict — 50% refund up to 14 days before</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-3">
-              <Label>Pricing tiers (EUR)</Label>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Set your prices</h2>
+            <Field label="Cancellation policy">
+              <DarkSelect value={form.cancellationPolicy} onChange={(v) => update('cancellationPolicy', v)}>
+                <option value="flexible">Flexible — full refund up to 24h before</option>
+                <option value="moderate">Moderate — full refund up to 5 days before</option>
+                <option value="strict">Strict — 50% refund up to 14 days before</option>
+              </DarkSelect>
+            </Field>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>Pricing tiers (EUR)</label>
               {form.pricing.map((p, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <span className="text-sm text-slate-500 w-16 shrink-0">{p.durationHours}h</span>
-                  <div className="flex-1 relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">€</span>
-                    <Input
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '13px', color: muted, width: '32px', flexShrink: 0 }}>{p.durationHours}h</span>
+                  <div style={{ flex: 1, position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: muted, fontSize: '14px', pointerEvents: 'none' }}>€</span>
+                    <DarkInput
                       type="number"
                       value={p.price}
                       onChange={(e) => {
@@ -411,42 +413,36 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
                         update('pricing', updated)
                       }}
                       placeholder="0"
-                      className="pl-7"
                       min={0}
+                      style={{ paddingLeft: '32px' }}
                     />
                   </div>
                 </div>
               ))}
-              <p className="text-xs text-slate-400">A 15% service fee is added to these prices at checkout.</p>
+              <p style={{ fontSize: '12px', color: dim }}>A 15% service fee is added to these prices at checkout.</p>
             </div>
           </>
         )}
 
+        {/* ── Step 3: Photos ── */}
         {step === 3 && (
           <>
-            <h2 className="text-lg font-bold text-slate-900 mb-4">Add photos</h2>
-            <div className="border-2 border-dashed border-slate-200 rounded-xl p-8 text-center">
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={(e) => update('images', Array.from(e.target.files ?? []))}
-                className="hidden"
-                id="photo-upload"
-              />
-              <label htmlFor="photo-upload" className="cursor-pointer">
-                <div className="text-3xl mb-2">📸</div>
-                <div className="font-semibold text-slate-700 mb-1">Upload photos</div>
-                <div className="text-sm text-slate-400">JPG, PNG or WebP — up to 10 photos</div>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Add photos</h2>
+            <div style={{ border: `2px dashed ${inputBorder}`, borderRadius: '14px', padding: '40px 24px', textAlign: 'center' }}>
+              <input type="file" accept="image/*" multiple onChange={(e) => update('images', Array.from(e.target.files ?? []))} style={{ display: 'none' }} id="photo-upload" />
+              <label htmlFor="photo-upload" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <div style={{ fontSize: '36px' }}>📸</div>
+                <div style={{ fontWeight: 600, color: text, fontSize: '15px' }}>Upload photos</div>
+                <div style={{ fontSize: '13px', color: muted }}>JPG, PNG or WebP · up to 10 photos</div>
               </label>
             </div>
             {form.images.length > 0 && (
-              <div className="grid grid-cols-3 gap-2 mt-3">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginTop: '4px' }}>
                 {form.images.map((f, i) => (
-                  <div key={i} className="aspect-video rounded-lg overflow-hidden bg-slate-100 relative">
-                    <img src={URL.createObjectURL(f)} alt="" className="w-full h-full object-cover" />
+                  <div key={i} style={{ aspectRatio: '16/9', borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.06)', position: 'relative' }}>
+                    <img src={URL.createObjectURL(f)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     {i === 0 && (
-                      <span className="absolute bottom-1 left-1 text-xs bg-black/60 text-white px-1.5 rounded">Hero</span>
+                      <span style={{ position: 'absolute', bottom: '6px', left: '6px', fontSize: '10px', background: 'rgba(0,0,0,0.70)', color: '#fff', padding: '2px 7px', borderRadius: '99px' }}>Hero</span>
                     )}
                   </div>
                 ))}
@@ -455,61 +451,76 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
           </>
         )}
 
+        {/* ── Step 4: Review & publish ── */}
         {step === 4 && (
           <>
-            <h2 className="text-lg font-bold text-slate-900 mb-4">Review & publish</h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-500">Name</span>
-                <span className="font-medium text-slate-900">{form.name || '—'}</span>
-              </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-500">Type</span>
-                <span className="font-medium text-slate-900">{form.type.replace('_', ' ')}</span>
-              </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-500">Capacity</span>
-                <span className="font-medium text-slate-900">{form.capacityPax} guests</span>
-              </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-500">Pricing slots</span>
-                <span className="font-medium text-slate-900">
-                  {form.pricing.filter((p) => p.price && Number(p.price) > 0).length} set
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-500">Photos</span>
-                <span className="font-medium text-slate-900">{form.images.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Instant book</span>
-                <span className="font-medium text-slate-900">{form.instantBook ? 'Yes' : 'No'}</span>
-              </div>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Review & publish</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+              {[
+                { label: 'Name', value: form.name || '—' },
+                { label: 'Type', value: form.type.replace('_', ' ') },
+                { label: 'Capacity', value: `${form.capacityPax} guests` },
+                { label: 'Pricing slots', value: `${form.pricing.filter((p) => p.price && Number(p.price) > 0).length} set` },
+                { label: 'Photos', value: String(form.images.length) },
+                { label: 'Instant book', value: form.instantBook ? 'Yes' : 'No' },
+              ].map((row, i, arr) => (
+                <div key={row.label} style={{
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  padding: '14px 0', fontSize: '14px',
+                  borderBottom: i < arr.length - 1 ? `1px solid rgba(255,255,255,0.07)` : 'none',
+                }}>
+                  <span style={{ color: muted }}>{row.label}</span>
+                  <span style={{ fontWeight: 600, color: text }}>{row.value}</span>
+                </div>
+              ))}
             </div>
-            {error && <p className="text-sm text-red-600 mt-4">{error}</p>}
+            {error && (
+              <p style={{ fontSize: '13px', color: '#f87171', background: 'rgba(248,113,113,0.10)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: '10px', padding: '12px 16px' }}>
+                {error}
+              </p>
+            )}
           </>
         )}
       </div>
 
-      {/* Navigation buttons */}
-      <div className="flex justify-between gap-3">
+      {/* ── Navigation buttons ── */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
         {step > 0 ? (
-          <Button variant="outline" onClick={() => setStep(step - 1)}>
-            <ChevronLeft className="w-4 h-4" /> Back
-          </Button>
+          <button
+            onClick={() => setStep(step - 1)}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 22px', borderRadius: '99px', fontSize: '14px', fontWeight: 600, cursor: 'pointer', background: 'transparent', border: `1px solid ${inputBorder}`, color: text }}
+          >
+            <ChevronLeft style={{ width: 16, height: 16 }} /> Back
+          </button>
         ) : <div />}
         {step < STEPS.length - 1 ? (
-          <Button
-            variant="sea"
+          <button
             onClick={() => setStep(step + 1)}
             disabled={step === 0 && (!form.name || !form.locationId)}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 28px', borderRadius: '99px',
+              fontSize: '14px', fontWeight: 700, cursor: step === 0 && (!form.name || !form.locationId) ? 'not-allowed' : 'pointer',
+              background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+              color: '#07101e', opacity: step === 0 && (!form.name || !form.locationId) ? 0.45 : 1,
+              border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)',
+            }}
           >
-            Continue <ChevronRight className="w-4 h-4" />
-          </Button>
+            Continue <ChevronRight style={{ width: 16, height: 16 }} />
+          </button>
         ) : (
-          <Button variant="sea" onClick={handlePublish} disabled={loading}>
+          <button
+            onClick={handlePublish}
+            disabled={loading}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 28px', borderRadius: '99px',
+              fontSize: '14px', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer',
+              background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+              color: '#07101e', opacity: loading ? 0.6 : 1, border: 'none',
+              boxShadow: '0 4px 18px rgba(201,168,78,0.25)',
+            }}
+          >
             {loading ? (boatId ? 'Saving…' : 'Publishing…') : (boatId ? 'Save changes' : 'Publish listing')}
-          </Button>
+          </button>
         )}
       </div>
     </div>

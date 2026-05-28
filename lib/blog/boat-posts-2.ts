@@ -10,7 +10,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     readTime:   '5 min read',
     date:       'May 11, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1400&q=80',
     boatSlug:   'k80',
     faqs: [
@@ -21,7 +21,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
       { q: 'What is the K80 charter price in Marbella?', a: 'Pricing is on request — contact via WhatsApp for your date and group size.' },
     ],
     content: `
-<p>The <strong>K80</strong> is a 24-metre flagship motor yacht berthed at Puerto Banús and the second 24 m option in the BoatAway Marbella fleet alongside the Mangusta 80 "Nina". For groups who want flagship-class scale — 12 guests, professional crew, water toys, a sun deck — but prefer a different design aesthetic to the Mangusta's open sport-yacht character, the K80 is the alternative.</p>
+<p>The <strong>K80</strong> is a 24-metre flagship motor yacht berthed at Puerto Banús and the second 24 m option in the BoatHire24 Marbella fleet alongside the Mangusta 80 "Nina". For groups who want flagship-class scale — 12 guests, professional crew, water toys, a sun deck — but prefer a different design aesthetic to the Mangusta's open sport-yacht character, the K80 is the alternative.</p>
 
 <h2>Specifications</h2>
 <ul>
@@ -57,7 +57,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     readTime:   '6 min read',
     date:       'May 10, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.unsplash.com/photo-1562281302-809108fd533c?w=1400&q=80',
     boatSlug:   'lagoon-380',
     faqs: [
@@ -68,7 +68,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
       { q: 'What is the price for the Lagoon 380 catamaran charter in Marbella?', a: 'Pricing is on request — contact via WhatsApp for your specific date and group size.' },
     ],
     content: `
-<p>The <strong>Lagoon 380</strong> is the only sailing catamaran in the BoatAway Marbella fleet, and it represents a fundamentally different charter experience from every other boat available from Puerto Banús. Where the motor yachts prioritise speed, distance, and the visual drama of a powerful hull cutting through Mediterranean water, the Lagoon 380 prioritises stability, space, and a quieter, more immersive connection to the sea.</p>
+<p>The <strong>Lagoon 380</strong> is the only sailing catamaran in the BoatHire24 Marbella fleet, and it represents a fundamentally different charter experience from every other boat available from Puerto Banús. Where the motor yachts prioritise speed, distance, and the visual drama of a powerful hull cutting through Mediterranean water, the Lagoon 380 prioritises stability, space, and a quieter, more immersive connection to the sea.</p>
 <p>For groups where one or more guests is prone to motion sickness, or groups who want to spend the majority of their charter at anchor in a cove rather than in transit, the Lagoon 380 is the clear recommendation.</p>
 
 <h2>Specifications</h2>
@@ -107,7 +107,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     readTime:   '5 min read',
     date:       'May 9, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=1400&q=80',
     boatSlug:   'mangusta-80-grey',
     faqs: [
@@ -118,7 +118,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
       { q: 'How many guests does the Mangusta 80 Grey hold?', a: '12 guests for a day charter, crewed by captain and deckhand.' },
     ],
     content: `
-<p>The <strong>Mangusta 80 Grey</strong> is the second Overmarine Mangusta 80 in the BoatAway Marbella fleet — a 24-metre Italian sport superyacht with the same performance, the same Sea-Doo jet ski, and the same 12-guest capacity as the fleet's flagship "Nina", distinguished by its striking grey hull finish.</p>
+<p>The <strong>Mangusta 80 Grey</strong> is the second Overmarine Mangusta 80 in the BoatHire24 Marbella fleet — a 24-metre Italian sport superyacht with the same performance, the same Sea-Doo jet ski, and the same 12-guest capacity as the fleet's flagship "Nina", distinguished by its striking grey hull finish.</p>
 <p>Having a second Mangusta 80 in the fleet is unusual in the day-charter market — most Marbella operators have one flagship at this size, if any. For guests who want to charter a 24-metre Overmarine on a specific date when the white "Nina" is already booked, the grey variant ensures that availability is rarely a constraint.</p>
 
 <h2>The grey hull aesthetic</h2>
@@ -156,7 +156,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     readTime:   '4 min read',
     date:       'May 8, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1400&q=80',
     boatSlug:   'mangusta-80-white',
     faqs: [
@@ -167,7 +167,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
       { q: 'Can I book multiple Mangusta 80s simultaneously?', a: 'Yes — some corporate events and large celebrations have booked two or three Mangusta 80s simultaneously for fleets of boats. Contact via WhatsApp to arrange.' },
     ],
     content: `
-<p>The <strong>Mangusta 80 White</strong> is the third Overmarine Mangusta 80 in the BoatAway Marbella fleet — a 24-metre Italian sport superyacht with white hull finish, Sea-Doo jet ski, and full-beam sun pad for 12 guests. Having three boats of this model available from Puerto Banús is a genuine operational distinction: no other Marbella charter company runs three flagship 24-metre superyachts of the same model simultaneously.</p>
+<p>The <strong>Mangusta 80 White</strong> is the third Overmarine Mangusta 80 in the BoatHire24 Marbella fleet — a 24-metre Italian sport superyacht with white hull finish, Sea-Doo jet ski, and full-beam sun pad for 12 guests. Having three boats of this model available from Puerto Banús is a genuine operational distinction: no other Marbella charter company runs three flagship 24-metre superyachts of the same model simultaneously.</p>
 
 <h2>The three-Mangusta fleet advantage</h2>
 <p>Peak summer season in Puerto Banús — July and August, with significant demand in June and September — puts enormous pressure on flagship availability. Most charter companies with one or two flagship boats find them booked weeks in advance, leaving late-notice groups unable to access the top tier of the fleet.</p>
@@ -200,7 +200,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     readTime:   '4 min read',
     date:       'May 7, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=80',
     boatSlug:   'mariah-sx21',
     faqs: [
@@ -211,7 +211,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
       { q: 'Where does the Mariah SX21 depart from?', a: 'Puerto Banús marina, Marbella.' },
     ],
     content: `
-<p>The <strong>Mariah SX21</strong> is the compact water-sports option in the BoatAway Marbella fleet — a 6.4-metre American bowrider designed for the kind of active, high-energy day on the water that larger motor yachts can't deliver as efficiently. For small groups (up to 5) who want water-sports activities as the focus of their charter rather than a backdrop to a social day, the SX21 is the right tool.</p>
+<p>The <strong>Mariah SX21</strong> is the compact water-sports option in the BoatHire24 Marbella fleet — a 6.4-metre American bowrider designed for the kind of active, high-energy day on the water that larger motor yachts can't deliver as efficiently. For small groups (up to 5) who want water-sports activities as the focus of their charter rather than a backdrop to a social day, the SX21 is the right tool.</p>
 
 <h2>Specifications</h2>
 <ul>
@@ -247,7 +247,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     readTime:   '5 min read',
     date:       'May 6, 2026',
     author:     'Carlos Mendoza',
-    authorRole: 'BoatAway Fleet Captain, Marbella',
+    authorRole: 'BoatHire24 Fleet Captain, Marbella',
     heroImage:  'https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=1400&q=80',
     boatSlug:   'pershing-46',
     faqs: [
@@ -306,7 +306,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
       { q: 'What is a fighting chair and why is it useful?', a: 'A fighting chair is a mounted, padded chair in the stern with rod holders and harness attachment points — allows an angler to fight large pelagic fish (tuna, marlin) without standing for an extended period.' },
     ],
     content: `
-<p><strong>Red Tide</strong> is the purpose-built sport-fishing boat in the BoatAway Marbella fleet — an 11-metre vessel rigged specifically for offshore deep-sea fishing from Puerto Banús. Where most charter boats offer fishing as one option among several, Red Tide is designed around fishing as the primary and only activity, with the specific equipment configuration that serious offshore angling requires.</p>
+<p><strong>Red Tide</strong> is the purpose-built sport-fishing boat in the BoatHire24 Marbella fleet — an 11-metre vessel rigged specifically for offshore deep-sea fishing from Puerto Banús. Where most charter boats offer fishing as one option among several, Red Tide is designed around fishing as the primary and only activity, with the specific equipment configuration that serious offshore angling requires.</p>
 
 <h2>Specifications</h2>
 <ul>
@@ -342,7 +342,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     readTime:   '4 min read',
     date:       'May 4, 2026',
     author:     'Isabelle Fonteneau',
-    authorRole: 'Charter Specialist, BoatAway HQ',
+    authorRole: 'Charter Specialist, BoatHire24 HQ',
     heroImage:  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=80',
     boatSlug:   'speedboat',
     faqs: [
@@ -354,7 +354,7 @@ export const BOAT_POSTS_2: BlogPost[] = [
     ],
     content: `
 <p>Sometimes a <strong>speedboat charter in Marbella</strong> is exactly what you need — a fast, direct hit of Mediterranean coastline, cold drink in hand, spray in the air, with a professional skipper at the helm and no pretension about it. Not every day on the water needs to be a full-day superyacht experience. Sometimes two or three hours at speed along the Costa del Sol is the whole point.</p>
-<p>The BoatAway speedboat option from Puerto Banús delivers exactly that — up to 6 guests, a licensed skipper, and the kind of simple, immediate joy of being on the water that the larger charter boats sometimes obscure behind their own complexity.</p>
+<p>The BoatHire24 speedboat option from Puerto Banús delivers exactly that — up to 6 guests, a licensed skipper, and the kind of simple, immediate joy of being on the water that the larger charter boats sometimes obscure behind their own complexity.</p>
 
 <h2>What a speedboat charter covers</h2>
 <p>In a 2-hour speedboat charter from Puerto Banús, a typical route might run west along the Marbella coastline past the Puente Romano beach, the Marbella Club, and the golden-mile villas to a swimming anchor east of Estepona before returning. In a 3-hour charter, you can reach the cleaner water east of Marbella toward Cabopino, where the sand dunes and lighthouse make for an unusual backdrop for a swim stop.</p>

@@ -1,12 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, User, LogOut, LayoutDashboard, Ship } from 'lucide-react'
+import { X, User, LogOut, LayoutDashboard, Ship, Menu, Search, Compass, HelpCircle, Anchor } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import Logo from '@/components/ui/Logo'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
+
+const gold = '#c9a84e'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.60)'
 
 const NAV_LINKS = [
   { href: '/search',        label: 'Explore boats' },
@@ -21,6 +25,7 @@ export default function SiteNav() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const supabase = createClient()
@@ -30,7 +35,20 @@ export default function SiteNav() {
     })
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => { subscription.unsubscribe(); window.removeEventListener('scroll', onScroll) }
+
+    // Close dropdown on outside click
+    const onClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onClickOutside)
+
+    return () => {
+      subscription.unsubscribe()
+      window.removeEventListener('scroll', onScroll)
+      document.removeEventListener('mousedown', onClickOutside)
+    }
   }, [])
 
   async function signOut() {
@@ -39,98 +57,157 @@ export default function SiteNav() {
     window.location.href = '/'
   }
 
+  const initial = user?.user_metadata?.full_name?.[0]?.toUpperCase()
+    ?? user?.email?.[0]?.toUpperCase()
+    ?? 'U'
+
   return (
     <header
-      className="sticky top-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled
-          ? 'rgba(7,16,30,0.97)'
-          : 'rgba(7,16,30,0.92)',
+        position: 'sticky', top: 0, zIndex: 50,
+        background: scrolled ? 'rgba(7,16,30,0.97)' : 'rgba(7,16,30,0.92)',
         backdropFilter: 'blur(16px) saturate(160%)',
         WebkitBackdropFilter: 'blur(16px) saturate(160%)',
         borderBottom: '1px solid rgba(201,168,78,0.15)',
         boxShadow: scrolled ? '0 8px 28px rgba(0,0,0,0.45)' : 'none',
+        transition: 'background 0.3s, box-shadow 0.3s',
       }}
     >
-      <div className="container">
-        <div className="flex items-center justify-between h-[68px]">
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center group">
-            <Logo size={38} />
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+            <Logo size={52} />
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-5">
+          {/* Desktop nav links */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '28px' }} className="hidden-mobile">
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="relative text-sm font-medium transition-colors group/link"
-                style={{ color: pathname === l.href ? '#c9a84e' : 'rgba(244,244,242,0.65)' }}
+                style={{
+                  fontSize: '14px', fontWeight: 500, textDecoration: 'none',
+                  color: pathname === l.href ? gold : muted,
+                  transition: 'color 0.15s',
+                  borderBottom: pathname === l.href ? `2px solid ${gold}` : '2px solid transparent',
+                  paddingBottom: '2px',
+                }}
+                onMouseEnter={(e) => { if (pathname !== l.href) (e.currentTarget as HTMLElement).style.color = text }}
+                onMouseLeave={(e) => { if (pathname !== l.href) (e.currentTarget as HTMLElement).style.color = muted }}
               >
                 {l.label}
-                <span
-                  className="absolute -bottom-0.5 left-0 h-px w-0 group-hover/link:w-full transition-all duration-200"
-                  style={{ background: '#c9a84e' }}
-                />
               </Link>
             ))}
           </nav>
 
           {/* Desktop auth */}
-          <div className="hidden md:flex items-center gap-2.5 pr-1">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="hidden-mobile">
             {user ? (
-              <div className="relative">
+              <div ref={dropdownRef} style={{ position: 'relative' }}>
+                {/* User pill button */}
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-full border transition-all text-sm font-medium"
                   style={{
-                    border: '1px solid rgba(201,168,78,0.25)',
-                    color: '#f4f4f2',
-                    background: 'transparent',
+                    display: 'flex', alignItems: 'center', gap: '10px',
+                    padding: '6px 6px 6px 14px',
+                    borderRadius: '99px',
+                    border: dropdownOpen ? '1px solid rgba(201,168,78,0.50)' : '1px solid rgba(201,168,78,0.25)',
+                    background: dropdownOpen ? 'rgba(201,168,78,0.08)' : 'rgba(255,255,255,0.04)',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                    boxShadow: dropdownOpen ? '0 0 0 3px rgba(201,168,78,0.10)' : 'none',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!dropdownOpen) {
+                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,78,0.45)'
+                      ;(e.currentTarget as HTMLElement).style.background = 'rgba(201,168,78,0.06)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!dropdownOpen) {
+                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,78,0.25)'
+                      ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'
+                    }
                   }}
                 >
-                  <Menu className="w-4 h-4" />
-                  <div
-                    className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
-                    style={{ background: '#c9a84e', color: '#07101e' }}
-                  >
-                    {user.email?.[0]?.toUpperCase() ?? 'U'}
+                  {/* Hamburger lines */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '16px' }}>
+                    <div style={{ height: '1.5px', background: 'rgba(244,244,242,0.70)', borderRadius: '2px', transition: 'all 0.2s', width: dropdownOpen ? '100%' : '100%' }} />
+                    <div style={{ height: '1.5px', background: 'rgba(244,244,242,0.70)', borderRadius: '2px', width: '75%' }} />
+                    <div style={{ height: '1.5px', background: 'rgba(244,244,242,0.70)', borderRadius: '2px', width: '50%' }} />
+                  </div>
+                  {/* Avatar */}
+                  <div style={{
+                    width: '32px', height: '32px', borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+                    color: '#07101e', fontSize: '13px', fontWeight: 800,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    boxShadow: '0 2px 8px rgba(201,168,78,0.35)',
+                    flexShrink: 0,
+                  }}>
+                    {initial}
                   </div>
                 </button>
 
+                {/* Dropdown */}
                 {dropdownOpen && (
-                  <div
-                    className="absolute right-0 mt-2 w-56 rounded-xl py-1 z-50"
-                    style={{
-                      background: '#0c1828',
-                      border: '1px solid rgba(201,168,78,0.20)',
-                      boxShadow: '0 18px 50px rgba(0,0,0,0.58)',
-                    }}
-                  >
+                  <div style={{
+                    position: 'absolute', right: 0, top: 'calc(100% + 10px)',
+                    width: '230px', borderRadius: '16px', padding: '8px 0', zIndex: 50,
+                    background: '#0c1828',
+                    border: '1px solid rgba(201,168,78,0.20)',
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.65)',
+                  }}>
+                    {/* User email header */}
+                    <div style={{ padding: '10px 16px 12px', borderBottom: '1px solid rgba(255,255,255,0.06)', marginBottom: '4px' }}>
+                      <div style={{ fontSize: '11px', color: 'rgba(244,244,242,0.40)', marginBottom: '2px' }}>Signed in as</div>
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {user.user_metadata?.full_name ?? user.email}
+                      </div>
+                    </div>
+
                     {[
-                      { href: '/dashboard', icon: LayoutDashboard, label: 'My trips' },
-                      { href: '/host', icon: Ship, label: 'Host dashboard' },
-                      { href: '/dashboard/messages', icon: User, label: 'Messages' },
+                      { href: '/dashboard',          Icon: LayoutDashboard, label: 'My trips' },
+                      { href: '/host',               Icon: Ship,            label: 'Host dashboard' },
+                      { href: '/dashboard/messages', Icon: User,            label: 'Messages' },
                     ].map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors hover:text-[#c9a84e]"
-                        style={{ color: 'rgba(244,244,242,0.75)' }}
+                        style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 16px', fontSize: '14px', color: 'rgba(244,244,242,0.75)', textDecoration: 'none', transition: 'background 0.12s, color 0.12s' }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.background = 'rgba(201,168,78,0.07)'
+                          ;(e.currentTarget as HTMLElement).style.color = gold
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.background = 'transparent'
+                          ;(e.currentTarget as HTMLElement).style.color = 'rgba(244,244,242,0.75)'
+                        }}
                         onClick={() => setDropdownOpen(false)}
                       >
-                        <item.icon className="w-4 h-4" /> {item.label}
+                        <item.Icon style={{ width: 15, height: 15, flexShrink: 0 }} />
+                        {item.label}
                       </Link>
                     ))}
-                    <div style={{ borderTop: '1px solid rgba(201,168,78,0.12)', margin: '4px 0' }} />
+
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '6px 0' }} />
+
                     <button
                       onClick={signOut}
-                      className="flex w-full items-center gap-2 px-4 py-2.5 text-sm transition-colors hover:text-[#c9a84e]"
-                      style={{ color: 'rgba(244,244,242,0.75)' }}
+                      style={{ display: 'flex', width: '100%', alignItems: 'center', gap: '10px', padding: '10px 16px', fontSize: '14px', color: 'rgba(244,244,242,0.60)', background: 'none', border: 'none', cursor: 'pointer', transition: 'background 0.12s, color 0.12s', textAlign: 'left' }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = 'rgba(248,113,113,0.08)'
+                        ;(e.currentTarget as HTMLElement).style.color = '#f87171'
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = 'transparent'
+                        ;(e.currentTarget as HTMLElement).style.color = 'rgba(244,244,242,0.60)'
+                      }}
                     >
-                      <LogOut className="w-4 h-4" /> Sign out
+                      <LogOut style={{ width: 15, height: 15, flexShrink: 0 }} />
+                      Sign out
                     </button>
                   </div>
                 )}
@@ -139,28 +216,30 @@ export default function SiteNav() {
               <>
                 <Link
                   href="/login"
-                  className="text-sm font-medium transition-colors hover:text-[#c9a84e]"
-                  style={{ color: 'rgba(244,244,242,0.65)' }}
+                  style={{ fontSize: '14px', fontWeight: 500, color: muted, textDecoration: 'none', padding: '8px 4px', transition: 'color 0.15s' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = text }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = muted }}
                 >
                   Log in
                 </Link>
                 <Link
                   href="/signup"
-                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-bold rounded-full transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
                   style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '6px',
+                    padding: '10px 22px', borderRadius: '99px',
                     background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
-                    color: '#07101e',
-                    boxShadow: '0 2px 14px rgba(201,168,78,0.22)',
-                    paddingTop: '10px',
-                    paddingBottom: '10px',
-                    paddingLeft: '28px',
-                    paddingRight: '28px',
+                    color: '#07101e', fontSize: '14px', fontWeight: 700,
+                    textDecoration: 'none', whiteSpace: 'nowrap',
+                    boxShadow: '0 2px 14px rgba(201,168,78,0.28)',
+                    transition: 'box-shadow 0.2s, transform 0.2s',
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 22px rgba(201,168,78,0.45)'
+                    ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 14px rgba(201,168,78,0.22)'
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 14px rgba(201,168,78,0.28)'
+                    ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
                   }}
                 >
                   Get started
@@ -171,51 +250,79 @@ export default function SiteNav() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden p-2 rounded-lg"
-            style={{ color: 'rgba(244,244,242,0.7)' }}
             onClick={() => setOpen(!open)}
+            style={{ display: 'none', padding: '8px', borderRadius: '10px', background: 'transparent', border: '1px solid rgba(255,255,255,0.10)', color: 'rgba(244,244,242,0.70)', cursor: 'pointer' }}
+            className="show-mobile"
           >
-            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {open
+              ? <X style={{ width: 20, height: 20 }} />
+              : <Menu style={{ width: 20, height: 20 }} />
+            }
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div
-          style={{
-            background: 'rgba(7,16,30,0.98)',
-            borderTop: '1px solid rgba(201,168,78,0.10)',
-          }}
-        >
-          <div className="container py-5 space-y-1">
+        <div style={{ background: 'rgba(7,16,30,0.98)', borderTop: '1px solid rgba(201,168,78,0.10)' }}>
+          <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '16px 20px 24px' }}>
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="block py-3 text-sm font-medium border-b transition-colors hover:text-[#c9a84e]"
-                style={{ color: 'rgba(244,244,242,0.75)', borderColor: 'rgba(255,255,255,0.05)' }}
+                style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: pathname === l.href ? gold : 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
                 onClick={() => setOpen(false)}
               >
                 {l.label}
               </Link>
             ))}
-            <div className="pt-4 flex gap-3">
+
+            {user && (
+              <>
+                <Link href="/dashboard" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>My trips</Link>
+                <Link href="/host" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>Host dashboard</Link>
+              </>
+            )}
+
+            <div style={{ display: 'flex', gap: '10px', paddingTop: '16px' }}>
               {user ? (
                 <>
-                  <Link href="/dashboard" className="flex-1 text-center py-2.5 text-sm font-medium rounded-full border" style={{ border: '1px solid rgba(201,168,78,0.25)', color: '#c9a84e' }} onClick={() => setOpen(false)}>Dashboard</Link>
-                  <button onClick={signOut} className="flex-1 py-2.5 text-sm font-semibold rounded-full" style={{ background: '#c9a84e', color: '#07101e' }}>Sign out</button>
+                  <span style={{ flex: 1, padding: '11px 16px', borderRadius: '10px', background: 'rgba(201,168,78,0.08)', border: '1px solid rgba(201,168,78,0.20)', color: gold, fontSize: '14px', fontWeight: 600, textAlign: 'center' }}>
+                    {user.user_metadata?.full_name ?? user.email?.split('@')[0]}
+                  </span>
+                  <button
+                    onClick={signOut}
+                    style={{ flex: 1, padding: '11px 16px', borderRadius: '10px', background: 'rgba(248,113,113,0.10)', border: '1px solid rgba(248,113,113,0.25)', color: '#f87171', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}
+                  >
+                    Sign out
+                  </button>
                 </>
               ) : (
                 <>
-                  <Link href="/login" className="flex-1 text-center py-2.5 text-sm font-medium rounded-full border" style={{ border: '1px solid rgba(201,168,78,0.25)', color: 'rgba(244,244,242,0.75)' }} onClick={() => setOpen(false)}>Log in</Link>
-                  <Link href="/signup" className="flex-1 text-center py-3 text-sm font-bold rounded-full" style={{ background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e' }} onClick={() => setOpen(false)}>Get started</Link>
+                  <Link href="/login" style={{ flex: 1, display: 'block', textAlign: 'center', padding: '11px 16px', borderRadius: '10px', border: '1px solid rgba(201,168,78,0.25)', color: 'rgba(244,244,242,0.75)', fontSize: '14px', fontWeight: 500, textDecoration: 'none' }} onClick={() => setOpen(false)}>
+                    Log in
+                  </Link>
+                  <Link href="/signup" style={{ flex: 1, display: 'block', textAlign: 'center', padding: '11px 16px', borderRadius: '10px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }} onClick={() => setOpen(false)}>
+                    Get started
+                  </Link>
                 </>
               )}
             </div>
           </div>
         </div>
       )}
+
+      {/* Responsive styles injected */}
+      <style>{`
+        @media (min-width: 768px) {
+          .hidden-mobile { display: flex !important; }
+          .show-mobile { display: none !important; }
+        }
+        @media (max-width: 767px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile { display: flex !important; }
+        }
+      `}</style>
     </header>
   )
 }

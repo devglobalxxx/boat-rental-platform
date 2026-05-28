@@ -1,5 +1,5 @@
 const BASE_URL = 'https://boathire24.com'
-const ORG_NAME = 'BoatAway'
+const ORG_NAME = 'BoatHire24'
 
 // ─── Type definitions ─────────────────────────────────────────────────────────
 
@@ -168,7 +168,7 @@ export function imageJsonLd(image: ImageJsonLdInput, boat: BoatBasic): object {
     name: image.title ?? `${boat.name} — boat photo`,
     description:
       image.description ??
-      `Photo of ${boat.name}, a ${boat.type.replace('_', ' ')} available for charter in Marbella via BoatAway.`,
+      `Photo of ${boat.name}, a ${boat.type.replace('_', ' ')} available for charter in Marbella via BoatHire24.`,
     contentUrl: image.storageUrl,
     url: `${BASE_URL}/gallery/${image.slug}`,
     ...(image.tags?.length ? { keywords: image.tags.join(', ') } : {}),
@@ -242,8 +242,8 @@ export function siteJsonLd(): object {
         url: `${BASE_URL}/logo.png`,
       },
       sameAs: [
-        'https://www.instagram.com/boataway',
-        'https://www.facebook.com/boataway',
+        'https://www.instagram.com/boathire24',
+        'https://www.facebook.com/boathire24',
       ],
       contactPoint: {
         '@type': 'ContactPoint',
@@ -275,7 +275,7 @@ export function locationJsonLd(location: LocationJsonLdInput): object {
     name: `Boat Charter in ${location.city}`,
     description:
       location.description ??
-      `Explore ${location.city}, ${location.country} by boat. Book motor yachts, catamarans, sailing boats and more with BoatAway.`,
+      `Explore ${location.city}, ${location.country} by boat. Book motor yachts, catamarans, sailing boats and more with BoatHire24.`,
     url,
     ...(location.imageUrl ? { image: location.imageUrl } : {}),
     touristType: ['Leisure', 'Sports', 'Adventure'],

@@ -4,10 +4,16 @@ import { Suspense, useEffect, useState } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { Button } from '@/components/ui/button'
 import { formatPrice, calcFees } from '@/lib/utils/pricing'
 import { Shield, ArrowLeft, Calendar, Users } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+
+const gold = '#c9a84e'
+const card = '#0c1828'
+const border = 'rgba(201,168,78,0.15)'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
+const dim = 'rgba(244,244,242,0.35)'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -58,17 +64,18 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-slate-50 rounded-xl p-4 space-y-2 text-sm">
-        <div className="flex justify-between text-slate-700">
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* Price breakdown */}
+      <div style={{ background: card, border: `1px solid ${border}`, borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: muted }}>
           <span>Charter fee</span>
           <span>{formatPrice(fees.subtotal, meta.currency)}</span>
         </div>
-        <div className="flex justify-between text-slate-500">
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: dim }}>
           <span>Service fee (15%)</span>
           <span>{formatPrice(fees.serviceFee, meta.currency)}</span>
         </div>
-        <div className="flex justify-between font-bold text-slate-900 pt-2 border-t border-slate-200">
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '15px', fontWeight: 800, color: gold, paddingTop: '10px', borderTop: `1px solid ${border}` }}>
           <span>Total due today</span>
           <span>{formatPrice(fees.total, meta.currency)}</span>
         </div>
@@ -77,15 +84,21 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
       <PaymentElement />
 
       {error && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">{error}</div>
+        <div style={{ padding: '12px 16px', background: 'rgba(248,113,113,0.10)', border: '1px solid rgba(248,113,113,0.28)', borderRadius: '10px', fontSize: '13px', color: '#f87171' }}>
+          {error}
+        </div>
       )}
 
-      <Button type="submit" variant="sea" size="lg" className="w-full" disabled={loading || !stripe}>
+      <button
+        type="submit"
+        disabled={loading || !stripe}
+        style={{ width: '100%', padding: '14px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, cursor: loading || !stripe ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)', opacity: loading || !stripe ? 0.6 : 1, transition: 'opacity 0.15s' }}
+      >
         {loading ? 'Processing…' : `Pay ${formatPrice(fees.total, meta.currency)}`}
-      </Button>
+      </button>
 
-      <p className="text-center text-xs text-slate-400 flex items-center justify-center gap-1">
-        <Shield className="w-3.5 h-3.5" /> Secured by Stripe — your card details are never stored
+      <p style={{ textAlign: 'center', fontSize: '12px', color: dim, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', margin: 0 }}>
+        <Shield style={{ width: 13, height: 13 }} /> Secured by Stripe — your card details are never stored
       </p>
     </form>
   )
@@ -110,7 +123,6 @@ function BookPageInner() {
       const pricingId = params.get('pricing_id') ?? ''
       const guests = Number(params.get('guests') ?? 1)
 
-      // Fetch boat + pricing
       const { data: boat } = await supabase
         .from('boats')
         .select('id, name, slug, boat_images(storage_url, is_hero), boat_pricing(*), profiles(stripe_account_id)')
@@ -124,7 +136,6 @@ function BookPageInner() {
 
       const hero = (boat.boat_images as any[]).find((i: any) => i.is_hero) ?? (boat.boat_images as any[])[0]
 
-      // Create booking + payment intent
       const res = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -154,69 +165,84 @@ function BookPageInner() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-slate-500">Loading checkout…</div>
+      <div style={{ minHeight: '100vh', background: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ color: muted }}>Loading checkout…</div>
       </div>
     )
   }
 
   if (error || !meta?.clientSecret) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">{error ?? 'Something went wrong'}</p>
-          <Button onClick={() => router.back()}>Go back</Button>
+      <div style={{ minHeight: '100vh', background: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <p style={{ color: '#f87171', marginBottom: '16px' }}>{error ?? 'Something went wrong'}</p>
+          <button onClick={() => router.back()} style={{ padding: '10px 24px', borderRadius: '99px', background: card, border: `1px solid ${border}`, color: text, fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}>
+            Go back
+          </button>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8">
-      <button onClick={() => router.back()} className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 mb-6 transition-colors">
-        <ArrowLeft className="w-4 h-4" /> Back
-      </button>
+    <div style={{ minHeight: '100vh', background: '#07101e', color: text }}>
+      <div style={{ maxWidth: '640px', margin: '0 auto', padding: '40px 20px 80px' }}>
+        <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: muted, background: 'none', border: 'none', cursor: 'pointer', marginBottom: '24px', padding: 0 }}>
+          <ArrowLeft style={{ width: 16, height: 16 }} /> Back
+        </button>
 
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Confirm your booking</h1>
+        <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '24px' }}>Confirm your booking</h1>
 
-      {/* Booking summary */}
-      <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl mb-8">
-        {meta.heroUrl && (
-          <img src={meta.heroUrl} alt={meta.boatName} className="w-20 h-20 rounded-xl object-cover shrink-0" />
-        )}
-        <div>
-          <div className="font-bold text-slate-900">{meta.boatName}</div>
-          <div className="flex items-center gap-3 mt-1.5 text-sm text-slate-500">
-            <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> {meta.date}</span>
-            <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {meta.guests} guests</span>
+        {/* Booking summary */}
+        <div style={{ display: 'flex', gap: '16px', padding: '16px', background: card, border: `1px solid ${border}`, borderRadius: '16px', marginBottom: '28px' }}>
+          {meta.heroUrl && (
+            <img src={meta.heroUrl} alt={meta.boatName} style={{ width: '80px', height: '80px', borderRadius: '12px', objectFit: 'cover', flexShrink: 0 }} />
+          )}
+          <div>
+            <div style={{ fontWeight: 700, color: text, fontSize: '15px' }}>{meta.boatName}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '6px', fontSize: '13px', color: muted }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Calendar style={{ width: 13, height: 13 }} /> {meta.date}</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Users style={{ width: 13, height: 13 }} /> {meta.guests} guests</span>
+            </div>
+            <div style={{ fontSize: '13px', color: muted, marginTop: '4px' }}>Duration: {meta.duration}</div>
           </div>
-          <div className="text-sm text-slate-500 mt-1">Duration: {meta.duration}</div>
         </div>
-      </div>
 
-      {/* Stripe Elements */}
-      <Elements
-        stripe={stripePromise}
-        options={{
-          clientSecret: meta.clientSecret,
-          appearance: {
-            theme: 'stripe',
-            variables: { colorPrimary: '#06b6d4', borderRadius: '8px' },
-          },
-        }}
-      >
-        <CheckoutForm
-          meta={meta}
-          onSuccess={(id) => router.push(`/bookings/${id}?confirmed=1`)}
-        />
-      </Elements>
+        {/* Stripe Elements */}
+        <Elements
+          stripe={stripePromise}
+          options={{
+            clientSecret: meta.clientSecret,
+            appearance: {
+              theme: 'night',
+              variables: {
+                colorPrimary: '#c9a84e',
+                borderRadius: '8px',
+                colorBackground: '#0c1828',
+                colorText: '#f4f4f2',
+                colorTextSecondary: 'rgba(244,244,242,0.55)',
+                colorIconTab: '#f4f4f2',
+              },
+            },
+          }}
+        >
+          <CheckoutForm
+            meta={meta}
+            onSuccess={(id) => router.push(`/bookings/${id}?confirmed=1`)}
+          />
+        </Elements>
+      </div>
     </div>
   )
 }
 
 export default function BookPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="text-slate-500">Loading checkout…</div></div>}>
+    <Suspense fallback={
+      <div style={{ minHeight: '100vh', background: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ color: 'rgba(244,244,242,0.55)' }}>Loading checkout…</div>
+      </div>
+    }>
       <BookPageInner />
     </Suspense>
   )

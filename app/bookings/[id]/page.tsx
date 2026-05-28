@@ -2,16 +2,20 @@ import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
 import { CheckCircle, Clock, XCircle, Calendar, Users, MessageSquare, Star } from 'lucide-react'
 
+const gold = '#c9a84e'
+const card = '#0c1828'
+const border = 'rgba(201,168,78,0.15)'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
+const dim = 'rgba(244,244,242,0.35)'
+
 const STATUS_CONFIG = {
-  pending: { label: 'Pending payment', icon: Clock, color: 'text-amber-600', bg: 'bg-amber-50' },
-  confirmed: { label: 'Confirmed', icon: CheckCircle, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-  cancelled: { label: 'Cancelled', icon: XCircle, color: 'text-red-600', bg: 'bg-red-50' },
-  completed: { label: 'Completed', icon: CheckCircle, color: 'text-slate-600', bg: 'bg-slate-50' },
+  pending:   { label: 'Pending payment', Icon: Clock,        color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  bd: 'rgba(245,158,11,0.30)' },
+  confirmed: { label: 'Confirmed',       Icon: CheckCircle,  color: '#22c55e', bg: 'rgba(34,197,94,0.12)',   bd: 'rgba(34,197,94,0.30)' },
+  cancelled: { label: 'Cancelled',       Icon: XCircle,      color: '#f87171', bg: 'rgba(248,113,113,0.10)', bd: 'rgba(248,113,113,0.28)' },
+  completed: { label: 'Completed',       Icon: CheckCircle,  color: gold,      bg: 'rgba(201,168,78,0.10)',  bd: 'rgba(201,168,78,0.28)' },
 }
 
 interface Props {
@@ -28,22 +32,18 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
 
   const { data: booking } = await supabase
     .from('bookings')
-    .select(`
-      *,
-      boats(name, slug, includes_skipper, includes_fuel, boat_images(storage_url, is_hero), locations(city, country), profiles(full_name))
-    `)
+    .select(`*, boats(name, slug, includes_skipper, includes_fuel, boat_images(storage_url, is_hero), locations(city, country), profiles(full_name))`)
     .eq('id', id)
     .single()
 
   if (!booking) notFound()
 
-  // Ensure user is renter or host of the boat
   const boat = booking.boats as any
   if (booking.renter_id !== user.id) redirect('/dashboard')
 
-  const cfg = STATUS_CONFIG[booking.status as keyof typeof STATUS_CONFIG]
+  const cfg = STATUS_CONFIG[booking.status as keyof typeof STATUS_CONFIG] ?? STATUS_CONFIG.pending
+  const { Icon } = cfg
 
-  // Check if review already written
   const { data: existingReview } = await supabase
     .from('reviews')
     .select('id')
@@ -55,104 +55,101 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
   const canReview = booking.status === 'completed' && !existingReview
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8">
-      {sp.confirmed && (
-        <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center gap-3">
-          <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
-          <div>
-            <div className="font-semibold text-emerald-900">Booking confirmed!</div>
-            <div className="text-sm text-emerald-700 mt-0.5">You&apos;ll receive a confirmation email shortly.</div>
-          </div>
-        </div>
-      )}
+    <div style={{ background: '#07101e', minHeight: '100vh', color: text }}>
+      <div style={{ maxWidth: '640px', margin: '0 auto', padding: '40px 20px 80px' }}>
 
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Booking details</h1>
-        <Link href="/dashboard" className="text-sm text-[#06b6d4] hover:text-[#0891b2] font-medium">← My trips</Link>
-      </div>
-
-      {/* Status */}
-      <div className={`flex items-center gap-3 p-4 rounded-2xl mb-6 ${cfg.bg}`}>
-        <cfg.icon className={`w-5 h-5 ${cfg.color} shrink-0`} />
-        <div>
-          <div className={`font-semibold ${cfg.color}`}>{cfg.label}</div>
-          <div className="text-sm text-slate-500 mt-0.5">
-            Booking ref: <code className="font-mono text-xs">{booking.id.slice(0, 8).toUpperCase()}</code>
-          </div>
-        </div>
-      </div>
-
-      {/* Boat summary */}
-      <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl mb-6">
-        {hero && (
-          <img src={hero.storage_url} alt={boat?.name} className="w-20 h-20 rounded-xl object-cover shrink-0" />
-        )}
-        <div>
-          <div className="font-bold text-slate-900">{boat?.name}</div>
-          <div className="text-sm text-slate-500 mt-1">{boat?.locations?.city}, {boat?.locations?.country}</div>
-          <Link href={`/boats/${boat?.slug}`} className="text-xs text-[#06b6d4] hover:text-[#0891b2] mt-1 inline-block">View listing →</Link>
-        </div>
-      </div>
-
-      {/* Trip details */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 mb-6 space-y-4">
-        <h2 className="font-bold text-slate-900">Trip details</h2>
-        <div className="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <div className="text-slate-500 flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> Date</div>
-            <div className="font-medium text-slate-900 mt-1">
-              {new Date(booking.start_datetime).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-            </div>
-          </div>
-          <div>
-            <div className="text-slate-500 flex items-center gap-1"><Users className="w-3.5 h-3.5" /> Guests</div>
-            <div className="font-medium text-slate-900 mt-1">{booking.guests_count}</div>
-          </div>
-          {booking.duration_hours && (
+        {sp.confirmed && (
+          <div style={{ marginBottom: '24px', padding: '16px', background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.30)', borderRadius: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <CheckCircle style={{ width: 20, height: 20, color: '#22c55e', flexShrink: 0 }} />
             <div>
-              <div className="text-slate-500">Duration</div>
-              <div className="font-medium text-slate-900 mt-1">{booking.duration_hours} hours</div>
+              <div style={{ fontWeight: 700, color: '#22c55e' }}>Booking confirmed!</div>
+              <div style={{ fontSize: '13px', color: muted, marginTop: '2px' }}>You&apos;ll receive a confirmation email shortly.</div>
             </div>
+          </div>
+        )}
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', gap: '12px', flexWrap: 'wrap' }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: text }}>Booking details</h1>
+          <Link href="/dashboard" style={{ fontSize: '13px', color: gold, fontWeight: 600, textDecoration: 'none' }}>← My trips</Link>
+        </div>
+
+        {/* Status banner */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px', borderRadius: '16px', marginBottom: '24px', background: cfg.bg, border: `1px solid ${cfg.bd}` }}>
+          <Icon style={{ width: 20, height: 20, color: cfg.color, flexShrink: 0 }} />
+          <div>
+            <div style={{ fontWeight: 700, color: cfg.color }}>{cfg.label}</div>
+            <div style={{ fontSize: '13px', color: dim, marginTop: '2px' }}>
+              Booking ref: <code style={{ fontFamily: 'monospace', fontSize: '12px' }}>{booking.id.slice(0, 8).toUpperCase()}</code>
+            </div>
+          </div>
+        </div>
+
+        {/* Boat summary */}
+        <div style={{ display: 'flex', gap: '16px', padding: '16px', background: card, border: `1px solid ${border}`, borderRadius: '16px', marginBottom: '24px' }}>
+          {hero && (
+            <img src={hero.storage_url} alt={boat?.name} style={{ width: '80px', height: '80px', borderRadius: '12px', objectFit: 'cover', flexShrink: 0 }} />
+          )}
+          <div>
+            <div style={{ fontWeight: 700, color: text, fontSize: '15px' }}>{boat?.name}</div>
+            <div style={{ fontSize: '13px', color: muted, marginTop: '4px' }}>{boat?.locations?.city}, {boat?.locations?.country}</div>
+            <Link href={`/boats/${boat?.slug}`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', display: 'inline-block', marginTop: '4px' }}>View listing →</Link>
+          </div>
+        </div>
+
+        {/* Trip details */}
+        <div style={{ background: card, border: `1px solid ${border}`, borderRadius: '16px', padding: '24px', marginBottom: '24px' }}>
+          <h2 style={{ fontWeight: 700, color: text, fontSize: '16px', marginBottom: '16px' }}>Trip details</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', fontSize: '14px', marginBottom: '20px' }}>
+            <div>
+              <div style={{ color: muted, display: 'flex', alignItems: 'center', gap: '4px' }}><Calendar style={{ width: 13, height: 13 }} /> Date</div>
+              <div style={{ fontWeight: 600, color: text, marginTop: '6px' }}>
+                {new Date(booking.start_datetime).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+              </div>
+            </div>
+            <div>
+              <div style={{ color: muted, display: 'flex', alignItems: 'center', gap: '4px' }}><Users style={{ width: 13, height: 13 }} /> Guests</div>
+              <div style={{ fontWeight: 600, color: text, marginTop: '6px' }}>{booking.guests_count}</div>
+            </div>
+            {booking.duration_hours && (
+              <div>
+                <div style={{ color: muted }}>Duration</div>
+                <div style={{ fontWeight: 600, color: text, marginTop: '6px' }}>{booking.duration_hours} hours</div>
+              </div>
+            )}
+          </div>
+
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: muted }}>
+              <span>Charter fee</span>
+              <span>{formatPrice(booking.subtotal, booking.currency)}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: dim }}>
+              <span>Service fee</span>
+              <span>{formatPrice(booking.service_fee, booking.currency)}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '15px', fontWeight: 800, color: gold, paddingTop: '10px', borderTop: `1px solid ${border}` }}>
+              <span>Total paid</span>
+              <span>{formatPrice(booking.total, booking.currency)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {canReview && (
+            <Link href={`/bookings/${id}/review`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+              <Star style={{ width: 16, height: 16 }} /> Leave a review
+            </Link>
+          )}
+          <Link href="/dashboard/messages" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: muted, fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
+            <MessageSquare style={{ width: 16, height: 16 }} /> Message host
+          </Link>
+          {booking.status === 'pending' && (
+            <Link href={`/boats/${boat?.slug}/book`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+              Complete payment
+            </Link>
           )}
         </div>
-
-        <Separator />
-
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between text-slate-700">
-            <span>Charter fee</span>
-            <span>{formatPrice(booking.subtotal, booking.currency)}</span>
-          </div>
-          <div className="flex justify-between text-slate-500">
-            <span>Service fee</span>
-            <span>{formatPrice(booking.service_fee, booking.currency)}</span>
-          </div>
-          <div className="flex justify-between font-bold text-slate-900 pt-2 border-t border-slate-100">
-            <span>Total paid</span>
-            <span>{formatPrice(booking.total, booking.currency)}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Actions */}
-      <div className="flex flex-col gap-3">
-        {canReview && (
-          <Button asChild variant="sea">
-            <Link href={`/bookings/${id}/review`}>
-              <Star className="w-4 h-4" /> Leave a review
-            </Link>
-          </Button>
-        )}
-        <Button asChild variant="outline">
-          <Link href="/dashboard/messages">
-            <MessageSquare className="w-4 h-4" /> Message host
-          </Link>
-        </Button>
-        {booking.status === 'pending' && (
-          <Button asChild variant="sea">
-            <Link href={`/boats/${boat?.slug}/book`}>Complete payment</Link>
-          </Button>
-        )}
       </div>
     </div>
   )

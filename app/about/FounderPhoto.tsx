@@ -4,9 +4,10 @@ interface FounderPhotoProps {
   /** Direct Google Drive thumbnail URL: https://drive.google.com/thumbnail?id=FILE_ID&sz=w600 */
   src: string
   alt: string
+  initials?: string
 }
 
-export default function FounderPhoto({ src, alt }: FounderPhotoProps) {
+export default function FounderPhoto({ src, alt, initials = 'MS' }: FounderPhotoProps) {
   const gold = '#c9a84e'
 
   return (
@@ -18,7 +19,7 @@ export default function FounderPhoto({ src, alt }: FounderPhotoProps) {
       <img
         src={src}
         alt={alt}
-        style={{ width: '220px', height: '220px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top', border: '3px solid rgba(201,168,78,0.40)', display: 'block' }}
+        style={{ width: '220px', height: '220px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top center', border: '3px solid rgba(201,168,78,0.40)', display: 'block' }}
         onError={(e) => {
           const img = e.currentTarget as HTMLImageElement
           img.style.display = 'none'
@@ -38,7 +39,7 @@ export default function FounderPhoto({ src, alt }: FounderPhotoProps) {
           fontSize: '52px', fontWeight: 800, color: gold,
         }}
       >
-        AK
+        {initials}
       </div>
     </div>
   )

@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service — BoatAway',
-  description: 'The terms and conditions governing use of the BoatAway boat charter marketplace. Read before booking or listing a boat.',
+  title: 'Terms of Service — BoatHire24',
+  description: 'The terms and conditions governing use of the BoatHire24 boat charter marketplace. Read before booking or listing a boat.',
   alternates: { canonical: 'https://boathire24.com/terms' },
 }
 
@@ -65,15 +65,15 @@ export default function TermsPage() {
       {/* ── Content ── */}
       <div style={{ maxWidth: '760px', margin: '0 auto', padding: '64px 24px 96px' }}>
 
-        <Section title="1. About BoatAway">
+        <Section title="1. About BoatHire24">
           <P>
-            BoatAway is an online marketplace that connects boat owners (&ldquo;Hosts&rdquo;) with people who wish
-            to charter boats (&ldquo;Guests&rdquo;). BoatAway itself is not a boat operator, skipper, or charter
+            BoatHire24 is an online marketplace that connects boat owners (&ldquo;Hosts&rdquo;) with people who wish
+            to charter boats (&ldquo;Guests&rdquo;). BoatHire24 itself is not a boat operator, skipper, or charter
             company. We provide the technology platform, payment infrastructure, and support services that
             facilitate direct agreements between Hosts and Guests.
           </P>
           <P>
-            These Terms govern your use of the BoatAway platform (the &ldquo;Service&rdquo;), accessible at
+            These Terms govern your use of the BoatHire24 platform (the &ldquo;Service&rdquo;), accessible at
             boathire24.com and its subdomains. By using the Service you confirm you are at least 18 years
             old and legally capable of entering into binding contracts.
           </P>
@@ -91,15 +91,15 @@ export default function TermsPage() {
           </Ul>
           <P>
             We may suspend or terminate your account if you breach these Terms, provide false information,
-            or engage in conduct that is harmful to other users or to BoatAway.
+            or engage in conduct that is harmful to other users or to BoatHire24.
           </P>
         </Section>
 
         <Section title="3. Bookings — Guests">
           <P><strong style={{ color: '#f4f4f2' }}>Making a booking</strong></P>
           <P>
-            When you request or confirm a booking through BoatAway, you are entering into a direct agreement
-            with the Host for the charter of their vessel. BoatAway facilitates this agreement but is not a
+            When you request or confirm a booking through BoatHire24, you are entering into a direct agreement
+            with the Host for the charter of their vessel. BoatHire24 facilitates this agreement but is not a
             party to it. The Host is solely responsible for the vessel, its seaworthiness, the skipper&apos;s
             qualifications, and the delivery of the charter experience.
           </P>
@@ -122,7 +122,7 @@ export default function TermsPage() {
 
         <Section title="4. Listings — Hosts">
           <P><strong style={{ color: '#f4f4f2' }}>Listing requirements</strong></P>
-          <P>By listing a vessel on BoatAway, you confirm and warrant that:</P>
+          <P>By listing a vessel on BoatHire24, you confirm and warrant that:</P>
           <Ul>
             <Li>You are the owner of the vessel or are authorised by the owner to charter it</Li>
             <Li>The vessel holds a valid maritime registration and is insured for commercial charter use</Li>
@@ -133,7 +133,7 @@ export default function TermsPage() {
           <P><strong style={{ color: '#f4f4f2' }}>Payouts</strong></P>
           <P>
             Hosts receive <strong style={{ color: '#f4f4f2' }}>85%</strong> of the charter fee for each completed
-            booking. BoatAway retains a 15% platform commission. Payouts are processed via Stripe Connect
+            booking. BoatHire24 retains a 15% platform commission. Payouts are processed via Stripe Connect
             and typically arrive in your bank account within 7 days of the completed charter date.
             Hosts must complete Stripe&apos;s identity verification to receive payouts.
           </P>
@@ -143,12 +143,12 @@ export default function TermsPage() {
             <Li>Respond to booking requests within 24 hours (for request-to-book listings)</Li>
             <Li>Ensure the vessel is in safe, clean, and seaworthy condition for every charter</Li>
             <Li>Comply with all applicable maritime safety regulations and local port authority rules</Li>
-            <Li>Hold and maintain adequate insurance throughout all charters booked via BoatAway</Li>
+            <Li>Hold and maintain adequate insurance throughout all charters booked via BoatHire24</Li>
           </Ul>
         </Section>
 
         <Section title="5. Cancellation policy">
-          <P>BoatAway operates three cancellation tiers, set by the Host per listing:</P>
+          <P>BoatHire24 operates three cancellation tiers, set by the Host per listing:</P>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '14px' }}>
             {[
@@ -169,7 +169,7 @@ export default function TermsPage() {
           </P>
           <P>
             In the event of adverse weather conditions that make sailing unsafe, the skipper may cancel
-            the charter. BoatAway will work with both parties to offer a rebooking or a full refund at
+            the charter. BoatHire24 will work with both parties to offer a rebooking or a full refund at
             our discretion.
           </P>
         </Section>
@@ -178,31 +178,31 @@ export default function TermsPage() {
           <P><strong style={{ color: '#f4f4f2' }}>Host liability</strong></P>
           <P>
             Hosts are solely responsible for the safety of their vessel, the competence of their crew,
-            and compliance with all maritime safety regulations. BoatAway does not inspect vessels and
+            and compliance with all maritime safety regulations. BoatHire24 does not inspect vessels and
             makes no warranty regarding their condition or seaworthiness, notwithstanding our verification
             processes which are provided as a good-faith service only.
           </P>
           <P><strong style={{ color: '#f4f4f2' }}>Guest liability</strong></P>
           <P>
             Guests charter at their own risk and must follow all safety instructions given by the skipper.
-            BoatAway recommends that Guests obtain personal travel and accident insurance prior to chartering.
-            BoatAway is not liable for personal injury, illness, death, loss of property, or any other loss
+            BoatHire24 recommends that Guests obtain personal travel and accident insurance prior to chartering.
+            BoatHire24 is not liable for personal injury, illness, death, loss of property, or any other loss
             or damage suffered by Guests during a charter.
           </P>
-          <P><strong style={{ color: '#f4f4f2' }}>BoatAway&apos;s liability</strong></P>
+          <P><strong style={{ color: '#f4f4f2' }}>BoatHire24&apos;s liability</strong></P>
           <P>
-            To the maximum extent permitted by law, BoatAway&apos;s total liability to you for any claim
+            To the maximum extent permitted by law, BoatHire24&apos;s total liability to you for any claim
             arising from use of the platform shall not exceed the platform service fee paid in the
-            transaction giving rise to the claim. BoatAway is not liable for indirect, consequential,
+            transaction giving rise to the claim. BoatHire24 is not liable for indirect, consequential,
             special, or punitive damages of any kind.
           </P>
         </Section>
 
         <Section title="7. Prohibited conduct">
-          <P>You may not use BoatAway to:</P>
+          <P>You may not use BoatHire24 to:</P>
           <Ul>
             <Li>Create false, misleading, or fraudulent listings or reviews</Li>
-            <Li>Circumvent the platform to make bookings or accept payments outside BoatAway (off-platform transactions)</Li>
+            <Li>Circumvent the platform to make bookings or accept payments outside BoatHire24 (off-platform transactions)</Li>
             <Li>Harass, threaten, or abuse other users</Li>
             <Li>Upload content that is illegal, obscene, defamatory, or infringes third-party rights</Li>
             <Li>Attempt to gain unauthorised access to the platform or other users&apos; accounts</Li>
@@ -222,7 +222,7 @@ export default function TermsPage() {
             to remove reviews that we determine are false, abusive, or in violation of these Terms.
           </P>
           <P>
-            By submitting any content to BoatAway (photos, descriptions, reviews, messages), you grant us
+            By submitting any content to BoatHire24 (photos, descriptions, reviews, messages), you grant us
             a non-exclusive, worldwide, royalty-free licence to use, display, and reproduce that content
             in connection with operating and promoting the platform.
           </P>
@@ -230,7 +230,7 @@ export default function TermsPage() {
 
         <Section title="9. Intellectual property">
           <P>
-            The BoatAway name, logo, platform design, and all original content created by us are our
+            The BoatHire24 name, logo, platform design, and all original content created by us are our
             intellectual property. You may not reproduce, distribute, or create derivative works from
             our content without our prior written consent.
           </P>
@@ -240,7 +240,7 @@ export default function TermsPage() {
           <P>
             The platform integrates third-party services including Stripe (payments), Mapbox (maps),
             and Supabase (infrastructure). Your use of these services is also governed by their respective
-            terms and privacy policies. BoatAway is not responsible for the practices of third-party services.
+            terms and privacy policies. BoatHire24 is not responsible for the practices of third-party services.
           </P>
         </Section>
 
@@ -271,7 +271,7 @@ export default function TermsPage() {
         <Section title="13. Contact">
           <P>For any questions about these Terms:</P>
           <div style={{ padding: '24px', borderRadius: '14px', background: '#0c1828', border: `1px solid ${goldBorder}`, fontSize: '14px', lineHeight: 1.8, color: textBody }}>
-            <strong style={{ color: '#f4f4f2' }}>BoatAway</strong><br />
+            <strong style={{ color: '#f4f4f2' }}>BoatHire24</strong><br />
             Puerto Banús, Marbella, Spain<br />
             <a href="mailto:info@boathire24.com" style={{ color: gold, textDecoration: 'none' }}>info@boathire24.com</a>
           </div>

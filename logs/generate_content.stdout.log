@@ -1,0 +1,163 @@
+[2026-05-28 13:18:23] === Generate: 40 blog + 40 landing = 80 item(s) (backend=deepseek) ===
+[2026-05-28 13:18:23] [1/80] blog · marbella-vs-puerto-banus-charter
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [2/80] blog · how-much-does-yacht-charter-marbella-cost
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [3/80] blog · dolphin-watching-boat-trips-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [4/80] blog · what-to-pack-boat-day-costa-del-sol
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [5/80] blog · catamaran-vs-motor-yacht-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [6/80] blog · best-anchorages-near-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [7/80] blog · do-you-need-licence-to-rent-boat-spain
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [8/80] blog · stag-hen-boat-party-ideas-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [9/80] blog · family-boat-day-marbella-guide
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [10/80] blog · dolphin-watching-puerto-banus
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [11/80] blog · sunset-catamaran-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [12/80] blog · snorkeling-spots-costa-del-sol
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [13/80] blog · fishing-charter-puerto-banus
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [14/80] blog · hen-party-boat-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [15/80] blog · starlite-festival-boat-trips
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [16/80] blog · family-boat-day-estepona
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [17/80] blog · marbella-feria-boat-parties
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [18/80] blog · dolphin-watching-marbella-boat
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [19/80] blog · snorkel-boat-trip-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [20/80] blog · stag-party-boat-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [21/80] blog · photoshoot-boat-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [22/80] blog · new-years-eve-boat-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [23/80] blog · marbella-dolphin-watching-seasons
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [24/80] blog · fishing-trip-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [25/80] blog · sunset-boat-party-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [26/80] blog · family-boat-trip-costa-del-sol
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [27/80] blog · snorkeling-coves-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [28/80] blog · hen-do-boat-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [29/80] blog · marbella-summer-boat-tips
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [30/80] blog · dolphin-sightings-costa-del-sol
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [31/80] blog · fishing-charter-costa-del-sol
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [32/80] blog · starlite-concert-boat-transfer
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [33/80] blog · marbella-new-years-eve-yacht
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [34/80] blog · photoshoot-yacht-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [35/80] blog · snorkel-gear-boat-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [36/80] blog · family-snorkeling-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [37/80] blog · marbella-feria-boat-rental
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [38/80] blog · dolphin-watching-tips-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [39/80] blog · fishing-season-costa-del-sol
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [40/80] blog · sunset-champagne-boat-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [41/80] landing · boat-rental-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [42/80] landing · catamaran-charter-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [43/80] landing · sunset-boat-trip-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [44/80] landing · speedboat-hire-puerto-banus
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [45/80] landing · luxury-yacht-rental-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [46/80] landing · fishing-charter-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [47/80] landing · licence-free-boat-hire-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [48/80] landing · private-boat-party-marbella
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [49/80] landing · boat-hire-estepona
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:23] [50/80] landing · yacht-rental-puerto-banus
+[2026-05-28 13:18:23]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [51/80] landing · boat-hire-fuengirola
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [52/80] landing · luxury-yacht-charter-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [53/80] landing · speedboat-hire-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [54/80] landing · catamaran-rental-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [55/80] landing · boat-rental-marbella-port
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [56/80] landing · private-yacht-charter-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [57/80] landing · boat-hire-benalmadena
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [58/80] landing · yacht-charter-marbella-prices
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [59/80] landing · motor-yacht-rental-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [60/80] landing · catamaran-charter-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [61/80] landing · boat-rental-estepona-port
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [62/80] landing · luxury-catamaran-rental-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [63/80] landing · speedboat-rental-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [64/80] landing · private-boat-charter-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [65/80] landing · yacht-hire-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [66/80] landing · boat-rental-benalmadena-marina
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [67/80] landing · motor-yacht-charter-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [68/80] landing · catamaran-hire-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [69/80] landing · luxury-yacht-rental-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [70/80] landing · speedboat-hire-estepona
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [71/80] landing · private-yacht-rental-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [72/80] landing · boat-hire-marbella-port
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [73/80] landing · catamaran-rental-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [74/80] landing · yacht-charter-estepona
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [75/80] landing · boat-rental-fuengirola-port
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [76/80] landing · motor-yacht-hire-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [77/80] landing · luxury-catamaran-puerto-banus
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [78/80] landing · speedboat-rental-estepona
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [79/80] landing · private-boat-hire-marbella
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] [80/80] landing · catamaran-charter-estepona
+[2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-05-28 13:18:24] === Done: 0 ok, 80 failed ===
+

@@ -2,9 +2,14 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { createConnectAccount, createConnectAccountLink } from '@/lib/stripe'
-import { Button } from '@/components/ui/button'
 import { CheckCircle, ArrowRight, CreditCard, Shield, Banknote } from 'lucide-react'
 import { headers } from 'next/headers'
+
+const gold = '#c9a84e'
+const card = '#0c1828'
+const border = 'rgba(201,168,78,0.15)'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
 
 interface Props {
   searchParams: Promise<{ success?: string; refresh?: string }>
@@ -22,29 +27,26 @@ export default async function HostOnboardingPage({ searchParams }: Props) {
     .eq('id', user.id)
     .single()
 
-  // If returning from Stripe with success
   if (params.success && profile?.stripe_account_id) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
-        <div className="text-center max-w-md">
-          <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-slate-900 mb-2">You&apos;re all set!</h1>
-          <p className="text-slate-500 mb-8">Your Stripe account is connected. You can now receive payouts from bookings.</p>
-          <Button asChild variant="sea">
-            <Link href="/host/listings/new">Create your first listing <ArrowRight className="w-4 h-4" /></Link>
-          </Button>
+      <div style={{ minHeight: '100vh', background: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px', color: text }}>
+        <div style={{ textAlign: 'center', maxWidth: '400px' }}>
+          <CheckCircle style={{ width: 64, height: 64, color: '#22c55e', margin: '0 auto 20px' }} />
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '10px' }}>You&apos;re all set!</h1>
+          <p style={{ fontSize: '15px', color: muted, marginBottom: '32px', lineHeight: 1.6 }}>Your Stripe account is connected. You can now receive payouts from bookings.</p>
+          <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+            Create your first listing <ArrowRight style={{ width: 16, height: 16 }} />
+          </Link>
         </div>
       </div>
     )
   }
 
-  // Get origin for redirect URLs
   const headersList = await headers()
   const origin = headersList.get('x-forwarded-host')
     ? `https://${headersList.get('x-forwarded-host')}`
     : `http://${headersList.get('host') ?? 'localhost:3000'}`
 
-  // Create Stripe Connect account if not yet done
   let stripeAccountId = profile?.stripe_account_id
   if (!stripeAccountId) {
     const account = await createConnectAccount(user.email!)
@@ -52,43 +54,47 @@ export default async function HostOnboardingPage({ searchParams }: Props) {
     await supabase.from('profiles').update({ stripe_account_id: stripeAccountId }).eq('id', user.id)
   }
 
-  // Generate onboarding link
   const accountLink = await createConnectAccountLink(stripeAccountId, origin)
 
+  const features = [
+    { Icon: CreditCard, title: 'Secure card processing', desc: 'Guests pay by card — you get paid automatically after each booking.' },
+    { Icon: Banknote,   title: 'Direct bank payouts',    desc: 'Earnings transferred to your bank 7 days after the charter date.' },
+    { Icon: Shield,     title: 'Stripe-powered security', desc: 'Industry-leading fraud protection and compliance built in.' },
+  ]
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
-      <div className="w-full max-w-lg">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-900">Set up payouts</h1>
-          <p className="text-slate-500 mt-2">Connect your bank account to receive payments from guests.</p>
+    <div style={{ minHeight: '100vh', background: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px', color: text }}>
+      <div style={{ width: '100%', maxWidth: '480px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: 800, color: text, marginBottom: '10px' }}>Set up payouts</h1>
+          <p style={{ fontSize: '15px', color: muted }}>Connect your bank account to receive payments from guests.</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 mb-6">
-          <div className="space-y-4 mb-8">
-            {[
-              { icon: CreditCard, title: 'Secure card processing', desc: 'Guests pay by card — you get paid automatically after each booking.' },
-              { icon: Banknote, title: 'Direct bank payouts', desc: 'Earnings transferred to your bank 7 days after the charter date.' },
-              { icon: Shield, title: 'Stripe-powered security', desc: 'Industry-leading fraud protection and compliance built in.' },
-            ].map((item) => (
-              <div key={item.title} className="flex gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#06b6d4]/10 flex items-center justify-center shrink-0">
-                  <item.icon className="w-5 h-5 text-[#06b6d4]" />
+        <div style={{ background: card, border: `1px solid ${border}`, borderRadius: '20px', padding: '28px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '28px' }}>
+            {features.map((item) => (
+              <div key={item.title} style={{ display: 'flex', gap: '14px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <item.Icon style={{ width: 18, height: 18, color: gold }} />
                 </div>
                 <div>
-                  <div className="font-semibold text-slate-900 text-sm">{item.title}</div>
-                  <div className="text-sm text-slate-500 mt-0.5">{item.desc}</div>
+                  <div style={{ fontWeight: 700, color: text, fontSize: '14px', marginBottom: '4px' }}>{item.title}</div>
+                  <div style={{ fontSize: '13px', color: muted, lineHeight: 1.5 }}>{item.desc}</div>
                 </div>
               </div>
             ))}
           </div>
 
-          <a href={accountLink.url} className="block w-full py-3 px-6 bg-[#06b6d4] text-white text-center font-semibold rounded-full hover:bg-[#0891b2] transition-colors">
-            Set up with Stripe <ArrowRight className="inline w-4 h-4 ml-1" />
+          <a
+            href={accountLink.url}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '14px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)' }}
+          >
+            Set up with Stripe <ArrowRight style={{ width: 16, height: 16 }} />
           </a>
         </div>
 
-        <p className="text-center text-xs text-slate-400">
-          Powered by Stripe Connect. BoatAway keeps 15% of each booking as a platform fee.
+        <p style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(244,244,242,0.35)' }}>
+          Powered by Stripe Connect. BoatHire24 keeps 15% of each booking as a platform fee.
         </p>
       </div>
     </div>

@@ -7,13 +7,13 @@ const BENEFITS = [
   { icon: BarChart3,   title: 'Earn on your terms',     desc: 'Set your own prices, block dates when you need the boat, no minimum commitment.',                                        stat: '€2,400',  statLabel: 'avg. monthly earnings' },
   { icon: Shield,      title: 'Protected bookings',     desc: 'Stripe-powered payments, verified renters, and 24/7 host support on every booking.',                                     stat: '100%',    statLabel: 'payment protection' },
   { icon: Zap,         title: 'Get bookings fast',      desc: 'Instant-book option gets you guests faster. We handle all discovery, marketing, and SEO.',                               stat: '48h',     statLabel: 'to first booking' },
-  { icon: Anchor,      title: 'You keep 85%',           desc: 'BoatAway charges a 15% platform fee — one of the lowest in the yacht charter industry.',                                 stat: '85%',     statLabel: 'of every booking' },
+  { icon: Anchor,      title: 'You keep 85%',           desc: 'BoatHire24 charges a 15% platform fee — one of the lowest in the yacht charter industry.',                                 stat: '85%',     statLabel: 'of every booking' },
 ]
 
 const STEPS = [
   { num: '01', title: 'Create your listing', desc: 'Add photos, set your prices and availability. Takes about 10 minutes.' },
   { num: '02', title: 'Receive bookings',    desc: 'Guests find you via search. Approve requests or turn on instant book.' },
-  { num: '03', title: 'Host the charter',   desc: 'Meet your guests at the marina. BoatAway handles the payments.' },
+  { num: '03', title: 'Host the charter',   desc: 'Meet your guests at the marina. BoatHire24 handles the payments.' },
   { num: '04', title: 'Get paid',           desc: 'Earnings hit your bank account 7 days after each completed charter.' },
 ]
 
@@ -52,7 +52,7 @@ export default function BecomeAHostClient() {
             </h1>
 
             <p style={{ fontSize: '17px', lineHeight: 1.7, marginBottom: '36px', color: textMuted }}>
-              List on BoatAway and reach thousands of verified guests every month.
+              List on BoatHire24 and reach thousands of verified guests every month.
               Free to start — you keep 85% of every booking.
             </p>
 
@@ -89,7 +89,7 @@ export default function BecomeAHostClient() {
       <section style={{ maxWidth: '900px', margin: '0 auto', padding: '88px 24px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: '52px' }}>
           <span style={{ display: 'inline-flex', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '16px' }}>
-            Why BoatAway
+            Why BoatHire24
           </span>
           <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.2 }}>
             Everything you need to earn from your boat

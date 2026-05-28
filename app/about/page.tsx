@@ -3,15 +3,15 @@ import { ArrowRight, Anchor, Globe, Users, Star } from 'lucide-react'
 import FounderPhoto from './FounderPhoto'
 
 export const metadata = {
-  title: 'About BoatAway — Our Story & Mission',
-  description: 'Founded in 2020 by Andra Kiirkivi, BoatAway is the global marketplace making premium boat charters accessible to everyone. Our story, mission, and values.',
+  title: 'About BoatHire24 — Our Story & Mission',
+  description: 'Founded by Mardo Soo, BoatHire24 is the global marketplace making premium boat charters accessible to everyone. Our story, mission, and values.',
   alternates: { canonical: 'https://boathire24.com/about' },
   openGraph: {
-    title: 'About BoatAway — Our Story',
-    description: 'How a solo founder turned a Marbella boat problem into a global charter marketplace.',
+    title: 'About BoatHire24 — Our Story',
+    description: 'How a founder turned a Marbella boat problem into a global charter marketplace.',
     url: 'https://boathire24.com/about',
     type: 'website',
-    siteName: 'BoatAway',
+    siteName: 'BoatHire24',
   },
 }
 
@@ -23,7 +23,7 @@ const VALUES = [
 ]
 
 const MILESTONES = [
-  { year: '2020', label: 'Founded', desc: 'Andra launches BoatAway from Marbella with 3 boats and a Google Sheet.' },
+  { year: '2020', label: 'Founded', desc: 'Mardo launches BoatHire24 from Marbella with 3 boats and a clear vision.' },
   { year: '2021', label: '50 boats', desc: 'Fleet grows across the Costa del Sol. First five-star reviews roll in.' },
   { year: '2022', label: 'Ibiza launch', desc: 'Expanded to Ibiza and Mallorca. Stripe Connect payments go live.' },
   { year: '2023', label: '10 destinations', desc: 'Platform spreads to Croatia, Greece, and the Algarve.' },
@@ -51,8 +51,8 @@ export default function AboutPage() {
             Built by a boat lover,<br /><span style={{ color: gold }}>for everyone on the water.</span>
           </h1>
           <p style={{ fontSize: '17px', color: textMuted, lineHeight: 1.75, marginBottom: '0' }}>
-            BoatAway started in Marbella in 2020 with a simple idea: booking a charter should be as easy as booking a hotel room.
-            Five years later, we're in 48 destinations and still obsessing over every detail.
+            BoatHire24 started in Marbella in 2020 with a simple idea: booking a charter should be as easy as
+            booking a hotel room. Five years later, we&apos;re in 48 destinations and still obsessing over every detail.
           </p>
         </div>
       </section>
@@ -74,14 +74,15 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* ── Founder ── */}
+      {/* ── Founder & CEO ── */}
       <section style={{ maxWidth: '900px', margin: '0 auto', padding: '88px 24px 0' }}>
         <div style={{ display: 'flex', gap: '56px', alignItems: 'center', flexWrap: 'wrap' }}>
 
-          {/* Photo — replace GOOGLE_DRIVE_FILE_ID with the real file ID from your Drive "me" folder */}
+          {/* Photo */}
           <FounderPhoto
-            src="https://drive.google.com/thumbnail?id=GOOGLE_DRIVE_FILE_ID&sz=w600"
-            alt="Andra Kiirkivi, Founder of BoatAway"
+            src="https://drive.google.com/thumbnail?id=1gweyldTTQKZu4x_dqDQVes1D-BXAr_Hp&sz=w600"
+            alt="Mardo Soo, CEO of BoatHire24"
+            initials="MS"
           />
 
           {/* Text */}
@@ -90,30 +91,74 @@ export default function AboutPage() {
               Founder & CEO
             </div>
             <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.15, marginBottom: '8px' }}>
-              Andra Kiirkivi
+              Mardo Soo
             </h2>
             <p style={{ fontSize: '15px', color: gold, fontWeight: 600, marginBottom: '22px' }}>
-              Founder of BoatAway · Since 2020
+              Founder of BoatHire24 · Since 2020
             </p>
             <p style={{ fontSize: '15px', color: textMuted, lineHeight: 1.8, marginBottom: '18px' }}>
-              Andra grew up on the coast of Estonia and spent summers working on charter boats in the Mediterranean.
-              After years of watching guests struggle to find reliable, transparent bookings — and seeing boat owners leave money on the dock — she built BoatAway.
+              Mardo has spent years building businesses at the intersection of technology and lifestyle. After
+              repeatedly watching friends and clients struggle to find reliable, transparent boat charters in
+              Marbella and beyond, he set out to fix the experience from the ground up — starting with the
+              Costa del Sol fleet he knew best.
             </p>
             <p style={{ fontSize: '15px', color: textMuted, lineHeight: 1.8, marginBottom: '28px' }}>
               &ldquo;The sea should be accessible to everyone. Not just people who know the right people.
-              That&apos;s what BoatAway is about — democratising the charter experience without compromising on quality.&rdquo;
+              That&apos;s what BoatHire24 is about — making world-class charters as easy to book as a hotel,
+              without ever compromising on quality.&rdquo;
             </p>
 
-            {/* Social / contact */}
+            {/* Social */}
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 600, padding: '9px 18px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, textDecoration: 'none' }}>
-                Instagram
-              </a>
-              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 600, padding: '9px 18px', borderRadius: '99px', background: 'rgba(255,255,255,0.05)', color: 'rgba(244,244,242,0.65)', border: '1px solid rgba(255,255,255,0.10)', textDecoration: 'none' }}>
+              <a href="https://www.linkedin.com/in/mardosoo" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 600, padding: '9px 18px', borderRadius: '99px', background: 'rgba(255,255,255,0.05)', color: 'rgba(244,244,242,0.65)', border: '1px solid rgba(255,255,255,0.10)', textDecoration: 'none' }}>
                 LinkedIn
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Co-Founder ── */}
+      <section style={{ maxWidth: '900px', margin: '0 auto', padding: '64px 24px 0' }}>
+        <div style={{ display: 'flex', gap: '56px', alignItems: 'center', flexWrap: 'wrap-reverse' }}>
+
+          {/* Text — left side (mirrored layout) */}
+          <div style={{ flex: 1, minWidth: '260px' }}>
+            <div style={{ display: 'inline-flex', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '20px' }}>
+              Co-Founder
+            </div>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.15, marginBottom: '8px' }}>
+              Andra Kiirkivi
+            </h2>
+            <p style={{ fontSize: '15px', color: gold, fontWeight: 600, marginBottom: '22px' }}>
+              Co-Founder of BoatHire24 · Since 2020
+            </p>
+            <p style={{ fontSize: '15px', color: textMuted, lineHeight: 1.8, marginBottom: '18px' }}>
+              Andra grew up on the coast of Estonia and spent summers immersed in the Mediterranean charter scene.
+              Her deep understanding of the marine world and passion for exceptional guest experiences was the
+              spark that turned an idea into BoatHire24.
+            </p>
+            <p style={{ fontSize: '15px', color: textMuted, lineHeight: 1.8, marginBottom: '28px' }}>
+              &ldquo;Every person who steps onto a boat for the first time remembers it forever.
+              We built BoatHire24 to make sure that moment is always perfect.&rdquo;
+            </p>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <a href="https://www.instagram.com/andrakiirkivi" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 600, padding: '9px 18px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, textDecoration: 'none' }}>
+                Instagram
+              </a>
+              <a href="https://www.linkedin.com/in/andrakiirkivi" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 600, padding: '9px 18px', borderRadius: '99px', background: 'rgba(255,255,255,0.05)', color: 'rgba(244,244,242,0.65)', border: '1px solid rgba(255,255,255,0.10)', textDecoration: 'none' }}>
+                LinkedIn
+              </a>
+            </div>
+          </div>
+
+          {/* Photo — right side */}
+          <FounderPhoto
+            src="https://drive.google.com/thumbnail?id=1PyxDXw278AH_l6KECsD0FF8NWZB2yUuR&sz=w600"
+            alt="Andra Kiirkivi, Co-Founder of BoatHire24"
+            initials="AK"
+          />
+
         </div>
       </section>
 
@@ -164,7 +209,7 @@ export default function AboutPage() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '16px' }}>
-          {VALUES.map((v, i) => (
+          {VALUES.map((v) => (
             <div key={v.title} style={{ display: 'flex', gap: '20px', padding: '28px', borderRadius: '18px', background: '#0c1828', border: `1px solid ${goldBorder}` }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '14px', background: goldFaint, flexShrink: 0 }}>
                 <v.icon style={{ width: '20px', height: '20px', color: gold }} />

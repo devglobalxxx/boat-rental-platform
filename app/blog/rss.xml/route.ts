@@ -31,17 +31,17 @@ export async function GET(): Promise<NextResponse> {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>BoatAway — Charter Guide &amp; Boat Reviews</title>
+    <title>BoatHire24 — Charter Guide &amp; Boat Reviews</title>
     <link>${BASE_URL}/blog</link>
-    <description>Practical guides, destination deep-dives, and in-depth reviews of every boat in the Marbella charter fleet. Updated weekly by BoatAway fleet captains and charter specialists.</description>
+    <description>Practical guides, destination deep-dives, and in-depth reviews of every boat in the Marbella charter fleet. Updated weekly by BoatHire24 fleet captains and charter specialists.</description>
     <language>en-gb</language>
-    <managingEditor>info@boathire24.com (BoatAway Editorial)</managingEditor>
-    <webMaster>info@boathire24.com (BoatAway)</webMaster>
+    <managingEditor>info@boathire24.com (BoatHire24 Editorial)</managingEditor>
+    <webMaster>info@boathire24.com (BoatHire24)</webMaster>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${BASE_URL}/blog/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=144&amp;q=80</url>
-      <title>BoatAway</title>
+      <title>BoatHire24</title>
       <link>${BASE_URL}</link>
     </image>
     ${items}

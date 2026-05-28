@@ -20,134 +20,151 @@
       "title": "Yacht Charter Puerto Banús — Day & Sunset Hire | BoatHire24",
       "target_words": 1100,
       "consumed_at": "2026-05-28"
-    }
-  ],
-  "queue": [
-    {
-      "kind": "landing",
-      "slug": "boat-rental-marbella",
-      "primary_keyword": "boat rental marbella",
-      "title": "Boat Rental Marbella — Skipper Included from Puerto Banús",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-charter-marbella",
-      "primary_keyword": "catamaran charter marbella",
-      "title": "Catamaran Charter Marbella — Half & Full Day Cruises",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "sunset-boat-trip-marbella",
-      "primary_keyword": "sunset boat trip marbella",
-      "title": "Sunset Boat Trip Marbella — Cava & Skipper Included",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "speedboat-hire-puerto-banus",
-      "primary_keyword": "speedboat hire puerto banus",
-      "title": "Speedboat Hire Puerto Banús — Fast RIB & Day Boats",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "luxury-yacht-rental-marbella",
-      "primary_keyword": "luxury yacht rental marbella",
-      "title": "Luxury Yacht Rental Marbella — Superyachts & Crew",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "fishing-charter-marbella",
-      "primary_keyword": "fishing charter marbella",
-      "title": "Fishing Charter Marbella — Deep Sea & Coastal Trips",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "licence-free-boat-hire-marbella",
-      "primary_keyword": "licence free boat hire marbella",
-      "title": "Licence-Free Boat Hire Marbella — No Licence Needed",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-boat-party-marbella",
-      "primary_keyword": "private boat party marbella",
-      "title": "Private Boat Party Marbella — Hen, Stag & Birthday Hire",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "boat-hire-estepona",
-      "primary_keyword": "boat hire estepona",
-      "title": "Boat Hire Estepona — Yachts & Catamarans on the Costa",
-      "target_words": 1100
     },
     {
       "kind": "blog",
       "slug": "marbella-vs-puerto-banus-charter",
       "primary_keyword": "marbella vs puerto banus boat charter",
       "title": "Marbella vs Puerto Banús: Which Departure Port to Choose",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
     },
     {
       "kind": "blog",
       "slug": "how-much-does-yacht-charter-marbella-cost",
       "primary_keyword": "yacht charter marbella cost",
       "title": "How Much Does a Yacht Charter in Marbella Cost?",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
     },
     {
       "kind": "blog",
       "slug": "dolphin-watching-boat-trips-marbella",
       "primary_keyword": "dolphin watching boat trip marbella",
       "title": "Dolphin Watching Boat Trips from Marbella: A Full Guide",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
     },
     {
       "kind": "blog",
       "slug": "what-to-pack-boat-day-costa-del-sol",
       "primary_keyword": "what to pack for a boat day",
       "title": "What to Pack for a Boat Day on the Costa del Sol",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
     },
     {
       "kind": "blog",
       "slug": "catamaran-vs-motor-yacht-marbella",
       "primary_keyword": "catamaran vs motor yacht charter",
       "title": "Catamaran vs Motor Yacht: Which to Charter in Marbella",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
     },
     {
       "kind": "blog",
       "slug": "best-anchorages-near-marbella",
       "primary_keyword": "best anchorages near marbella",
       "title": "The Best Anchorages and Swimming Spots near Marbella",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
     },
     {
       "kind": "blog",
       "slug": "do-you-need-licence-to-rent-boat-spain",
       "primary_keyword": "do you need a licence to rent a boat in spain",
       "title": "Do You Need a Licence to Rent a Boat in Spain?",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
     },
     {
       "kind": "blog",
       "slug": "stag-hen-boat-party-ideas-marbella",
       "primary_keyword": "stag hen boat party marbella",
       "title": "Stag & Hen Boat Party Ideas in Marbella",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
     },
     {
       "kind": "blog",
       "slug": "family-boat-day-marbella-guide",
       "primary_keyword": "family boat day marbella",
       "title": "Planning a Family Boat Day in Marbella",
-      "target_words": 1200
+      "target_words": 1200,
+      "consumed_at": "2026-05-28"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-marbella",
+      "primary_keyword": "boat rental marbella",
+      "title": "Boat Rental Marbella — Skipper Included from Puerto Banús",
+      "target_words": 1100,
+      "consumed_at": "2026-05-28"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-marbella",
+      "primary_keyword": "catamaran charter marbella",
+      "title": "Catamaran Charter Marbella — Half & Full Day Cruises",
+      "target_words": 1100,
+      "consumed_at": "2026-05-28"
+    },
+    {
+      "kind": "landing",
+      "slug": "sunset-boat-trip-marbella",
+      "primary_keyword": "sunset boat trip marbella",
+      "title": "Sunset Boat Trip Marbella — Cava & Skipper Included",
+      "target_words": 1100,
+      "consumed_at": "2026-05-28"
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-yacht-rental-marbella",
+      "primary_keyword": "luxury yacht rental marbella",
+      "title": "Luxury Yacht Rental Marbella — Superyachts & Crew",
+      "target_words": 1100,
+      "consumed_at": "2026-05-28"
+    },
+    {
+      "kind": "landing",
+      "slug": "fishing-charter-marbella",
+      "primary_keyword": "fishing charter marbella",
+      "title": "Fishing Charter Marbella — Deep Sea & Coastal Trips",
+      "target_words": 1100,
+      "consumed_at": "2026-05-28"
+    },
+    {
+      "kind": "landing",
+      "slug": "licence-free-boat-hire-marbella",
+      "primary_keyword": "licence free boat hire marbella",
+      "title": "Licence-Free Boat Hire Marbella — No Licence Needed",
+      "target_words": 1100,
+      "consumed_at": "2026-05-28"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-boat-party-marbella",
+      "primary_keyword": "private boat party marbella",
+      "title": "Private Boat Party Marbella — Hen, Stag & Birthday Hire",
+      "target_words": 1100,
+      "consumed_at": "2026-05-28"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-estepona",
+      "primary_keyword": "boat hire estepona",
+      "title": "Boat Hire Estepona — Yachts & Catamarans on the Costa",
+      "target_words": 1100,
+      "consumed_at": "2026-05-28"
+    }
+  ],
+  "queue": [
+    {
+      "kind": "landing",
+      "slug": "speedboat-hire-puerto-banus",
+      "primary_keyword": "speedboat hire puerto banus",
+      "title": "Speedboat Hire Puerto Banús — Fast RIB & Day Boats",
+      "target_words": 1100
     },
     {
       "kind": "blog",

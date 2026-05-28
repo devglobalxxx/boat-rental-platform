@@ -2,19 +2,19 @@ import Link from 'next/link'
 import { Search, CreditCard, Anchor, Star, Ship, Shield, ArrowRight, CheckCircle2 } from 'lucide-react'
 
 export const metadata = {
-  title: 'How BoatAway Works — Instant Boat Charter Booking',
+  title: 'How BoatHire24 Works — Instant Boat Charter Booking',
   description: 'The simplest way to book a boat charter or list your vessel. Instant booking, licensed skippers, secure payments. No hidden fees, no hassle.',
   alternates: { canonical: 'https://boathire24.com/how-it-works' },
   openGraph: {
-    title: 'How BoatAway Works — Instant Boat Charter Booking',
+    title: 'How BoatHire24 Works — Instant Boat Charter Booking',
     description: 'Search, book, and sail in three steps. Licensed skippers, secure Stripe payments, free cancellation.',
     url: 'https://boathire24.com/how-it-works',
     type: 'website',
-    siteName: 'BoatAway',
+    siteName: 'BoatHire24',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'How BoatAway Works',
+    title: 'How BoatHire24 Works',
     description: 'The simplest way to book a verified boat charter.',
   },
 }
@@ -28,7 +28,7 @@ const RENTER_STEPS = [
 
 const HOST_STEPS = [
   { icon: Ship,    title: 'List your boat',  desc: 'Create a listing in minutes. Set your own prices, availability, and house rules.',                            badge: 'Free' },
-  { icon: Shield,  title: 'We handle guests', desc: 'BoatAway verifies renters, handles payments, and provides 24/7 support for you and your guests.',           badge: 'Hands-off' },
+  { icon: Shield,  title: 'We handle guests', desc: 'BoatHire24 verifies renters, handles payments, and provides 24/7 support for you and your guests.',           badge: 'Hands-off' },
   { icon: CreditCard, title: 'Get paid',      desc: 'Earnings are transferred to your bank account 7 days after each completed charter. You keep 85%.',          badge: '85% yours' },
 ]
 
@@ -59,7 +59,7 @@ export default function HowItWorksPage() {
             Simple · Secure · Trusted
           </div>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 800, marginBottom: '20px', lineHeight: 1.12, color: '#f4f4f2' }}>
-            How <span style={{ color: gold }}>BoatAway</span> works
+            How <span style={{ color: gold }}>BoatHire24</span> works
           </h1>
           <p style={{ fontSize: '17px', color: textMuted, lineHeight: 1.7, marginBottom: '36px' }}>
             The simplest way to book a verified boat charter — or earn money listing yours.

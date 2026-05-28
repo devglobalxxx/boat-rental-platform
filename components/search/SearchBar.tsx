@@ -3,7 +3,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Search, MapPin, Calendar, Users } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+
+const gold = '#c9a84e'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
+const inputBg = 'rgba(255,255,255,0.05)'
+const inputBorder = 'rgba(255,255,255,0.12)'
+const goldBorder = 'rgba(201,168,78,0.28)'
 
 interface SearchBarProps {
   defaultLocation?: string
@@ -12,7 +18,12 @@ interface SearchBarProps {
   compact?: boolean
 }
 
-export default function SearchBar({ defaultLocation = '', defaultDate = '', defaultGuests = 2, compact = false }: SearchBarProps) {
+export default function SearchBar({
+  defaultLocation = '',
+  defaultDate = '',
+  defaultGuests = 2,
+  compact = false,
+}: SearchBarProps) {
   const [location, setLocation] = useState(defaultLocation)
   const [date, setDate] = useState(defaultDate)
   const [guests, setGuests] = useState(defaultGuests)
@@ -26,88 +37,90 @@ export default function SearchBar({ defaultLocation = '', defaultDate = '', defa
     router.push(`/search?${params.toString()}`)
   }
 
+  /* ── Compact (used on /search page) ── */
   if (compact) {
     return (
-      <div className="flex items-center gap-2 bg-white rounded-full border border-slate-200 shadow-sm px-4 py-2">
-        <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.06)', borderRadius: '99px', border: '1px solid rgba(201,168,78,0.22)', padding: '8px 8px 8px 18px', backdropFilter: 'blur(8px)' }}>
+        <MapPin style={{ width: 15, height: 15, color: gold, flexShrink: 0 }} />
         <input
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           placeholder="Where to?"
-          className="flex-1 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none min-w-0"
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          style={{ flex: 1, fontSize: '14px', color: text, background: 'transparent', border: 'none', outline: 'none', minWidth: 0 }}
         />
-        <button onClick={handleSearch} className="w-8 h-8 bg-[#06b6d4] rounded-full flex items-center justify-center hover:bg-[#0891b2] transition-colors">
-          <Search className="w-3.5 h-3.5 text-white" />
+        <button
+          onClick={handleSearch}
+          style={{ width: '36px', height: '36px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 10px rgba(201,168,78,0.30)' }}
+        >
+          <Search style={{ width: 14, height: 14, color: '#07101e' }} />
         </button>
       </div>
     )
   }
 
+  /* ── Full (used on homepage) ── */
   return (
-    <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-2 flex flex-col sm:flex-row gap-2">
-      {/* Location */}
-      <div className="flex-1 flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 cursor-text transition-colors">
-        <MapPin className="w-5 h-5 text-[#06b6d4] shrink-0" />
-        <div className="min-w-0 flex-1">
-          <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Where</div>
-          <input
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="Destination, marina..."
-            className="w-full text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent"
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          />
-        </div>
-      </div>
-
-      <div className="hidden sm:block w-px bg-slate-200 self-stretch my-2" />
-
-      {/* Date */}
-      <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 cursor-text transition-colors">
-        <Calendar className="w-5 h-5 text-[#06b6d4] shrink-0" />
-        <div>
-          <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">When</div>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="text-sm text-slate-900 focus:outline-none bg-transparent cursor-pointer"
-            min={new Date().toISOString().split('T')[0]}
-          />
-        </div>
-      </div>
-
-      <div className="hidden sm:block w-px bg-slate-200 self-stretch my-2" />
-
-      {/* Guests */}
-      <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors">
-        <Users className="w-5 h-5 text-[#06b6d4] shrink-0" />
-        <div>
-          <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Guests</div>
-          <div className="flex items-center gap-2 mt-0.5">
-            <button
-              onClick={() => setGuests(Math.max(1, guests - 1))}
-              className="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-sm hover:border-slate-400 transition-colors"
-            >
-              −
-            </button>
-            <span className="text-sm font-medium text-slate-900 w-4 text-center">{guests}</span>
-            <button
-              onClick={() => setGuests(guests + 1)}
-              className="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-sm hover:border-slate-400 transition-colors"
-            >
-              +
-            </button>
+    <div style={{ background: '#0c1828', borderRadius: '20px', border: '1px solid rgba(201,168,78,0.20)', padding: '8px', display: 'flex', flexDirection: 'column', gap: '4px', boxShadow: '0 8px 40px rgba(0,0,0,0.45)' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+        {/* Location */}
+        <div style={{ flex: '1 1 180px', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '12px', background: inputBg, border: `1px solid ${inputBorder}` }}>
+          <MapPin style={{ width: 18, height: 18, color: gold, flexShrink: 0 }} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: '10px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '3px' }}>Where</div>
+            <input
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Destination, marina…"
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              style={{ width: '100%', fontSize: '14px', color: text, background: 'transparent', border: 'none', outline: 'none' }}
+            />
           </div>
         </div>
-      </div>
 
-      {/* Search button */}
-      <Button onClick={handleSearch} variant="sea" size="lg" className="sm:self-center shrink-0">
-        <Search className="w-4 h-4" />
-        Search
-      </Button>
+        {/* Date */}
+        <div style={{ flex: '1 1 140px', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '12px', background: inputBg, border: `1px solid ${inputBorder}` }}>
+          <Calendar style={{ width: 18, height: 18, color: gold, flexShrink: 0 }} />
+          <div>
+            <div style={{ fontSize: '10px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '3px' }}>When</div>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              min={new Date().toISOString().split('T')[0]}
+              style={{ fontSize: '14px', color: text, background: 'transparent', border: 'none', outline: 'none', cursor: 'pointer', colorScheme: 'dark' }}
+            />
+          </div>
+        </div>
+
+        {/* Guests */}
+        <div style={{ flex: '1 1 120px', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '12px', background: inputBg, border: `1px solid ${inputBorder}` }}>
+          <Users style={{ width: 18, height: 18, color: gold, flexShrink: 0 }} />
+          <div>
+            <div style={{ fontSize: '10px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '3px' }}>Guests</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                onClick={() => setGuests(Math.max(1, guests - 1))}
+                style={{ width: '22px', height: '22px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.15)', background: 'transparent', color: text, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '14px', lineHeight: 1 }}
+              >−</button>
+              <span style={{ fontSize: '14px', fontWeight: 600, color: text, minWidth: '16px', textAlign: 'center' }}>{guests}</span>
+              <button
+                onClick={() => setGuests(guests + 1)}
+                style={{ width: '22px', height: '22px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.15)', background: 'transparent', color: text, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '14px', lineHeight: 1 }}
+              >+</button>
+            </div>
+          </div>
+        </div>
+
+        {/* Search button */}
+        <button
+          onClick={handleSearch}
+          style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '12px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 4px 18px rgba(201,168,78,0.30)', whiteSpace: 'nowrap' }}
+        >
+          <Search style={{ width: 16, height: 16 }} />
+          Search
+        </button>
+      </div>
     </div>
   )
 }

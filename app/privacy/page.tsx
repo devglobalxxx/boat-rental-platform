@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — BoatAway',
-  description: 'How BoatAway collects, uses, and protects your personal data. Our full privacy policy under GDPR and applicable data protection law.',
+  title: 'Privacy Policy — BoatHire24',
+  description: 'How BoatHire24 collects, uses, and protects your personal data. Our full privacy policy under GDPR and applicable data protection law.',
   alternates: { canonical: 'https://boathire24.com/privacy' },
 }
 
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
             Last updated: <strong style={{ color: '#f4f4f2' }}>28 May 2026</strong>
           </p>
           <p style={{ fontSize: '15px', color: textMuted, lineHeight: 1.7, marginTop: '8px' }}>
-            This policy explains how BoatAway (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) collects, uses, stores, and
+            This policy explains how BoatHire24 (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) collects, uses, stores, and
             protects your personal data when you use our platform at boathire24.com. Please read it carefully.
           </p>
         </div>
@@ -67,12 +67,12 @@ export default function PrivacyPage() {
 
         <Section title="1. Who we are">
           <P>
-            BoatAway is a boat charter marketplace operated from Marbella, Spain. We connect boat owners
+            BoatHire24 is a boat charter marketplace operated from Marbella, Spain. We connect boat owners
             (&ldquo;Hosts&rdquo;) with people who want to charter boats (&ldquo;Guests&rdquo;). Our platform is accessible
             at <strong>boathire24.com</strong> and associated subdomains.
           </P>
           <P>
-            For the purposes of EU data protection law (GDPR), BoatAway is the <strong>data controller</strong> for
+            For the purposes of EU data protection law (GDPR), BoatHire24 is the <strong>data controller</strong> for
             personal data collected through our platform. Questions about this policy can be sent to{' '}
             <a href="mailto:info@boathire24.com" style={{ color: gold, textDecoration: 'none' }}>info@boathire24.com</a>.
           </P>
@@ -206,7 +206,7 @@ export default function PrivacyPage() {
 
         <Section title="10. Children">
           <P>
-            BoatAway is not intended for use by anyone under the age of 18. We do not knowingly collect
+            BoatHire24 is not intended for use by anyone under the age of 18. We do not knowingly collect
             personal data from children. If you believe a child has provided us with personal data, please
             contact us and we will delete it promptly.
           </P>
@@ -225,7 +225,7 @@ export default function PrivacyPage() {
             For any privacy-related questions, data subject requests, or concerns:
           </P>
           <div style={{ padding: '24px', borderRadius: '14px', background: '#0c1828', border: `1px solid ${goldBorder}`, fontSize: '14px', lineHeight: 1.8, color: textBody }}>
-            <strong style={{ color: '#f4f4f2' }}>BoatAway</strong><br />
+            <strong style={{ color: '#f4f4f2' }}>BoatHire24</strong><br />
             Puerto Banús, Marbella, Spain<br />
             <a href="mailto:info@boathire24.com" style={{ color: gold, textDecoration: 'none' }}>info@boathire24.com</a>
           </div>

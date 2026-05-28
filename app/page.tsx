@@ -5,23 +5,23 @@ import HeroSlideshow from '@/components/home/HeroSlideshow'
 import { siteJsonLd } from '@/lib/seo/structured-data'
 
 export const metadata: Metadata = {
-  title: 'BoatAway — Book Verified Boat Charters Worldwide',
+  title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
   description: 'Find and book verified boats, yachts, catamarans and sailing boats in Marbella, Ibiza, Miami and 45+ destinations. Licensed skippers, instant booking, secure payments. No surprises.',
   keywords: ['boat rental', 'yacht charter', 'boat hire', 'Marbella', 'Ibiza', 'Miami', 'Puerto Banús', 'catamaran charter', 'speedboat hire'],
   alternates: { canonical: 'https://boathire24.com' },
   openGraph: {
-    title: 'BoatAway — Book Verified Boat Charters Worldwide',
+    title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
     description: 'Verified yachts, catamarans & speedboats in 48 destinations. Licensed skippers, instant booking, secure payments.',
     url: 'https://boathire24.com',
     type: 'website',
-    siteName: 'BoatAway',
-    images: [{ url: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80', width: 1200, height: 630, alt: 'Luxury yacht charter in Marbella' }],
+    siteName: 'BoatHire24',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Luxury yacht charter in Marbella' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BoatAway — Book Verified Boat Charters Worldwide',
+    title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
     description: 'Verified yachts, catamarans & speedboats in 48 destinations. Licensed skippers, instant booking.',
-    images: ['https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=1200&q=80'],
+    images: ['/opengraph-image'],
   },
 }
 
@@ -63,10 +63,33 @@ const GhostBtn = ({ href, children }: { href: string; children: React.ReactNode 
   </Link>
 )
 const SectionHeader = ({ eyebrow, title, sub }: { eyebrow?: string; title: React.ReactNode; sub?: string }) => (
-  <div className="mb-14" style={{ textAlign: 'center' }}>
-    {eyebrow && <p className="eyebrow mb-4 mx-auto w-fit">{eyebrow}</p>}
-    <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#f4f4f2' }}>{title}</h2>
-    {sub && <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)', textAlign: 'center' }}>{sub}</p>}
+  <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+    <div style={{ maxWidth: '700px', margin: '0 auto', padding: '0 16px' }}>
+      {eyebrow && (
+        <span style={{
+          display: 'inline-flex', alignItems: 'center',
+          fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em',
+          textTransform: 'uppercase', padding: '5px 14px',
+          borderRadius: '99px', background: 'rgba(201,168,78,0.12)',
+          color: '#c9a84e', border: '1px solid rgba(201,168,78,0.22)',
+          marginBottom: '20px',
+        }}>
+          {eyebrow}
+        </span>
+      )}
+      <h2 style={{
+        fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 800,
+        color: '#f4f4f2', lineHeight: 1.15,
+        marginBottom: sub ? '16px' : '0',
+      }}>
+        {title}
+      </h2>
+      {sub && (
+        <p style={{ fontSize: '16px', color: 'rgba(244,244,242,0.58)', lineHeight: 1.75, margin: '0 auto' }}>
+          {sub}
+        </p>
+      )}
+    </div>
   </div>
 )
 
@@ -99,25 +122,25 @@ const DESTINATIONS = [
 ]
 
 const TRUST_ITEMS = [
-  { icon: Shield, title: 'Fully Verified Fleet',       body: 'Every boat on BoatAway passes a physical inspection before accepting a booking. We check the vessel against maritime authority records, verify the skipper\'s licence for the operating zone, and confirm insurance is current. No exceptions — not even for high-revenue listings.' },
+  { icon: Shield, title: 'Fully Verified Fleet',       body: 'Every boat on BoatHire24 passes a physical inspection before accepting a booking. We check the vessel against maritime authority records, verify the skipper\'s licence for the operating zone, and confirm insurance is current. No exceptions — not even for high-revenue listings.' },
   { icon: Anchor, title: 'Real, Transparent Pricing',  body: 'The price on every listing is the price you pay — plus a 15% service fee shown clearly before checkout. No fuel surcharges added on departure day, no administration fees buried in small print, and no negotiation required. What you see is what you pay.' },
   { icon: Zap,    title: 'Instant Confirmation',        body: 'Instant-book listings confirm the moment you pay. No waiting for a broker to consult a handwritten diary. Your confirmation, with the captain\'s number and marina coordinates, arrives before you close the browser tab.' },
-  { icon: Shield, title: 'Protected Payments',          body: 'Stripe holds your payment in escrow until 24 hours after your charter day. If the host cancels for any reason, your full payment is returned automatically. BoatAway\'s dispute team is available seven days a week for anything more complex.' },
-  { icon: Clock,  title: '24/7 Charter Support',        body: 'Our operations team monitors every active charter. If something goes wrong at sea — mechanical issue, weather change, medical event — you have a direct line to BoatAway support from the moment you board. We coordinate, communicate, and resolve.' },
+  { icon: Shield, title: 'Protected Payments',          body: 'Stripe holds your payment in escrow until 24 hours after your charter day. If the host cancels for any reason, your full payment is returned automatically. BoatHire24\'s dispute team is available seven days a week for anything more complex.' },
+  { icon: Clock,  title: '24/7 Charter Support',        body: 'Our operations team monitors every active charter. If something goes wrong at sea — mechanical issue, weather change, medical event — you have a direct line to BoatHire24 support from the moment you board. We coordinate, communicate, and resolve.' },
 ]
 
 const TESTIMONIALS = [
   { name: 'James R.',      location: 'London',    rating: 5, text: 'We chartered an Azimut 50 out of Puerto Banús for my wife\'s fortieth birthday. Twelve guests, eight hours, one perfect day. The booking took less than ten minutes. Our skipper — a local who has sailed this coast for twenty years — took us to three anchoring spots that don\'t exist on any tourist map. We\'ve already booked again for next August.' },
-  { name: 'Sophie & Marc', location: 'Amsterdam', rating: 5, text: 'As people who have used traditional brokers before, BoatAway is a completely different world. Everything is on screen: the real boat, the real price, the real availability. We found a catamaran in Ibiza, booked the same afternoon, and sailed two days later. Zero email chains. Zero spreadsheets. Zero surprises. The boat was exactly as advertised.' },
+  { name: 'Sophie & Marc', location: 'Amsterdam', rating: 5, text: 'As people who have used traditional brokers before, BoatHire24 is a completely different world. Everything is on screen: the real boat, the real price, the real availability. We found a catamaran in Ibiza, booked the same afternoon, and sailed two days later. Zero email chains. Zero spreadsheets. Zero surprises. The boat was exactly as advertised.' },
   { name: 'Aoife K.',      location: 'Dublin',    rating: 5, text: 'I was nervous booking a boat online for the first time — visions of turning up to a marina and finding nothing there. The verification badges, the real photographs, and the full price transparency before I entered my card number made all the difference. The whole experience, from booking to mooring back up, was genuinely outstanding.' },
 ]
 
 const FAQS = [
-  { q: 'Is a skipper always included?',         a: 'Yes, always. Every booking made through BoatAway includes a licensed, insured skipper as standard. We do not offer bareboat (self-sail) charters. This protects every guest, keeps every host covered under their maritime insurance, and ensures local knowledge comes with every charter.' },
-  { q: 'What happens if the weather is bad?',   a: 'Your skipper begins monitoring forecasts 72 hours before departure. If sustained wind exceeds Force 6, they will recommend postponing. BoatAway\'s weather policy provides a full credit or refund in these circumstances — no arguments, no fees. We would rather you sail on a beautiful day than a dangerous one.' },
+  { q: 'Is a skipper always included?',         a: 'Yes, always. Every booking made through BoatHire24 includes a licensed, insured skipper as standard. We do not offer bareboat (self-sail) charters. This protects every guest, keeps every host covered under their maritime insurance, and ensures local knowledge comes with every charter.' },
+  { q: 'What happens if the weather is bad?',   a: 'Your skipper begins monitoring forecasts 72 hours before departure. If sustained wind exceeds Force 6, they will recommend postponing. BoatHire24\'s weather policy provides a full credit or refund in these circumstances — no arguments, no fees. We would rather you sail on a beautiful day than a dangerous one.' },
   { q: 'What should I bring on a charter?',     a: 'SPF 50 sunscreen, a wide-brim hat, soft-sole non-marking shoes, a light windproof layer for the return leg, and a waterproof phone case. Most boats provide towels and snorkel equipment — check the amenities tab on each listing. The skipper can arrange food and drinks if requested in advance.' },
   { q: 'How far ahead should I book?',          a: 'For peak season — June through September — in popular destinations like Marbella and Ibiza, we recommend four to eight weeks in advance. Shoulder season has more availability and lower prices. Use the Instant Book filter to find vessels that confirm today.' },
-  { q: 'How are my payments protected?',        a: 'All payments are processed by Stripe and held in escrow until 24 hours after your charter. If your host cancels for any reason, the full amount returns automatically within five to seven business days. BoatAway\'s dispute team handles anything more complex. We never touch your card details directly.' },
+  { q: 'How are my payments protected?',        a: 'All payments are processed by Stripe and held in escrow until 24 hours after your charter. If your host cancels for any reason, the full amount returns automatically within five to seven business days. BoatHire24\'s dispute team handles anything more complex. We never touch your card details directly.' },
   { q: 'Can I bring my dog?',                   a: 'Many hosts genuinely love welcoming dogs aboard. Use the Pet Friendly filter on the search page, or message the host before booking — some breeds or sizes may need individual agreement. The final decision always rests with the boat owner, and we ask all guests to respect that.' },
 ]
 
@@ -198,7 +221,7 @@ export default function HomePage() {
       {/* ══ 3 · HOW IT WORKS ══ */}
       <section className="section">
         <div className="container">
-          <SectionHeader eyebrow="Simple process" title={<>Three Steps to <Gold>Open Water</Gold></>} sub="We removed everything that makes boat charters complicated — brokers, back-and-forth emails, hidden fees, and 48-hour response times. BoatAway puts you directly in front of the boat, the price, and the calendar." />
+          <SectionHeader eyebrow="Simple process" title={<>Three Steps to <Gold>Open Water</Gold></>} sub="We removed everything that makes boat charters complicated — brokers, back-and-forth emails, hidden fees, and 48-hour response times. BoatHire24 puts you directly in front of the boat, the price, and the calendar." />
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { n: '01', icon: MapPin,  title: 'Search & Discover',  body: 'Browse over 1,200 verified vessels across 48 destinations. Filter by boat type, guest capacity, departure port, price range, and available dates so you only see boats that match your exact requirements. Every listing carries real photographs, accurate specifications, and honest pricing — no registration required to see what you will actually pay. Genuine reviews from previous guests are visible on every listing page before you commit to anything.' },
@@ -223,7 +246,7 @@ export default function HomePage() {
       {/* ══ 4 · DESTINATIONS ══ */}
       <section className="section">
         <div className="container">
-          <SectionHeader eyebrow="Active fleet locations" title={<>Where Will <Gold>You Sail?</Gold></>} sub="BoatAway maintains an active, inspected fleet in the world's most desirable charter destinations — each curated for water quality, boat availability, and year-round viability." />
+          <SectionHeader eyebrow="Active fleet locations" title={<>Where Will <Gold>You Sail?</Gold></>} sub="BoatHire24 maintains an active, inspected fleet in the world's most desirable charter destinations — each curated for water quality, boat availability, and year-round viability." />
           <div className="grid md:grid-cols-3 gap-6">
             {DESTINATIONS.map((dest) => (
               <Link key={dest.slug} href={`/${dest.slug}`} className="group glass-card overflow-hidden block">
@@ -254,7 +277,7 @@ export default function HomePage() {
       {/* ══ 5 · WHY BOATAWAY ══ */}
       <section className="section" style={{ background: 'linear-gradient(135deg,#0c1927 0%,#0e2040 50%,#0c1927 100%)', borderTop: '1px solid rgba(201,168,78,0.18)', borderBottom: '1px solid rgba(201,168,78,0.18)' }}>
         <div className="container">
-          <SectionHeader eyebrow="Our commitment" title={<>Why Charter with <Gold>BoatAway?</Gold></>} sub="The charter market has a transparency problem — prices hidden behind enquiry forms, stock-photo listings, and invented availability. We built BoatAway to fix every one of those problems from the ground up." />
+          <SectionHeader eyebrow="Our commitment" title={<>Why Charter with <Gold>BoatHire24?</Gold></>} sub="The charter market has a transparency problem — prices hidden behind enquiry forms, stock-photo listings, and invented availability. We built BoatHire24 to fix every one of those problems from the ground up." />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TRUST_ITEMS.map((item) => (
               <div key={item.title} className="glass-card" style={{ padding: '32px' }}>
@@ -291,19 +314,36 @@ export default function HomePage() {
       {/* ══ 7 · BLOG PREVIEW ══ */}
       <section className="section">
         <div className="container">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <p className="eyebrow mb-3">Editorial</p>
-              <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#f4f4f2' }}>From the <Gold>Captain&apos;s Log</Gold></h2>
-              <p className="mt-3 text-base" style={{ color: 'rgba(244,244,242,0.55)' }}>Practical guides, destination deep-dives, and insider knowledge from the BoatAway fleet.</p>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <div style={{ maxWidth: '640px', margin: '0 auto', padding: '0 16px' }}>
+              <span style={{
+                display: 'inline-flex', alignItems: 'center',
+                fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em',
+                textTransform: 'uppercase', padding: '5px 14px',
+                borderRadius: '99px', background: 'rgba(201,168,78,0.12)',
+                color: '#c9a84e', border: '1px solid rgba(201,168,78,0.22)',
+                marginBottom: '20px',
+              }}>
+                Editorial
+              </span>
+              <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.15, marginBottom: '16px' }}>
+                From the <Gold>Captain&apos;s Log</Gold>
+              </h2>
+              <p style={{ fontSize: '16px', color: 'rgba(244,244,242,0.55)', lineHeight: 1.75 }}>
+                Practical guides, destination deep-dives, and insider knowledge from the BoatHire24 fleet.
+              </p>
             </div>
-            <Link href="/blog" className="hidden md:flex items-center gap-1.5 text-sm font-semibold hover:text-[#f4f4f2] transition-colors" style={{ color: '#c9a84e' }}>All articles <ChevronRight className="w-4 h-4" /></Link>
+            <div style={{ marginTop: '20px' }}>
+              <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 600, color: '#c9a84e', textDecoration: 'none' }}>
+                All articles <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { slug: 'ultimate-guide-renting-yacht-marbella',  tag: 'Destination guide',   read: '8 min', img: 'https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=600&q=80',  title: 'The Ultimate Guide to Renting a Yacht in Marbella',                excerpt: 'Everything first-time charterers need to know — what to bring, what to expect from your skipper, how to read a weather window, and which departure port suits which itinerary on the Costa del Sol.' },
               { slug: 'catamaran-vs-motor-yacht',                tag: 'Boat guide',           read: '6 min', img: 'https://images.unsplash.com/photo-1562281302-809108fd533c?w=600&q=80',  title: 'Catamaran vs Motor Yacht: Which Charter Suits Your Group?',        excerpt: 'Two fundamentally different philosophies. Catamarans win on deck space and stability; motor yachts win on speed and amenity. We break down every trade-off by group size, budget, and occasion.' },
-              { slug: 'best-anchorages-costa-del-sol',           tag: 'Insider knowledge',   read: '7 min', img: 'https://images.unsplash.com/photo-1625528193934-4cb230e7267d?w=600&q=80',  title: 'Ten Anchorages on the Costa del Sol Only Reachable by Boat',      excerpt: 'These spots don\'t appear on Google Maps and are completely inaccessible from shore. Compiled by BoatAway\'s fleet captains who sail this coast every single week of the season.' },
+              { slug: 'best-anchorages-costa-del-sol',           tag: 'Insider knowledge',   read: '7 min', img: 'https://images.unsplash.com/photo-1625528193934-4cb230e7267d?w=600&q=80',  title: 'Ten Anchorages on the Costa del Sol Only Reachable by Boat',      excerpt: 'These spots don\'t appear on Google Maps and are completely inaccessible from shore. Compiled by BoatHire24\'s fleet captains who sail this coast every single week of the season.' },
             ].map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="group glass-card overflow-hidden block">
                 <div className="relative aspect-[16/9] overflow-hidden" style={{ background: '#0a1420' }}>
@@ -328,21 +368,32 @@ export default function HomePage() {
       {/* ══ 8 · HOST CTA ══ */}
       <section className="section" style={{ background: 'linear-gradient(135deg,#0c1927 0%,#091322 100%)', borderTop: '1px solid rgba(201,168,78,0.15)', borderBottom: '1px solid rgba(201,168,78,0.15)' }}>
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="eyebrow mb-5 mx-auto w-fit">For boat owners</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#f4f4f2' }}>Own a Boat? <Gold>Start Earning.</Gold></h2>
-            <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.65)' }}>The most expensive thing about owning a boat is the time it spends tied to a dock. BoatAway turns idle marina days into income — without changing your schedule or your relationship with the vessel. You set the dates you want to share and the dates you want to keep. We handle everything else: guest communication, payment processing, and all booking logistics from enquiry to confirmation.</p>
-            <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.65)' }}>More than 800 boat owners across 48 destinations already use BoatAway to manage their charter income. The average active host earns between €3,000 and €6,000 per month during peak season — with some high-demand vessels generating over €15,000 in a single July. Your earnings depend on your boat, your availability, and your location.</p>
-            <p className="text-base leading-relaxed mb-10" style={{ color: 'rgba(244,244,242,0.65)' }}>Listing your boat costs nothing. You pay a 15% commission only when a booking is confirmed and the guest boards. That fee covers Stripe payment processing, guest insurance, and access to BoatAway&apos;s 24/7 operations support. Connect your bank account via Stripe Express, set your availability calendar, and receive your first booking enquiry within days of going live. Whether you have one Sunseeker or an entire fleet, BoatAway is built to grow with your operation.</p>
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center', padding: '0 16px' }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center',
+              fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em',
+              textTransform: 'uppercase', padding: '5px 14px',
+              borderRadius: '99px', background: 'rgba(201,168,78,0.12)',
+              color: '#c9a84e', border: '1px solid rgba(201,168,78,0.22)',
+              marginBottom: '20px',
+            }}>
+              For boat owners
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.15, marginBottom: '24px' }}>
+              Own a Boat? <Gold>Start Earning.</Gold>
+            </h2>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '16px' }}>The most expensive thing about owning a boat is the time it spends tied to a dock. BoatHire24 turns idle marina days into income — without changing your schedule or your relationship with the vessel. You set the dates you want to share and the dates you want to keep. We handle everything else: guest communication, payment processing, and all booking logistics from enquiry to confirmation.</p>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '16px' }}>More than 800 boat owners across 48 destinations already use BoatHire24 to manage their charter income. The average active host earns between €3,000 and €6,000 per month during peak season — with some high-demand vessels generating over €15,000 in a single July. Your earnings depend on your boat, your availability, and your location.</p>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '40px' }}>Listing your boat costs nothing. You pay a 15% commission only when a booking is confirmed and the guest boards. That fee covers Stripe payment processing, guest insurance, and access to BoatHire24&apos;s 24/7 operations support. Connect your bank account via Stripe Express, set your availability calendar, and receive your first booking enquiry within days of going live. Whether you have one Sunseeker or an entire fleet, BoatHire24 is built to grow with your operation.</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px', marginBottom: '48px' }}>
               <GoldBtn href="/become-a-host" large>List Your Boat — It&apos;s Free</GoldBtn>
               <GhostBtn href="/how-it-works">Learn how hosting works</GhostBtn>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
               {[{ n: '€0', l: 'To list your boat' }, { n: '15%', l: 'Commission only on bookings' }, { n: '24/7', l: 'Host support line' }].map((s) => (
                 <div key={s.l}>
-                  <div className="text-2xl font-bold" style={{ color: '#c9a84e' }}>{s.n}</div>
-                  <div className="text-xs mt-1" style={{ color: 'rgba(244,244,242,0.45)' }}>{s.l}</div>
+                  <div style={{ fontSize: '24px', fontWeight: 700, color: '#c9a84e' }}>{s.n}</div>
+                  <div style={{ fontSize: '12px', marginTop: '4px', color: 'rgba(244,244,242,0.45)' }}>{s.l}</div>
                 </div>
               ))}
             </div>
@@ -354,14 +405,14 @@ export default function HomePage() {
       <section className="section">
         <div className="container max-w-4xl">
           <SectionHeader
-            eyebrow="The BoatAway standard"
+            eyebrow="The BoatHire24 standard"
             title={<>Our Charter <Gold>Promise</Gold></>}
           />
           <div className="grid md:grid-cols-2 gap-10">
             <div>
               <h3 className="text-lg font-bold mb-3" style={{ color: '#f4f4f2' }}>Every boat is what it says it is.</h3>
               <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.60)' }}>
-                The photographs on every BoatAway listing were taken by a member of our team or a verified partner
+                The photographs on every BoatHire24 listing were taken by a member of our team or a verified partner
                 photographer — never stock imagery, never borrowed from a sister vessel. The specifications were
                 checked against the vessel's technical documentation. The capacity figure reflects the vessel's
                 actual certified limit, not a sales estimate. What you see on the listing is the boat you will
@@ -369,10 +420,10 @@ export default function HomePage() {
               </p>
               <h3 className="text-lg font-bold mb-3" style={{ color: '#f4f4f2' }}>Your skipper is genuinely qualified.</h3>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,244,0.60)' }}>
-                Before any skipper is permitted to take bookings through BoatAway, we verify their coastal or
+                Before any skipper is permitted to take bookings through BoatHire24, we verify their coastal or
                 offshore qualification with the issuing maritime authority, confirm their insurance is current
                 and valid for the vessel class they are operating, and check that their experience profile
-                matches the routes they are offering. We repeat this verification annually. A BoatAway skipper
+                matches the routes they are offering. We repeat this verification annually. A BoatHire24 skipper
                 badge is not a courtesy title — it represents a genuine compliance check that most charter
                 platforms do not perform at all.
               </p>
@@ -382,7 +433,7 @@ export default function HomePage() {
               <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(244,244,242,0.60)' }}>
                 Hidden fees are the most common complaint in the charter industry. A listing advertises €400
                 for a half-day. The guest arrives and discovers a €60 fuel surcharge, a €30 port fee, and a
-                €20 &quot;cleaning deposit.&quot; The total was never €400. On BoatAway, the listing price is
+                €20 &quot;cleaning deposit.&quot; The total was never €400. On BoatHire24, the listing price is
                 the charter price. Our 15% service fee is displayed clearly before you reach the payment page.
                 There are no additional charges at the dock, no surcharges added after booking, and no
                 &quot;extras&quot; that were not disclosed in the listing. The price we show is the price you pay.
@@ -390,11 +441,11 @@ export default function HomePage() {
               <h3 className="text-lg font-bold mb-3" style={{ color: '#f4f4f2' }}>If something goes wrong, we are responsible.</h3>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.60)' }}>
                 Charter platforms that act purely as directories disclaim all responsibility when things go wrong.
-                BoatAway does not. Our operations team is reachable by phone and WhatsApp from the moment you board
+                BoatHire24 does not. Our operations team is reachable by phone and WhatsApp from the moment you board
                 until the moment you step back onto the dock. If a mechanical issue cancels your day, we find a
                 replacement vessel or issue a full refund — same day. If your host does not show, we are on the
                 phone within fifteen minutes arranging an alternative. We do not hide behind terms and conditions
-                when our guests need us to act. That is the BoatAway standard and it is non-negotiable.
+                when our guests need us to act. That is the BoatHire24 standard and it is non-negotiable.
               </p>
             </div>
           </div>

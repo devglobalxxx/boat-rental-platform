@@ -91,13 +91,13 @@ export async function GET(): Promise<NextResponse> {
     (p) => `- [${p.title}](/blog/${p.slug}) — ${p.excerpt.slice(0, 90)}…`
   )
 
-  const body = `# BoatAway — Boat & Yacht Charter Marketplace
+  const body = `# BoatHire24 — Boat & Yacht Charter Marketplace
 
 > Find and book verified boats, yachts, catamarans, and sailing boats worldwide. Licensed skippers, instant booking, secure payments.
 
 ## About
 
-BoatAway is an online marketplace for boat charter in Marbella, Spain and beyond. All bookings include a licensed skipper, fuel, and drinks. Instant confirmation available on selected vessels.
+BoatHire24 is an online marketplace for boat charter in Marbella, Spain and beyond. All bookings include a licensed skipper, fuel, and drinks. Instant confirmation available on selected vessels.
 
 **Platform:** boathire24.com
 **Headquarters:** Marbella, Spain
@@ -117,7 +117,7 @@ ${fleetLines.join('\n')}
 
 ## What's always included
 
-Every BoatAway charter includes: licensed skipper, fuel, drinks (water, soft drinks, beer, white wine, cava), light snacks, full insurance, safety equipment, and VAT.
+Every BoatHire24 charter includes: licensed skipper, fuel, drinks (water, soft drinks, beer, white wine, cava), light snacks, full insurance, safety equipment, and VAT.
 
 ## How booking works
 

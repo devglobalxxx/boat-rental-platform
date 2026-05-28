@@ -10,9 +10,13 @@ export default async function NewListingPage() {
   const { data: locations } = await supabase.from('locations').select('id, name, city, country').order('name')
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Create a listing</h1>
-      <ListingWizard locations={locations ?? []} />
+    <div style={{ background: '#07101e', minHeight: '100vh', padding: '40px 20px 80px' }}>
+      <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+        <h1 style={{ fontSize: '26px', fontWeight: 700, color: '#f4f4f2', marginBottom: '28px' }}>
+          Create a listing
+        </h1>
+        <ListingWizard locations={locations ?? []} />
+      </div>
     </div>
   )
 }
