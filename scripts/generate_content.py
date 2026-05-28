@@ -188,6 +188,7 @@ STRUCTURE
 OUTPUT — STRICT JSON, no prose, no code fences:
 {{
   "excerpt": "<150-200 chars summary>",
+  "metaDescription": "<150-160 chars search/meta description: includes the primary keyword + a CTA verb>",
   "tag": "<one of: Destination guide | Boat review | How-to | Seasonal | Comparison>",
   "readTime": "<N min read>",
   "content": "<full HTML body, 2000-4000 words, starting with <h2>The 30-second answer</h2>. No <h1>.>",
@@ -345,6 +346,7 @@ def gen_blog(item: dict) -> dict:
         "slug": item["slug"],
         "title": item["title"],
         "excerpt": clean_html(data.get("excerpt", ""))[:300],
+        "metaDescription": clean_html(data.get("metaDescription") or data.get("excerpt", ""))[:160],
         "tag": data.get("tag", "Destination guide"),
         "readTime": f"{max(9, word_count(content) // 220)} min read",
         "date": datetime.date.today().strftime("%B %d, %Y"),

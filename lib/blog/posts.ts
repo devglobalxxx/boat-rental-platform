@@ -9,6 +9,7 @@ export interface BlogPost {
   authorRole:  string
   heroImage:   string
   content:     string   // HTML string
+  metaDescription?: string   // SEO search description (falls back to excerpt)
   boatSlug?:   string
   faqs?:       Array<{ q: string; a: string }>
 }

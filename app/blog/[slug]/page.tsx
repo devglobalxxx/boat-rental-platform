@@ -16,21 +16,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return { title: 'Article not found' }
   return {
     title: post.title,
-    description: post.excerpt,
+    description: post.metaDescription ?? post.excerpt,
     alternates: { canonical: `https://boathire24.com/blog/${post.slug}` },
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description: post.metaDescription ?? post.excerpt,
       images: [{ url: post.heroImage, width: 1400, height: 700, alt: post.title }],
       type: 'article',
       authors: [post.author],
       publishedTime: post.date,
-      siteName: 'BoatAway',
+      siteName: 'BoatHire24',
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.excerpt,
+      description: post.metaDescription ?? post.excerpt,
       images: [post.heroImage],
     },
   }
