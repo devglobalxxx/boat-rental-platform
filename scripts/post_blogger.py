@@ -24,6 +24,7 @@ import argparse, datetime, json, os, pathlib, sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BLOG_STORE = ROOT / "lib" / "blog" / "auto-posts.json"
+LANDING_STORE = ROOT / "lib" / "landing" / "auto-landing.json"
 POSTED_PATH = ROOT / "config" / "blogger_posted.json"
 TOKEN_PATH = pathlib.Path.home() / ".boathire24-blogger-token.json"
 LOG_DIR = ROOT / "logs"; LOG_DIR.mkdir(exist_ok=True)
@@ -85,17 +86,24 @@ def blogger_service(creds):
     return build("blogger", "v3", credentials=creds, cache_discovery=False)
 
 
-def render_html(post: dict) -> str:
-    url = f"{BASE_URL}/blog/{post['slug']}"
-    parts = [post.get("content", "")]
-    faqs = post.get("faqs") or []
-    if faqs:
-        parts.append("<h2>Common questions</h2>")
-        for f in faqs:
-            parts.append(f"<h3>{f.get('q','')}</h3><p>{f.get('a','')}</p>")
+def render_post_html(post: dict) -> str:
+    return _render(post.get("content", ""), post.get("faqs"), f"{BASE_URL}/blog/{post['slug']}")
+
+
+def render_page_html(page: dict) -> str:
+    body = (page.get("intro", "") or "") + "\n" + (page.get("bodyHtml", "") or "")
+    return _render(body, page.get("faqs"), f"{BASE_URL}/{page['slug']}")
+
+
+def _render(body: str, faqs, canonical: str) -> str:
+    parts = [body]
+    for f in (faqs or []):
+        if parts[-1] != "<h2>Common questions</h2>":
+            parts.append("<h2>Common questions</h2>")
+        parts.append(f"<h3>{f.get('q','')}</h3><p>{f.get('a','')}</p>")
     parts.append(
         f'<p><em>Originally published on '
-        f'<a href="{url}" rel="canonical">BoatHire24</a>. '
+        f'<a href="{canonical}" rel="canonical">BoatHire24</a>. '
         f'Browse boats and book at <a href="{BASE_URL}/search">boathire24.com</a>.</em></p>'
     )
     return "\n".join(parts)
@@ -143,25 +151,42 @@ def main():
         return 0
 
     posts = json.loads(BLOG_STORE.read_text()) if BLOG_STORE.exists() else []
+    pages = json.loads(LANDING_STORE.read_text()) if LANDING_STORE.exists() else []
     posted = load_posted()
-    todo = [p for p in posts if p.get("slug") and p["slug"] not in posted][-args.limit:]
-    if not todo:
-        log("Blogger: nothing new to crosspost.")
+
+    def pending(items, prefix):
+        return [it for it in items if it.get("slug") and f"{prefix}:{it['slug']}" not in posted][-args.limit:]
+
+    todo_posts = pending(posts, "post")
+    todo_pages = pending(pages, "page")
+    if not todo_posts and not todo_pages:
+        log("Blogger: nothing new to publish.")
         return 0
 
-    log(f"Blogger: crossposting {len(todo)} article(s) to blog {blog_id}")
+    log(f"Blogger: publishing {len(todo_posts)} post(s) + {len(todo_pages)} page(s) to blog {blog_id}")
     ok = 0
-    for p in todo:
+    # ── Blogger posts (from blog articles) ──
+    for p in todo_posts:
         try:
-            body = {"kind": "blogger#post", "title": p["title"], "content": render_html(p)}
+            body = {"kind": "blogger#post", "title": p["title"], "content": render_post_html(p)}
             res = svc.posts().insert(blogId=blog_id, body=body, isDraft=False).execute()
-            posted.add(p["slug"])
+            posted.add(f"post:{p['slug']}")
             ok += 1
-            log(f"  ✓ {res.get('url')}")
+            log(f"  ✓ post {res.get('url')}")
         except Exception as e:
-            log(f"  ✗ {p['slug']}: {type(e).__name__}: {str(e)[:160]}")
+            log(f"  ✗ post {p['slug']}: {type(e).__name__}: {str(e)[:160]}")
+    # ── Blogger pages (from keyword landing pages) ──
+    for p in todo_pages:
+        try:
+            body = {"kind": "blogger#page", "title": p["title"], "content": render_page_html(p)}
+            res = svc.pages().insert(blogId=blog_id, body=body, isDraft=False).execute()
+            posted.add(f"page:{p['slug']}")
+            ok += 1
+            log(f"  ✓ page {res.get('url')}")
+        except Exception as e:
+            log(f"  ✗ page {p['slug']}: {type(e).__name__}: {str(e)[:160]}")
     save_posted(posted)
-    log(f"Blogger: {ok}/{len(todo)} posted")
+    log(f"Blogger: {ok}/{len(todo_posts) + len(todo_pages)} published")
     return 0
 
 
