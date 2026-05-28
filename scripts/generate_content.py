@@ -23,7 +23,7 @@ Usage:
   python3 scripts/generate_content.py --dry-run
 """
 from __future__ import annotations
-import argparse, datetime, json, os, pathlib, random, re, subprocess, sys, traceback, urllib.request
+import argparse, datetime, hashlib, json, os, pathlib, random, re, subprocess, sys, traceback, urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 QUEUE_PATH = ROOT / "config" / "content_queue.json"
@@ -166,7 +166,7 @@ STYLE = """WRITING STYLE (follow exactly)
 - Conversational, slightly cynical, second person ("you"). British English. Answer-first.
 - NO exclamation points. NO em-dashes or en-dashes (use commas or full stops).
 - Concrete numbers (EUR, NM, m, kts, degrees C). Never invent exact prices for specific boats; say "from around EUR X" or "price on request".
-- Internal links as HTML <a href="/slug/">anchor</a>, about 1 link per 200 words. Always include one link to /search and one to /blog. No two links in the same paragraph.
+- Internal links as HTML <a href="/slug/">anchor</a>, about 1 link per 200 words (aim 6-10 links total). MUST include exactly one link to the homepage <a href="/">BoatHire24</a>, plus one to /search and one to /blog. No two links in the same paragraph.
 - No fabricated testimonials or reviews. No <h1>, <html>, <head>, <body>, inline CSS, or <script>.
 - BANNED phrases (never use): """ + "; ".join(BANNED) + "."
 
@@ -270,6 +270,55 @@ def expand_html(system: str, item: dict, existing: str, min_words: int = 2000, t
     return html
 
 
+def _siblings(exclude_slug: str) -> list[dict]:
+    """Existing/planned pages to cross-link to: [{href, anchor}]."""
+    out = []
+    try:
+        for it in json.loads(BLOG_STORE.read_text()):
+            out.append({"href": f"/blog/{it['slug']}/", "anchor": it.get("title", it["slug"])})
+    except Exception:
+        pass
+    try:
+        for it in json.loads(LANDING_STORE.read_text()):
+            out.append({"href": f"/{it['slug']}/", "anchor": it.get("h1") or it.get("title", it["slug"])})
+    except Exception:
+        pass
+    try:
+        cfg = json.loads(QUEUE_PATH.read_text())
+        for it in cfg.get("queue", []):
+            href = f"/blog/{it['slug']}/" if it.get("kind") == "blog" else f"/{it['slug']}/"
+            out.append({"href": href, "anchor": it.get("title", it["slug"])})
+    except Exception:
+        pass
+    return [s for s in out if exclude_slug not in s["href"]]
+
+
+def add_internal_links(html: str, item: dict) -> str:
+    """Guarantee exactly one homepage link and append a Related cluster of
+    cross-links to sibling pages (improves internal-link density + structure)."""
+    # 1) Homepage link — wrap the first bare "BoatHire24" mention, else prepend a CTA.
+    if 'href="/"' not in html:
+        if re.search(r"(?<!>)BoatHire24(?!<)", html):
+            html = re.sub(r"(?<!>)BoatHire24(?!<)", '<a href="/">BoatHire24</a>', html, count=1)
+        else:
+            html = (f'<p>Browse the full fleet at <a href="/">BoatHire24</a>.</p>\n' + html)
+    # 2) Related cluster — up to 4 sibling cross-links chosen deterministically.
+    sibs = _siblings(item["slug"])
+    if sibs:
+        h = int(hashlib.md5(item["slug"].encode()).hexdigest(), 16)
+        picks, seen = [], set()
+        for i in range(len(sibs)):
+            s = sibs[(h + i) % len(sibs)]
+            if s["href"] in seen:
+                continue
+            seen.add(s["href"]); picks.append(s)
+            if len(picks) >= 4:
+                break
+        items = "".join(f'<li><a href="{p["href"]}">{p["anchor"]}</a></li>' for p in picks)
+        html = html.rstrip() + f'\n<h2>Related guides</h2>\n<ul>{items}</ul>'
+    return html
+
+
 def pick_hero(keyword: str) -> str:
     """Open-license image keyed to the topic; falls back to the curated pool."""
     try:
@@ -288,6 +337,7 @@ def gen_blog(item: dict) -> dict:
     content = clean_html(data["content"])
     content = expand_html(system, item, content)
     quality_check(content)
+    content = add_internal_links(content, item)
     author, role = random.choice(AUTHORS)
     return {
         "slug": item["slug"],
@@ -311,6 +361,7 @@ def gen_landing(item: dict) -> dict:
     body = clean_html(data["bodyHtml"])
     body = expand_html(system, item, body, min_words=2000 - word_count(intro))
     quality_check(intro + " " + body)
+    body = add_internal_links(body, item)
     return {
         "slug": item["slug"],
         "title": item["title"],

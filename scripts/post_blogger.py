@@ -20,7 +20,7 @@ Usage:
   python3 scripts/post_blogger.py --login
 """
 from __future__ import annotations
-import argparse, datetime, hashlib, json, os, pathlib, sys
+import argparse, datetime, hashlib, json, os, pathlib, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BLOG_STORE = ROOT / "lib" / "blog" / "auto-posts.json"
@@ -196,7 +196,11 @@ def _render(body: str, faqs, canonical: str, hero: str = "", inline: str = "") -
         f'<a href="{canonical}" rel="canonical">BoatHire24</a>. '
         f'Browse boats and book at <a href="{BASE_URL}/search">boathire24.com</a>.</em></p>'
     )
-    return "\n".join(parts)
+    html = "\n".join(parts)
+    # Relative links would resolve against blogspot.com; point them at the money site
+    # so internal links work AND pass link equity back to boathire24.com.
+    html = re.sub(r'href="/(?!/)', f'href="{BASE_URL}/', html)
+    return html
 
 
 def load_posted() -> set:
