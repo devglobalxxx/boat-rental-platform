@@ -128,28 +128,45 @@ def _video(url: str) -> str:
             f'style="max-width:100%"></iframe></p>')
 
 
-def media_for(slug: str, media: list, n: int = 3) -> tuple[str, str]:
+def media_for(slug: str, media: list, n: int = 3) -> tuple[str, list]:
     """Deterministic per-slug selection from a normalized [{type,url}] pool
-    (Drive + open-library blended). Returns (hero_html, inline_html)."""
+    (Drive + open-library blended). Returns (hero_html, [inline_snippets])."""
     if not media:
-        return "", ""
+        return "", []
     imgs = [m for m in media if m["type"] == "image"]
     vids = [m for m in media if m["type"] == "video"]
     h = int(hashlib.md5(slug.encode()).hexdigest(), 16)
-    hero, inline = "", ""
+    hero, inline = "", []
     if imgs:
         sel = [imgs[(h + i) % len(imgs)] for i in range(min(n, len(imgs)))]
-        # de-dup while preserving order
         seen, picks = set(), []
         for m in sel:
             if m["url"] not in seen:
                 seen.add(m["url"]); picks.append(m)
         hero = _img(picks[0]["url"], slug)
-        for m in picks[1:]:
-            inline += _img(m["url"], slug)
+        inline = [_img(m["url"], slug) for m in picks[1:]]
     if vids:
-        inline += _video(vids[h % len(vids)]["url"])
+        inline.append(_video(vids[h % len(vids)]["url"]))
     return hero, inline
+
+
+def _distribute(body: str, snippets: list) -> str:
+    """Spread inline media evenly through the middle of the article by inserting
+    each snippet after a different <h2> section (never all clustered at the top)."""
+    if not snippets:
+        return body
+    # positions just after each section's closing </h2>
+    marks = [m.end() for m in re.finditer(r"</h2>", body)]
+    if len(marks) < 2:
+        return body + "".join(snippets)
+    # skip the first section (keeps the area under the hero clean); spread across the rest
+    usable = marks[1:]
+    k = len(snippets)
+    chosen = [usable[round((i + 1) * len(usable) / (k + 1)) - 1] for i in range(k)]
+    # insert from the end so earlier offsets stay valid
+    for snip, pos in sorted(zip(snippets, chosen), key=lambda x: -x[1]):
+        body = body[:pos] + snip + body[pos:]
+    return body
 
 
 def combined_media(item: dict, drive_media: list, stock_n: int = 3) -> list:
@@ -179,13 +196,9 @@ def render_page_html(page: dict, drive_media: list) -> str:
     return _render(body, page.get("faqs"), f"{BASE_URL}/{page['slug']}", hero, inline)
 
 
-def _render(body: str, faqs, canonical: str, hero: str = "", inline: str = "") -> str:
-    # Insert inline media after the first </h2> section break; fall back to appending.
-    if inline and "</h2>" in body:
-        i = body.index("</h2>") + len("</h2>")
-        body = body[:i] + inline + body[i:]
-    elif inline:
-        body = body + inline
+def _render(body: str, faqs, canonical: str, hero: str = "", inline: list | None = None) -> str:
+    # Spread inline media evenly through the middle of the article.
+    body = _distribute(body, inline or [])
     parts = [hero, body] if hero else [body]
     for f in (faqs or []):
         if parts[-1] != "<h2>Common questions</h2>":

@@ -38,11 +38,28 @@ def _save(d: dict):
         pass
 
 
+# Only keep open-library images whose title/tags actually relate to boating —
+# Openverse "boat" queries otherwise return graffiti, gym photos, etc.
+RELEVANT = {
+    "boat", "boats", "yacht", "yachts", "sail", "sailing", "sailboat", "catamaran",
+    "marina", "harbour", "harbor", "port", "sea", "ocean", "coast", "coastal",
+    "beach", "water", "ship", "vessel", "cruise", "nautical", "marine", "dock",
+    "speedboat", "motorboat", "dinghy", "regatta", "anchor", "deck", "bay",
+}
+
+
+def _is_relevant(item: dict) -> bool:
+    text = (item.get("title") or "").lower()
+    tags = " ".join(t.get("name", "") for t in (item.get("tags") or [])).lower()
+    blob = f"{text} {tags}"
+    return any(w in blob for w in RELEVANT)
+
+
 def _fetch(query: str, n: int) -> list[str]:
     params = urllib.parse.urlencode({
         "q": query,
         "license_type": "commercial",
-        "page_size": max(n, 8),
+        "page_size": 20,          # over-fetch, then keep only relevant
         "mature": "false",
     })
     req = urllib.request.Request(
@@ -56,10 +73,12 @@ def _fetch(query: str, n: int) -> list[str]:
         return []
     urls = []
     for it in data.get("results", []):
+        if not _is_relevant(it):
+            continue
         u = it.get("thumbnail") or it.get("url")
         if u:
             urls.append(u)
-    return urls
+    return urls[:n]
 
 
 def open_library_images(query: str, n: int = 6) -> list[str]:
