@@ -302,11 +302,15 @@ def main():
     throttle = float(os.environ.get("BLOGGER_THROTTLE", "6"))   # seconds between writes
     ok = 0
 
+    class Blocked(Exception):
+        pass
+
     def insert_with_retry(request, label: str) -> bool:
-        """Execute a Blogger write, backing off on 429/quota errors. Returns True on success."""
+        """Execute a Blogger write, backing off on transient 429s. Raises Blocked when
+        Google hard-blocks writes (403 forbidden / daily quota) so we stop hammering."""
         nonlocal ok
         delay = 30
-        for attempt in range(6):
+        for attempt in range(5):
             try:
                 res = request().execute()
                 ok += 1
@@ -314,32 +318,34 @@ def main():
                 return True
             except Exception as e:
                 msg = str(e)
-                is_quota = "429" in msg or "exhausted" in msg.lower() or "rateLimit" in msg or "quota" in msg.lower()
-                if is_quota and attempt < 5:
-                    log(f"  … rate limited on {label}; backing off {delay}s (attempt {attempt+1}/5)")
-                    time.sleep(delay)
-                    delay = min(delay * 2, 600)
+                low = msg.lower()
+                # Hard block: 403 forbidden / permission / daily limit -> stop the whole run.
+                if "403" in msg or "forbidden" in low or "permission" in low or "dailylimit" in low:
+                    raise Blocked(msg[:160])
+                # Transient rate limit: back off and retry.
+                if ("429" in msg or "exhausted" in low or "ratelimit" in low) and attempt < 4:
+                    log(f"  … rate limited on {label}; backing off {delay}s")
+                    time.sleep(delay); delay = min(delay * 2, 600)
                     continue
                 log(f"  ✗ {label}: {type(e).__name__}: {msg[:140]}")
                 return False
         return False
 
-    # ── Blogger posts (from blog articles) ──
-    for p in todo_posts:
-        body = {"kind": "blogger#post", "title": p["title"], "content": render_post_html(p, media)}
-        if insert_with_retry(lambda b=body: svc.posts().insert(blogId=blog_id, body=b, isDraft=False), f"post {p['slug']}"):
-            posted.add(f"post:{p['slug']}")
-            save_posted(posted)   # persist progress so a later failure doesn't repost
-            time.sleep(throttle)
-    # ── Blogger pages (from keyword landing pages) ──
-    for p in todo_pages:
-        body = {"kind": "blogger#page", "title": p["title"], "content": render_page_html(p, media)}
-        if insert_with_retry(lambda b=body: svc.pages().insert(blogId=blog_id, body=b, isDraft=False), f"page {p['slug']}"):
-            posted.add(f"page:{p['slug']}")
-            save_posted(posted)
-            time.sleep(throttle)
+    try:
+        # ── Blogger posts (from blog articles) ──
+        for p in todo_posts:
+            body = {"kind": "blogger#post", "title": p["title"], "content": render_post_html(p, media)}
+            if insert_with_retry(lambda b=body: svc.posts().insert(blogId=blog_id, body=b, isDraft=False), f"post {p['slug']}"):
+                posted.add(f"post:{p['slug']}"); save_posted(posted); time.sleep(throttle)
+        # ── Blogger pages (from keyword landing pages) ──
+        for p in todo_pages:
+            body = {"kind": "blogger#page", "title": p["title"], "content": render_page_html(p, media)}
+            if insert_with_retry(lambda b=body: svc.pages().insert(blogId=blog_id, body=b, isDraft=False), f"page {p['slug']}"):
+                posted.add(f"page:{p['slug']}"); save_posted(posted); time.sleep(throttle)
+    except Blocked as b:
+        log(f"Blogger WRITE-BLOCKED (quota/rate limit): {b}. Stopping; remaining items will publish on the next run.")
     save_posted(posted)
-    log(f"Blogger: {ok}/{len(todo_posts) + len(todo_pages)} published")
+    log(f"Blogger: {ok}/{len(todo_posts) + len(todo_pages)} published this run")
     return 0
 
 
