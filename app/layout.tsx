@@ -3,6 +3,7 @@ import './globals.css'
 import SiteNav from '@/components/nav/SiteNav'
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
+import PayoutBadge from '@/components/ui/PayoutBadge'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://boathire24.com'),
@@ -64,6 +65,39 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="h-full">
       <body className="h-full flex flex-col antialiased" style={{ background: '#07101e' }}>
+        {/* ── Sitewide structured data (Organization + WebSite) ── */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': [
+                {
+                  '@type': 'Organization',
+                  '@id': 'https://boathire24.com/#organization',
+                  name: 'BoatHire24',
+                  url: 'https://boathire24.com',
+                  logo: 'https://boathire24.com/brand-logo.jpg',
+                  description: 'Boat and yacht charter marketplace — book verified boats with licensed skippers in Marbella and beyond.',
+                  areaServed: 'Marbella, Costa del Sol, Spain',
+                  sameAs: ['https://blog.boathire24.com', 'https://boathire24guides.wordpress.com'],
+                },
+                {
+                  '@type': 'WebSite',
+                  '@id': 'https://boathire24.com/#website',
+                  url: 'https://boathire24.com',
+                  name: 'BoatHire24',
+                  publisher: { '@id': 'https://boathire24.com/#organization' },
+                  potentialAction: {
+                    '@type': 'SearchAction',
+                    target: { '@type': 'EntryPoint', urlTemplate: 'https://boathire24.com/search?q={search_term_string}' },
+                    'query-input': 'required name=search_term_string',
+                  },
+                },
+              ],
+            }),
+          }}
+        />
         <SiteNav />
         <main className="flex-1">{children}</main>
 
@@ -129,6 +163,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       {badge}
                     </span>
                   ))}
+                </div>
+                <div style={{ marginTop: '10px' }}>
+                  <PayoutBadge size="sm" />
                 </div>
               </div>
 

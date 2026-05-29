@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { ALL_POSTS } from '@/lib/blog/posts'
+import { LANDING_PAGES } from '@/lib/landing/pages'
 
 export const dynamic = 'force-dynamic'
 
@@ -143,6 +144,10 @@ ${editorialLines.join('\n')}
 ## Boat reviews — Complete Marbella fleet
 
 ${reviewLines.join('\n')}
+
+## Charter & rental landing pages (by location and boat type)
+
+${LANDING_PAGES.map((p) => `- [${p.h1 || p.title}](/${p.slug}) — ${(p.metaDescription || '').slice(0, 100)}`).join('\n')}
 
 ## Key pages
 

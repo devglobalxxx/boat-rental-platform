@@ -19,8 +19,18 @@ export default function LandingView({ page }: { page: LandingPage }) {
       }
     : null
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://boathire24.com' },
+      { '@type': 'ListItem', position: 2, name: page.h1 || page.title, item: `https://boathire24.com/${page.slug}` },
+    ],
+  }
+
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* ── Hero ── */}
       <section style={{ position: 'relative', height: '340px', overflow: 'hidden' }}>
         {page.heroImage ? (

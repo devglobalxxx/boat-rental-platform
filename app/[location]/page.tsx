@@ -42,7 +42,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: lp.title,
         description: lp.metaDescription,
         type: 'article',
+        siteName: 'BoatHire24',
         ...(lp.heroImage ? { images: [{ url: lp.heroImage }] } : {}),
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: lp.title,
+        description: lp.metaDescription,
+        ...(lp.heroImage ? { images: [lp.heroImage] } : {}),
       },
     }
   }
