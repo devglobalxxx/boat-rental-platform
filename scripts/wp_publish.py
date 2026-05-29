@@ -18,7 +18,7 @@ Usage:
   python3 scripts/wp_publish.py --check        # verify connection only
 """
 from __future__ import annotations
-import argparse, base64, datetime, importlib.util, json, os, pathlib, sys, time, urllib.request, urllib.error
+import argparse, base64, datetime, importlib.util, json, os, pathlib, sys, time, urllib.request, urllib.error, urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BLOG_STORE = ROOT / "lib" / "blog" / "auto-posts.json"
@@ -85,6 +85,47 @@ def wp_post(endpoint: str, payload: dict) -> tuple[int, dict]:
         return e.code, {"error": e.read().decode(errors="replace")[:200]}
 
 
+_MEDIA_CACHE: dict = {}
+
+
+def upload_media(image_url: str) -> int | None:
+    """Upload an image to the WP media library; returns attachment id (cached per URL).
+    The featured image is what WordPress uses for og:image / social sharing cards."""
+    if not image_url:
+        return None
+    if image_url in _MEDIA_CACHE:
+        return _MEDIA_CACHE[image_url]
+    try:
+        raw = urllib.request.urlopen(
+            urllib.request.Request(image_url, headers={"User-Agent": "boathire24-bot"}), timeout=30
+        ).read()
+        req = urllib.request.Request(
+            _endpoint_url("media"), data=raw, method="POST",
+            headers={"Authorization": auth_header(), "Content-Type": "image/jpeg",
+                     "Content-Disposition": 'attachment; filename="boathire24.jpg"',
+                     "User-Agent": "boathire24-bot"},
+        )
+        with urllib.request.urlopen(req, timeout=90) as r:
+            mid = json.loads(r.read()).get("id")
+            _MEDIA_CACHE[image_url] = mid
+            return mid
+    except Exception as e:
+        log(f"  (media upload failed: {str(e)[:100]})")
+        return None
+
+
+def find_id(endpoint: str, slug: str) -> int | None:
+    url = _endpoint_url(endpoint) + f"?slug={urllib.parse.quote(slug)}&per_page=1&status=publish"
+    try:
+        with urllib.request.urlopen(
+            urllib.request.Request(url, headers={"Authorization": auth_header()}), timeout=30
+        ) as r:
+            items = json.loads(r.read())
+            return items[0]["id"] if items else None
+    except Exception:
+        return None
+
+
 def load_posted() -> set:
     try:
         return set(json.loads(POSTED_PATH.read_text()))
@@ -100,6 +141,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=40)
     ap.add_argument("--check", action="store_true", help="verify connection only")
+    ap.add_argument("--reprocess-seo", action="store_true",
+                    help="add featured image + excerpt to already-published items (SEO/og:image backfill)")
     args = ap.parse_args()
     load_env()
 
@@ -121,6 +164,29 @@ def main():
     pages = json.loads(LANDING_STORE.read_text()) if LANDING_STORE.exists() else []
     posted = load_posted()
 
+    # ── SEO backfill: add featured image (og:image) + excerpt to existing items ──
+    if args.reprocess_seo:
+        done = 0
+        for endpoint, items, pref in (("posts", posts, "post"), ("pages", pages, "page")):
+            for it in items:
+                if f"{pref}:{it['slug']}" not in posted:
+                    continue
+                wid = find_id(endpoint, it["slug"])
+                if not wid:
+                    continue
+                fm = upload_media(it.get("heroImage"))
+                patch = {"excerpt": it.get("metaDescription") or it.get("excerpt", "")}
+                if fm:
+                    patch["featured_media"] = fm
+                code, res = wp_post(f"{endpoint}/{wid}", patch)
+                if 200 <= code < 300:
+                    done += 1; log(f"  ✓ seo {endpoint}/{it['slug']} (img={'y' if fm else 'n'})")
+                else:
+                    log(f"  ✗ seo {it['slug']}: {code} {res.get('error','')[:100]}")
+                time.sleep(1)
+        log(f"WP SEO backfill: updated {done} item(s)")
+        return 0
+
     def pending(items, prefix):
         return [it for it in items if it.get("slug") and f"{prefix}:{it['slug']}" not in posted][:args.limit]
 
@@ -137,6 +203,9 @@ def main():
         payload = {"title": p["title"], "content": pb.render_post_html(p, []),
                    "status": "publish", "slug": p["slug"],
                    "excerpt": p.get("metaDescription") or p.get("excerpt", "")}
+        fm = upload_media(p.get("heroImage"))
+        if fm:
+            payload["featured_media"] = fm
         code, res = wp_post("posts", payload)
         if 200 <= code < 300:
             posted.add(f"post:{p['slug']}"); save_posted(posted); ok += 1
@@ -148,6 +217,9 @@ def main():
         payload = {"title": p["title"], "content": pb.render_page_html(p, []),
                    "status": "publish", "slug": p["slug"],
                    "excerpt": p.get("metaDescription", "")}
+        fm = upload_media(p.get("heroImage"))
+        if fm:
+            payload["featured_media"] = fm
         code, res = wp_post("pages", payload)
         if 200 <= code < 300:
             posted.add(f"page:{p['slug']}"); save_posted(posted); ok += 1
