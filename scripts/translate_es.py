@@ -107,6 +107,17 @@ def main():
         except Exception as ex:
             log(f"  [{i}/{len(todo)}] ✗ {p['slug']}: {type(ex).__name__}: {str(ex)[:140]}")
     log(f"es: {ok}/{len(todo)} translated (total es={len(es)})")
+    # Commit + push the new Spanish content so Vercel deploys the /es pages.
+    if ok:
+        import subprocess
+        try:
+            subprocess.run(["git", "add", str(ES)], cwd=ROOT, check=True)
+            if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT).returncode != 0:
+                subprocess.run(["git", "commit", "-m", f"es: +{ok} Spanish landing translations"], cwd=ROOT, check=True)
+                subprocess.run(["git", "push", "origin", "HEAD"], cwd=ROOT, check=True)
+                log("es: pushed")
+        except Exception as e:
+            log(f"es: git push failed: {str(e)[:120]}")
     return 0
 
 
