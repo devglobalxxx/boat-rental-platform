@@ -154,6 +154,7 @@ ${LANDING_PAGES.map((p) => `- [${p.h1 || p.title}](/${p.slug}) — ${(p.metaDesc
 - /search — Browse and filter all available boats
 - /marbella — Marbella destination + fleet overview
 - /blog — All charter guides and boat reviews
+- /faq — Frequently asked questions (prices, licences, skippers, inclusions, booking)
 - /how-it-works — Full platform explainer (renters + hosts)
 - /become-a-host — Host onboarding and earnings info
 - /llms.txt — This file (machine-readable index, refreshed live)
