@@ -130,7 +130,8 @@ def main():
         log("WP: nothing new to publish.")
         return 0
 
-    log(f"WP: publishing {len(todo_posts)} post(s) + {len(todo_pages)} page(s) to {os.environ['WP_URL']}")
+    target = os.environ.get("WP_COM_SITE") or os.environ.get("WP_URL")
+    log(f"WP: publishing {len(todo_posts)} post(s) + {len(todo_pages)} page(s) to {target}")
     ok = 0
     for p in todo_posts:
         payload = {"title": p["title"], "content": pb.render_post_html(p, []),
