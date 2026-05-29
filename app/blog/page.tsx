@@ -31,7 +31,10 @@ const goldBorder = 'rgba(201,168,78,0.22)'
 const textMuted = 'rgba(244,244,242,0.55)'
 
 export default function BlogPage() {
-  const [featured, ...rest] = POSTS
+  // List ALL posts (including auto-generated), newest first.
+  const sorted = [...ALL_POSTS].sort((a, b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0))
+  const editorial = sorted.filter((p) => p.tag !== 'Boat review')
+  const [featured, ...rest] = editorial.length ? editorial : POSTS
   const boatPosts = ALL_POSTS.filter((p) => p.tag === 'Boat review')
 
   return (
