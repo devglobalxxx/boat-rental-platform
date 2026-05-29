@@ -6,6 +6,7 @@ import SearchBar from '@/components/search/SearchBar'
 import { MapPin, Anchor, Ship } from 'lucide-react'
 import type { BoatWithDetails, LocationRow } from '@/types/database'
 import { getLandingPage, getLandingSlugs } from '@/lib/landing/pages'
+import { hasEs } from '@/lib/landing/pages-es'
 import LandingView from '@/components/landing/LandingView'
 
 interface Props {
@@ -37,7 +38,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: lp.title,
       description: lp.metaDescription,
-      alternates: { canonical: `https://boathire24.com/${lp.slug}` },
+      alternates: {
+        canonical: `https://boathire24.com/${lp.slug}`,
+        ...(hasEs(lp.slug) ? {
+          languages: {
+            'en': `https://boathire24.com/${lp.slug}`,
+            'es-ES': `https://boathire24.com/es/${lp.slug}`,
+            'x-default': `https://boathire24.com/${lp.slug}`,
+          },
+        } : {}),
+      },
       openGraph: {
         title: lp.title,
         description: lp.metaDescription,

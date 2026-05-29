@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { ALL_POSTS } from '@/lib/blog/posts'
 import { LANDING_PAGES } from '@/lib/landing/pages'
+import { LANDING_PAGES_ES, hasEs } from '@/lib/landing/pages-es'
 
 export const revalidate = 3600
 
@@ -142,6 +143,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(lp.date),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
+    ...(hasEs(lp.slug) ? {
+      alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}` } },
+    } : {}),
+  }))
+
+  // ── Spanish (es) landing pages ────────────────────────────────────────────
+  const esLandingEntries: SitemapEntry[] = LANDING_PAGES_ES.map((lp) => ({
+    url: `${BASE_URL}/es/${lp.slug}`,
+    lastModified: new Date(lp.date),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+    alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}` } },
   }))
 
   return [
@@ -152,5 +165,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...tagEntries,
     ...locationEntries,
     ...landingEntries,
+    ...esLandingEntries,
   ]
 }
