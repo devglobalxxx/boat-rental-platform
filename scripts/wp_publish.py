@@ -45,22 +45,34 @@ def load_env():
         if not p.exists():
             continue
         for line in p.read_text().splitlines():
-            for k in ("WP_URL", "WP_USER", "WP_APP_PASSWORD"):
+            for k in ("WP_URL", "WP_USER", "WP_APP_PASSWORD", "WP_COM_TOKEN", "WP_COM_SITE"):
                 if line.startswith(k + "=") and not os.environ.get(k):
                     os.environ[k] = line.split("=", 1)[1].strip().strip('"').strip("'")
 
 
+def _is_wpcom() -> bool:
+    return bool(os.environ.get("WP_COM_TOKEN") and os.environ.get("WP_COM_SITE"))
+
+
+def _endpoint_url(endpoint: str) -> str:
+    if _is_wpcom():
+        site = os.environ["WP_COM_SITE"].rstrip("/")
+        return f"https://public-api.wordpress.com/wp/v2/sites/{site}/{endpoint}"
+    base = os.environ["WP_URL"].rstrip("/")
+    return f"{base}/wp-json/wp/v2/{endpoint}"
+
+
 def auth_header() -> str:
+    if _is_wpcom():
+        return f"Bearer {os.environ['WP_COM_TOKEN']}"
     user = os.environ.get("WP_USER", "")
     pw = os.environ.get("WP_APP_PASSWORD", "").replace(" ", "")
-    token = base64.b64encode(f"{user}:{pw}".encode()).decode()
-    return f"Basic {token}"
+    return "Basic " + base64.b64encode(f"{user}:{pw}".encode()).decode()
 
 
 def wp_post(endpoint: str, payload: dict) -> tuple[int, dict]:
-    base = os.environ["WP_URL"].rstrip("/")
     req = urllib.request.Request(
-        f"{base}/wp-json/wp/v2/{endpoint}",
+        _endpoint_url(endpoint),
         data=json.dumps(payload).encode(),
         headers={"Authorization": auth_header(), "Content-Type": "application/json",
                  "User-Agent": "boathire24-bot"},
@@ -91,17 +103,16 @@ def main():
     args = ap.parse_args()
     load_env()
 
-    if not os.environ.get("WP_URL") or not os.environ.get("WP_USER") or not os.environ.get("WP_APP_PASSWORD"):
-        log("WP: WP_URL / WP_USER / WP_APP_PASSWORD not set in .env.local — skipped.")
+    if not _is_wpcom() and not (os.environ.get("WP_URL") and os.environ.get("WP_USER") and os.environ.get("WP_APP_PASSWORD")):
+        log("WP: no credentials. Set WP_COM_TOKEN + WP_COM_SITE (WordPress.com) or WP_URL/WP_USER/WP_APP_PASSWORD (self-hosted) in .env.local.")
         return 0
 
     if args.check:
-        base = os.environ["WP_URL"].rstrip("/")
-        req = urllib.request.Request(f"{base}/wp-json/wp/v2/posts?per_page=1",
-                                     headers={"Authorization": auth_header()})
+        url = _endpoint_url("posts") + "?per_page=1"
+        req = urllib.request.Request(url, headers={"Authorization": auth_header()})
         try:
             with urllib.request.urlopen(req, timeout=30) as r:
-                log(f"WP: connection OK ({r.status}) to {base}")
+                log(f"WP: connection OK ({r.status}) — {'WordPress.com' if _is_wpcom() else os.environ.get('WP_URL')}")
         except Exception as e:
             log(f"WP: connection FAILED: {str(e)[:160]}")
         return 0
