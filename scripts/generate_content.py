@@ -518,6 +518,14 @@ def main():
     batch = blogs + landings
     log(f"=== Generate: {len(blogs)} blog + {len(landings)} landing = {len(batch)} item(s) (backend={BACKEND}) ===")
 
+    # Pull latest from remote before generating to avoid overwriting work pushed
+    # by interactive sessions while the cron was idle. Rebase on top so any local
+    # commits stay; tolerate no-remote / detached states.
+    try:
+        subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "HEAD"], cwd=ROOT, check=False, capture_output=True)
+    except Exception as e:
+        log(f"git pull (pre-generate) skipped: {e}")
+
     blog_store = load_store(BLOG_STORE)
     landing_store = load_store(LANDING_STORE)
     have = {b.get("slug") for b in blog_store} | {l.get("slug") for l in landing_store}
