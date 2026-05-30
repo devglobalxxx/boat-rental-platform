@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { BarChart3, Shield, Zap, Anchor, ArrowRight, CheckCircle2, TrendingUp } from 'lucide-react'
+import PayoutBadge from '@/components/ui/PayoutBadge'
 
 const BENEFITS = [
   { icon: BarChart3,   title: 'Earn on your terms',     desc: 'Set your own prices, block dates when you need the boat, no minimum commitment.',                                        stat: '€2,400',  statLabel: 'avg. monthly earnings' },
@@ -67,6 +68,11 @@ export default function BecomeAHostClient() {
           </div>
         </div>
       </section>
+
+      {/* ── Payout SLA strip ── */}
+      <div style={{ borderTop: '1px solid rgba(34,197,94,0.12)', background: 'rgba(34,197,94,0.04)', padding: '14px 24px', display: 'flex', justifyContent: 'center' }}>
+        <PayoutBadge />
+      </div>
 
       {/* ── Stats bar ── */}
       <div style={{ borderTop: `1px solid rgba(201,168,78,0.10)`, borderBottom: `1px solid rgba(201,168,78,0.10)`, background: 'rgba(201,168,78,0.04)' }}>

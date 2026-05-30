@@ -180,12 +180,15 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
   async function uploadImages(boatId: string): Promise<string[]> {
     const urls: string[] = []
     for (const file of form.images) {
-      const ext = file.name.split('.').pop()
-      const path = `boats/${boatId}/${Date.now()}.${ext}`
-      const { data, error } = await supabase.storage.from('boat-images').upload(path, file)
-      if (!error && data) {
-        const { data: urlData } = supabase.storage.from('boat-images').getPublicUrl(data.path)
-        urls.push(urlData.publicUrl)
+      const fd = new FormData()
+      fd.append('file', file)
+      fd.append('boatId', boatId)
+      try {
+        const res = await fetch('/api/upload-image', { method: 'POST', body: fd })
+        const json = await res.json()
+        if (json.url) urls.push(json.url)
+      } catch {
+        // skip failed upload, continue with others
       }
     }
     return urls
@@ -427,25 +430,64 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
         {/* ── Step 3: Photos ── */}
         {step === 3 && (
           <>
-            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Add photos</h2>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Photos</h2>
+
+            {/* Existing photos (edit mode) */}
+            {(initialData?.boat_images ?? []).length > 0 && (
+              <div>
+                <p style={{ fontSize: '13px', fontWeight: 600, color: muted, marginBottom: '10px' }}>
+                  Current photos ({(initialData.boat_images as any[]).length}) — uploading new ones adds to these
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '16px' }}>
+                  {(initialData.boat_images as any[])
+                    .slice()
+                    .sort((a: any, b: any) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+                    .map((img: any, i: number) => (
+                      <div key={img.id ?? i} style={{ aspectRatio: '16/9', borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.06)', position: 'relative' }}>
+                        <img
+                          src={img.storage_url}
+                          alt={img.alt ?? ''}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                        {(img.is_hero || i === 0) && (
+                          <span style={{ position: 'absolute', bottom: '6px', left: '6px', fontSize: '10px', background: 'rgba(201,168,78,0.85)', color: '#07101e', fontWeight: 700, padding: '2px 7px', borderRadius: '99px' }}>
+                            Hero
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {/* Upload new photos */}
             <div style={{ border: `2px dashed ${inputBorder}`, borderRadius: '14px', padding: '40px 24px', textAlign: 'center' }}>
               <input type="file" accept="image/*" multiple onChange={(e) => update('images', Array.from(e.target.files ?? []))} style={{ display: 'none' }} id="photo-upload" />
               <label htmlFor="photo-upload" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                 <div style={{ fontSize: '36px' }}>📸</div>
-                <div style={{ fontWeight: 600, color: text, fontSize: '15px' }}>Upload photos</div>
+                <div style={{ fontWeight: 600, color: text, fontSize: '15px' }}>
+                  {(initialData?.boat_images ?? []).length > 0 ? 'Add more photos' : 'Upload photos'}
+                </div>
                 <div style={{ fontSize: '13px', color: muted }}>JPG, PNG or WebP · up to 10 photos</div>
               </label>
             </div>
+
+            {/* New photo previews */}
             {form.images.length > 0 && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginTop: '4px' }}>
-                {form.images.map((f, i) => (
-                  <div key={i} style={{ aspectRatio: '16/9', borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.06)', position: 'relative' }}>
-                    <img src={URL.createObjectURL(f)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    {i === 0 && (
-                      <span style={{ position: 'absolute', bottom: '6px', left: '6px', fontSize: '10px', background: 'rgba(0,0,0,0.70)', color: '#fff', padding: '2px 7px', borderRadius: '99px' }}>Hero</span>
-                    )}
-                  </div>
-                ))}
+              <div>
+                <p style={{ fontSize: '13px', fontWeight: 600, color: muted, marginBottom: '8px' }}>New photos to upload ({form.images.length})</p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+                  {form.images.map((f, i) => (
+                    <div key={i} style={{ aspectRatio: '16/9', borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.06)', position: 'relative' }}>
+                      <img src={URL.createObjectURL(f)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      {i === 0 && (initialData?.boat_images ?? []).length === 0 && (
+                        <span style={{ position: 'absolute', bottom: '6px', left: '6px', fontSize: '10px', background: 'rgba(201,168,78,0.85)', color: '#07101e', fontWeight: 700, padding: '2px 7px', borderRadius: '99px' }}>
+                          Hero
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </>
@@ -461,7 +503,7 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
                 { label: 'Type', value: form.type.replace('_', ' ') },
                 { label: 'Capacity', value: `${form.capacityPax} guests` },
                 { label: 'Pricing slots', value: `${form.pricing.filter((p) => p.price && Number(p.price) > 0).length} set` },
-                { label: 'Photos', value: String(form.images.length) },
+                { label: 'Photos', value: `${(initialData?.boat_images?.length ?? 0) + form.images.length} total` },
                 { label: 'Instant book', value: form.instantBook ? 'Yes' : 'No' },
               ].map((row, i, arr) => (
                 <div key={row.label} style={{

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { createConnectAccount, createConnectAccountLink } from '@/lib/stripe'
 import { CheckCircle, ArrowRight, CreditCard, Shield, Banknote } from 'lucide-react'
+import PayoutBadge from '@/components/ui/PayoutBadge'
 import { headers } from 'next/headers'
 
 const gold = '#c9a84e'
@@ -93,6 +94,9 @@ export default async function HostOnboardingPage({ searchParams }: Props) {
           </a>
         </div>
 
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+          <PayoutBadge />
+        </div>
         <p style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(244,244,242,0.35)' }}>
           Powered by Stripe Connect. BoatHire24 keeps 15% of each booking as a platform fee.
         </p>

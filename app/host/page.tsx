@@ -2,7 +2,9 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
-import { Plus, Settings, Calendar, BarChart3, Ship, Clock, CheckCircle } from 'lucide-react'
+import { Plus, Settings, Calendar, BarChart3, Ship, Clock, CheckCircle, Layers, Upload, Building2, ShieldCheck, ShieldAlert } from 'lucide-react'
+import PayoutBadge from '@/components/ui/PayoutBadge'
+import DeleteListingButton from '@/components/host/DeleteListingButton'
 
 const gold = '#c9a84e'
 const goldFaint = 'rgba(201,168,78,0.10)'
@@ -34,7 +36,7 @@ export default async function HostDashboard() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login?next=/host')
 
-  const { data: profile } = await supabase.from('profiles').select('full_name, stripe_account_id').eq('id', user.id).single()
+  const { data: profile } = await supabase.from('profiles').select('full_name, stripe_account_id, verification_status').eq('id', user.id).single()
 
   const { data: boats } = await supabase
     .from('boats')
@@ -65,6 +67,49 @@ export default async function HostDashboard() {
           </Link>
         </div>
 
+        {/* ── Verification alert ── */}
+        {profile?.verification_status === 'unverified' && (
+          <div style={{ marginBottom: '16px', padding: '18px 20px', background: 'rgba(248,113,113,0.07)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <ShieldAlert style={{ width: 20, height: 20, color: '#f87171', flexShrink: 0 }} />
+              <div>
+                <div style={{ fontWeight: 700, color: '#f87171', fontSize: '14px', marginBottom: '3px' }}>Verify your account</div>
+                <div style={{ fontSize: '13px', color: muted }}>Upload your documents so your listings can go live to guests.</div>
+              </div>
+            </div>
+            <Link href="/host/verify" style={{ display: 'inline-flex', padding: '10px 20px', borderRadius: '99px', background: '#f87171', color: '#fff', fontSize: '13px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              Verify now
+            </Link>
+          </div>
+        )}
+        {profile?.verification_status === 'pending' && (
+          <div style={{ marginBottom: '16px', padding: '18px 20px', background: 'rgba(245,158,11,0.07)', border: '1px solid rgba(245,158,11,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <ShieldCheck style={{ width: 20, height: 20, color: '#f59e0b', flexShrink: 0 }} />
+            <div>
+              <div style={{ fontWeight: 700, color: '#f59e0b', fontSize: '14px', marginBottom: '3px' }}>Verification under review</div>
+              <div style={{ fontSize: '13px', color: muted }}>We received your documents. You'll get an email once approved (1–2 business days).</div>
+            </div>
+          </div>
+        )}
+        {profile?.verification_status === 'verified' && (
+          <div style={{ marginBottom: '16px', padding: '14px 20px', background: 'rgba(34,197,94,0.07)', border: '1px solid rgba(34,197,94,0.22)', borderRadius: '14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <ShieldCheck style={{ width: 18, height: 18, color: '#22c55e' }} />
+            <span style={{ fontSize: '13px', fontWeight: 600, color: '#22c55e' }}>Verified host</span>
+            <span style={{ fontSize: '13px', color: muted }}>· Your listings are visible to guests</span>
+          </div>
+        )}
+        {profile?.verification_status === 'rejected' && (
+          <div style={{ marginBottom: '16px', padding: '18px 20px', background: 'rgba(248,113,113,0.07)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+            <div>
+              <div style={{ fontWeight: 700, color: '#f87171', fontSize: '14px', marginBottom: '3px' }}>Verification needs attention</div>
+              <div style={{ fontSize: '13px', color: muted }}>Check your email for details, then re-submit your documents.</div>
+            </div>
+            <Link href="/host/verify" style={{ display: 'inline-flex', padding: '10px 20px', borderRadius: '99px', background: '#f87171', color: '#fff', fontSize: '13px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              Re-submit
+            </Link>
+          </div>
+        )}
+
         {/* ── Stripe Connect alert ── */}
         {!profile?.stripe_account_id && (
           <div style={{ marginBottom: '28px', padding: '18px 20px', background: 'rgba(201,168,78,0.08)', border: '1px solid rgba(201,168,78,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
@@ -77,6 +122,11 @@ export default async function HostDashboard() {
             </Link>
           </div>
         )}
+
+        {/* ── Payout SLA badge ── */}
+        <div style={{ marginBottom: '24px' }}>
+          <PayoutBadge />
+        </div>
 
         {/* ── Stats ── */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '36px' }}>
@@ -92,6 +142,28 @@ export default async function HostDashboard() {
               <div style={{ fontSize: '13px', color: muted }}>{stat.label}</div>
             </div>
           ))}
+        </div>
+
+        {/* ── Fleet Manager promo ── */}
+        <div style={{ marginBottom: '36px', padding: '20px 24px', borderRadius: '16px', background: 'rgba(201,168,78,0.05)', border: `1px solid ${border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <Layers style={{ width: 20, height: 20, color: gold, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontWeight: 700, color: text, fontSize: '14px', marginBottom: '3px' }}>Fleet Manager</div>
+              <div style={{ fontSize: '12px', color: muted }}>Bulk import · multi-boat calendar · corporate events</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <Link href="/host/fleet/import" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 14px', borderRadius: '8px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '12px', fontWeight: 600, textDecoration: 'none' }}>
+              <Upload style={{ width: 12, height: 12 }} /> Bulk import
+            </Link>
+            <Link href="/host/fleet/corporate" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 14px', borderRadius: '8px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '12px', fontWeight: 600, textDecoration: 'none' }}>
+              <Building2 style={{ width: 12, height: 12 }} /> Corporate
+            </Link>
+            <Link href="/host/fleet" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 14px', borderRadius: '8px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '12px', fontWeight: 600, textDecoration: 'none' }}>
+              Open Fleet →
+            </Link>
+          </div>
         </div>
 
         {/* ── Listings ── */}
@@ -134,6 +206,7 @@ export default async function HostDashboard() {
                         <Link href={`/host/calendar?boat=${boat.id}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '9px 14px', borderRadius: '8px', border: `1px solid rgba(255,255,255,0.12)`, color: muted, textDecoration: 'none' }}>
                           <Calendar style={{ width: 14, height: 14 }} />
                         </Link>
+                        <DeleteListingButton boatId={boat.id} boatName={boat.name} />
                       </div>
                     </div>
                   </div>

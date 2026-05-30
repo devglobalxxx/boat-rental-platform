@@ -44,7 +44,7 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
           </Link>
           <h1 style={{ fontSize: '22px', fontWeight: 800, color: text }}>Edit listing</h1>
         </div>
-        <ListingWizard locations={locations ?? []} initialData={boat as any} />
+        <ListingWizard locations={locations ?? []} initialData={boat as any} boatId={id} />
       </div>
     </div>
   )

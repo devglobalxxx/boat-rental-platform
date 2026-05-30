@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { X, User, LogOut, LayoutDashboard, Ship, Menu, Search, Compass, HelpCircle, Anchor } from 'lucide-react'
+import { X, User, LogOut, LayoutDashboard, Ship, Menu, Search, Compass, HelpCircle, Anchor, Layers, ShieldCheck, Settings } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import Logo from '@/components/ui/Logo'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
@@ -13,6 +13,7 @@ const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.60)'
 
 const NAV_LINKS = [
+  { href: '/about',         label: 'About us'       },
   { href: '/search',        label: 'Explore boats' },
   { href: '/how-it-works',  label: 'How it works'  },
   { href: '/blog',          label: 'Blog'           },
@@ -22,6 +23,7 @@ const NAV_LINKS = [
 export default function SiteNav() {
   const [open, setOpen] = useState(false)
   const [user, setUser] = useState<SupabaseUser | null>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
@@ -29,9 +31,19 @@ export default function SiteNav() {
 
   useEffect(() => {
     const supabase = createClient()
-    supabase.auth.getUser().then(({ data }) => setUser(data.user))
+    supabase.auth.getUser().then(async ({ data }) => {
+      setUser(data.user)
+      if (data.user) {
+        fetch('/api/me').then(r => r.json()).then(d => setIsAdmin(d.is_admin === true))
+      }
+    })
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
       setUser(session?.user ?? null)
+      if (session?.user) {
+        fetch('/api/me').then(r => r.json()).then(d => setIsAdmin(d.is_admin === true))
+      } else {
+        setIsAdmin(false)
+      }
     })
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -52,9 +64,8 @@ export default function SiteNav() {
   }, [])
 
   async function signOut() {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    window.location.href = '/'
+    await fetch('/api/auth/signout', { method: 'POST' })
+    window.location.replace('/')
   }
 
   const initial = user?.user_metadata?.full_name?.[0]?.toUpperCase()
@@ -171,7 +182,10 @@ export default function SiteNav() {
                     {[
                       { href: '/dashboard',          Icon: LayoutDashboard, label: 'My trips' },
                       { href: '/host',               Icon: Ship,            label: 'Host dashboard' },
+                      { href: '/host/fleet',         Icon: Layers,          label: 'Fleet Manager' },
                       { href: '/dashboard/messages', Icon: User,            label: 'Messages' },
+                      { href: '/settings',           Icon: Settings,        label: 'Settings' },
+                      ...(isAdmin ? [{ href: '/admin', Icon: ShieldCheck, label: 'Admin' }] : []),
                     ].map((item) => (
                       <Link
                         key={item.href}
@@ -281,6 +295,11 @@ export default function SiteNav() {
               <>
                 <Link href="/dashboard" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>My trips</Link>
                 <Link href="/host" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>Host dashboard</Link>
+                <Link href="/host/fleet" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>Fleet Manager</Link>
+                <Link href="/settings" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>Settings</Link>
+                {isAdmin && (
+                  <Link href="/admin" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: gold, textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>🔒 Admin</Link>
+                )}
               </>
             )}
 

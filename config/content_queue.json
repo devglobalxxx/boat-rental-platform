@@ -628,191 +628,633 @@
       "title": "Speedboat Rental Estepona: Quick Adventures",
       "target_words": 1100,
       "consumed_at": "2026-05-28"
-    }
-  ],
-  "queue": [
+    },
     {
       "kind": "blog",
       "slug": "dolphin-watching-tips-marbella",
       "primary_keyword": "dolphin watching tips Marbella",
       "title": "Dolphin Watching Tips Marbella: Best Practices",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-boat-hire-marbella",
-      "primary_keyword": "private boat hire Marbella",
-      "title": "Private Boat Hire Marbella: Exclusive Trips",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "sunset-champagne-boat-marbella",
       "primary_keyword": "sunset champagne boat Marbella",
       "title": "Sunset Champagne Boat Marbella: Romantic Ideas",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-charter-estepona",
-      "primary_keyword": "catamaran charter Estepona",
-      "title": "Catamaran Charter Estepona: Relaxed Sailing",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-weather-guide",
       "primary_keyword": "Marbella boat weather guide",
       "title": "Marbella Boat Weather Guide: Best Conditions",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "yacht-rental-fuengirola",
-      "primary_keyword": "yacht rental Fuengirola",
-      "title": "Yacht Rental Fuengirola: Affordable Luxury",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "stag-do-boat-marbella",
       "primary_keyword": "stag do boat Marbella",
       "title": "Stag Do Boat Marbella: Ultimate Party Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "boat-hire-puerto-banus",
-      "primary_keyword": "boat hire Puerto Banus",
-      "title": "Boat Hire Puerto Banus: Wide Selection",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "snorkeling-tours-marbella",
       "primary_keyword": "snorkeling tours Marbella",
       "title": "Snorkeling Tours Marbella: Guided Adventures",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "luxury-yacht-hire-marbella",
-      "primary_keyword": "luxury yacht hire Marbella",
-      "title": "Luxury Yacht Hire Marbella: Top Packages",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-photography",
       "primary_keyword": "Marbella boat photography",
       "title": "Marbella Boat Photography: Capture the Coast",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "speedboat-charter-puerto-banus",
-      "primary_keyword": "speedboat charter Puerto Banus",
-      "title": "Speedboat Charter Puerto Banus: Fun Rentals",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "fishing-boat-rental-marbella",
       "primary_keyword": "fishing boat rental Marbella",
       "title": "Fishing Boat Rental Marbella: Self-Guided Trips",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-catamaran-marbella",
-      "primary_keyword": "private catamaran Marbella",
-      "title": "Private Catamaran Marbella: Exclusive Charters",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-party-f1",
       "primary_keyword": "Marbella boat party F1",
       "title": "Marbella Boat Party F1: Grand Prix Weekend",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "yacht-charter-fuengirola",
-      "primary_keyword": "yacht charter Fuengirola",
-      "title": "Yacht Charter Fuengirola: Budget-Friendly",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "dolphin-boat-tour-marbella",
       "primary_keyword": "dolphin boat tour Marbella",
       "title": "Dolphin Boat Tour Marbella: Family Adventure",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "boat-rental-estepona",
-      "primary_keyword": "boat rental Estepona",
-      "title": "Boat Rental Estepona: Affordable Day Trips",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "hen-party-boat-puerto-banus",
       "primary_keyword": "hen party boat Puerto Banus",
       "title": "Hen Party Boat Puerto Banus: Party Ideas",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-hire-marbella",
-      "primary_keyword": "catamaran hire Marbella",
-      "title": "Catamaran Hire Marbella: Group Discounts",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-licence-guide",
       "primary_keyword": "Marbella boat licence guide",
       "title": "Marbella Boat Licence Guide: Do You Need One?",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "motor-yacht-rental-marbella",
-      "primary_keyword": "motor yacht rental Marbella",
-      "title": "Motor Yacht Rental Marbella: Power Cruises",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "sunset-boat-dinner-marbella",
       "primary_keyword": "sunset boat dinner Marbella",
       "title": "Sunset Boat Dinner Marbella: Romantic Dining",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "yacht-hire-marbella",
-      "primary_keyword": "yacht hire Marbella",
-      "title": "Yacht Hire Marbella: Book Your Dream Boat",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "blog",
       "slug": "family-fishing-marbella",
       "primary_keyword": "family fishing Marbella",
       "title": "Family Fishing Marbella: Kid-Friendly Charters",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "snorkeling-gear-costa-del-sol",
+      "primary_keyword": "snorkeling gear Costa del Sol",
+      "title": "Snorkeling Gear Costa del Sol: What to Pack",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "stag-party-boat-puerto-banus",
+      "primary_keyword": "stag party boat Puerto Banus",
+      "title": "Stag Party Boat Puerto Banus: Ultimate Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-safety-tips",
+      "primary_keyword": "Marbella boat safety tips",
+      "title": "Marbella Boat Safety Tips: Essential Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-benalmadena",
+      "primary_keyword": "dolphin watching Benalmadena",
+      "title": "Dolphin Watching Benalmadena: Best Tours",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "fishing-trip-puerto-banus",
+      "primary_keyword": "fishing trip Puerto Banus",
+      "title": "Fishing Trip Puerto Banus: Deep Sea Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "snorkeling-estepona-coves",
+      "primary_keyword": "snorkeling Estepona coves",
+      "title": "Snorkeling Estepona Coves: Hidden Spots",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-birthday-party",
+      "primary_keyword": "Marbella boat birthday party",
+      "title": "Marbella Boat Birthday Party: Celebration Ideas",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "sunset-boat-marbella-price",
+      "primary_keyword": "sunset boat Marbella price",
+      "title": "Sunset Boat Marbella Price: Budget Options",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "family-boat-day-puerto-banus",
+      "primary_keyword": "family boat day Puerto Banus",
+      "title": "Family Boat Day Puerto Banus: Kid Activities",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-winter-boat-trips",
+      "primary_keyword": "Marbella winter boat trips",
+      "title": "Marbella Winter Boat Trips: Off-Season Fun",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-estepona",
+      "primary_keyword": "dolphin watching Estepona",
+      "title": "Dolphin Watching Estepona: Best Spots",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "snorkeling-puerto-banus",
+      "primary_keyword": "snorkeling Puerto Banus",
+      "title": "Snorkeling Puerto Banus: Best Coves",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-wedding",
+      "primary_keyword": "Marbella boat wedding",
+      "title": "Marbella Boat Wedding: Romantic Ceremonies",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-dolphin-season",
+      "primary_keyword": "Marbella boat dolphin season",
+      "title": "Marbella Boat Dolphin Season: When to Go",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "hen-party-boat-estepona",
+      "primary_keyword": "hen party boat Estepona",
+      "title": "Hen Party Boat Estepona: Celebration Ideas",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-photoshoot-tips",
+      "primary_keyword": "Marbella boat photoshoot tips",
+      "title": "Marbella Boat Photoshoot Tips: Best Poses",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-dj",
+      "primary_keyword": "boat party with DJ Marbella",
+      "title": "Boat Party with DJ in Marbella: Best Music on the Water",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "best-time-year-boat-trip-marbella",
+      "primary_keyword": "best time of year for boat trip Marbella",
+      "title": "Best Time of Year for a Boat Trip in Marbella, Spain",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-starlite",
+      "primary_keyword": "Starlite boat party Marbella",
+      "title": "Starlite Festival Boat Party Marbella: Pre-Concert Fun",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-early-morning",
+      "primary_keyword": "dolphin watching Marbella early morning",
+      "title": "Early Morning Dolphin Watching Marbella: Best Sightings",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-trip-snorkel-coves",
+      "primary_keyword": "snorkel coves Marbella boat trip",
+      "title": "Snorkel Coves Marbella Boat Trip: Hidden Gems to Explore",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-feria-boat-party-costumes",
+      "primary_keyword": "Feria boat party costumes Marbella",
+      "title": "Feria Boat Party Costumes Marbella: Dress to Impress",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-weather-winter",
+      "primary_keyword": "winter boat weather Marbella",
+      "title": "Winter Boat Weather in Marbella: Is It Worth Chartering?",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "stag-do-boat-activities-marbella",
+      "primary_keyword": "stag do boat activities Marbella",
+      "title": "Stag Do Boat Activities Marbella: Top Ideas for Groups",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-photoshoot-sunset",
+      "primary_keyword": "sunset boat photoshoot Marbella",
+      "title": "Sunset Boat Photoshoot Marbella: Capture Golden Hour",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-boat-hire-marbella",
+      "primary_keyword": "private boat hire Marbella",
+      "title": "Private Boat Hire Marbella: Exclusive Trips",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-estepona",
+      "primary_keyword": "catamaran charter Estepona",
+      "title": "Catamaran Charter Estepona: Relaxed Sailing",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-fuengirola",
+      "primary_keyword": "yacht rental Fuengirola",
+      "title": "Yacht Rental Fuengirola: Affordable Luxury",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-puerto-banus",
+      "primary_keyword": "boat hire Puerto Banus",
+      "title": "Boat Hire Puerto Banus: Wide Selection",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-yacht-hire-marbella",
+      "primary_keyword": "luxury yacht hire Marbella",
+      "title": "Luxury Yacht Hire Marbella: Top Packages",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "speedboat-charter-puerto-banus",
+      "primary_keyword": "speedboat charter Puerto Banus",
+      "title": "Speedboat Charter Puerto Banus: Fun Rentals",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-catamaran-marbella",
+      "primary_keyword": "private catamaran Marbella",
+      "title": "Private Catamaran Marbella: Exclusive Charters",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-fuengirola",
+      "primary_keyword": "yacht charter Fuengirola",
+      "title": "Yacht Charter Fuengirola: Budget-Friendly",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-estepona",
+      "primary_keyword": "boat rental Estepona",
+      "title": "Boat Rental Estepona: Affordable Day Trips",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-hire-marbella",
+      "primary_keyword": "catamaran hire Marbella",
+      "title": "Catamaran Hire Marbella: Group Discounts",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "motor-yacht-rental-marbella",
+      "primary_keyword": "motor yacht rental Marbella",
+      "title": "Motor Yacht Rental Marbella: Power Cruises",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-hire-marbella",
+      "primary_keyword": "yacht hire Marbella",
+      "title": "Yacht Hire Marbella: Book Your Dream Boat",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
     {
       "kind": "landing",
       "slug": "speedboat-hire-fuengirola",
       "primary_keyword": "speedboat hire Fuengirola",
       "title": "Speedboat Hire Fuengirola: Fast Rentals",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
     },
+    {
+      "kind": "landing",
+      "slug": "luxury-yacht-charter-puerto-banus",
+      "primary_keyword": "luxury yacht charter Puerto Banus",
+      "title": "Luxury Yacht Charter Puerto Banus: Elite Service",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-puerto-banus",
+      "primary_keyword": "boat rental Puerto Banus",
+      "title": "Boat Rental Puerto Banus: Wide Fleet",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-rental-estepona",
+      "primary_keyword": "catamaran rental Estepona",
+      "title": "Catamaran Rental Estepona: Group Charters",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-yacht-hire-puerto-banus",
+      "primary_keyword": "private yacht hire Puerto Banus",
+      "title": "Private Yacht Hire Puerto Banus: Exclusive",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "speedboat-rental-fuengirola",
+      "primary_keyword": "speedboat rental Fuengirola",
+      "title": "Speedboat Rental Fuengirola: Affordable Fun",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-benalmadena",
+      "primary_keyword": "yacht charter Benalmadena",
+      "title": "Yacht Charter Benalmadena: Marina Departures",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "motor-yacht-hire-marbella",
+      "primary_keyword": "motor yacht hire Marbella",
+      "title": "Motor Yacht Hire Marbella: Power Options",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-fuengirola",
+      "primary_keyword": "catamaran charter Fuengirola",
+      "title": "Catamaran Charter Fuengirola: Relaxed Sailing",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-boat-rental-marbella",
+      "primary_keyword": "luxury boat rental Marbella",
+      "title": "Luxury Boat Rental Marbella: Premium Fleet",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-boat-rental-puerto-banus",
+      "primary_keyword": "private boat rental Puerto Banus",
+      "title": "Private Boat Rental Puerto Banus: Exclusive",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "speedboat-charter-marbella",
+      "primary_keyword": "speedboat charter Marbella",
+      "title": "Speedboat Charter Marbella: Fast Adventures",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-benalmadena",
+      "primary_keyword": "yacht rental Benalmadena",
+      "title": "Yacht Rental Benalmadena: Marina Charters",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-fuengirola-port",
+      "primary_keyword": "boat hire Fuengirola port",
+      "title": "Boat Hire Fuengirola Port: Easy Booking",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-catamaran-hire-marbella",
+      "primary_keyword": "luxury catamaran hire Marbella",
+      "title": "Luxury Catamaran Hire Marbella: Premium",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-yacht-charter-puerto-banus",
+      "primary_keyword": "private yacht charter Puerto Banus",
+      "title": "Private Yacht Charter Puerto Banus: Exclusive",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "speedboat-hire-benalmadena",
+      "primary_keyword": "speedboat hire Benalmadena",
+      "title": "Speedboat Hire Benalmadena: Fast Fun",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-rental-fuengirola",
+      "primary_keyword": "catamaran rental Fuengirola",
+      "title": "Catamaran Rental Fuengirola: Group Deals",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "motor-yacht-charter-puerto-banus",
+      "primary_keyword": "motor yacht charter Puerto Banus",
+      "title": "Motor Yacht Charter Puerto Banus: Power",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "affordable-yacht-charter-marbella",
+      "primary_keyword": "affordable yacht charter Marbella",
+      "title": "Affordable Yacht Charter Marbella: Luxury Boats at Low Prices",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-rental-puerto-banus-hourly",
+      "primary_keyword": "catamaran rental Puerto Banus hourly",
+      "title": "Catamaran Rental Puerto Banus Hourly: Book by the Hour",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-motor-yacht-hire-marbella",
+      "primary_keyword": "luxury motor yacht hire Marbella",
+      "title": "Luxury Motor Yacht Hire Marbella: Premium Charter Deals",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "speedboat-rental-marbella-port",
+      "primary_keyword": "speedboat rental Marbella port",
+      "title": "Speedboat Rental Marbella Port: Quick Bookings Available",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-yacht-charter-marbella-birthday",
+      "primary_keyword": "private yacht charter Marbella birthday",
+      "title": "Private Yacht Charter Marbella Birthday: Celebrate at Sea",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-marbella-wedding-reception",
+      "primary_keyword": "boat hire Marbella wedding reception",
+      "title": "Boat Hire Marbella Wedding Reception: Romantic Venue",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-puerto-banus-group",
+      "primary_keyword": "catamaran charter Puerto Banus group",
+      "title": "Catamaran Charter Puerto Banus Group: Up to 50 Guests",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-yacht-rental-marbella-weekend",
+      "primary_keyword": "luxury yacht rental Marbella weekend",
+      "title": "Luxury Yacht Rental Marbella Weekend: 2-Day Packages",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    },
+    {
+      "kind": "landing",
+      "slug": "motor-yacht-hire-puerto-banus-day",
+      "primary_keyword": "motor yacht hire Puerto Banus day",
+      "title": "Motor Yacht Hire Puerto Banus Day: Full-Day Charter",
+      "target_words": 1100,
+      "consumed_at": "2026-05-30"
+    }
+  ],
+  "queue": [
     {
       "kind": "blog",
       "slug": "marbella-boat-party-ideas",
@@ -821,374 +1263,10 @@
       "target_words": 1100
     },
     {
-      "kind": "landing",
-      "slug": "luxury-yacht-charter-puerto-banus",
-      "primary_keyword": "luxury yacht charter Puerto Banus",
-      "title": "Luxury Yacht Charter Puerto Banus: Elite Service",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "snorkeling-gear-costa-del-sol",
-      "primary_keyword": "snorkeling gear Costa del Sol",
-      "title": "Snorkeling Gear Costa del Sol: What to Pack",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "boat-rental-puerto-banus",
-      "primary_keyword": "boat rental Puerto Banus",
-      "title": "Boat Rental Puerto Banus: Wide Fleet",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "stag-party-boat-puerto-banus",
-      "primary_keyword": "stag party boat Puerto Banus",
-      "title": "Stag Party Boat Puerto Banus: Ultimate Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-rental-estepona",
-      "primary_keyword": "catamaran rental Estepona",
-      "title": "Catamaran Rental Estepona: Group Charters",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-safety-tips",
-      "primary_keyword": "Marbella boat safety tips",
-      "title": "Marbella Boat Safety Tips: Essential Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-yacht-hire-puerto-banus",
-      "primary_keyword": "private yacht hire Puerto Banus",
-      "title": "Private Yacht Hire Puerto Banus: Exclusive",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "dolphin-watching-benalmadena",
-      "primary_keyword": "dolphin watching Benalmadena",
-      "title": "Dolphin Watching Benalmadena: Best Tours",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "speedboat-rental-fuengirola",
-      "primary_keyword": "speedboat rental Fuengirola",
-      "title": "Speedboat Rental Fuengirola: Affordable Fun",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "fishing-trip-puerto-banus",
-      "primary_keyword": "fishing trip Puerto Banus",
-      "title": "Fishing Trip Puerto Banus: Deep Sea Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "yacht-charter-benalmadena",
-      "primary_keyword": "yacht charter Benalmadena",
-      "title": "Yacht Charter Benalmadena: Marina Departures",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "snorkeling-estepona-coves",
-      "primary_keyword": "snorkeling Estepona coves",
-      "title": "Snorkeling Estepona Coves: Hidden Spots",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "motor-yacht-hire-marbella",
-      "primary_keyword": "motor yacht hire Marbella",
-      "title": "Motor Yacht Hire Marbella: Power Options",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-birthday-party",
-      "primary_keyword": "Marbella boat birthday party",
-      "title": "Marbella Boat Birthday Party: Celebration Ideas",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-charter-fuengirola",
-      "primary_keyword": "catamaran charter Fuengirola",
-      "title": "Catamaran Charter Fuengirola: Relaxed Sailing",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "sunset-boat-marbella-price",
-      "primary_keyword": "sunset boat Marbella price",
-      "title": "Sunset Boat Marbella Price: Budget Options",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "luxury-boat-rental-marbella",
-      "primary_keyword": "luxury boat rental Marbella",
-      "title": "Luxury Boat Rental Marbella: Premium Fleet",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "family-boat-day-puerto-banus",
-      "primary_keyword": "family boat day Puerto Banus",
-      "title": "Family Boat Day Puerto Banus: Kid Activities",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-boat-rental-puerto-banus",
-      "primary_keyword": "private boat rental Puerto Banus",
-      "title": "Private Boat Rental Puerto Banus: Exclusive",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-winter-boat-trips",
-      "primary_keyword": "Marbella winter boat trips",
-      "title": "Marbella Winter Boat Trips: Off-Season Fun",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "speedboat-charter-marbella",
-      "primary_keyword": "speedboat charter Marbella",
-      "title": "Speedboat Charter Marbella: Fast Adventures",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "dolphin-watching-estepona",
-      "primary_keyword": "dolphin watching Estepona",
-      "title": "Dolphin Watching Estepona: Best Spots",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "yacht-rental-benalmadena",
-      "primary_keyword": "yacht rental Benalmadena",
-      "title": "Yacht Rental Benalmadena: Marina Charters",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "snorkeling-puerto-banus",
-      "primary_keyword": "snorkeling Puerto Banus",
-      "title": "Snorkeling Puerto Banus: Best Coves",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "boat-hire-fuengirola-port",
-      "primary_keyword": "boat hire Fuengirola port",
-      "title": "Boat Hire Fuengirola Port: Easy Booking",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-wedding",
-      "primary_keyword": "Marbella boat wedding",
-      "title": "Marbella Boat Wedding: Romantic Ceremonies",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "luxury-catamaran-hire-marbella",
-      "primary_keyword": "luxury catamaran hire Marbella",
-      "title": "Luxury Catamaran Hire Marbella: Premium",
-      "target_words": 1100
-    },
-    {
       "kind": "blog",
       "slug": "fishing-charter-benalmadena",
       "primary_keyword": "fishing charter Benalmadena",
       "title": "Fishing Charter Benalmadena: Deep Sea",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-yacht-charter-puerto-banus",
-      "primary_keyword": "private yacht charter Puerto Banus",
-      "title": "Private Yacht Charter Puerto Banus: Exclusive",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-dolphin-season",
-      "primary_keyword": "Marbella boat dolphin season",
-      "title": "Marbella Boat Dolphin Season: When to Go",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "speedboat-hire-benalmadena",
-      "primary_keyword": "speedboat hire Benalmadena",
-      "title": "Speedboat Hire Benalmadena: Fast Fun",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "hen-party-boat-estepona",
-      "primary_keyword": "hen party boat Estepona",
-      "title": "Hen Party Boat Estepona: Celebration Ideas",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-rental-fuengirola",
-      "primary_keyword": "catamaran rental Fuengirola",
-      "title": "Catamaran Rental Fuengirola: Group Deals",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-photoshoot-tips",
-      "primary_keyword": "Marbella boat photoshoot tips",
-      "title": "Marbella Boat Photoshoot Tips: Best Poses",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "motor-yacht-charter-puerto-banus",
-      "primary_keyword": "motor yacht charter Puerto Banus",
-      "title": "Motor Yacht Charter Puerto Banus: Power",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "affordable-yacht-charter-marbella",
-      "primary_keyword": "affordable yacht charter Marbella",
-      "title": "Affordable Yacht Charter Marbella: Luxury Boats at Low Prices",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-party-dj",
-      "primary_keyword": "boat party with DJ Marbella",
-      "title": "Boat Party with DJ in Marbella: Best Music on the Water",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-rental-puerto-banus-hourly",
-      "primary_keyword": "catamaran rental Puerto Banus hourly",
-      "title": "Catamaran Rental Puerto Banus Hourly: Book by the Hour",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "best-time-year-boat-trip-marbella",
-      "primary_keyword": "best time of year for boat trip Marbella",
-      "title": "Best Time of Year for a Boat Trip in Marbella, Spain",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "luxury-motor-yacht-hire-marbella",
-      "primary_keyword": "luxury motor yacht hire Marbella",
-      "title": "Luxury Motor Yacht Hire Marbella: Premium Charter Deals",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-party-starlite",
-      "primary_keyword": "Starlite boat party Marbella",
-      "title": "Starlite Festival Boat Party Marbella: Pre-Concert Fun",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "speedboat-rental-marbella-port",
-      "primary_keyword": "speedboat rental Marbella port",
-      "title": "Speedboat Rental Marbella Port: Quick Bookings Available",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "dolphin-watching-marbella-early-morning",
-      "primary_keyword": "dolphin watching Marbella early morning",
-      "title": "Early Morning Dolphin Watching Marbella: Best Sightings",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-yacht-charter-marbella-birthday",
-      "primary_keyword": "private yacht charter Marbella birthday",
-      "title": "Private Yacht Charter Marbella Birthday: Celebrate at Sea",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-trip-snorkel-coves",
-      "primary_keyword": "snorkel coves Marbella boat trip",
-      "title": "Snorkel Coves Marbella Boat Trip: Hidden Gems to Explore",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "boat-hire-marbella-wedding-reception",
-      "primary_keyword": "boat hire Marbella wedding reception",
-      "title": "Boat Hire Marbella Wedding Reception: Romantic Venue",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-feria-boat-party-costumes",
-      "primary_keyword": "Feria boat party costumes Marbella",
-      "title": "Feria Boat Party Costumes Marbella: Dress to Impress",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-charter-puerto-banus-group",
-      "primary_keyword": "catamaran charter Puerto Banus group",
-      "title": "Catamaran Charter Puerto Banus Group: Up to 50 Guests",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-weather-winter",
-      "primary_keyword": "winter boat weather Marbella",
-      "title": "Winter Boat Weather in Marbella: Is It Worth Chartering?",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "luxury-yacht-rental-marbella-weekend",
-      "primary_keyword": "luxury yacht rental Marbella weekend",
-      "title": "Luxury Yacht Rental Marbella Weekend: 2-Day Packages",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "stag-do-boat-activities-marbella",
-      "primary_keyword": "stag do boat activities Marbella",
-      "title": "Stag Do Boat Activities Marbella: Top Ideas for Groups",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "motor-yacht-hire-puerto-banus-day",
-      "primary_keyword": "motor yacht hire Puerto Banus day",
-      "title": "Motor Yacht Hire Puerto Banus Day: Full-Day Charter",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-photoshoot-sunset",
-      "primary_keyword": "sunset boat photoshoot Marbella",
-      "title": "Sunset Boat Photoshoot Marbella: Capture Golden Hour",
       "target_words": 1100
     },
     {

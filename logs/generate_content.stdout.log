@@ -161,3 +161,75 @@
 [2026-05-28 13:18:24]   ✗ FAILED: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
 [2026-05-28 13:18:24] === Done: 0 ok, 80 failed ===
 
+[2026-05-29 13:00:00] === Generate: 40 blog + 40 landing = 80 item(s) (backend=deepseek) ===
+[2026-05-29 13:00:00] [1/80] blog · dolphin-watching-tips-marbella
+[2026-05-29 13:00:49]   ✓ generated
+[2026-05-29 13:00:49] [2/80] blog · sunset-champagne-boat-marbella
+[2026-05-29 13:01:35]   ✓ generated
+[2026-05-29 13:01:35] [3/80] blog · marbella-boat-weather-guide
+[2026-05-29 13:02:32]   ✓ generated
+[2026-05-29 13:02:32] [4/80] blog · stag-do-boat-marbella
+[2026-05-29 13:02:32]   (near-duplicate topic, skipping: stag do boat Marbella)
+[2026-05-29 13:02:32] [5/80] blog · snorkeling-tours-marbella
+[2026-05-29 13:03:20]   ✓ generated
+[2026-05-29 13:03:20] [6/80] blog · marbella-boat-photography
+[2026-05-29 13:04:07]   ✓ generated
+[2026-05-29 13:04:07] [7/80] blog · fishing-boat-rental-marbella
+[2026-05-29 13:04:59]   ✓ generated
+[2026-05-29 13:04:59] [8/80] blog · marbella-boat-party-f1
+[2026-05-29 13:05:48]   ✓ generated
+[2026-05-29 13:05:48] [9/80] blog · dolphin-boat-tour-marbella
+[2026-05-29 13:06:40]   ✓ generated
+[2026-05-29 13:06:40] [10/80] blog · hen-party-boat-puerto-banus
+[2026-05-29 13:07:31]   ✓ generated
+[2026-05-29 13:07:31] [11/80] blog · marbella-boat-licence-guide
+[2026-05-29 13:08:18]   ✓ generated
+[2026-05-29 13:08:18] [12/80] blog · sunset-boat-dinner-marbella
+[2026-05-29 13:08:52]   ✓ generated
+[2026-05-29 13:08:52] [13/80] blog · family-fishing-marbella
+[2026-05-29 13:09:37]   ✓ generated
+[2026-05-29 13:09:37] [14/80] blog · marbella-boat-party-ideas
+[2026-05-29 13:10:28]   ✓ generated
+[2026-05-29 13:10:28] [15/80] blog · snorkeling-gear-costa-del-sol
+[2026-05-29 13:11:17]   ✓ generated
+[2026-05-29 13:11:17] [16/80] blog · stag-party-boat-puerto-banus
+[2026-05-29 13:12:09]   ✓ generated
+[2026-05-29 13:12:09] [17/80] blog · marbella-boat-safety-tips
+[2026-05-29 13:13:06]   ✓ generated
+[2026-05-29 13:13:06] [18/80] blog · dolphin-watching-benalmadena
+[2026-05-29 13:13:47]   ✓ generated
+[2026-05-29 13:13:47] [19/80] blog · fishing-trip-puerto-banus
+[2026-05-29 13:14:33]   ✓ generated
+[2026-05-29 13:14:33] [20/80] blog · snorkeling-estepona-coves
+[2026-05-29 13:15:10]   ✓ generated
+[2026-05-29 13:15:10] [21/80] blog · marbella-boat-birthday-party
+[2026-05-29 13:15:54]   ✓ generated
+[2026-05-29 13:15:54] [22/80] blog · sunset-boat-marbella-price
+[2026-05-29 13:16:38]   ✓ generated
+[2026-05-29 13:16:38] [23/80] blog · family-boat-day-puerto-banus
+[2026-05-29 13:17:15]   ✓ generated
+[2026-05-29 13:17:15] [24/80] blog · marbella-winter-boat-trips
+[2026-05-29 13:18:02]   ✓ generated
+[2026-05-29 13:18:02] [25/80] blog · dolphin-watching-estepona
+[2026-05-29 13:18:44]   ✓ generated
+[2026-05-29 13:18:44] [26/80] blog · snorkeling-puerto-banus
+[2026-05-29 14:20:00]   ✗ FAILED: timeout: The read operation timed out
+[2026-05-29 14:20:00] [27/80] blog · marbella-boat-wedding
+[2026-05-29 14:20:42]   ✓ generated
+[2026-05-29 14:20:42] [28/80] blog · fishing-charter-benalmadena
+[2026-05-29 14:21:27]   ✓ generated
+[2026-05-29 14:21:27] [29/80] blog · marbella-boat-dolphin-season
+[2026-05-29 14:22:10]   ✓ generated
+[2026-05-29 14:22:10] [30/80] blog · hen-party-boat-estepona
+[2026-05-29 14:23:00]   ✓ generated
+[2026-05-29 14:23:00] [31/80] blog · marbella-boat-photoshoot-tips
+[2026-05-29 14:23:36]   ✓ generated
+[2026-05-29 14:23:36] [32/80] blog · marbella-boat-party-dj
+[2026-05-29 14:24:31]   ✓ generated
+[2026-05-29 14:24:31] [33/80] blog · best-time-year-boat-trip-marbella
+[2026-05-29 14:25:18]   ✓ generated
+[2026-05-29 14:25:18] [34/80] blog · marbella-boat-party-starlite
+[2026-05-29 14:26:08]   ✓ generated
+[2026-05-29 14:26:08] [35/80] blog · dolphin-watching-marbella-early-morning
+[2026-05-29 14:26:49]   ✓ generated
+[2026-05-29 14:26:49] [36/80] blog · marbella-boat-trip-snorkel-coves
