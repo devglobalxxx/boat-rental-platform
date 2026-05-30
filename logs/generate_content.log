@@ -629,3 +629,170 @@
 [2026-05-30 19:08:26]   ✓ generated
 [2026-05-30 19:08:26] [80/80] landing · motor-yacht-hire-puerto-banus-day
 [2026-05-30 19:09:25]   ✓ generated
+[2026-05-30 19:09:28] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-05-30 19:09:30] reindex ping: 200 {"ok":true,"urls_total":499,"indexnow":{"ok":true,"status":200,"count":499},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-05-30T16:09
+[2026-05-30 19:09:30] === Done: 78 ok, 2 failed ===
+
+[2026-05-31 00:12:11] === Generate: 40 blog + 40 landing = 80 item(s) (backend=deepseek) ===
+[2026-05-31 00:12:12] [1/80] blog · marbella-boat-party-ideas
+[2026-05-31 00:13:13]   ✓ generated
+[2026-05-31 00:13:13] [2/80] blog · fishing-charter-benalmadena
+[2026-05-31 00:14:11]   ✓ generated
+[2026-05-31 00:14:11] [3/80] blog · marbella-new-years-eve-yacht-fireworks
+[2026-05-31 00:15:13]   ✓ generated
+[2026-05-31 00:15:13] [4/80] blog · hen-party-boat-games-marbella
+[2026-05-31 00:16:21]   ✓ generated
+[2026-05-31 00:16:21] [5/80] blog · marbella-boat-party-f1-2025
+[2026-05-31 00:17:24]   ✓ generated
+[2026-05-31 00:17:24] [6/80] blog · marbella-dolphin-watching-best-months
+[2026-05-31 00:18:20]   ✓ generated
+[2026-05-31 00:18:20] [7/80] blog · marbella-boat-trip-cabo-pino
+[2026-05-31 00:19:18]   ✓ generated
+[2026-05-31 00:19:18] [8/80] blog · marbella-summer-boat-tips-heat
+[2026-05-31 00:20:15]   ✓ generated
+[2026-05-31 00:20:15] [9/80] blog · marbella-boat-party-dress-code
+[2026-05-31 00:21:20]   ✓ generated
+[2026-05-31 00:21:20] [10/80] blog · marbella-boat-trip-dolphins-best-time
+[2026-05-31 00:22:20]   ✓ generated
+[2026-05-31 00:22:20] [11/80] blog · marbella-boat-weather-forecast-apps
+[2026-05-31 00:23:22]   ✓ generated
+[2026-05-31 00:23:22] [12/80] blog · marbella-boat-birthday-party-catering
+[2026-05-31 00:24:20]   ✓ generated
+[2026-05-31 00:24:20] [13/80] blog · marbella-snorkeling-spots-boat-access
+[2026-05-31 00:25:06]   ✓ generated
+[2026-05-31 00:25:06] [14/80] blog · marbella-boat-party-starlite-transfer
+[2026-05-31 00:26:03]   ✓ generated
+[2026-05-31 00:26:03] [15/80] blog · marbella-boat-trip-snorkel-gear
+[2026-05-31 00:26:50]   ✓ generated
+[2026-05-31 00:26:50] [16/80] blog · marbella-boat-party-hen-do-ideas
+[2026-05-31 00:27:29]   ✓ generated
+[2026-05-31 00:27:29] [17/80] blog · marbella-boat-licence-types
+[2026-05-31 00:28:09]   ✓ generated
+[2026-05-31 00:28:09] [18/80] blog · marbella-fishing-season-species
+[2026-05-31 00:29:04]   ✓ generated
+[2026-05-31 00:29:04] [19/80] blog · marbella-boat-photoshoot-poses
+[2026-05-31 00:29:41]   ✓ generated
+[2026-05-31 00:29:41] [20/80] blog · marbella-winter-boat-trips-whale-watching
+[2026-05-31 00:30:31]   ✓ generated
+[2026-05-31 00:30:31] [21/80] blog · marbella-boat-trip-best-anchorages
+[2026-05-31 00:31:27]   ✓ generated
+[2026-05-31 00:31:27] [22/80] blog · marbella-boat-party-safety-tips
+[2026-05-31 00:32:06]   ✓ generated
+[2026-05-31 00:32:06] [23/80] blog · marbella-snorkeling-coves-boat-only
+[2026-05-31 00:32:46]   ✓ generated
+[2026-05-31 00:32:46] [24/80] blog · marbella-boat-weather-summer-storms
+[2026-05-31 00:33:36]   ✓ generated
+[2026-05-31 00:33:36] [25/80] blog · marbella-boat-party-stag-activities
+[2026-05-31 00:34:22]   ✓ generated
+[2026-05-31 00:34:22] [26/80] blog · marbella-boat-trip-dolphin-species
+[2026-05-31 00:35:13]   ✓ generated
+[2026-05-31 00:35:13] [27/80] blog · marbella-new-years-eve-boat-dinner
+[2026-05-31 00:35:54]   ✓ generated
+[2026-05-31 00:35:54] [28/80] blog · marbella-boat-birthday-party-decorations
+[2026-05-31 00:36:42]   ✓ generated
+[2026-05-31 00:36:42] [29/80] blog · marbella-boat-trip-sunset-champagne
+[2026-05-31 00:36:42]   (near-duplicate topic, skipping: sunset champagne boat trip Marbella)
+[2026-05-31 00:36:42] [30/80] blog · marbella-feria-boat-rental-tips
+[2026-05-31 00:37:26]   ✓ generated
+[2026-05-31 00:37:26] [31/80] blog · marbella-boat-photoshoot-wedding
+[2026-05-31 00:38:03]   ✓ generated
+[2026-05-31 00:38:03] [32/80] blog · marbella-boat-party-dj-playlist
+[2026-05-31 00:38:56]   ✓ generated
+[2026-05-31 00:38:56] [33/80] blog · marbella-boat-weather-spring
+[2026-05-31 00:39:45]   ✓ generated
+[2026-05-31 00:39:45] [34/80] blog · marbella-snorkeling-boat-trip-beginners
+[2026-05-31 00:40:35]   ✓ generated
+[2026-05-31 00:40:35] [35/80] blog · marbella-boat-trip-starlite-festival
+[2026-05-31 00:41:23]   ✓ generated
+[2026-05-31 00:41:23] [36/80] blog · marbella-boat-party-hen-do-cost
+[2026-05-31 00:42:07]   ✓ generated
+[2026-05-31 00:42:07] [37/80] blog · marbella-boat-weather-autumn
+[2026-05-31 00:42:55]   ✓ generated
+[2026-05-31 00:42:55] [38/80] blog · marbella-boat-birthday-party-ideas-adults
+[2026-05-31 00:43:38]   ✓ generated
+[2026-05-31 00:43:38] [39/80] blog · marbella-dolphin-watching-tips-camera
+[2026-05-31 00:44:25]   ✓ generated
+[2026-05-31 00:44:25] [40/80] blog · marbella-boat-party-stag-cost
+[2026-05-31 00:45:12]   ✓ generated
+[2026-05-31 00:45:12] [41/80] landing · fishing-charter-marbella-half-day
+[2026-05-31 00:46:00]   ✓ generated
+[2026-05-31 00:46:00] [42/80] landing · speedboat-hire-marbella-no-licence
+[2026-05-31 00:46:54]   ✓ generated
+[2026-05-31 00:46:54] [43/80] landing · catamaran-rental-marbella-family
+[2026-05-31 00:47:44]   ✓ generated
+[2026-05-31 00:47:44] [44/80] landing · private-boat-hire-puerto-banus-evening
+[2026-05-31 00:48:27]   ✓ generated
+[2026-05-31 00:48:27] [45/80] landing · yacht-charter-marbella-hen-party
+[2026-05-31 00:49:12]   ✓ generated
+[2026-05-31 00:49:12] [46/80] landing · luxury-catamaran-charter-marbella-day
+[2026-05-31 00:49:57]   ✓ generated
+[2026-05-31 00:49:57] [47/80] landing · boat-rental-estepona-port-group
+[2026-05-31 00:50:40]   ✓ generated
+[2026-05-31 00:50:40] [48/80] landing · speedboat-rental-benalmadena-marina
+[2026-05-31 00:51:36]   ✓ generated
+[2026-05-31 00:51:36] [49/80] landing · private-yacht-hire-marbella-stag
+[2026-05-31 00:52:27]   ✓ generated
+[2026-05-31 00:52:27] [50/80] landing · catamaran-hire-estepona-sunset
+[2026-05-31 00:53:14]   ✓ generated
+[2026-05-31 00:53:14] [51/80] landing · luxury-motor-yacht-rental-puerto-banus
+[2026-05-31 00:54:02]   ✓ generated
+[2026-05-31 00:54:02] [52/80] landing · fishing-charter-benalmadena-full-day
+[2026-05-31 00:54:50]   ✓ generated
+[2026-05-31 00:54:50] [53/80] landing · yacht-charter-estepona-wedding
+[2026-05-31 00:55:37]   ✓ generated
+[2026-05-31 00:55:37] [54/80] landing · speedboat-hire-fuengirola-port
+[2026-05-31 00:56:33]   ✓ generated
+[2026-05-31 00:56:33] [55/80] landing · private-catamaran-charter-marbella-group
+[2026-05-31 00:57:22]   ✓ generated
+[2026-05-31 00:57:22] [56/80] landing · luxury-yacht-hire-puerto-banus-week
+[2026-05-31 00:58:05]   ✓ generated
+[2026-05-31 00:58:05] [57/80] landing · boat-hire-marbella-port-hourly
+[2026-05-31 00:58:47]   ✓ generated
+[2026-05-31 00:58:47] [58/80] landing · catamaran-rental-puerto-banus-birthday
+[2026-05-31 00:59:35]   ✓ generated
+[2026-05-31 00:59:35] [59/80] landing · motor-yacht-hire-marbella-stag
+[2026-05-31 01:00:23]   ✓ generated
+[2026-05-31 01:00:23] [60/80] landing · speedboat-rental-estepona-marina
+[2026-05-31 01:01:06]   ✓ generated
+[2026-05-31 01:01:06] [61/80] landing · luxury-catamaran-hire-puerto-banus-day
+[2026-05-31 01:02:02]   ✓ generated
+[2026-05-31 01:02:02] [62/80] landing · private-yacht-charter-puerto-banus-hen
+[2026-05-31 01:02:39]   ✓ generated
+[2026-05-31 01:02:39] [63/80] landing · catamaran-charter-marbella-wedding
+[2026-05-31 01:03:28]   ✓ generated
+[2026-05-31 01:03:28] [64/80] landing · fishing-charter-puerto-banus-half-day
+[2026-05-31 01:04:18]   ✓ generated
+[2026-05-31 01:04:18] [65/80] landing · speedboat-hire-benalmadena-marina-no-licence
+[2026-05-31 01:04:59]   ✓ generated
+[2026-05-31 01:04:59] [66/80] landing · luxury-yacht-rental-puerto-banus-weekend
+[2026-05-31 01:05:53]   ✓ generated
+[2026-05-31 01:05:53] [67/80] landing · private-boat-hire-marbella-fishing
+[2026-05-31 01:06:45]   ✓ generated
+[2026-05-31 01:06:45] [68/80] landing · catamaran-rental-estepona-group
+[2026-05-31 01:07:35]   ✓ generated
+[2026-05-31 01:07:35] [69/80] landing · motor-yacht-charter-estepona-day
+[2026-05-31 01:08:18]   ✓ generated
+[2026-05-31 01:08:18] [70/80] landing · speedboat-rental-puerto-banus-hourly
+[2026-05-31 01:09:00]   ✓ generated
+[2026-05-31 01:09:00] [71/80] landing · luxury-catamaran-charter-puerto-banus-group
+[2026-05-31 01:09:35]   ✓ generated
+[2026-05-31 01:09:35] [72/80] landing · private-yacht-hire-marbella-wedding
+[2026-05-31 01:10:06]   ✓ generated
+[2026-05-31 01:10:06] [73/80] landing · catamaran-hire-fuengirola-sunset
+[2026-05-31 01:10:46]   ✓ generated
+[2026-05-31 01:10:46] [74/80] landing · fishing-charter-marbella-full-day
+[2026-05-31 01:11:23]   ✓ generated
+[2026-05-31 01:11:23] [75/80] landing · speedboat-hire-marbella-port-group
+[2026-05-31 01:12:05]   ✓ generated
+[2026-05-31 01:12:05] [76/80] landing · luxury-yacht-charter-puerto-banus-day
+[2026-05-31 01:12:40]   ✓ generated
+[2026-05-31 01:12:40] [77/80] landing · private-catamaran-hire-marbella-sunset
+[2026-05-31 01:13:16]   ✓ generated
+[2026-05-31 01:13:16] [78/80] landing · motor-yacht-rental-estepona-day
+[2026-05-31 01:13:50]   ✓ generated
+[2026-05-31 01:13:50] [79/80] landing · catamaran-charter-marbella-birthday
+[2026-05-31 01:14:32]   ✓ generated
+[2026-05-31 01:14:32] [80/80] landing · speedboat-rental-fuengirola-marina
+[2026-05-31 01:15:14]   ✓ generated
+[2026-05-31 01:15:14] queue under threshold (22 < 100) — refilling…
+[2026-05-31 01:15:50] refill: +32 (queue now 54)

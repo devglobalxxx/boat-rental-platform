@@ -181,3 +181,60 @@ RuntimeError: no JSON found in model output
 [2026-05-30 19:08:26]   ✓ generated
 [2026-05-30 19:08:26] [80/80] landing · motor-yacht-hire-puerto-banus-day
 [2026-05-30 19:09:25]   ✓ generated
+[main 9798379] Daily content: +78 pages (38 blog, 40 landing)
+ Committer: master <master@masters-MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 52 files changed, 7589 insertions(+), 2774 deletions(-)
+ create mode 100644 app/admin/AdminDocsButton.tsx
+ create mode 100644 app/admin/AdminVerifyButton.tsx
+ create mode 100644 app/admin/page.tsx
+ create mode 100644 app/api/account/delete/route.ts
+ create mode 100644 app/api/admin/docs/route.ts
+ create mode 100644 app/api/admin/verify/route.ts
+ create mode 100644 app/api/auth/signout/route.ts
+ create mode 100644 app/api/me/route.ts
+ create mode 100644 app/api/outreach/unsubscribe/route.ts
+ create mode 100644 app/api/upload-image/route.ts
+ create mode 100644 app/api/verify-submit/route.ts
+ create mode 100644 app/host/fleet/calendar/FleetCalendarClient.tsx
+ create mode 100644 app/host/fleet/calendar/page.tsx
+ create mode 100644 app/host/fleet/corporate/page.tsx
+ create mode 100644 app/host/fleet/import/FleetImportClient.tsx
+ create mode 100644 app/host/fleet/import/page.tsx
+ create mode 100644 app/host/fleet/page.tsx
+ create mode 100644 app/host/verify/page.tsx
+ create mode 100644 app/settings/page.tsx
+ create mode 100644 components/host/DeleteListingButton.tsx
+ create mode 100644 components/ui/PayoutBadge.tsx
+ create mode 100644 config/wp_posted.json
+ create mode 100644 logs/blogger_autopublish.log
+ create mode 100644 logs/last_run_date.txt
+ create mode 100644 logs/manual_run_0530.log
+ create mode 100644 logs/translate_es.log
+ create mode 100644 logs/wp_publish.log
+ create mode 100644 public/team/andra.jpg
+ create mode 100644 scripts/com.boathire24.blogger-drain.plist
+ create mode 100644 scripts/outreach/README.md
+ create mode 100644 scripts/outreach/seed-leads.mjs
+ create mode 100644 scripts/outreach/send.mjs
+ create mode 100644 scripts/outreach/templates.mjs
+ create mode 100644 scripts/run-migration.mjs
+ create mode 100644 supabase/migrations/003_verification_admin.sql
+ create mode 100644 supabase/migrations/004_outreach.sql
+To https://github.com/mardo89/boat-rental-platform.git
+   616821a..9798379  HEAD -> main
+[2026-05-30 19:09:28] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-05-30 19:09:30] reindex ping: 200 {"ok":true,"urls_total":499,"indexnow":{"ok":true,"status":200,"count":499},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-05-30T16:09
+[2026-05-30 19:09:30] === Done: 78 ok, 2 failed ===
+
