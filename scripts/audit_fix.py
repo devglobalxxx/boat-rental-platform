@@ -19,6 +19,19 @@ LAND = ROOT / "lib" / "landing" / "auto-landing.json"
 QUAR = ROOT / "lib" / "landing" / "quarantine-landing.json"
 MIN_WORDS = 2000
 
+EXEMPT = {
+    "list-your-boat-marbella","list-your-yacht-marbella","list-your-jet-ski-marbella",
+    "list-your-sailboat-marbella","list-your-catamaran-marbella",
+    "peer-to-peer-boat-rental-marbella","boat-rental-insurance-spain",
+    "start-boat-rental-business-marbella","boat-rental-malaga","boat-rental-estepona",
+    "boat-rental-sotogrande","mediterranean-bareboat-charter-marbella",
+    "airbnb-for-boats","how-much-can-i-earn-renting-my-boat","boat-charter-management",
+    "how-to-rent-out-your-boat","boat-rental-insurance-us",
+    "boatsetter-alternative","click-and-boat-alternative","getmyboat-alternative",
+    "samboat-alternative","borrow-a-boat-uk-alternative",
+}
+
+
 TAG = re.compile(r"<[^>]+>")
 def wc(h: str) -> int:
     return len(TAG.sub(" ", h or "").split())
@@ -41,7 +54,7 @@ def main():
     keep, quarantine = [], []
     for p in lands:
         body = (p.get("intro", "") or "") + (p.get("bodyHtml", "") or "")
-        (keep if wc(body) >= MIN_WORDS else quarantine).append(p)
+        (keep if (p.get("slug") in EXEMPT or wc(body) >= MIN_WORDS) else quarantine).append(p)
     LAND.write_text(json.dumps(keep, ensure_ascii=False, indent=2) + "\n")
     existing_q = json.loads(QUAR.read_text()) if QUAR.exists() else []
     QUAR.write_text(json.dumps(existing_q + quarantine, ensure_ascii=False, indent=2) + "\n")
