@@ -27,12 +27,21 @@ LOG = ROOT / "logs" / "dataforseo.log"
 LOG.parent.mkdir(exist_ok=True)
 
 # Seed terms (global boat-rental intent). DataForSEO expands each into ideas.
-SEEDS = [
+_BASE = [
     "boat rental", "yacht charter", "boat hire", "catamaran charter",
     "yacht rental", "sailboat rental", "speedboat hire", "boat rental near me",
     "luxury yacht charter", "fishing charter", "party boat rental",
     "pontoon boat rental", "jet ski rental", "sunset boat trip",
 ]
+# Top global charter destinations — seed "boat rental <place>" / "yacht charter <place>"
+_PLACES = [
+    "marbella", "ibiza", "mallorca", "barcelona", "miami", "cancun", "dubai",
+    "mykonos", "santorini", "athens", "split", "dubrovnik", "cannes", "nice",
+    "amalfi", "naples", "capri", "sardinia", "malta", "tenerife", "phuket",
+    "bali", "maldives", "tulum", "key west", "fort lauderdale", "san diego",
+    "lake como", "amsterdam", "lisbon", "algarve", "corfu", "bodrum", "monaco",
+]
+SEEDS = _BASE + [f"boat rental {p}" for p in _PLACES] + [f"yacht charter {p}" for p in _PLACES]
 
 # RENTAL-INTENT gate: must express renting/chartering/hiring a vessel.
 # (Just "contains boat" let in cruises, sales, games, news — too loose.)
@@ -121,6 +130,35 @@ def fetch_ideas(seed: str, limit: int, min_vol: int) -> list[dict]:
     return out
 
 
+def fetch_volumes(keywords: list, min_vol: int) -> list[dict]:
+    """Exact search volume for a constructed keyword list (geo combos).
+    Guarantees on-topic geo coverage instead of relying on 'ideas' expansion."""
+    out = []
+    # Google Ads search_volume accepts up to 1000 keywords per task.
+    for i in range(0, len(keywords), 700):
+        chunk = keywords[i:i + 700]
+        payload = [{"keywords": chunk, "language_code": "en", "location_code": 2840}]
+        try:
+            data = api("keywords_data/google_ads/search_volume/live", payload)
+            for t in (data.get("tasks") or []):
+                for it in (t.get("result") or []):
+                    kw = it.get("keyword", "")
+                    vol = it.get("search_volume") or 0
+                    if vol >= min_vol and is_rental_kw(kw):
+                        out.append({"keyword": kw, "volume": vol})
+        except urllib.error.HTTPError as e:
+            log(f"  volume chunk: HTTP {e.code} {e.read().decode()[:120]}")
+        except Exception as e:
+            log(f"  volume chunk: {type(e).__name__}: {str(e)[:120]}")
+    return out
+
+
+def geo_keyword_candidates() -> list:
+    patterns = ["boat rental {p}", "yacht charter {p}", "boat hire {p}",
+                "catamaran charter {p}", "yacht rental {p}", "boat rental in {p}"]
+    return [pat.format(p=p) for p in _PLACES for pat in patterns]
+
+
 def slugify(kw: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "-", kw.lower()).strip("-")
     return re.sub(r"-{2,}", "-", s)[:70]
@@ -170,15 +208,25 @@ def main():
         return 0
 
     seen = existing_slugs()
-    per_seed = max(20, args.limit // len(SEEDS) + 10)
     pool: dict[str, dict] = {}
-    log(f"DataForSEO: fetching ideas for {len(SEEDS)} seeds (min_vol={args.min_volume})")
-    for seed in SEEDS:
+
+    # (A) Direct geo volume lookup — guarantees on-topic global coverage.
+    geo = geo_keyword_candidates()
+    log(f"DataForSEO: looking up volume for {len(geo)} geo keyword candidates (min_vol={args.min_volume})")
+    for row in fetch_volumes(geo, args.min_volume):
+        slug = slugify(row["keyword"])
+        if slug and slug not in seen and slug not in pool:
+            pool[slug] = row
+
+    # (B) Idea expansion from base seeds — catches phrasing we didn't construct.
+    per_seed = 40
+    log(f"DataForSEO: expanding ideas from {len(_BASE)} base seeds")
+    for seed in _BASE:
         for row in fetch_ideas(seed, per_seed, args.min_volume):
             slug = slugify(row["keyword"])
-            if not slug or slug in seen or slug in pool:
-                continue
-            pool[slug] = row
+            if slug and slug not in seen and slug not in pool:
+                pool[slug] = row
+
     # rank by volume, take top N
     ranked = sorted(pool.items(), key=lambda kv: kv[1]["volume"], reverse=True)[:args.limit]
 

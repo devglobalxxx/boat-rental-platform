@@ -2384,6 +2384,1438 @@
       "title": "Boat Hire Cannes | BoatHire24",
       "target_words": 2200,
       "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter",
+      "primary_keyword": "yacht charter",
+      "title": "Yacht Charter | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 9900
+    },
+    {
+      "kind": "landing",
+      "slug": "charter-boat",
+      "primary_keyword": "charter boat",
+      "title": "Charter Boat | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 8100
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-motor-yacht-charter",
+      "primary_keyword": "luxury motor yacht charter",
+      "title": "Luxury Motor Yacht Charter | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 5400
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-marina-del-rey",
+      "primary_keyword": "yacht rental marina del rey",
+      "title": "Yacht Rental Marina Del Rey | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1000
+    },
+    {
+      "kind": "landing",
+      "slug": "havasu-boat-rentals",
+      "primary_keyword": "havasu boat rentals",
+      "title": "Havasu Boat Rentals | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1000
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-miami",
+      "primary_keyword": "yacht rental miami",
+      "title": "Yacht Rental Miami | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 27100
+    },
+    {
+      "kind": "landing",
+      "slug": "lake-havasu-boat-rentals",
+      "primary_keyword": "lake havasu boat rentals",
+      "title": "Lake Havasu Boat Rentals | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 12100
+    },
+    {
+      "kind": "landing",
+      "slug": "lake-travis-rent-boat",
+      "primary_keyword": "lake travis rent boat",
+      "title": "Lake Travis Rent Boat | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 9900
+    },
+    {
+      "kind": "landing",
+      "slug": "lake-travis-boat-rental",
+      "primary_keyword": "lake travis boat rental",
+      "title": "Lake Travis Boat Rental | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 9900
+    },
+    {
+      "kind": "landing",
+      "slug": "rent-a-boat",
+      "primary_keyword": "rent a boat",
+      "title": "Rent A Boat | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 8100
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-lake-of-the-ozarks",
+      "primary_keyword": "boat rental lake of the ozarks",
+      "title": "Boat Rental Lake Of The Ozarks | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 8100
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-miami",
+      "primary_keyword": "boat rental miami",
+      "title": "Boat Rental Miami | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 6600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-miami",
+      "primary_keyword": "boat rental in miami",
+      "title": "Boat Rental In Miami | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 6600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-miami",
+      "primary_keyword": "boat hire miami",
+      "title": "Boat Hire Miami | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 5400
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-fort-lauderdale",
+      "primary_keyword": "boat rental fort lauderdale",
+      "title": "Boat Rental Fort Lauderdale | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 4400
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-fort-lauderdale",
+      "primary_keyword": "boat hire fort lauderdale",
+      "title": "Boat Hire Fort Lauderdale | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 4400
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-fort-lauderdale",
+      "primary_keyword": "boat rental in fort lauderdale",
+      "title": "Boat Rental In Fort Lauderdale | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 4400
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-san-diego",
+      "primary_keyword": "boat rental san diego",
+      "title": "Boat Rental San Diego | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 4400
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-san-diego",
+      "primary_keyword": "boat hire san diego",
+      "title": "Boat Hire San Diego | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 4400
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-san-diego",
+      "primary_keyword": "boat rental in san diego",
+      "title": "Boat Rental In San Diego | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 4400
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-miami",
+      "primary_keyword": "yacht charter miami",
+      "title": "Yacht Charter Miami | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 3600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-naples",
+      "primary_keyword": "boat rental naples",
+      "title": "Boat Rental Naples | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 3600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-naples",
+      "primary_keyword": "boat rental in naples",
+      "title": "Boat Rental In Naples | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 3600
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-cancun",
+      "primary_keyword": "yacht rental cancun",
+      "title": "Yacht Rental Cancun | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2900
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-key-west",
+      "primary_keyword": "boat rental key west",
+      "title": "Boat Rental Key West | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2900
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-key-west",
+      "primary_keyword": "boat hire key west",
+      "title": "Boat Hire Key West | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2900
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-key-west",
+      "primary_keyword": "boat rental in key west",
+      "title": "Boat Rental In Key West | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2900
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-san-diego",
+      "primary_keyword": "yacht rental san diego",
+      "title": "Yacht Rental San Diego | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2900
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-fort-lauderdale",
+      "primary_keyword": "yacht rental fort lauderdale",
+      "title": "Yacht Rental Fort Lauderdale | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1900
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-cancun",
+      "primary_keyword": "boat rental cancun",
+      "title": "Boat Rental Cancun | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-cancun",
+      "primary_keyword": "boat hire cancun",
+      "title": "Boat Hire Cancun | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-cancun",
+      "primary_keyword": "boat rental in cancun",
+      "title": "Boat Rental In Cancun | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1600
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-dubai",
+      "primary_keyword": "yacht rental dubai",
+      "title": "Yacht Rental Dubai | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1600
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-san-diego",
+      "primary_keyword": "yacht charter san diego",
+      "title": "Yacht Charter San Diego | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-lake-como",
+      "primary_keyword": "boat rental lake como",
+      "title": "Boat Rental Lake Como | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-lake-como",
+      "primary_keyword": "boat hire lake como",
+      "title": "Boat Hire Lake Como | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1600
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-lake-como",
+      "primary_keyword": "boat rental in lake como",
+      "title": "Boat Rental In Lake Como | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1600
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-fort-lauderdale",
+      "primary_keyword": "yacht charter fort lauderdale",
+      "title": "Yacht Charter Fort Lauderdale | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1300
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-mallorca",
+      "primary_keyword": "boat rental mallorca",
+      "title": "Boat Rental Mallorca | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1000
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-mallorca",
+      "primary_keyword": "boat rental in mallorca",
+      "title": "Boat Rental In Mallorca | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1000
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-ibiza",
+      "primary_keyword": "boat rental ibiza",
+      "title": "Boat Rental Ibiza | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-ibiza",
+      "primary_keyword": "boat hire ibiza",
+      "title": "Boat Hire Ibiza | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-ibiza",
+      "primary_keyword": "boat rental in ibiza",
+      "title": "Boat Rental In Ibiza | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-cancun",
+      "primary_keyword": "yacht charter cancun",
+      "title": "Yacht Charter Cancun | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-amalfi",
+      "primary_keyword": "boat rental amalfi",
+      "title": "Boat Rental Amalfi | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-amalfi",
+      "primary_keyword": "boat hire amalfi",
+      "title": "Boat Hire Amalfi | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-amalfi",
+      "primary_keyword": "boat rental in amalfi",
+      "title": "Boat Rental In Amalfi | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-sardinia",
+      "primary_keyword": "yacht charter sardinia",
+      "title": "Yacht Charter Sardinia | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-amsterdam",
+      "primary_keyword": "boat rental amsterdam",
+      "title": "Boat Rental Amsterdam | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-amsterdam",
+      "primary_keyword": "boat rental in amsterdam",
+      "title": "Boat Rental In Amsterdam | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-amalfi",
+      "primary_keyword": "yacht charter amalfi",
+      "title": "Yacht Charter Amalfi | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 590
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-ibiza",
+      "primary_keyword": "yacht charter ibiza",
+      "title": "Yacht Charter Ibiza | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-capri",
+      "primary_keyword": "boat rental capri",
+      "title": "Boat Rental Capri | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-capri",
+      "primary_keyword": "boat hire capri",
+      "title": "Boat Hire Capri | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-capri",
+      "primary_keyword": "boat rental in capri",
+      "title": "Boat Rental In Capri | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-sardinia",
+      "primary_keyword": "boat rental sardinia",
+      "title": "Boat Rental Sardinia | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-sardinia",
+      "primary_keyword": "boat hire sardinia",
+      "title": "Boat Hire Sardinia | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-sardinia",
+      "primary_keyword": "boat rental in sardinia",
+      "title": "Boat Rental In Sardinia | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-key-west",
+      "primary_keyword": "yacht rental key west",
+      "title": "Yacht Rental Key West | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-mykonos",
+      "primary_keyword": "boat rental mykonos",
+      "title": "Boat Rental Mykonos | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-mykonos",
+      "primary_keyword": "boat hire mykonos",
+      "title": "Boat Hire Mykonos | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-mykonos",
+      "primary_keyword": "boat rental in mykonos",
+      "title": "Boat Rental In Mykonos | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-santorini",
+      "primary_keyword": "boat rental santorini",
+      "title": "Boat Rental Santorini | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-santorini",
+      "primary_keyword": "boat hire santorini",
+      "title": "Boat Hire Santorini | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-santorini",
+      "primary_keyword": "boat rental in santorini",
+      "title": "Boat Rental In Santorini | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-nice",
+      "primary_keyword": "boat rental nice",
+      "title": "Boat Rental Nice | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-nice",
+      "primary_keyword": "boat hire nice",
+      "title": "Boat Hire Nice | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-nice",
+      "primary_keyword": "boat rental in nice",
+      "title": "Boat Rental In Nice | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-naples",
+      "primary_keyword": "boat hire naples",
+      "title": "Boat Hire Naples | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-monaco",
+      "primary_keyword": "yacht rental monaco",
+      "title": "Yacht Rental Monaco | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 390
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-mallorca",
+      "primary_keyword": "yacht charter mallorca",
+      "title": "Yacht Charter Mallorca | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 320
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-split",
+      "primary_keyword": "boat rental split",
+      "title": "Boat Rental Split | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 320
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-split",
+      "primary_keyword": "boat hire split",
+      "title": "Boat Hire Split | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 320
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-split",
+      "primary_keyword": "boat rental in split",
+      "title": "Boat Rental In Split | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 320
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-monaco",
+      "primary_keyword": "yacht charter monaco",
+      "title": "Yacht Charter Monaco | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 320
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-mallorca",
+      "primary_keyword": "yacht rental mallorca",
+      "title": "Yacht Rental Mallorca | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-barcelona",
+      "primary_keyword": "boat rental barcelona",
+      "title": "Boat Rental Barcelona | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-barcelona",
+      "primary_keyword": "boat hire barcelona",
+      "title": "Boat Hire Barcelona | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-barcelona",
+      "primary_keyword": "boat rental in barcelona",
+      "title": "Boat Rental In Barcelona | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-cannes",
+      "primary_keyword": "boat rental cannes",
+      "title": "Boat Rental Cannes | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-cannes",
+      "primary_keyword": "boat rental in cannes",
+      "title": "Boat Rental In Cannes | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-amalfi",
+      "primary_keyword": "yacht rental amalfi",
+      "title": "Yacht Rental Amalfi | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-naples",
+      "primary_keyword": "yacht rental naples",
+      "title": "Yacht Rental Naples | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-phuket",
+      "primary_keyword": "yacht charter phuket",
+      "title": "Yacht Charter Phuket | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "hire-yachts",
+      "primary_keyword": "hire yachts",
+      "title": "Hire Yachts | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-on-hire",
+      "primary_keyword": "yacht on hire",
+      "title": "Yacht On Hire | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "hire-yacht",
+      "primary_keyword": "hire yacht",
+      "title": "Hire Yacht | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-cannes-france",
+      "primary_keyword": "boat hire cannes france",
+      "title": "Boat Hire Cannes France | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "speedboat-rental",
+      "primary_keyword": "speedboat rental",
+      "title": "Speedboat Rental | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "cannes-boat-hire",
+      "primary_keyword": "cannes boat hire",
+      "title": "Cannes Boat Hire | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "yachts-to-hire",
+      "primary_keyword": "yachts to hire",
+      "title": "Yachts To Hire | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-marbella",
+      "primary_keyword": "boat rental in marbella",
+      "title": "Boat Rental In Marbella | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-dubai",
+      "primary_keyword": "yacht charter dubai",
+      "title": "Yacht Charter Dubai | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-mykonos",
+      "primary_keyword": "yacht charter mykonos",
+      "title": "Yacht Charter Mykonos | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-mykonos",
+      "primary_keyword": "yacht rental mykonos",
+      "title": "Yacht Rental Mykonos | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-dubrovnik",
+      "primary_keyword": "boat rental dubrovnik",
+      "title": "Boat Rental Dubrovnik | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-dubrovnik",
+      "primary_keyword": "boat rental in dubrovnik",
+      "title": "Boat Rental In Dubrovnik | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-naples",
+      "primary_keyword": "yacht charter naples",
+      "title": "Yacht Charter Naples | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-phuket",
+      "primary_keyword": "boat rental phuket",
+      "title": "Boat Rental Phuket | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-phuket",
+      "primary_keyword": "boat hire phuket",
+      "title": "Boat Hire Phuket | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-phuket",
+      "primary_keyword": "boat rental in phuket",
+      "title": "Boat Rental In Phuket | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-key-west",
+      "primary_keyword": "yacht charter key west",
+      "title": "Yacht Charter Key West | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-corfu",
+      "primary_keyword": "boat rental corfu",
+      "title": "Boat Rental Corfu | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-corfu",
+      "primary_keyword": "boat rental in corfu",
+      "title": "Boat Rental In Corfu | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "rent-a-speedboat-san-diego",
+      "primary_keyword": "rent a speedboat san diego",
+      "title": "Rent A Speedboat San Diego | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-dubai",
+      "primary_keyword": "boat rental dubai",
+      "title": "Boat Rental Dubai | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-dubai",
+      "primary_keyword": "boat hire dubai",
+      "title": "Boat Hire Dubai | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-dubai",
+      "primary_keyword": "boat rental in dubai",
+      "title": "Boat Rental In Dubai | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-athens",
+      "primary_keyword": "boat rental athens",
+      "title": "Boat Rental Athens | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-athens",
+      "primary_keyword": "yacht charter athens",
+      "title": "Yacht Charter Athens | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-athens",
+      "primary_keyword": "boat hire athens",
+      "title": "Boat Hire Athens | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-athens",
+      "primary_keyword": "boat rental in athens",
+      "title": "Boat Rental In Athens | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-cannes",
+      "primary_keyword": "yacht charter cannes",
+      "title": "Yacht Charter Cannes | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-phuket",
+      "primary_keyword": "yacht rental phuket",
+      "title": "Yacht Rental Phuket | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-key-west",
+      "primary_keyword": "catamaran charter key west",
+      "title": "Catamaran Charter Key West | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-captains-for-hire",
+      "primary_keyword": "boat captains for hire",
+      "title": "Boat Captains For Hire | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 170
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-ibiza",
+      "primary_keyword": "yacht rental ibiza",
+      "title": "Yacht Rental Ibiza | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-split",
+      "primary_keyword": "yacht charter split",
+      "title": "Yacht Charter Split | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-cannes",
+      "primary_keyword": "yacht rental cannes",
+      "title": "Yacht Rental Cannes | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-sardinia",
+      "primary_keyword": "yacht rental sardinia",
+      "title": "Yacht Rental Sardinia | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-malta",
+      "primary_keyword": "boat rental malta",
+      "title": "Boat Rental Malta | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-malta",
+      "primary_keyword": "yacht charter malta",
+      "title": "Yacht Charter Malta | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-malta",
+      "primary_keyword": "boat rental in malta",
+      "title": "Boat Rental In Malta | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-bali",
+      "primary_keyword": "boat rental bali",
+      "title": "Boat Rental Bali | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-bali",
+      "primary_keyword": "boat hire bali",
+      "title": "Boat Hire Bali | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-bali",
+      "primary_keyword": "boat rental in bali",
+      "title": "Boat Rental In Bali | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-maldives",
+      "primary_keyword": "yacht charter maldives",
+      "title": "Yacht Charter Maldives | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-san-diego",
+      "primary_keyword": "catamaran charter san diego",
+      "title": "Catamaran Charter San Diego | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-corfu",
+      "primary_keyword": "yacht charter corfu",
+      "title": "Yacht Charter Corfu | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-marbella",
+      "primary_keyword": "yacht charter marbella",
+      "title": "Yacht Charter Marbella | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-barcelona",
+      "primary_keyword": "yacht charter barcelona",
+      "title": "Yacht Charter Barcelona | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-barcelona",
+      "primary_keyword": "yacht rental barcelona",
+      "title": "Yacht Rental Barcelona | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-dubrovnik",
+      "primary_keyword": "yacht charter dubrovnik",
+      "title": "Yacht Charter Dubrovnik | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-bali",
+      "primary_keyword": "yacht rental bali",
+      "title": "Yacht Rental Bali | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-tulum",
+      "primary_keyword": "yacht rental tulum",
+      "title": "Yacht Rental Tulum | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-lisbon",
+      "primary_keyword": "boat rental lisbon",
+      "title": "Boat Rental Lisbon | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-lisbon",
+      "primary_keyword": "boat hire lisbon",
+      "title": "Boat Hire Lisbon | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-bodrum",
+      "primary_keyword": "boat rental bodrum",
+      "title": "Boat Rental Bodrum | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-bodrum",
+      "primary_keyword": "boat hire bodrum",
+      "title": "Boat Hire Bodrum | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-bodrum",
+      "primary_keyword": "boat rental in bodrum",
+      "title": "Boat Rental In Bodrum | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 110
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-miami",
+      "primary_keyword": "catamaran charter miami",
+      "title": "Catamaran Charter Miami | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-santorini",
+      "primary_keyword": "yacht charter santorini",
+      "title": "Yacht Charter Santorini | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-nice",
+      "primary_keyword": "yacht rental nice",
+      "title": "Yacht Rental Nice | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-capri",
+      "primary_keyword": "yacht charter capri",
+      "title": "Yacht Charter Capri | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-capri",
+      "primary_keyword": "yacht rental capri",
+      "title": "Yacht Rental Capri | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-tulum",
+      "primary_keyword": "boat rental tulum",
+      "title": "Boat Rental Tulum | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-monaco",
+      "primary_keyword": "boat rental monaco",
+      "title": "Boat Rental Monaco | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-monaco",
+      "primary_keyword": "boat hire monaco",
+      "title": "Boat Hire Monaco | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-monaco",
+      "primary_keyword": "boat rental in monaco",
+      "title": "Boat Rental In Monaco | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-mallorca",
+      "primary_keyword": "boat hire mallorca",
+      "title": "Boat Hire Mallorca | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 70
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-santorini",
+      "primary_keyword": "yacht rental santorini",
+      "title": "Yacht Rental Santorini | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 70
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-bali",
+      "primary_keyword": "yacht charter bali",
+      "title": "Yacht Charter Bali | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 70
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-tulum",
+      "primary_keyword": "yacht charter tulum",
+      "title": "Yacht Charter Tulum | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 70
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-bodrum",
+      "primary_keyword": "yacht charter bodrum",
+      "title": "Yacht Charter Bodrum | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 70
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-bodrum",
+      "primary_keyword": "yacht rental bodrum",
+      "title": "Yacht Rental Bodrum | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 70
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-mallorca",
+      "primary_keyword": "catamaran charter mallorca",
+      "title": "Catamaran Charter Mallorca | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 50
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-athens",
+      "primary_keyword": "catamaran charter athens",
+      "title": "Catamaran Charter Athens | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 50
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-dubrovnik",
+      "primary_keyword": "boat hire dubrovnik",
+      "title": "Boat Hire Dubrovnik | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 50
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-sardinia",
+      "primary_keyword": "catamaran charter sardinia",
+      "title": "Catamaran Charter Sardinia | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 50
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-marbella",
+      "primary_keyword": "yacht rental marbella",
+      "title": "Yacht Rental Marbella | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-ibiza",
+      "primary_keyword": "catamaran charter ibiza",
+      "title": "Catamaran Charter Ibiza | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-cancun",
+      "primary_keyword": "catamaran charter cancun",
+      "title": "Catamaran Charter Cancun | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-nice",
+      "primary_keyword": "yacht charter nice",
+      "title": "Yacht Charter Nice | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-tenerife",
+      "primary_keyword": "boat rental tenerife",
+      "title": "Boat Rental Tenerife | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-tenerife",
+      "primary_keyword": "boat hire tenerife",
+      "title": "Boat Hire Tenerife | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-in-tenerife",
+      "primary_keyword": "boat rental in tenerife",
+      "title": "Boat Rental In Tenerife | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-phuket",
+      "primary_keyword": "catamaran charter phuket",
+      "title": "Catamaran Charter Phuket | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-athens",
+      "primary_keyword": "yacht rental athens",
+      "title": "Yacht Rental Athens | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-split",
+      "primary_keyword": "yacht rental split",
+      "title": "Yacht Rental Split | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-dubrovnik",
+      "primary_keyword": "yacht rental dubrovnik",
+      "title": "Yacht Rental Dubrovnik | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-malta",
+      "primary_keyword": "yacht rental malta",
+      "title": "Yacht Rental Malta | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-bali",
+      "primary_keyword": "catamaran charter bali",
+      "title": "Catamaran Charter Bali | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-maldives",
+      "primary_keyword": "yacht rental maldives",
+      "title": "Yacht Rental Maldives | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-fort-lauderdale",
+      "primary_keyword": "catamaran charter fort lauderdale",
+      "title": "Catamaran Charter Fort Lauderdale | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-amsterdam",
+      "primary_keyword": "boat hire amsterdam",
+      "title": "Boat Hire Amsterdam | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-algarve",
+      "primary_keyword": "boat rental algarve",
+      "title": "Boat Rental Algarve | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-algarve",
+      "primary_keyword": "boat hire algarve",
+      "title": "Boat Hire Algarve | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-corfu",
+      "primary_keyword": "catamaran charter corfu",
+      "title": "Catamaran Charter Corfu | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
+    },
+    {
+      "kind": "landing",
+      "slug": "yacht-rental-corfu",
+      "primary_keyword": "yacht rental corfu",
+      "title": "Yacht Rental Corfu | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 30
     }
   ]
 }
