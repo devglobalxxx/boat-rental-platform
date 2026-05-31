@@ -578,17 +578,33 @@ def main():
         {**s, "consumed_at": datetime.date.today().isoformat()} for s in succeeded
     )
 
-    # refill
+    # refill — PREFER real keyword data (DataForSEO). Only fall back to LLM
+    # topic-invention if DataForSEO is unavailable AND the queue is still low
+    # (LLM invention is what previously drifted off-topic).
     threshold = int(cfg.get("refill_threshold", 60))
     refill_batch = int(cfg.get("refill_batch", 80))
     if len(cfg["queue"]) < threshold:
-        log(f"queue under threshold ({len(cfg['queue'])} < {threshold}) — refilling…")
-        try:
-            added = refill_queue(cfg, refill_batch, all_used_slugs())
-            cfg["queue"].extend(added)
-            log(f"refill: +{len(added)} (queue now {len(cfg['queue'])})")
-        except Exception as e:
-            log(f"refill failed: {type(e).__name__}: {str(e)[:200]}")
+        QUEUE_PATH.write_text(json.dumps(cfg, ensure_ascii=False, indent=2) + "\n")
+        dfs_added = 0
+        if os.environ.get("DATAFORSEO_LOGIN") and os.environ.get("DATAFORSEO_PASSWORD"):
+            log(f"queue under threshold — fetching real keywords from DataForSEO…")
+            try:
+                r = subprocess.run(["/usr/bin/python3", str(ROOT / "scripts" / "dataforseo_keywords.py"),
+                                    "--limit", str(refill_batch)],
+                                   capture_output=True, text=True, cwd=ROOT, timeout=300)
+                log(r.stdout.strip()[-300:] or r.stderr.strip()[-200:])
+                cfg = json.loads(QUEUE_PATH.read_text())
+                dfs_added = 1
+            except Exception as e:
+                log(f"DataForSEO refill failed: {type(e).__name__}: {str(e)[:160]}")
+        if len(cfg["queue"]) < threshold and not dfs_added:
+            log("DataForSEO unavailable — falling back to LLM topic invention")
+            try:
+                added = refill_queue(cfg, refill_batch, all_used_slugs())
+                cfg["queue"].extend(added)
+                log(f"refill (LLM fallback): +{len(added)} (queue now {len(cfg['queue'])})")
+            except Exception as e:
+                log(f"refill failed: {type(e).__name__}: {str(e)[:200]}")
 
     QUEUE_PATH.write_text(json.dumps(cfg, ensure_ascii=False, indent=2) + "\n")
 
