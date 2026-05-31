@@ -34,15 +34,28 @@ SEEDS = [
     "pontoon boat rental", "jet ski rental", "sunset boat trip",
 ]
 
-# On-topic gate: keyword must contain a boat term; reject obvious off-intent.
-TOPIC = re.compile(r"\b(boat|yacht|catamaran|sail|sailing|speedboat|pontoon|"
-                   r"jet ?ski|dinghy|charter|marina|cruise|fishing)\b", re.I)
-BLOCK = re.compile(r"\b(job|salary|insurance quote|loan|for sale|used|buy|"
-                   r"price of|cost to build|repair|paint|license test|game|"
-                   r"toy|rc |remote control|shoe|drink)\b", re.I)
+# RENTAL-INTENT gate: must express renting/chartering/hiring a vessel.
+# (Just "contains boat" let in cruises, sales, games, news — too loose.)
+RENT = re.compile(r"\b(rent|rental|rentals|hire|charter|chartering)\b", re.I)
+VESSEL = re.compile(r"\b(boat|boats|yacht|yachts|catamaran|catamarans|sailboat|"
+                    r"sailing boat|speedboat|speed boat|pontoon|jet ?ski|dinghy|"
+                    r"motorboat|motor yacht|gulet|houseboat)\b", re.I)
+# Reject off-intent even if RENT+VESSEL present.
+BLOCK = re.compile(r"\b(cruise|royal caribbean|carnival|norwegian|trader|for sale|"
+                   r"used|buy|sell|loan|finance|insurance|repair|paint|parts|"
+                   r"job|jobs|salary|game|games|tiny fishing|fresh off the boat|"
+                   r"sunken|ramp|license test|licence test|toy|rc|remote control|"
+                   r"show|episode|movie|song|lyrics|stardew|simulator)\b", re.I)
 
-# Commercial-intent words -> landing page; otherwise blog.
-COMMERCIAL = re.compile(r"\b(rental|rent|hire|charter|near me|price|cost|cheap|booking|book)\b", re.I)
+def is_rental_kw(kw: str) -> bool:
+    if BLOCK.search(kw):
+        return False
+    # must mention a vessel AND rental intent (e.g. "yacht charter marbella",
+    # "boat rental miami", "catamaran hire ibiza")
+    return bool(VESSEL.search(kw) and RENT.search(kw))
+
+# All matched keywords are commercial rental intent -> landing pages.
+COMMERCIAL = re.compile(r".", re.I)
 
 
 def log(m: str):
@@ -98,7 +111,7 @@ def fetch_ideas(seed: str, limit: int, min_vol: int) -> list[dict]:
                     vol = ((it.get("keyword_info") or {}).get("search_volume")) or 0
                     if vol < min_vol:
                         continue
-                    if not TOPIC.search(kw) or BLOCK.search(kw):
+                    if not is_rental_kw(kw):
                         continue
                     out.append({"keyword": kw, "volume": vol})
     except urllib.error.HTTPError as e:
@@ -169,10 +182,13 @@ def main():
     # rank by volume, take top N
     ranked = sorted(pool.items(), key=lambda kv: kv[1]["volume"], reverse=True)[:args.limit]
 
+    # Informational rental queries -> blog; pure transactional -> landing.
+    INFO = re.compile(r"\b(how|what|best|guide|tips|vs|cost|price|worth|need|"
+                      r"licen[sc]e|when|where|cheap)\b", re.I)
     items = []
     for slug, row in ranked:
         kw = row["keyword"]
-        kind = "landing" if COMMERCIAL.search(kw) else "blog"
+        kind = "blog" if INFO.search(kw) else "landing"
         items.append({
             "kind": kind, "slug": slug,
             "primary_keyword": kw,
