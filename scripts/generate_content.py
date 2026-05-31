@@ -547,9 +547,15 @@ def main():
             continue
         try:
             if item["kind"] == "blog":
-                blog_store.append(gen_blog(item))
+                rec = gen_blog(item)
+                body_wc = word_count(rec.get("content", ""))
             else:
-                landing_store.append(gen_landing(item))
+                rec = gen_landing(item)
+                body_wc = word_count((rec.get("intro", "") or "") + (rec.get("bodyHtml", "") or ""))
+            # Hard belt-and-suspenders gate: never persist thin content.
+            if body_wc < 2000:
+                raise RuntimeError(f"thin output rejected ({body_wc}w < 2000)")
+            (blog_store if item["kind"] == "blog" else landing_store).append(rec)
             have.add(item["slug"])
             kw_sets.append(_kw_tokens(f"{item['primary_keyword']} {item['title']}"))
             succeeded.append(item)
