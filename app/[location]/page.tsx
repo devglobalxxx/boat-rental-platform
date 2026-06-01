@@ -39,7 +39,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: lp.title,
       description: lp.metaDescription,
       alternates: {
-        canonical: `https://boathire24.com/${lp.slug}`,
+        // canonicalSlug consolidates near-duplicate variants onto one primary
+        // page (kills keyword cannibalization) while keeping the page live.
+        canonical: `https://boathire24.com/${lp.canonicalSlug || lp.slug}`,
         ...(hasEs(lp.slug) ? {
           languages: {
             'en': `https://boathire24.com/${lp.slug}`,
@@ -84,7 +86,7 @@ export default async function LocationPage({ params }: Props) {
 
   const { data: rawBoats } = await supabase
     .from('boats')
-    .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url)`)
+    .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url, verification_status)`)
     .eq('location_id', loc!.id)
     .eq('status', 'active')
     .order('created_at', { ascending: false })

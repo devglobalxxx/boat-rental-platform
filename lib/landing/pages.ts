@@ -11,6 +11,7 @@ export interface LandingPage {
   heroImage?:      string
   faqs?:           Array<{ q: string; a: string }>
   date:            string   // ISO date
+  canonicalSlug?:  string   // if set, this page canonicalizes to another (dedup)
 }
 
 // Auto-generated keyword landing pages (appended daily by scripts/generate_content.py).

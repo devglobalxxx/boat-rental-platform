@@ -40,10 +40,11 @@ def wc(h: str) -> int:
 spec = importlib.util.spec_from_file_location("gc", ROOT / "scripts" / "generate_content.py")
 gc = importlib.util.module_from_spec(spec); spec.loader.exec_module(gc)
 
-# Strip a previously-appended "Related guides" block so we can re-add a fresh one.
+# Strip previously-appended "Related guides" block + affiliate CTA so we can re-add fresh.
 REL = re.compile(r"\n?<h2>Related guides</h2>\s*<ul>.*?</ul>", re.S)
+AFF = re.compile(r"\n?<p><strong>Own a boat\?</strong>.*?</p>", re.S)
 def strip_related(html: str) -> str:
-    return REL.sub("", html or "").rstrip()
+    return AFF.sub("", REL.sub("", html or "")).rstrip()
 
 
 def main():
@@ -60,9 +61,47 @@ def main():
     QUAR.write_text(json.dumps(existing_q + quarantine, ensure_ascii=False, indent=2) + "\n")
     print(f"quarantined {len(quarantine)} thin landings; kept {len(keep)}")
 
-    # 2) Rebuild internal links with EVEN DISTRIBUTION so every page receives
-    #    inbound links (no orphans). Build one global pool of all pages, then for
-    #    page i pick a rotating window of N_REL siblings -> spreads inbound equity.
+    # 2) CANNIBALIZATION: cluster landings by normalized keyword token-set; within
+    #    each exact-match cluster pick a primary and canonicalize the rest to it.
+    STOPK = {"the","a","an","in","to","of","for","and","your","with",
+             "boat","boats","hire","rental","rentals","charter","rent","yacht","yachts"}
+    def kt(s):
+        return frozenset(w for w in re.findall(r"[a-z0-9]+", (s or "").lower())
+                         if w not in STOPK and len(w) > 2)
+    clusters = {}
+    for p in keep:
+        clusters.setdefault(kt(p.get("keyword") or p.get("h1") or p["title"]), []).append(p)
+    canon_count = 0
+    for key, group in clusters.items():
+        if not key or len(group) < 2:
+            for p in group:
+                p.pop("canonicalSlug", None)
+            continue
+        # primary = longest body (most authoritative); others canonicalize to it
+        primary = max(group, key=lambda p: len((p.get("bodyHtml") or "")))
+        for p in group:
+            if p["slug"] == primary["slug"]:
+                p.pop("canonicalSlug", None)
+            else:
+                p["canonicalSlug"] = primary["slug"]
+                canon_count += 1
+    print(f"cannibalization: {canon_count} variant pages canonicalized to a primary")
+
+    # 3) Rebuild internal links: homepage + distributed related + AFFILIATE/money links.
+    AFFILIATE = [s for s in (
+        "list-your-boat-marbella","how-much-can-i-earn-renting-my-boat","airbnb-for-boats",
+        "boatsetter-alternative","click-and-boat-alternative","getmyboat-alternative",
+        "samboat-alternative","borrow-a-boat-uk-alternative","become-a-host",
+    )]
+    aff_pool = []
+    have_slugs = {p["slug"] for p in keep}
+    for s in AFFILIATE:
+        if s == "become-a-host":
+            aff_pool.append({"href": "/become-a-host", "anchor": "List your boat & earn"})
+        elif s in have_slugs:
+            lp = next(p for p in keep if p["slug"] == s)
+            aff_pool.append({"href": f"/{s}/", "anchor": lp.get("h1") or lp["title"]})
+
     N_REL = 5
     pool = ([{"href": f"/blog/{p['slug']}/", "anchor": p["title"]} for p in blogs] +
             [{"href": f"/{p['slug']}/", "anchor": p.get("h1") or p["title"]} for p in keep])
@@ -76,7 +115,14 @@ def main():
                 picks.append(cand)
             k += 1
         items = "".join(f'<li><a href="{x["href"]}">{x["anchor"]}</a></li>' for x in picks)
-        return f'\n<h2>Related guides</h2>\n<ul>{items}</ul>'
+        block = f'\n<h2>Related guides</h2>\n<ul>{items}</ul>'
+        # rotate in 1 affiliate/money link per page (distributed) as a CTA
+        if aff_pool:
+            a = aff_pool[idx % len(aff_pool)]
+            if a["href"] != self_href:
+                block += (f'\n<p><strong>Own a boat?</strong> '
+                          f'<a href="{a["href"]}">{a["anchor"]}</a>.</p>')
+        return block
 
     def ensure_home(html: str) -> str:
         if 'href="/"' in html:
@@ -99,7 +145,8 @@ def main():
     def homecov(items, body):
         return sum(1 for p in items if 'href="/"' in body(p))
     print(f"relinked: blogs={len(blogs)} (homepage {homecov(blogs, lambda p:p['content'])}/{len(blogs)}), "
-          f"landings={len(keep)} (homepage {homecov(keep, lambda p:p['bodyHtml'])}/{len(keep)})")
+          f"landings={len(keep)} (homepage {homecov(keep, lambda p:p['bodyHtml'])}/{len(keep)}), "
+          f"affiliate-link pool={len(aff_pool)}")
 
 
 if __name__ == "__main__":
