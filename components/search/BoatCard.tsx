@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Star, Users, Ruler, Anchor, Zap } from 'lucide-react'
 import { formatPrice } from '@/lib/utils/pricing'
+import VerifiedBadge from '@/components/ui/VerifiedBadge'
 import type { BoatWithDetails } from '@/types/database'
 
 interface BoatCardProps { boat: BoatWithDetails }
@@ -104,6 +105,13 @@ export default function BoatCard({ boat }: BoatCardProps) {
           <p style={{ fontSize: '12px', color: 'rgba(244,244,242,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {boat.locations.city}, {boat.locations.country}
           </p>
+
+          {/* Verified Owner badge */}
+          {(boat.profiles as { verification_status?: string } | null)?.verification_status === 'verified' && (
+            <div style={{ marginTop: '10px' }}>
+              <VerifiedBadge variant="pill" size="sm" />
+            </div>
+          )}
 
           {/* Specs row */}
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginTop: '12px', fontSize: '12px', color: 'rgba(244,244,242,0.50)' }}>

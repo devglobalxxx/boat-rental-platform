@@ -7,6 +7,7 @@ import AvailabilityCalendar from '@/components/listing/AvailabilityCalendar'
 import BookingWidget from '@/components/booking/BookingWidget'
 import { formatPrice } from '@/lib/utils/pricing'
 import { MapPin, Users, Ruler, Anchor, Star, Check, Waves, Zap } from 'lucide-react'
+import VerifiedBadge from '@/components/ui/VerifiedBadge'
 import type { BoatWithDetails } from '@/types/database'
 
 const TYPE_LABELS: Record<string, string> = {
@@ -35,7 +36,7 @@ async function getBoat(slug: string): Promise<BoatWithDetails | null> {
       boat_pricing(*),
       boat_features(*),
       locations(*),
-      profiles(id, full_name, avatar_url)
+      profiles(id, full_name, avatar_url, verification_status)
     `)
     .eq('slug', slug)
     .eq('status', 'active')
@@ -138,6 +139,9 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            {(boat.profiles as { verification_status?: string } | null)?.verification_status === 'verified' && (
+              <VerifiedBadge variant="pill" size="md" />
+            )}
             <span style={{ display: 'inline-flex', alignItems: 'center', fontSize: '12px', fontWeight: 700, padding: '6px 16px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}` }}>
               {TYPE_LABELS[boat.type] ?? boat.type}
             </span>
@@ -193,7 +197,7 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
                     Drinks &amp; snacks
                   </div>
                 )}
-                {boat.boat_features.map((f) => (
+                {boat.boat_features.filter((f) => !f.feature.startsWith('__REFUND_POLICY__::')).map((f) => (
                   <div key={f.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: 'rgba(244,244,242,0.78)' }}>
                     <Check style={{ width: '16px', height: '16px', color: '#5edb8a', flexShrink: 0 }} />
                     {f.feature}
@@ -280,6 +284,49 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
             {/* Divider */}
             <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)' }} />
 
+            {/* Cancellation & refund policy */}
+            {(() => {
+              const refundRow = boat.boat_features.find((f) => f.feature.startsWith('__REFUND_POLICY__::'))
+              const custom = refundRow ? refundRow.feature.slice('__REFUND_POLICY__::'.length) : null
+              const policy = custom ? 'custom' : ((boat as { cancellation_policy?: string }).cancellation_policy ?? 'moderate')
+              const PRESETS: Record<string, { label: string; lines: string[] }> = {
+                flexible: { label: 'Flexible', lines: ['Full refund if cancelled up to 24 hours before departure.', 'Within 24 hours: no refund.'] },
+                moderate: { label: 'Moderate', lines: ['Full refund if cancelled up to 5 days before departure.', 'Within 5 days: 50% refund.', 'Within 24 hours: no refund.'] },
+                strict:   { label: 'Strict',   lines: ['50% refund if cancelled up to 14 days before departure.', 'Within 14 days: no refund.'] },
+              }
+              const preset = PRESETS[policy]
+              return (
+                <>
+                  <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)' }} />
+                  <div>
+                    <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f2', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      Cancellation &amp; refund policy
+                      <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, textTransform: 'capitalize' }}>
+                        {policy === 'custom' ? 'Custom' : preset?.label ?? policy}
+                      </span>
+                    </h2>
+                    <div style={{ background: card, border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px', padding: '18px 20px' }}>
+                      {policy === 'custom' && custom ? (
+                        <p style={{ fontSize: '14px', color: 'rgba(244,244,242,0.78)', lineHeight: 1.7, margin: 0, whiteSpace: 'pre-line' }}>{custom}</p>
+                      ) : (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                          {(preset?.lines ?? PRESETS.moderate.lines).map((line, i) => (
+                            <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                              <span style={{ color: gold, flexShrink: 0, fontSize: '13px', marginTop: '1px' }}>•</span>
+                              <span style={{ fontSize: '14px', color: 'rgba(244,244,242,0.78)', lineHeight: 1.6 }}>{line}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <p style={{ fontSize: '12px', color: textMuted, marginTop: '14px', marginBottom: 0, paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                        ⚓ Weather cancellations called by the skipper are always fully refundable or rescheduled free of charge.
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )
+            })()}
+
             {/* Host */}
             <div>
               <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f2', marginBottom: '18px' }}>Hosted by</h2>
@@ -288,10 +335,17 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
                   {boat.profiles.full_name?.[0]?.toUpperCase() ?? 'H'}
                 </div>
                 <div>
-                  <div style={{ fontWeight: 600, fontSize: '15px', color: '#f4f4f2' }}>
+                  <div style={{ fontWeight: 600, fontSize: '15px', color: '#f4f4f2', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     {boat.profiles.full_name ?? 'Host'}
+                    {(boat.profiles as { verification_status?: string } | null)?.verification_status === 'verified' && (
+                      <VerifiedBadge variant="inline" />
+                    )}
                   </div>
-                  <div style={{ fontSize: '13px', color: textMuted, marginTop: '2px' }}>Verified host</div>
+                  <div style={{ fontSize: '13px', color: textMuted, marginTop: '2px' }}>
+                    {(boat.profiles as { verification_status?: string } | null)?.verification_status === 'verified'
+                      ? 'Verified owner · documents checked by BoatHire24'
+                      : 'Host on BoatHire24'}
+                  </div>
                 </div>
               </div>
             </div>

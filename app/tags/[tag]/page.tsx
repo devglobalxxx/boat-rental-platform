@@ -73,7 +73,7 @@ export default async function TagPage({
       boat_pricing(*),
       boat_features(*),
       locations(*),
-      profiles(id, full_name, avatar_url)
+      profiles(id, full_name, avatar_url, verification_status)
     `)
     .eq('status', 'active')
     .contains('tags', [label])

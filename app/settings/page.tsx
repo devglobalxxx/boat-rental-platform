@@ -54,6 +54,8 @@ export default function SettingsPage() {
   const [name, setName] = useState('')
   const [nameMsg, setNameMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null)
   const [savingName, setSavingName] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState('')
+  const [uploadingAvatar, setUploadingAvatar] = useState(false)
 
   // Password
   const [currentPw, setCurrentPw] = useState('')
@@ -74,12 +76,31 @@ export default function SettingsPage() {
       if (!data.user) { router.replace('/login?next=/settings'); return }
       setUser(data.user)
       setName(data.user.user_metadata?.full_name ?? '')
+      setAvatarUrl(data.user.user_metadata?.avatar_url ?? '')
       // Check if user has a password (email identity)
       const identities = data.user.identities ?? []
       setHasPassword(identities.some((id) => id.provider === 'email'))
       setLoading(false)
     })
   }, [])
+
+  async function uploadAvatar(file: File) {
+    setUploadingAvatar(true)
+    setNameMsg(null)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/upload-avatar', { method: 'POST', body: fd })
+      const json = await res.json()
+      if (!res.ok || !json.url) throw new Error(json.error ?? 'Upload failed')
+      setAvatarUrl(json.url)
+      setNameMsg({ text: 'Profile picture updated.', type: 'success' })
+    } catch (err: unknown) {
+      setNameMsg({ text: err instanceof Error ? err.message : 'Upload failed', type: 'error' })
+    } finally {
+      setUploadingAvatar(false)
+    }
+  }
 
   async function saveName(e: React.FormEvent) {
     e.preventDefault()
@@ -165,6 +186,33 @@ export default function SettingsPage() {
         <Section title="Profile" icon={<User style={{ width: 17, height: 17 }} />}>
           <form onSubmit={saveName} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {nameMsg && <Toast msg={nameMsg.text} type={nameMsg.type} />}
+
+            {/* Profile picture */}
+            <div>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '10px' }}>Profile picture</label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(201,168,78,0.30)' }}>
+                  {avatarUrl
+                    ? <img src={avatarUrl} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    : <span style={{ fontSize: '28px', fontWeight: 800, color: '#07101e' }}>{(name?.[0] ?? user?.email?.[0] ?? 'U').toUpperCase()}</span>
+                  }
+                </div>
+                <div>
+                  <label style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 18px', borderRadius: '99px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, cursor: uploadingAvatar ? 'wait' : 'pointer' }}>
+                    {uploadingAvatar ? 'Uploading…' : (avatarUrl ? 'Change picture' : 'Upload picture')}
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      disabled={uploadingAvatar}
+                      onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadAvatar(f) }}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                  <p style={{ fontSize: '11px', color: 'rgba(244,244,242,0.35)', marginTop: '8px', marginBottom: 0 }}>JPG, PNG or WebP · max 5MB</p>
+                </div>
+              </div>
+            </div>
+
             <div>
               <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>Display name</label>
               <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" style={INPUT} />

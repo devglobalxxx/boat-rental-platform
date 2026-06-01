@@ -29,7 +29,7 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
       boat_pricing(*),
       boat_features(*),
       locations(*),
-      profiles(id, full_name, avatar_url)
+      profiles(id, full_name, avatar_url, verification_status)
     `)
     .eq('status', 'active')
 
@@ -50,12 +50,18 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
     query = query.gte('capacity_pax', Number(params.guests))
   }
   if (params.location) {
+    const term = params.location.trim()
+    // Match against city, country, OR the location's display name
     const { data: locations } = await supabase
       .from('locations')
       .select('id')
-      .ilike('city', `%${params.location}%`)
+      .or(`city.ilike.%${term}%,country.ilike.%${term}%,name.ilike.%${term}%`)
     if (locations && locations.length > 0) {
       query = query.in('location_id', locations.map((l) => l.id))
+    } else {
+      // Location was searched but matched nothing — return no boats
+      // (previously this fell through and showed ALL boats).
+      return []
     }
   }
 

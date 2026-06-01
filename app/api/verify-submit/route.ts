@@ -14,41 +14,29 @@ export async function POST(req: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const formData = await req.formData()
-  const ownerType = formData.get('owner_type') as string // 'individual' | 'company'
+  // Files are already uploaded to storage by the browser (via signed URLs).
+  // This endpoint only receives lightweight JSON metadata — no file bodies.
+  const body = await req.json() as {
+    ownerType: string
+    docs: { type: string; name: string; path: string }[]
+  }
+  const ownerType = body.ownerType
+  const docs = Array.isArray(body.docs) ? body.docs : []
 
-  const DOC_FIELDS = ['passport', 'company_registration', 'boat_registration', 'marina_contract', 'boat_insurance']
-  const uploadedDocs: { type: string; name: string; path: string; signedUrl: string }[] = []
-  const errors: string[] = []
+  // Verify each path belongs to this user's folder (security)
+  const validDocs = docs.filter((d) => typeof d.path === 'string' && d.path.startsWith(`${user.id}/`))
 
-  // Upload each document to private bucket
-  for (const docType of DOC_FIELDS) {
-    const file = formData.get(docType) as File | null
-    if (!file || file.size === 0) continue
-
-    const ext = (file.name.split('.').pop() ?? 'pdf').toLowerCase()
-    const path = `${user.id}/${docType}-${Date.now()}.${ext}`
-    const buffer = Buffer.from(await file.arrayBuffer())
-
-    const { data, error } = await supabaseAdmin.storage
-      .from('verification-docs')
-      .upload(path, buffer, { contentType: file.type, upsert: true })
-
-    if (error) {
-      errors.push(`Failed to upload ${docType}: ${error.message}`)
-      continue
-    }
-
-    // Get a signed URL valid for 7 days (for the email to admin)
-    const { data: signed } = await supabaseAdmin.storage
-      .from('verification-docs')
-      .createSignedUrl(data.path, 60 * 60 * 24 * 7)
-
-    uploadedDocs.push({ type: docType, name: file.name, path: data.path, signedUrl: signed?.signedUrl ?? data.path })
+  if (validDocs.length === 0) {
+    return NextResponse.json({ error: 'Please upload at least one document.' }, { status: 400 })
   }
 
-  if (uploadedDocs.length === 0) {
-    return NextResponse.json({ error: 'Please upload at least one document.' }, { status: 400 })
+  // Generate fresh signed view URLs (7 days) for the admin email
+  const uploadedDocs: { type: string; name: string; path: string; signedUrl: string }[] = []
+  for (const d of validDocs) {
+    const { data: signed } = await supabaseAdmin.storage
+      .from('verification-docs')
+      .createSignedUrl(d.path, 60 * 60 * 24 * 7)
+    uploadedDocs.push({ type: d.type, name: d.name, path: d.path, signedUrl: signed?.signedUrl ?? d.path })
   }
 
   // Save document records to DB so admin can view them later

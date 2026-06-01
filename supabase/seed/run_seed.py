@@ -4,9 +4,17 @@ Marbella fleet seed — runs directly against Supabase REST API.
 Usage: python3 supabase/seed/run_seed.py
 """
 import json, sys, urllib.request, urllib.error
+import os
+if not os.environ.get("SUPABASE_SERVICE_ROLE_KEY"):
+    try:
+        for _l in open(os.path.join(os.path.dirname(__file__), "..", "..", ".env.local")):
+            if _l.startswith("SUPABASE_SERVICE_ROLE_KEY"):
+                os.environ["SUPABASE_SERVICE_ROLE_KEY"] = _l.split("=", 1)[1].strip().strip(chr(34)).strip(chr(39)); break
+    except Exception:
+        pass
 
 SUPABASE_URL = "https://xluprzxpuoryiwvxhfgw.supabase.co"
-SERVICE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhsdXByenhwdW9yeWl3dnhoZmd3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTgyMjQzNywiZXhwIjoyMDk1Mzk4NDM3fQ.J3yfsbYAJwIUV7llBiwbUF4nGMTEBckn4FUjBFzzNmQ"
+SERVICE_KEY  = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 
 HEADERS = {
     "apikey":        SERVICE_KEY,

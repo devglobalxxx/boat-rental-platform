@@ -2,13 +2,12 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { createConnectAccount, createConnectAccountLink } from '@/lib/stripe'
-import { CheckCircle, ArrowRight, CreditCard, Shield, Banknote } from 'lucide-react'
+import { CheckCircle, ArrowRight } from 'lucide-react'
 import PayoutBadge from '@/components/ui/PayoutBadge'
+import PayoutTabs from '@/components/host/PayoutTabs'
+import { type PayoutMethod } from '@/components/host/BankDetailsForm'
 import { headers } from 'next/headers'
 
-const gold = '#c9a84e'
-const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -27,6 +26,18 @@ export default async function HostOnboardingPage({ searchParams }: Props) {
     .select('stripe_account_id, full_name')
     .eq('id', user.id)
     .single()
+
+  // Existing manual payout method (RLS lets a host read only their own row).
+  // Wrapped so the page never errors if the migration hasn't been run yet.
+  let payoutMethod: PayoutMethod = null
+  try {
+    const { data } = await supabase
+      .from('payout_methods')
+      .select('account_holder_name, account_holder_type, account_holder_address, bank_country, bank_name, iban, account_number, swift_bic, currency, is_sepa, notes, updated_at')
+      .eq('host_id', user.id)
+      .maybeSingle()
+    payoutMethod = (data as PayoutMethod) ?? null
+  } catch { payoutMethod = null }
 
   if (params.success && profile?.stripe_account_id) {
     return (
@@ -49,49 +60,32 @@ export default async function HostOnboardingPage({ searchParams }: Props) {
     : `http://${headersList.get('host') ?? 'localhost:3000'}`
 
   let stripeAccountId = profile?.stripe_account_id
-  if (!stripeAccountId) {
-    const account = await createConnectAccount(user.email!)
-    stripeAccountId = account.id
-    await supabase.from('profiles').update({ stripe_account_id: stripeAccountId }).eq('id', user.id)
+  let accountLink: { url: string } | null = null
+  let stripeError: string | null = null
+
+  try {
+    if (!stripeAccountId) {
+      const account = await createConnectAccount(user.email!)
+      stripeAccountId = account.id
+      await supabase.from('profiles').update({ stripe_account_id: stripeAccountId }).eq('id', user.id)
+    }
+    accountLink = await createConnectAccountLink(stripeAccountId, origin)
+  } catch (e: unknown) {
+    // Stripe Connect may not be enabled on the platform account yet, or another Stripe error.
+    stripeError = e instanceof Error ? e.message : 'Stripe is not available right now.'
   }
-
-  const accountLink = await createConnectAccountLink(stripeAccountId, origin)
-
-  const features = [
-    { Icon: CreditCard, title: 'Secure card processing', desc: 'Guests pay by card — you get paid automatically after each booking.' },
-    { Icon: Banknote,   title: 'Direct bank payouts',    desc: 'Earnings transferred to your bank 7 days after the charter date.' },
-    { Icon: Shield,     title: 'Stripe-powered security', desc: 'Industry-leading fraud protection and compliance built in.' },
-  ]
 
   return (
     <div style={{ minHeight: '100vh', background: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px', color: text }}>
       <div style={{ width: '100%', maxWidth: '480px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <h1 style={{ fontSize: '28px', fontWeight: 800, color: text, marginBottom: '10px' }}>Set up payouts</h1>
-          <p style={{ fontSize: '15px', color: muted }}>Connect your bank account to receive payments from guests.</p>
+          <p style={{ fontSize: '15px', color: muted }}>Choose how you&apos;d like to receive your earnings.</p>
         </div>
 
-        <div style={{ background: card, border: `1px solid ${border}`, borderRadius: '20px', padding: '28px', marginBottom: '20px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '28px' }}>
-            {features.map((item) => (
-              <div key={item.title} style={{ display: 'flex', gap: '14px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <item.Icon style={{ width: 18, height: 18, color: gold }} />
-                </div>
-                <div>
-                  <div style={{ fontWeight: 700, color: text, fontSize: '14px', marginBottom: '4px' }}>{item.title}</div>
-                  <div style={{ fontSize: '13px', color: muted, lineHeight: 1.5 }}>{item.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <a
-            href={accountLink.url}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '14px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)' }}
-          >
-            Set up with Stripe <ArrowRight style={{ width: 16, height: 16 }} />
-          </a>
+        {/* Payout method tabs: Bank account (live) · Stripe (coming soon) */}
+        <div style={{ marginBottom: '20px' }}>
+          <PayoutTabs payoutMethod={payoutMethod} stripeUrl={accountLink?.url ?? null} />
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>

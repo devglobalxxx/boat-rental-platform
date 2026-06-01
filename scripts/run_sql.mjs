@@ -1,7 +1,11 @@
+import { readFileSync as __rfEnv } from 'node:fs'
+if (!process.env.SUPABASE_SERVICE_ROLE_KEY) { try { for (const __l of __rfEnv(new URL('../.env.local', import.meta.url), 'utf8').split('\n')) { const __m = __l.match(/^\s*SUPABASE_SERVICE_ROLE_KEY\s*=\s*(.+?)\s*$/); if (__m) { process.env.SUPABASE_SERVICE_ROLE_KEY = __m[1].replace(/^['"]|['"]$/g, ''); break } } } catch {} }
+if (!process.env.SUPABASE_SERVICE_ROLE_KEY) { console.error('Missing SUPABASE_SERVICE_ROLE_KEY (set it in .env.local or the environment).'); process.exit(1) }
+
 import pg from 'pg'
 const { Client } = pg
 
-const SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhsdXByenhwdW9yeWl3dnhoZmd3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTgyMjQzNywiZXhwIjoyMDk1Mzk4NDM3fQ.J3yfsbYAJwIUV7llBiwbUF4nGMTEBckn4FUjBFzzNmQ'
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const PROJECT_REF = 'xluprzxpuoryiwvxhfgw'
 
 // Try new pooler patterns (aws-1, aws-2)

@@ -937,3 +937,88 @@
 [2026-06-01 07:45:38]   (near-duplicate topic, skipping: yacht hire)
 [2026-06-01 07:45:38] [68/68] landing · boat-hire-cannes
 [2026-06-01 07:45:38]   (near-duplicate topic, skipping: boat hire cannes)
+[2026-06-01 07:45:40] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-01 07:45:43] reindex ping: 200 {"ok":true,"urls_total":717,"indexnow":{"ok":true,"status":200,"count":717},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-01T04:45
+[2026-06-01 07:45:43] === Done: 68 ok, 0 failed ===
+
+[2026-06-02 00:57:58] === Generate: 0 blog + 40 landing = 40 item(s) (backend=deepseek) ===
+[2026-06-02 00:57:59] [1/40] landing · yacht-charter
+[2026-06-02 00:57:59]   (near-duplicate topic, skipping: yacht charter)
+[2026-06-02 00:57:59] [2/40] landing · charter-boat
+[2026-06-02 00:57:59]   (near-duplicate topic, skipping: charter boat)
+[2026-06-02 00:57:59] [3/40] landing · luxury-motor-yacht-charter
+[2026-06-02 00:58:44]   ✓ generated
+[2026-06-02 00:58:44] [4/40] landing · yacht-rental-marina-del-rey
+[2026-06-02 00:59:26]   ✓ generated
+[2026-06-02 00:59:26] [5/40] landing · havasu-boat-rentals
+[2026-06-02 01:00:04]   ✓ generated
+[2026-06-02 01:00:04] [6/40] landing · yacht-rental-miami
+[2026-06-02 01:00:47]   ✓ generated
+[2026-06-02 01:00:47] [7/40] landing · lake-havasu-boat-rentals
+[2026-06-02 01:00:47]   (near-duplicate topic, skipping: lake havasu boat rentals)
+[2026-06-02 01:00:47] [8/40] landing · lake-travis-rent-boat
+[2026-06-02 01:01:18]   ✓ generated
+[2026-06-02 01:01:18] [9/40] landing · lake-travis-boat-rental
+[2026-06-02 01:01:18]   (near-duplicate topic, skipping: lake travis boat rental)
+[2026-06-02 01:01:18] [10/40] landing · rent-a-boat
+[2026-06-02 01:02:03]   ✓ generated
+[2026-06-02 01:02:03] [11/40] landing · boat-rental-lake-of-the-ozarks
+[2026-06-02 01:02:42]   ✓ generated
+[2026-06-02 01:02:42] [12/40] landing · boat-rental-miami
+[2026-06-02 01:03:20]   ✓ generated
+[2026-06-02 01:03:20] [13/40] landing · boat-rental-in-miami
+[2026-06-02 01:03:20]   (near-duplicate topic, skipping: boat rental in miami)
+[2026-06-02 01:03:20] [14/40] landing · boat-hire-miami
+[2026-06-02 01:03:20]   (near-duplicate topic, skipping: boat hire miami)
+[2026-06-02 01:03:20] [15/40] landing · boat-rental-fort-lauderdale
+[2026-06-02 01:03:53]   ✓ generated
+[2026-06-02 01:03:53] [16/40] landing · boat-hire-fort-lauderdale
+[2026-06-02 01:03:53]   (near-duplicate topic, skipping: boat hire fort lauderdale)
+[2026-06-02 01:03:53] [17/40] landing · boat-rental-in-fort-lauderdale
+[2026-06-02 01:03:53]   (near-duplicate topic, skipping: boat rental in fort lauderdale)
+[2026-06-02 01:03:53] [18/40] landing · boat-rental-san-diego
+[2026-06-02 01:04:36]   ✓ generated
+[2026-06-02 01:04:36] [19/40] landing · boat-hire-san-diego
+[2026-06-02 01:04:36]   (near-duplicate topic, skipping: boat hire san diego)
+[2026-06-02 01:04:36] [20/40] landing · boat-rental-in-san-diego
+[2026-06-02 01:04:36]   (near-duplicate topic, skipping: boat rental in san diego)
+[2026-06-02 01:04:36] [21/40] landing · yacht-charter-miami
+[2026-06-02 01:04:36]   (near-duplicate topic, skipping: yacht charter miami)
+[2026-06-02 01:04:36] [22/40] landing · boat-rental-naples
+[2026-06-02 01:05:15]   ✓ generated
+[2026-06-02 01:05:15] [23/40] landing · boat-rental-in-naples
+[2026-06-02 01:05:15]   (near-duplicate topic, skipping: boat rental in naples)
+[2026-06-02 01:05:15] [24/40] landing · yacht-rental-cancun
+[2026-06-02 01:05:57]   ✓ generated
+[2026-06-02 01:05:57] [25/40] landing · boat-rental-key-west
+[2026-06-02 01:06:30]   ✓ generated
+[2026-06-02 01:06:30] [26/40] landing · boat-hire-key-west
+[2026-06-02 01:06:30]   (near-duplicate topic, skipping: boat hire key west)
+[2026-06-02 01:06:30] [27/40] landing · boat-rental-in-key-west
+[2026-06-02 01:06:30]   (near-duplicate topic, skipping: boat rental in key west)
+[2026-06-02 01:06:30] [28/40] landing · yacht-rental-san-diego
+[2026-06-02 01:06:30]   (near-duplicate topic, skipping: yacht rental san diego)
+[2026-06-02 01:06:30] [29/40] landing · yacht-rental-fort-lauderdale
+[2026-06-02 01:06:30]   (near-duplicate topic, skipping: yacht rental fort lauderdale)
+[2026-06-02 01:06:30] [30/40] landing · boat-rental-cancun
+[2026-06-02 01:07:00]   ✓ generated
+[2026-06-02 01:07:00] [31/40] landing · boat-hire-cancun
+[2026-06-02 01:07:00]   (near-duplicate topic, skipping: boat hire cancun)
+[2026-06-02 01:07:00] [32/40] landing · boat-rental-in-cancun
+[2026-06-02 01:07:00]   (near-duplicate topic, skipping: boat rental in cancun)
+[2026-06-02 01:07:00] [33/40] landing · yacht-rental-dubai
+[2026-06-02 01:07:34]   ✓ generated
+[2026-06-02 01:07:34] [34/40] landing · yacht-charter-san-diego
+[2026-06-02 01:07:34]   (near-duplicate topic, skipping: yacht charter san diego)
+[2026-06-02 01:07:34] [35/40] landing · boat-rental-lake-como
+[2026-06-02 01:08:20]   ✓ generated
+[2026-06-02 01:08:20] [36/40] landing · boat-hire-lake-como
+[2026-06-02 01:08:20]   (near-duplicate topic, skipping: boat hire lake como)
+[2026-06-02 01:08:20] [37/40] landing · boat-rental-in-lake-como
+[2026-06-02 01:08:20]   (near-duplicate topic, skipping: boat rental in lake como)
+[2026-06-02 01:08:20] [38/40] landing · yacht-charter-fort-lauderdale
+[2026-06-02 01:08:20]   (near-duplicate topic, skipping: yacht charter fort lauderdale)
+[2026-06-02 01:08:20] [39/40] landing · boat-rental-mallorca
+[2026-06-02 01:09:01]   ✓ generated
+[2026-06-02 01:09:01] [40/40] landing · boat-rental-in-mallorca
+[2026-06-02 01:09:01]   (near-duplicate topic, skipping: boat rental in mallorca)

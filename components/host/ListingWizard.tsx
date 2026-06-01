@@ -24,6 +24,10 @@ interface WizardProps {
 
 const STEPS = ['Basics', 'Specs & features', 'Pricing', 'Photos', 'Review & publish']
 
+// Custom refund policy is stored as a namespaced boat_features row so it needs
+// no DB migration. Anything after this prefix is the host's free-text policy.
+export const REFUND_MARKER = '__REFUND_POLICY__::'
+
 const BOAT_TYPES = [
   'motor_yacht', 'catamaran', 'sailing', 'speedboat', 'fishing', 'rib', 'luxury',
 ]
@@ -50,7 +54,7 @@ interface FormData {
   name: string; tagline: string; description: string; type: string; locationId: string
   departurePort: string; capacityPax: number; lengthM: string; cabins: number
   builder: string; modelYear: string; includesSkipper: boolean; includesFuel: boolean
-  includesDrinks: boolean; instantBook: boolean; cancellationPolicy: string; minHours: number
+  includesDrinks: boolean; instantBook: boolean; cancellationPolicy: string; cancellationCustom: string; minHours: number
   pricingType: string; selectedFeatures: string[]; pricing: { durationHours: number; price: string }[]
   images: File[]
 }
@@ -58,7 +62,7 @@ interface FormData {
 const INITIAL: FormData = {
   name: '', tagline: '', description: '', type: 'motor_yacht', locationId: '', departurePort: '',
   capacityPax: 8, lengthM: '', cabins: 0, builder: '', modelYear: '', includesSkipper: true,
-  includesFuel: true, includesDrinks: false, instantBook: false, cancellationPolicy: 'moderate',
+  includesFuel: true, includesDrinks: false, instantBook: false, cancellationPolicy: 'moderate', cancellationCustom: '',
   minHours: 2, pricingType: 'hourly', selectedFeatures: [],
   pricing: [{ durationHours: 2, price: '' }, { durationHours: 4, price: '' }, { durationHours: 8, price: '' }],
   images: [],
@@ -66,6 +70,11 @@ const INITIAL: FormData = {
 
 function formFromInitial(d?: any): FormData {
   if (!d) return INITIAL
+  const allFeatures: string[] = (d.boat_features ?? []).map((f: any) => f.feature)
+  // Pull the custom refund policy out of the features list (it's stored there to avoid a migration)
+  const refundRow = allFeatures.find((f) => f.startsWith(REFUND_MARKER))
+  const customRefund = refundRow ? refundRow.slice(REFUND_MARKER.length) : ''
+  const visibleFeatures = allFeatures.filter((f) => !f.startsWith(REFUND_MARKER))
   return {
     name: d.name ?? '', tagline: d.tagline ?? '', description: d.description ?? '',
     type: d.type ?? 'motor_yacht', locationId: d.location_id ?? '',
@@ -74,9 +83,11 @@ function formFromInitial(d?: any): FormData {
     builder: d.builder ?? '', modelYear: d.model_year ? String(d.model_year) : '',
     includesSkipper: d.includes_skipper ?? true, includesFuel: d.includes_fuel ?? true,
     includesDrinks: d.includes_drinks ?? false, instantBook: d.instant_book ?? false,
-    cancellationPolicy: d.cancellation_policy ?? 'moderate', minHours: d.min_hours ?? 2,
+    cancellationPolicy: customRefund ? 'custom' : (d.cancellation_policy ?? 'moderate'),
+    cancellationCustom: customRefund,
+    minHours: d.min_hours ?? 2,
     pricingType: d.pricing_type ?? 'hourly',
-    selectedFeatures: (d.boat_features ?? []).map((f: any) => f.feature),
+    selectedFeatures: visibleFeatures,
     pricing: (d.boat_pricing ?? []).length > 0
       ? (d.boat_pricing ?? []).map((p: any) => ({ durationHours: p.duration_hours, price: String(p.price) }))
       : INITIAL.pricing,
@@ -216,7 +227,10 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         departure_port: form.departurePort || null, includes_skipper: form.includesSkipper,
         includes_fuel: form.includesFuel, includes_drinks: form.includesDrinks,
         min_hours: form.minHours, pricing_type: form.pricingType as any,
-        instant_book: form.instantBook, cancellation_policy: form.cancellationPolicy as any,
+        instant_book: form.instantBook,
+        // 'custom' isn't a DB enum value — store 'strict' as the safe base; the real
+        // custom terms live in a boat_features marker row (see below).
+        cancellation_policy: (form.cancellationPolicy === 'custom' ? 'strict' : form.cancellationPolicy) as any,
       }
 
       let targetBoatId: string
@@ -253,8 +267,13 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       if (pricingRecords.length > 0) await supabase.from('boat_pricing').insert(pricingRecords)
 
       if (boatId) await supabase.from('boat_features').delete().eq('boat_id', boatId)
-      if (form.selectedFeatures.length > 0) {
-        await supabase.from('boat_features').insert(form.selectedFeatures.map((f) => ({ boat_id: targetBoatId, feature: f })))
+      const featureRows = form.selectedFeatures.map((f) => ({ boat_id: targetBoatId, feature: f }))
+      // Persist a custom refund policy as a namespaced feature row (no migration needed)
+      if (form.cancellationPolicy === 'custom' && form.cancellationCustom.trim()) {
+        featureRows.push({ boat_id: targetBoatId, feature: REFUND_MARKER + form.cancellationCustom.trim() })
+      }
+      if (featureRows.length > 0) {
+        await supabase.from('boat_features').insert(featureRows)
       }
 
       if (form.images.length > 0) {
@@ -415,13 +434,64 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         {step === 2 && (
           <>
             <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Set your prices</h2>
-            <Field label="Cancellation policy">
-              <DarkSelect value={form.cancellationPolicy} onChange={(v) => update('cancellationPolicy', v)}>
-                <option value="flexible">Flexible — full refund up to 24h before</option>
-                <option value="moderate">Moderate — full refund up to 5 days before</option>
-                <option value="strict">Strict — 50% refund up to 14 days before</option>
-              </DarkSelect>
-            </Field>
+
+            {/* ── Cancellation / refund policy ── */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>
+                Cancellation &amp; refund policy
+              </label>
+              <p style={{ fontSize: '12px', color: dim, margin: '-4px 0 4px' }}>Choose a standard policy or set your own custom refund terms.</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
+                {[
+                  { v: 'flexible', label: 'Flexible',  desc: 'Full refund up to 24h before departure.' },
+                  { v: 'moderate', label: 'Moderate',  desc: 'Full refund up to 5 days before.' },
+                  { v: 'strict',   label: 'Strict',    desc: '50% refund up to 14 days before.' },
+                  { v: 'custom',   label: '✍️ Custom', desc: 'Define your own refund terms.' },
+                ].map((opt) => {
+                  const active = form.cancellationPolicy === opt.v
+                  return (
+                    <button
+                      key={opt.v}
+                      type="button"
+                      onClick={() => update('cancellationPolicy', opt.v)}
+                      style={{
+                        textAlign: 'left', padding: '14px 14px', borderRadius: '12px', cursor: 'pointer',
+                        background: active ? goldFaint : 'transparent',
+                        border: `1.5px solid ${active ? gold : inputBorder}`,
+                        transition: 'all 0.15s',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
+                        <span style={{ fontSize: '14px', fontWeight: 700, color: active ? gold : text }}>{opt.label}</span>
+                        <span style={{ width: '16px', height: '16px', borderRadius: '50%', border: `2px solid ${active ? gold : inputBorder}`, background: active ? gold : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          {active && <Check style={{ width: 10, height: 10, color: '#07101e' }} />}
+                        </span>
+                      </div>
+                      <p style={{ fontSize: '12px', color: muted, lineHeight: 1.5, margin: 0 }}>{opt.desc}</p>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Custom builder */}
+              {form.cancellationPolicy === 'custom' && (
+                <div style={{ marginTop: '6px', padding: '16px', borderRadius: '12px', background: goldFaint, border: `1px solid ${goldBorder}` }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: gold, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
+                    Your custom refund policy
+                  </label>
+                  <DarkTextarea
+                    value={form.cancellationCustom}
+                    onChange={(e) => update('cancellationCustom', e.target.value)}
+                    rows={5}
+                    placeholder={'Example:\n• 100% refund if cancelled 30+ days before\n• 50% refund if cancelled 7–29 days before\n• No refund within 7 days of departure\n• Weather cancellations: full refund or free reschedule'}
+                    style={{ minHeight: '120px' }}
+                  />
+                  <p style={{ fontSize: '11px', color: dim, marginTop: '8px', marginBottom: 0 }}>
+                    Guests will see these exact terms before booking. Be clear about refund percentages, time windows, and weather/no-show rules.
+                  </p>
+                </div>
+              )}
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>Pricing tiers (EUR)</label>
               {form.pricing.map((p, i) => (

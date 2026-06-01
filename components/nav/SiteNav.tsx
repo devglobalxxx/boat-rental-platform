@@ -7,6 +7,7 @@ import { X, User, LogOut, LayoutDashboard, Ship, Menu, Search, Compass, HelpCirc
 import { createClient } from '@/lib/supabase/client'
 import Logo from '@/components/ui/Logo'
 import LanguageSwitcher from '@/components/nav/LanguageSwitcher'
+import HeroSearchPill from '@/components/home/HeroSearchPill'
 import { LOCALES, translations, type Locale } from '@/lib/i18n/translations'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 
@@ -124,28 +125,32 @@ export default function SiteNav() {
 
           {/* Desktop auth */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="hidden-mobile">
-            {/* Instagram icon */}
+            {/* Instagram chip — full footer style */}
             <a
               href="https://www.instagram.com/boathire24"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Follow @BoatHire24 on Instagram"
-              title="Follow @BoatHire24"
               style={{
-                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                width: '34px', height: '34px', borderRadius: '10px',
-                background: 'linear-gradient(135deg,#FED576 0%,#F47133 30%,#BC3081 65%,#4C63D2 100%)',
+                display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '2px', borderRadius: '50px',
+                background: 'linear-gradient(135deg,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)',
                 textDecoration: 'none', flexShrink: 0,
-                boxShadow: '0 2px 10px rgba(214,36,159,0.30)', transition: 'transform 0.15s',
+                boxShadow: '0 3px 14px rgba(214,36,159,0.30),0 2px 8px rgba(253,89,73,0.18)', transition: 'transform 0.15s',
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.08)' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)' }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
-              </svg>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 8px 5px 5px', borderRadius: '50px', background: 'linear-gradient(180deg, rgba(7,16,30,0.95) 0%, rgba(7,16,30,0.92) 100%)', color: '#f4f4f2', fontSize: '13px', fontWeight: 700, letterSpacing: '-0.01em' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px', borderRadius: '7px', background: 'linear-gradient(135deg,#FED576 0%,#F47133 30%,#BC3081 65%,#4C63D2 100%)', flexShrink: 0 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+                  </svg>
+                </span>
+                <span style={{ whiteSpace: 'nowrap' }}>@BoatHire24</span>
+                <span style={{ fontSize: '11px', fontWeight: 800, padding: '3px 9px', borderRadius: '50px', background: 'linear-gradient(135deg,#fd5949,#d6249f)', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Follow</span>
+              </span>
             </a>
             <LanguageSwitcher />
             {user ? (
@@ -295,18 +300,44 @@ export default function SiteNav() {
             )}
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setOpen(!open)}
-            style={{ display: 'none', padding: '8px', borderRadius: '10px', background: 'transparent', border: '1px solid rgba(255,255,255,0.10)', color: 'rgba(244,244,242,0.70)', cursor: 'pointer' }}
-            className="show-mobile"
-          >
-            {open
-              ? <X style={{ width: 20, height: 20 }} />
-              : <Menu style={{ width: 20, height: 20 }} />
-            }
-          </button>
+          {/* Mobile: Instagram icon + hamburger */}
+          <div style={{ display: 'none', alignItems: 'center', gap: '10px' }} className="show-mobile">
+            <a
+              href="https://www.instagram.com/boathire24"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow @BoatHire24 on Instagram"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '2px', borderRadius: '50px', background: 'linear-gradient(135deg,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)', textDecoration: 'none', flexShrink: 0, boxShadow: '0 3px 14px rgba(214,36,159,0.30),0 2px 8px rgba(253,89,73,0.18)' }}
+            >
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 10px 4px 4px', borderRadius: '50px', background: 'linear-gradient(180deg, rgba(7,16,30,0.95) 0%, rgba(7,16,30,0.92) 100%)' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px', borderRadius: '7px', background: 'linear-gradient(135deg,#FED576 0%,#F47133 30%,#BC3081 65%,#4C63D2 100%)', flexShrink: 0 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+                  </svg>
+                </span>
+                <span style={{ fontSize: '10px', fontWeight: 800, padding: '3px 8px', borderRadius: '50px', background: 'linear-gradient(135deg,#fd5949,#d6249f)', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Follow</span>
+              </span>
+            </a>
+            <button
+              onClick={() => setOpen(!open)}
+              style={{ padding: '8px', borderRadius: '10px', background: 'transparent', border: '1px solid rgba(255,255,255,0.10)', color: 'rgba(244,244,242,0.70)', cursor: 'pointer', display: 'inline-flex' }}
+            >
+              {open
+                ? <X style={{ width: 20, height: 20 }} />
+                : <Menu style={{ width: 20, height: 20 }} />
+              }
+            </button>
+          </div>
         </div>
+
+        {/* ── Airbnb-style centered search band (homepage only) ── */}
+        {pathname === '/' && (
+          <div style={{ borderTop: '1px solid rgba(201,168,78,0.10)', paddingTop: '16px', paddingBottom: '18px', display: 'flex', justifyContent: 'center' }}>
+            <HeroSearchPill compact />
+          </div>
+        )}
       </div>
 
       {/* Mobile menu */}

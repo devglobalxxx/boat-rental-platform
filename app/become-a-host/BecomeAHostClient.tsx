@@ -248,6 +248,83 @@ export default function BecomeAHostClient() {
         </div>
       </section>
 
+      {/* ── How & when you get paid ── */}
+      <section style={{ maxWidth: '980px', margin: '0 auto', padding: '88px 24px 0' }}>
+        <div style={{ textAlign: 'center', marginBottom: '44px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '16px' }}>
+            💸 Payments &amp; payouts
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.2, marginBottom: '12px' }}>
+            How &amp; when you get paid
+          </h2>
+          <p style={{ fontSize: '16px', color: textMuted, maxWidth: '560px', margin: '0 auto', lineHeight: 1.6 }}>
+            Every guest pays <strong style={{ color: '#f4f4f2' }}>100% upfront</strong>. BoatHire24 securely holds the funds and pays you out — <strong style={{ color: gold }}>24 hours after check-in / trip start</strong>.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+
+          {/* Standard Operators */}
+          <div style={{ position: 'relative', borderRadius: '18px', padding: '32px 28px', background: '#0c1828', border: `1px solid ${goldBorder}` }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+              <span style={{ fontSize: '20px' }}>⚓</span>
+              <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f4f4f2', margin: 0 }}>Standard Operators</h3>
+            </div>
+            <p style={{ fontSize: '13px', color: 'rgba(244,244,242,0.45)', margin: '0 0 22px' }}>Every new host starts here</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {[
+                { t: 'Customer pays 100% upfront', s: 'Booking is confirmed only once paid in full.' },
+                { t: 'BoatHire24 holds the funds', s: 'Held securely in escrow via Stripe until the trip.' },
+                { t: 'You’re paid 24h after check-in', s: 'Payout released to your bank a day after the trip starts.' },
+              ].map((row, i) => (
+                <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                  <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', fontWeight: 700, marginTop: '1px' }}>✓</span>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#f4f4f2' }}>{row.t}</div>
+                    <div style={{ fontSize: '13px', color: textMuted, lineHeight: 1.55, marginTop: '2px' }}>{row.s}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Verified Operators */}
+          <div style={{ position: 'relative', borderRadius: '18px', padding: '32px 28px', background: 'linear-gradient(135deg, #1a1208 0%, #0e1828 100%)', border: '2px solid', borderImage: 'linear-gradient(135deg,#fde68a,#fbbf24,#c9a84e,#92400e) 1', overflow: 'hidden' }}>
+            <div aria-hidden style={{ position: 'absolute', top: '-40px', right: '-40px', width: '180px', height: '180px', background: 'radial-gradient(circle, rgba(251,191,36,0.14) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <div style={{ position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '20px' }}>🛡️</span>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f4f4f2', margin: 0 }}>Verified Operators</h3>
+                <span style={{ fontSize: '10px', fontWeight: 800, padding: '3px 9px', borderRadius: '99px', background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', color: '#1a1208', textTransform: 'uppercase' as const, letterSpacing: '0.06em' }}>Trusted</span>
+              </div>
+              <p style={{ fontSize: '13px', color: '#fbbf24', margin: '0 0 22px', fontWeight: 600 }}>Unlocked after your first completed booking</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {[
+                  { t: 'Customer pays 100% upfront', s: 'Same secure upfront payment for every booking.' },
+                  { t: 'Funds may be released before departure', s: 'Faster access to your money — ahead of the trip.' },
+                  { t: 'Reserved for trusted partners', s: 'For operators with a proven booking track record.' },
+                ].map((row, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                    <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', color: '#1a1208', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', fontWeight: 800, marginTop: '1px' }}>✓</span>
+                    <div>
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#f4f4f2' }}>{row.t}</div>
+                      <div style={{ fontSize: '13px', color: 'rgba(244,244,242,0.65)', lineHeight: 1.55, marginTop: '2px' }}>{row.s}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: '20px', padding: '10px 14px', borderRadius: '10px', background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.22)', fontSize: '12px', color: '#fbbf24', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                ⭐ Minimum 1 completed booking required to qualify
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(244,244,242,0.35)', marginTop: '24px', lineHeight: 1.6 }}>
+          All payouts are processed via Stripe directly to your connected bank account. BoatHire24 keeps a 15% platform commission — you receive 85% of every booking.
+        </p>
+      </section>
+
       {/* ── CTA block ── */}
       <section style={{ maxWidth: '900px', margin: '0 auto', padding: '88px 24px' }}>
         <div style={{ borderRadius: '22px', padding: '44px', background: 'linear-gradient(135deg,#0e1e35,#0c1828)', border: `1px solid ${goldBorder}` }}>

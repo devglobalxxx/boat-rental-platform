@@ -2450,16 +2450,15 @@
       "target_words": 2200,
       "search_volume": 260,
       "consumed_at": "2026-06-01"
-    }
-  ],
-  "queue": [
+    },
     {
       "kind": "landing",
       "slug": "yacht-charter",
       "primary_keyword": "yacht charter",
       "title": "Yacht Charter | BoatHire24",
       "target_words": 2200,
-      "search_volume": 9900
+      "search_volume": 9900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2467,7 +2466,8 @@
       "primary_keyword": "charter boat",
       "title": "Charter Boat | BoatHire24",
       "target_words": 2200,
-      "search_volume": 8100
+      "search_volume": 8100,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2475,7 +2475,8 @@
       "primary_keyword": "luxury motor yacht charter",
       "title": "Luxury Motor Yacht Charter | BoatHire24",
       "target_words": 2200,
-      "search_volume": 5400
+      "search_volume": 5400,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2483,7 +2484,8 @@
       "primary_keyword": "yacht rental marina del rey",
       "title": "Yacht Rental Marina Del Rey | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1000
+      "search_volume": 1000,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2491,7 +2493,8 @@
       "primary_keyword": "havasu boat rentals",
       "title": "Havasu Boat Rentals | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1000
+      "search_volume": 1000,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2499,7 +2502,8 @@
       "primary_keyword": "yacht rental miami",
       "title": "Yacht Rental Miami | BoatHire24",
       "target_words": 2200,
-      "search_volume": 27100
+      "search_volume": 27100,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2507,7 +2511,8 @@
       "primary_keyword": "lake havasu boat rentals",
       "title": "Lake Havasu Boat Rentals | BoatHire24",
       "target_words": 2200,
-      "search_volume": 12100
+      "search_volume": 12100,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2515,7 +2520,8 @@
       "primary_keyword": "lake travis rent boat",
       "title": "Lake Travis Rent Boat | BoatHire24",
       "target_words": 2200,
-      "search_volume": 9900
+      "search_volume": 9900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2523,7 +2529,8 @@
       "primary_keyword": "lake travis boat rental",
       "title": "Lake Travis Boat Rental | BoatHire24",
       "target_words": 2200,
-      "search_volume": 9900
+      "search_volume": 9900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2531,7 +2538,8 @@
       "primary_keyword": "rent a boat",
       "title": "Rent A Boat | BoatHire24",
       "target_words": 2200,
-      "search_volume": 8100
+      "search_volume": 8100,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2539,7 +2547,8 @@
       "primary_keyword": "boat rental lake of the ozarks",
       "title": "Boat Rental Lake Of The Ozarks | BoatHire24",
       "target_words": 2200,
-      "search_volume": 8100
+      "search_volume": 8100,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2547,7 +2556,8 @@
       "primary_keyword": "boat rental miami",
       "title": "Boat Rental Miami | BoatHire24",
       "target_words": 2200,
-      "search_volume": 6600
+      "search_volume": 6600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2555,7 +2565,8 @@
       "primary_keyword": "boat rental in miami",
       "title": "Boat Rental In Miami | BoatHire24",
       "target_words": 2200,
-      "search_volume": 6600
+      "search_volume": 6600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2563,7 +2574,8 @@
       "primary_keyword": "boat hire miami",
       "title": "Boat Hire Miami | BoatHire24",
       "target_words": 2200,
-      "search_volume": 5400
+      "search_volume": 5400,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2571,7 +2583,8 @@
       "primary_keyword": "boat rental fort lauderdale",
       "title": "Boat Rental Fort Lauderdale | BoatHire24",
       "target_words": 2200,
-      "search_volume": 4400
+      "search_volume": 4400,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2579,7 +2592,8 @@
       "primary_keyword": "boat hire fort lauderdale",
       "title": "Boat Hire Fort Lauderdale | BoatHire24",
       "target_words": 2200,
-      "search_volume": 4400
+      "search_volume": 4400,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2587,7 +2601,8 @@
       "primary_keyword": "boat rental in fort lauderdale",
       "title": "Boat Rental In Fort Lauderdale | BoatHire24",
       "target_words": 2200,
-      "search_volume": 4400
+      "search_volume": 4400,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2595,7 +2610,8 @@
       "primary_keyword": "boat rental san diego",
       "title": "Boat Rental San Diego | BoatHire24",
       "target_words": 2200,
-      "search_volume": 4400
+      "search_volume": 4400,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2603,7 +2619,8 @@
       "primary_keyword": "boat hire san diego",
       "title": "Boat Hire San Diego | BoatHire24",
       "target_words": 2200,
-      "search_volume": 4400
+      "search_volume": 4400,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2611,7 +2628,8 @@
       "primary_keyword": "boat rental in san diego",
       "title": "Boat Rental In San Diego | BoatHire24",
       "target_words": 2200,
-      "search_volume": 4400
+      "search_volume": 4400,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2619,7 +2637,8 @@
       "primary_keyword": "yacht charter miami",
       "title": "Yacht Charter Miami | BoatHire24",
       "target_words": 2200,
-      "search_volume": 3600
+      "search_volume": 3600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2627,7 +2646,8 @@
       "primary_keyword": "boat rental naples",
       "title": "Boat Rental Naples | BoatHire24",
       "target_words": 2200,
-      "search_volume": 3600
+      "search_volume": 3600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2635,7 +2655,8 @@
       "primary_keyword": "boat rental in naples",
       "title": "Boat Rental In Naples | BoatHire24",
       "target_words": 2200,
-      "search_volume": 3600
+      "search_volume": 3600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2643,7 +2664,8 @@
       "primary_keyword": "yacht rental cancun",
       "title": "Yacht Rental Cancun | BoatHire24",
       "target_words": 2200,
-      "search_volume": 2900
+      "search_volume": 2900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2651,7 +2673,8 @@
       "primary_keyword": "boat rental key west",
       "title": "Boat Rental Key West | BoatHire24",
       "target_words": 2200,
-      "search_volume": 2900
+      "search_volume": 2900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2659,7 +2682,8 @@
       "primary_keyword": "boat hire key west",
       "title": "Boat Hire Key West | BoatHire24",
       "target_words": 2200,
-      "search_volume": 2900
+      "search_volume": 2900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2667,7 +2691,8 @@
       "primary_keyword": "boat rental in key west",
       "title": "Boat Rental In Key West | BoatHire24",
       "target_words": 2200,
-      "search_volume": 2900
+      "search_volume": 2900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2675,7 +2700,8 @@
       "primary_keyword": "yacht rental san diego",
       "title": "Yacht Rental San Diego | BoatHire24",
       "target_words": 2200,
-      "search_volume": 2900
+      "search_volume": 2900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2683,7 +2709,8 @@
       "primary_keyword": "yacht rental fort lauderdale",
       "title": "Yacht Rental Fort Lauderdale | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1900
+      "search_volume": 1900,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2691,7 +2718,8 @@
       "primary_keyword": "boat rental cancun",
       "title": "Boat Rental Cancun | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1600
+      "search_volume": 1600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2699,7 +2727,8 @@
       "primary_keyword": "boat hire cancun",
       "title": "Boat Hire Cancun | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1600
+      "search_volume": 1600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2707,7 +2736,8 @@
       "primary_keyword": "boat rental in cancun",
       "title": "Boat Rental In Cancun | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1600
+      "search_volume": 1600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2715,7 +2745,8 @@
       "primary_keyword": "yacht rental dubai",
       "title": "Yacht Rental Dubai | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1600
+      "search_volume": 1600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2723,7 +2754,8 @@
       "primary_keyword": "yacht charter san diego",
       "title": "Yacht Charter San Diego | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1600
+      "search_volume": 1600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2731,7 +2763,8 @@
       "primary_keyword": "boat rental lake como",
       "title": "Boat Rental Lake Como | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1600
+      "search_volume": 1600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2739,7 +2772,8 @@
       "primary_keyword": "boat hire lake como",
       "title": "Boat Hire Lake Como | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1600
+      "search_volume": 1600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2747,7 +2781,8 @@
       "primary_keyword": "boat rental in lake como",
       "title": "Boat Rental In Lake Como | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1600
+      "search_volume": 1600,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2755,7 +2790,8 @@
       "primary_keyword": "yacht charter fort lauderdale",
       "title": "Yacht Charter Fort Lauderdale | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1300
+      "search_volume": 1300,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2763,7 +2799,8 @@
       "primary_keyword": "boat rental mallorca",
       "title": "Boat Rental Mallorca | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1000
+      "search_volume": 1000,
+      "consumed_at": "2026-06-02"
     },
     {
       "kind": "landing",
@@ -2771,8 +2808,11 @@
       "primary_keyword": "boat rental in mallorca",
       "title": "Boat Rental In Mallorca | BoatHire24",
       "target_words": 2200,
-      "search_volume": 1000
-    },
+      "search_volume": 1000,
+      "consumed_at": "2026-06-02"
+    }
+  ],
+  "queue": [
     {
       "kind": "landing",
       "slug": "boat-rental-ibiza",

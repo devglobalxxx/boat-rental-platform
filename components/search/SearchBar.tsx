@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Search, MapPin, Calendar, Users } from 'lucide-react'
+import LocationInput from '@/components/search/LocationInput'
 
 const gold = '#c9a84e'
 const text = '#f4f4f2'
@@ -29,9 +30,10 @@ export default function SearchBar({
   const [guests, setGuests] = useState(defaultGuests)
   const router = useRouter()
 
-  function handleSearch() {
+  function handleSearch(locationOverride?: string) {
+    const loc = typeof locationOverride === 'string' ? locationOverride : location
     const params = new URLSearchParams()
-    if (location) params.set('location', location)
+    if (loc) params.set('location', loc)
     if (date) params.set('date', date)
     if (guests > 1) params.set('guests', String(guests))
     router.push(`/search?${params.toString()}`)
@@ -40,17 +42,17 @@ export default function SearchBar({
   /* ── Compact (used on /search page) ── */
   if (compact) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.06)', borderRadius: '99px', border: '1px solid rgba(201,168,78,0.22)', padding: '8px 8px 8px 18px', backdropFilter: 'blur(8px)' }}>
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.06)', borderRadius: '99px', border: '1px solid rgba(201,168,78,0.22)', padding: '8px 8px 8px 18px', backdropFilter: 'blur(8px)' }}>
         <MapPin style={{ width: 15, height: 15, color: gold, flexShrink: 0 }} />
-        <input
+        <LocationInput
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={setLocation}
+          onSelect={(v) => { setLocation(v); handleSearch(v) }}
+          onEnter={() => handleSearch()}
           placeholder="Where to?"
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          style={{ flex: 1, fontSize: '14px', color: text, background: 'transparent', border: 'none', outline: 'none', minWidth: 0 }}
         />
         <button
-          onClick={handleSearch}
+          onClick={() => handleSearch()}
           style={{ width: '36px', height: '36px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 10px rgba(201,168,78,0.30)' }}
         >
           <Search style={{ width: 14, height: 14, color: '#07101e' }} />
@@ -68,12 +70,12 @@ export default function SearchBar({
           <MapPin style={{ width: 18, height: 18, color: gold, flexShrink: 0 }} />
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: '10px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '3px' }}>Where</div>
-            <input
+            <LocationInput
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={setLocation}
+              onSelect={(v) => { setLocation(v); handleSearch(v) }}
+              onEnter={() => handleSearch()}
               placeholder="Destination, marina…"
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              style={{ width: '100%', fontSize: '14px', color: text, background: 'transparent', border: 'none', outline: 'none' }}
             />
           </div>
         </div>
@@ -114,7 +116,7 @@ export default function SearchBar({
 
         {/* Search button */}
         <button
-          onClick={handleSearch}
+          onClick={() => handleSearch()}
           style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '12px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 4px 18px rgba(201,168,78,0.30)', whiteSpace: 'nowrap' }}
         >
           <Search style={{ width: 16, height: 16 }} />
