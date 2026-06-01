@@ -21,13 +21,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing file or boatId' }, { status: 400 })
   }
 
-  // Verify the boat belongs to this user
-  const { data: boat } = await supabaseAdmin
-    .from('boats')
-    .select('id')
-    .eq('id', boatId)
-    .eq('host_id', user.id)
-    .single()
+  // Check if the caller is an admin (admin can upload for any boat)
+  const { data: me } = await supabaseAdmin
+    .from('profiles').select('is_admin').eq('id', user.id).single()
+
+  // Verify the boat belongs to this user — unless admin
+  let boatQuery = supabaseAdmin.from('boats').select('id').eq('id', boatId)
+  if (!me?.is_admin) boatQuery = boatQuery.eq('host_id', user.id)
+  const { data: boat } = await boatQuery.single()
 
   if (!boat) return NextResponse.json({ error: 'Boat not found or not yours' }, { status: 403 })
 

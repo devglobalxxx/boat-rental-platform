@@ -123,7 +123,7 @@ const DESTINATIONS = [
 
 const TRUST_ITEMS = [
   { icon: Shield, title: 'Fully Verified Fleet',       body: 'Every boat on BoatHire24 passes a physical inspection before accepting a booking. We check the vessel against maritime authority records, verify the skipper\'s licence for the operating zone, and confirm insurance is current. No exceptions — not even for high-revenue listings.' },
-  { icon: Anchor, title: 'Real, Transparent Pricing',  body: 'The price on every listing is the price you pay — plus a 15% service fee shown clearly before checkout. No fuel surcharges added on departure day, no administration fees buried in small print, and no negotiation required. What you see is what you pay.' },
+  { icon: Anchor, title: 'Real, Transparent Pricing',  body: 'The price on every listing is the all-inclusive price you pay. No service fees added at checkout, no fuel surcharges on departure day, no administration fees buried in small print, and no negotiation required. What you see is what you pay.' },
   { icon: Zap,    title: 'Instant Confirmation',        body: 'Instant-book listings confirm the moment you pay. No waiting for a broker to consult a handwritten diary. Your confirmation, with the captain\'s number and marina coordinates, arrives before you close the browser tab.' },
   { icon: Shield, title: 'Protected Payments',          body: 'Stripe holds your payment in escrow until 24 hours after your charter day. If the host cancels for any reason, your full payment is returned automatically. BoatHire24\'s dispute team is available seven days a week for anything more complex.' },
   { icon: Clock,  title: '24/7 Charter Support',        body: 'Our operations team monitors every active charter. If something goes wrong at sea — mechanical issue, weather change, medical event — you have a direct line to BoatHire24 support from the moment you board. We coordinate, communicate, and resolve.' },
@@ -225,7 +225,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { n: '01', icon: MapPin,  title: 'Search & Discover',  body: 'Browse over 1,200 verified vessels across 48 destinations. Filter by boat type, guest capacity, departure port, price range, and available dates so you only see boats that match your exact requirements. Every listing carries real photographs, accurate specifications, and honest pricing — no registration required to see what you will actually pay. Genuine reviews from previous guests are visible on every listing page before you commit to anything.' },
-              { n: '02', icon: Shield,  title: 'Book Securely',      body: 'Select your date and duration from the live availability calendar. Review the full price breakdown — charter fee, platform service fee, and any included extras such as skipper, fuel, or catering — before you commit. Pay securely with your credit card, Apple Pay, or Google Pay. Funds are held by Stripe and released to the host only after your charter day, protecting your money at every step of the process.' },
+              { n: '02', icon: Shield,  title: 'Book Securely',      body: 'Select your date and duration from the live availability calendar. The price you see is the all-inclusive price you pay — no service fees added at checkout, no surprises. Pay securely with your credit card, Apple Pay, or Google Pay. Funds are held by Stripe and released to the host only after your charter day, protecting your money at every step of the process.' },
               { n: '03', icon: Anchor,  title: 'Set Sail',           body: 'Your confirmation arrives instantly with the captain\'s direct contact number, marina coordinates in Google Maps format, and a pre-departure checklist. Arrive at the marina, meet your fully licensed and locally experienced skipper, and cast off. Navigation, safety, and local knowledge are entirely handled for you from that moment forward. Your only job is to decide where to go next and enjoy every second of it.' },
             ].map((step) => (
               <div key={step.n} className="glass-card" style={{ padding: '28px 28px 36px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -434,9 +434,9 @@ export default function HomePage() {
                 Hidden fees are the most common complaint in the charter industry. A listing advertises €400
                 for a half-day. The guest arrives and discovers a €60 fuel surcharge, a €30 port fee, and a
                 €20 &quot;cleaning deposit.&quot; The total was never €400. On BoatHire24, the listing price is
-                the charter price. Our 15% service fee is displayed clearly before you reach the payment page.
-                There are no additional charges at the dock, no surcharges added after booking, and no
-                &quot;extras&quot; that were not disclosed in the listing. The price we show is the price you pay.
+                the all-inclusive price. No service fees added at checkout, no additional charges at the
+                dock, no surcharges added after booking, and no &quot;extras&quot; that were not disclosed
+                in the listing. The price we show is the price you pay.
               </p>
               <h3 className="text-lg font-bold mb-3" style={{ color: '#f4f4f2' }}>If something goes wrong, we are responsible.</h3>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.60)' }}>

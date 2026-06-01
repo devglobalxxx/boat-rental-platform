@@ -67,9 +67,15 @@ export default function TermsPage() {
 
         <Section title="1. About BoatHire24">
           <P>
-            BoatHire24 is an online marketplace that connects boat owners (&ldquo;Hosts&rdquo;) with people who wish
-            to charter boats (&ldquo;Guests&rdquo;). BoatHire24 itself is not a boat operator, skipper, or charter
-            company. We provide the technology platform, payment infrastructure, and support services that
+            BoatHire24 is an online marketplace operated by <strong style={{ color: '#f4f4f2' }}>X24Consulting OÜ</strong>,
+            a company registered in Estonia under registry code <strong style={{ color: '#f4f4f2' }}>16971898</strong>,
+            with registered address at Lossi 8-3, Põltsamaa 48103, Estonia (&ldquo;BoatHire24&rdquo;,
+            &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;).
+          </P>
+          <P>
+            BoatHire24 connects boat owners (&ldquo;Hosts&rdquo;) with people who wish to charter boats
+            (&ldquo;Guests&rdquo;). BoatHire24 itself is not a boat operator, skipper, or charter company.
+            We provide the technology platform, payment infrastructure, and support services that
             facilitate direct agreements between Hosts and Guests.
           </P>
           <P>

@@ -6,23 +6,25 @@ import { usePathname } from 'next/navigation'
 import { X, User, LogOut, LayoutDashboard, Ship, Menu, Search, Compass, HelpCircle, Anchor, Layers, ShieldCheck, Settings } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import Logo from '@/components/ui/Logo'
+import LanguageSwitcher from '@/components/nav/LanguageSwitcher'
+import { LOCALES, translations, type Locale } from '@/lib/i18n/translations'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 
 const gold = '#c9a84e'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.60)'
 
-const NAV_LINKS = [
-  { href: '/about',         label: 'About us'       },
-  { href: '/search',        label: 'Explore boats' },
-  { href: '/how-it-works',  label: 'How it works'  },
-  { href: '/blog',          label: 'Blog'           },
-  { href: '/become-a-host', label: 'List your boat' },
-]
+function getLocaleFromCookie(): Locale {
+  if (typeof document === 'undefined') return 'en'
+  const match = document.cookie.match(/(?:^|;\s*)locale=([^;]+)/)
+  const val = match?.[1] as Locale
+  return LOCALES.find((l) => l.code === val) ? val : 'en'
+}
 
 export default function SiteNav() {
   const [open, setOpen] = useState(false)
   const [user, setUser] = useState<SupabaseUser | null>(null)
+  const [locale, setLocale] = useState<Locale>('en')
   const [isAdmin, setIsAdmin] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -45,6 +47,7 @@ export default function SiteNav() {
         setIsAdmin(false)
       }
     })
+    setLocale(getLocaleFromCookie())
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll, { passive: true })
 
@@ -94,7 +97,13 @@ export default function SiteNav() {
 
           {/* Desktop nav links */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '28px' }} className="hidden-mobile">
-            {NAV_LINKS.map((l) => (
+            {[
+              { href: '/about',         label: translations[locale].nav.about },
+              { href: '/search',        label: translations[locale].nav.explore },
+              { href: '/how-it-works',  label: translations[locale].nav.howItWorks },
+              { href: '/blog',          label: translations[locale].nav.blog },
+              { href: '/become-a-host', label: translations[locale].nav.listYourBoat },
+            ].map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -115,6 +124,30 @@ export default function SiteNav() {
 
           {/* Desktop auth */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="hidden-mobile">
+            {/* Instagram icon */}
+            <a
+              href="https://www.instagram.com/boathire24"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow @BoatHire24 on Instagram"
+              title="Follow @BoatHire24"
+              style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: '34px', height: '34px', borderRadius: '10px',
+                background: 'linear-gradient(135deg,#FED576 0%,#F47133 30%,#BC3081 65%,#4C63D2 100%)',
+                textDecoration: 'none', flexShrink: 0,
+                boxShadow: '0 2px 10px rgba(214,36,159,0.30)', transition: 'transform 0.15s',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.08)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+              </svg>
+            </a>
+            <LanguageSwitcher />
             {user ? (
               <div ref={dropdownRef} style={{ position: 'relative' }}>
                 {/* User pill button */}
@@ -234,7 +267,7 @@ export default function SiteNav() {
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = text }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = muted }}
                 >
-                  Log in
+                  {translations[locale].nav.login}
                 </Link>
                 <Link
                   href="/signup"
@@ -256,7 +289,7 @@ export default function SiteNav() {
                     ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
                   }}
                 >
-                  Get started
+                  {translations[locale].nav.getStarted}
                 </Link>
               </>
             )}
@@ -280,7 +313,13 @@ export default function SiteNav() {
       {open && (
         <div style={{ background: 'rgba(7,16,30,0.98)', borderTop: '1px solid rgba(201,168,78,0.10)' }}>
           <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '16px 20px 24px' }}>
-            {NAV_LINKS.map((l) => (
+            {[
+              { href: '/about',         label: translations[locale].nav.about },
+              { href: '/search',        label: translations[locale].nav.explore },
+              { href: '/how-it-works',  label: translations[locale].nav.howItWorks },
+              { href: '/blog',          label: translations[locale].nav.blog },
+              { href: '/become-a-host', label: translations[locale].nav.listYourBoat },
+            ].map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -290,6 +329,22 @@ export default function SiteNav() {
                 {l.label}
               </Link>
             ))}
+            <div style={{ paddingTop: '14px', paddingBottom: '6px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <LanguageSwitcher />
+              <a
+                href="https://www.instagram.com/boathire24"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow @BoatHire24 on Instagram"
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '11px', background: 'linear-gradient(135deg,#FED576 0%,#F47133 30%,#BC3081 65%,#4C63D2 100%)', textDecoration: 'none', flexShrink: 0, boxShadow: '0 2px 10px rgba(214,36,159,0.30)' }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+                </svg>
+              </a>
+            </div>
 
             {user && (
               <>

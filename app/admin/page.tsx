@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
 import AdminVerifyButton from './AdminVerifyButton'
 import AdminDocsButton from './AdminDocsButton'
+import AdminBoatsButton from './AdminBoatsButton'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Admin Panel' }
@@ -178,7 +179,19 @@ export default async function AdminPage({
                         <td style={{ padding: '14px 16px', color: muted, whiteSpace: 'nowrap' }}>
                           {u.joined ? new Date(u.joined).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' }) : '—'}
                         </td>
-                        <td style={{ padding: '14px 16px', color: muted, textAlign: 'center' }}>{u.boats || '—'}</td>
+                        <td style={{ padding: '14px 16px', position: 'relative' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                            <AdminBoatsButton userId={u.id} boatCount={u.boats} />
+                            <a
+                              href={`/host/listings/new?host=${u.id}`}
+                              target="_blank"
+                              title={`Add a listing for ${u.full_name ?? u.email}`}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '5px 10px', borderRadius: '8px', background: 'rgba(34,197,94,0.10)', border: '1px solid rgba(34,197,94,0.28)', color: '#22c55e', fontSize: '11px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}
+                            >
+                              + Add
+                            </a>
+                          </div>
+                        </td>
                         <td style={{ padding: '14px 16px', position: 'relative' }}>
                           <AdminDocsButton userId={u.id} docCount={u.docs} />
                         </td>
@@ -191,6 +204,8 @@ export default async function AdminPage({
                           <AdminVerifyButton
                             userId={u.id}
                             currentStatus={u.verification_status}
+                            isAdmin={u.is_admin}
+                            userName={u.full_name ?? u.email}
                           />
                         </td>
                       </tr>

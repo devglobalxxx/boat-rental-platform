@@ -67,13 +67,16 @@ export default function PrivacyPage() {
 
         <Section title="1. Who we are">
           <P>
-            BoatHire24 is a boat charter marketplace operated from Marbella, Spain. We connect boat owners
-            (&ldquo;Hosts&rdquo;) with people who want to charter boats (&ldquo;Guests&rdquo;). Our platform is accessible
-            at <strong>boathire24.com</strong> and associated subdomains.
+            BoatHire24 is a boat charter marketplace operated by <strong style={{ color: '#f4f4f2' }}>X24Consulting OÜ</strong>,
+            a company registered in Estonia under registry code <strong style={{ color: '#f4f4f2' }}>16971898</strong>,
+            with registered office at Lossi 8-3, Põltsamaa 48103, Estonia. We connect boat owners
+            (&ldquo;Hosts&rdquo;) with people who want to charter boats (&ldquo;Guests&rdquo;).
+            Our platform is accessible at <strong>boathire24.com</strong> and associated subdomains.
           </P>
           <P>
-            For the purposes of EU data protection law (GDPR), BoatHire24 is the <strong>data controller</strong> for
-            personal data collected through our platform. Questions about this policy can be sent to{' '}
+            For the purposes of EU data protection law (GDPR), <strong style={{ color: '#f4f4f2' }}>X24Consulting OÜ</strong>
+            {' '}(trading as BoatHire24) is the <strong>data controller</strong> for personal data collected through our platform.
+            Questions about this policy can be sent to{' '}
             <a href="mailto:info@boathire24.com" style={{ color: gold, textDecoration: 'none' }}>info@boathire24.com</a>.
           </P>
         </Section>
@@ -225,8 +228,9 @@ export default function PrivacyPage() {
             For any privacy-related questions, data subject requests, or concerns:
           </P>
           <div style={{ padding: '24px', borderRadius: '14px', background: '#0c1828', border: `1px solid ${goldBorder}`, fontSize: '14px', lineHeight: 1.8, color: textBody }}>
-            <strong style={{ color: '#f4f4f2' }}>BoatHire24</strong><br />
-            Puerto Banús, Marbella, Spain<br />
+            <strong style={{ color: '#f4f4f2' }}>BoatHire24</strong> — operated by X24Consulting OÜ<br />
+            Registry code: <strong style={{ color: '#f4f4f2' }}>16971898</strong><br />
+            Lossi 8-3, Põltsamaa 48103, Estonia<br />
             <a href="mailto:info@boathire24.com" style={{ color: gold, textDecoration: 'none' }}>info@boathire24.com</a>
           </div>
         </Section>

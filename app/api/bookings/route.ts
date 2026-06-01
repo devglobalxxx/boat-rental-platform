@@ -11,10 +11,13 @@ export async function POST(req: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-    const { boatId, pricingId, date, guests } = await req.json()
+    const { boatId, pricingId, date, guests, time, occasion, notes } = await req.json()
     if (!boatId || !pricingId || !date) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
+
+    // Validate time format HH:MM, default 09:00
+    const safeTime = typeof time === 'string' && /^\d{2}:\d{2}$/.test(time) ? time : '09:00'
 
     // Fetch boat + pricing + host stripe account
     const { data: boatRaw } = await supabase
@@ -54,7 +57,7 @@ export async function POST(req: NextRequest) {
     if (conflict) return NextResponse.json({ error: 'Date not available' }, { status: 409 })
 
     const fees = calcFees(pricing.price)
-    const startDt = parseISO(`${date}T09:00:00`)
+    const startDt = parseISO(`${date}T${safeTime}:00`)
     const endDt = pricing.duration_hours
       ? addHours(startDt, pricing.duration_hours)
       : addHours(startDt, 8)
@@ -79,6 +82,12 @@ export async function POST(req: NextRequest) {
 
     const hostStripeAccountId = boat.profiles?.stripe_account_id
 
+    // Combine occasion + free-form notes into a single special_requests string
+    const specialRequests = [
+      occasion ? `Occasion: ${occasion}` : null,
+      typeof notes === 'string' && notes.trim() ? `Notes: ${notes.trim().slice(0, 500)}` : null,
+    ].filter(Boolean).join('\n') || null
+
     // Create booking record
     const { data: bookingRaw, error: bookingErr } = await supabase
       .from('bookings')
@@ -94,6 +103,7 @@ export async function POST(req: NextRequest) {
         total: fees.total,
         currency: pricing.currency ?? 'EUR',
         status: 'pending',
+        special_requests: specialRequests,
       })
       .select('id')
       .single()

@@ -1,10 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { BarChart3, Shield, Zap, Anchor, ArrowRight, CheckCircle2, TrendingUp } from 'lucide-react'
+import { BarChart3, Shield, Zap, Anchor, ArrowRight, CheckCircle2, TrendingUp, Sparkles, Camera, MessageCircle } from 'lucide-react'
 import PayoutBadge from '@/components/ui/PayoutBadge'
 
 const BENEFITS = [
+  { icon: Sparkles,    title: 'We list your boats for you', desc: 'No time to upload photos and write descriptions? Send us your boat details and our team builds your listings — free.', stat: 'FREE',    statLabel: 'concierge setup' },
   { icon: BarChart3,   title: 'Earn on your terms',     desc: 'Set your own prices, block dates when you need the boat, no minimum commitment.',                                        stat: '€2,400',  statLabel: 'avg. monthly earnings' },
   { icon: Shield,      title: 'Protected bookings',     desc: 'Stripe-powered payments, verified renters, and 24/7 host support on every booking.',                                     stat: '100%',    statLabel: 'payment protection' },
   { icon: Zap,         title: 'Get bookings fast',      desc: 'Instant-book option gets you guests faster. We handle all discovery, marketing, and SEO.',                               stat: '48h',     statLabel: 'to first booking' },
@@ -19,12 +20,20 @@ const STEPS = [
 ]
 
 const INCLUDES = [
+  'Free concierge listing setup',
   'Verified renter profiles',
   'Stripe payment protection',
   'Free listing — no upfront cost',
   'Full insurance framework',
   '24/7 host support',
   'Your own calendar management',
+  '24h payouts after trip',
+]
+
+const CONCIERGE_STEPS = [
+  { Icon: MessageCircle, title: 'Send us your boats',   desc: 'Photos, specs, prices — by WhatsApp, email or shared Drive. Whatever\'s easiest.' },
+  { Icon: Camera,        title: 'We build the listings', desc: 'Our team writes the descriptions, sets up pricing tiers, uploads photos, picks amenities — within 48h.' },
+  { Icon: CheckCircle2,  title: 'Review &amp; activate',     desc: 'You log in, check everything looks right, click activate. Listings go live immediately.' },
 ]
 
 const gold = '#c9a84e'
@@ -52,9 +61,13 @@ export default function BecomeAHostClient() {
               <span style={{ color: gold }}>consistent income</span>
             </h1>
 
-            <p style={{ fontSize: '17px', lineHeight: 1.7, marginBottom: '36px', color: textMuted }}>
+            <p style={{ fontSize: '17px', lineHeight: 1.7, marginBottom: '20px', color: textMuted }}>
               List on BoatHire24 and reach thousands of verified guests every month.
               Free to start — you keep 85% of every booking.
+            </p>
+
+            <p style={{ fontSize: '14px', lineHeight: 1.6, marginBottom: '36px', color: '#fbbf24', fontWeight: 600 }}>
+              ✨ <strong>No time to upload?</strong> Send us your boats — <span style={{ textDecoration: 'underline' }}>we list them for you, free</span>.
             </p>
 
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -120,6 +133,87 @@ export default function BecomeAHostClient() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── Concierge Listing Service (NEW) ── */}
+      <section style={{ maxWidth: '1000px', margin: '88px auto 0', padding: '0 24px' }}>
+        <div style={{
+          position: 'relative',
+          borderRadius: '24px',
+          padding: '52px 44px',
+          background: 'linear-gradient(135deg, #1a1208 0%, #0e1828 100%)',
+          border: '2px solid',
+          borderImage: 'linear-gradient(135deg,#fde68a,#fbbf24,#c9a84e,#92400e) 1',
+          overflow: 'hidden',
+        }}>
+          {/* Glow */}
+          <div aria-hidden style={{ position: 'absolute', top: '-60px', right: '-60px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(251,191,36,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+          <div style={{ position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '40px', alignItems: 'flex-start' }}>
+
+            {/* Left: pitch */}
+            <div style={{ flex: '1 1 320px', minWidth: 0 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' as const, letterSpacing: '0.14em', padding: '6px 14px', borderRadius: '99px', background: 'linear-gradient(135deg, #fbbf24, #c9a84e)', color: '#1a1208', marginBottom: '20px', boxShadow: '0 4px 14px rgba(251,191,36,0.32)' }}>
+                <Sparkles style={{ width: 13, height: 13 }} /> 100% Free Setup
+              </span>
+
+              <h2 style={{ fontSize: 'clamp(1.7rem, 3.5vw, 2.4rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: '16px' }}>
+                Too busy to list your boats?<br/>
+                <span style={{ background: 'linear-gradient(135deg,#fde68a 0%, #fbbf24 50%, #c9a84e 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                  We&apos;ll do it for you.
+                </span>
+              </h2>
+
+              <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.70)', lineHeight: 1.65, marginBottom: '20px' }}>
+                Most operators don&apos;t have 2 hours per boat to upload photos, write descriptions and set up pricing. So we built a <strong style={{ color: '#fbbf24' }}>free concierge listing service</strong>:
+              </p>
+
+              <p style={{ fontSize: '14px', color: 'rgba(244,244,242,0.55)', lineHeight: 1.6, marginBottom: '24px' }}>
+                Send us your boats — photos, specs, prices — and our team creates polished listings on your account within 48 hours. You just sign up, review, and click activate.
+              </p>
+
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+                <Link
+                  href="/signup?next=/become-a-host"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, background: 'linear-gradient(135deg, #fbbf24, #c9a84e, #92400e)', color: '#1a1208', textDecoration: 'none', boxShadow: '0 8px 24px rgba(201,168,78,0.30)' }}
+                >
+                  Sign up &amp; we&apos;ll list for you <ArrowRight style={{ width: 15, height: 15 }} />
+                </Link>
+                <a
+                  href="https://wa.me/34600000000?text=Hi%2C%20I%27d%20like%20BoatHire24%20to%20list%20my%20boats%20for%20me%20%28concierge%20service%29"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 24px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, background: 'rgba(37,211,102,0.10)', border: '1px solid rgba(37,211,102,0.28)', color: '#5edb8a', textDecoration: 'none' }}
+                >
+                  💬 WhatsApp us
+                </a>
+              </div>
+
+              <p style={{ fontSize: '12px', color: 'rgba(244,244,242,0.35)', marginTop: '14px' }}>
+                ⚡ Average turnaround: 48h · No fees, no minimum boats
+              </p>
+            </div>
+
+            {/* Right: 3 steps */}
+            <div style={{ flex: '1 1 280px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {CONCIERGE_STEPS.map((step, i) => (
+                <div key={i} style={{ display: 'flex', gap: '14px', padding: '18px', borderRadius: '14px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(201,168,78,0.18)' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 12px rgba(251,191,36,0.30)' }}>
+                    <step.Icon style={{ width: 18, height: 18, color: '#1a1208' }} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <span style={{ fontSize: '10px', fontWeight: 800, color: '#fbbf24', letterSpacing: '0.12em' }}>STEP {i + 1}</span>
+                    </div>
+                    <h3 style={{ fontSize: '14px', fontWeight: 700, color: '#f4f4f2', marginBottom: '4px' }} dangerouslySetInnerHTML={{ __html: step.title }} />
+                    <p style={{ fontSize: '13px', color: 'rgba(244,244,242,0.60)', lineHeight: 1.55, margin: 0 }} dangerouslySetInnerHTML={{ __html: step.desc }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </div>
       </section>
 

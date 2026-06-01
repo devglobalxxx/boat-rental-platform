@@ -40,7 +40,7 @@ export default async function HostDashboard() {
 
   const { data: boats } = await supabase
     .from('boats')
-    .select('id, name, slug, status, capacity_pax, type, boat_images(storage_url, is_hero)')
+    .select('id, name, slug, status, capacity_pax, type, admin_note, boat_images(storage_url, is_hero)')
     .eq('host_id', user.id)
     .order('created_at', { ascending: false })
 
@@ -66,6 +66,70 @@ export default async function HostDashboard() {
             <Plus style={{ width: 16, height: 16 }} /> Add listing
           </Link>
         </div>
+
+        {/* ── Admin revision required ── */}
+        {(boats ?? []).filter((b) => (b as { admin_note?: string }).admin_note).length > 0 && (
+          <div style={{ marginBottom: '16px', padding: '20px 24px', background: 'linear-gradient(135deg, rgba(245,158,11,0.10) 0%, rgba(248,113,113,0.06) 100%)', border: '1px solid rgba(245,158,11,0.35)', borderRadius: '16px', boxShadow: '0 8px 24px rgba(245,158,11,0.12)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '14px' }}>
+              <div style={{ width: 44, height: 44, borderRadius: '12px', background: 'linear-gradient(135deg,#f59e0b,#fbbf24)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 14px rgba(245,158,11,0.30)' }}>
+                <ShieldAlert style={{ width: 22, height: 22, color: '#1a1208' }} />
+              </div>
+              <div>
+                <div style={{ fontWeight: 800, color: '#fbbf24', fontSize: '15px', marginBottom: '3px' }}>
+                  Action required on {(boats ?? []).filter((b) => (b as { admin_note?: string }).admin_note).length} listing{(boats ?? []).filter((b) => (b as { admin_note?: string }).admin_note).length !== 1 ? 's' : ''}
+                </div>
+                <div style={{ fontSize: '13px', color: muted }}>
+                  Our team left notes on the following listings. Make the changes and we&apos;ll re-activate them.
+                </div>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {(boats ?? []).filter((b) => (b as { admin_note?: string }).admin_note).map((b) => (
+                <Link
+                  key={b.id}
+                  href={`/host/listings/${b.id}`}
+                  style={{ display: 'block', padding: '14px 18px', background: 'rgba(7,16,30,0.40)', border: '1px solid rgba(245,158,11,0.22)', borderRadius: '12px', textDecoration: 'none', transition: 'border-color 0.15s' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
+                    <span style={{ fontWeight: 700, color: text, fontSize: '14px' }}>{b.name}</span>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#fbbf24', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      Open editor →
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '13px', color: 'rgba(244,244,242,0.75)', lineHeight: 1.55, margin: 0, whiteSpace: 'pre-line' }}>
+                    <span style={{ fontSize: '10px', fontWeight: 800, color: '#fbbf24', textTransform: 'uppercase', letterSpacing: '0.10em', marginRight: '8px' }}>Note from team:</span>
+                    {(b as { admin_note?: string }).admin_note}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Drafts to review (concierge-listed) ── */}
+        {(boats ?? []).filter((b) => b.status === 'draft').length > 0 && (() => {
+          const draftCount = (boats ?? []).filter((b) => b.status === 'draft').length
+          return (
+            <div style={{ marginBottom: '16px', padding: '20px 24px', background: 'linear-gradient(135deg, rgba(201,168,78,0.10) 0%, rgba(251,191,36,0.06) 100%)', border: `1px solid ${goldBorder}`, borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', boxShadow: '0 8px 24px rgba(201,168,78,0.12)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <div style={{ width: 44, height: 44, borderRadius: '12px', background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 14px rgba(251,191,36,0.30)' }}>
+                  <span style={{ fontSize: '22px' }}>📋</span>
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, color: gold, fontSize: '15px', marginBottom: '3px' }}>
+                    {draftCount} draft listing{draftCount !== 1 ? 's' : ''} ready for your review
+                  </div>
+                  <div style={{ fontSize: '13px', color: muted, lineHeight: 1.5 }}>
+                    Our team prepared {draftCount === 1 ? 'this listing' : 'these listings'} for you (concierge setup). Review the details, edit anything you'd like, then activate when ready to receive bookings.
+                  </div>
+                </div>
+              </div>
+              <Link href="/host/listings" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 22px', borderRadius: '99px', background: 'linear-gradient(135deg,#fbbf24,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap', boxShadow: '0 4px 14px rgba(201,168,78,0.30)' }}>
+                Review drafts →
+              </Link>
+            </div>
+          )
+        })()}
 
         {/* ── Verification alert ── */}
         {profile?.verification_status === 'unverified' && (

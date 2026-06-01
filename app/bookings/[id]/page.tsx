@@ -118,19 +118,12 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
             )}
           </div>
 
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: muted }}>
-              <span>Charter fee</span>
-              <span>{formatPrice(booking.subtotal, booking.currency)}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: dim }}>
-              <span>Service fee</span>
-              <span>{formatPrice(booking.service_fee, booking.currency)}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '15px', fontWeight: 800, color: gold, paddingTop: '10px', borderTop: `1px solid ${border}` }}>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '15px', fontWeight: 800, color: gold }}>
               <span>Total paid</span>
-              <span>{formatPrice(booking.total, booking.currency)}</span>
+              <span style={{ fontSize: '20px' }}>{formatPrice(booking.total, booking.currency)}</span>
             </div>
+            <p style={{ fontSize: '12px', color: dim, margin: '4px 0 0' }}>All-inclusive · no extra fees</p>
           </div>
         </div>
 

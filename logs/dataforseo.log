@@ -1,0 +1,10 @@
+[2026-05-31 11:10:51] DataForSEO: connected. balance=None
+[2026-05-31 11:11:14] DataForSEO: fetching ideas for 14 seeds (min_vol=30)
+[2026-05-31 11:11:30] DataForSEO: added 98 queue items (17 landing, 81 blog). Queue now 152.
+[2026-05-31 11:13:16] DataForSEO: fetching ideas for 14 seeds (min_vol=30)
+[2026-05-31 11:13:27] DataForSEO: added 14 queue items (14 landing, 0 blog). Queue now 68.
+[2026-05-31 11:14:39] DataForSEO: fetching ideas for 82 seeds (min_vol=30)
+[2026-05-31 11:15:40] DataForSEO: added 5 queue items (5 landing, 0 blog). Queue now 73.
+[2026-05-31 11:17:14] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-05-31 11:17:18] DataForSEO: expanding ideas from 14 base seeds
+[2026-05-31 11:17:29] DataForSEO: added 174 queue items (174 landing, 0 blog). Queue now 247.

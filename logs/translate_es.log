@@ -10,3 +10,46 @@
 [2026-05-29 14:22:43]   [9/10] ✓ boat-hire-estepona
 [2026-05-29 14:23:12]   [10/10] ✓ speedboat-hire-puerto-banus
 [2026-05-29 14:23:12] es: 10/10 translated (total es=10)
+[2026-05-31 01:15:54] es: translating 40 landing page(s)
+[2026-05-31 01:16:27]   [1/40] ✓ yacht-rental-puerto-banus
+[2026-05-31 01:16:59]   [2/40] ✓ boat-hire-fuengirola
+[2026-05-31 01:17:33]   [3/40] ✓ luxury-yacht-charter-marbella
+[2026-05-31 01:18:07]   [4/40] ✓ speedboat-hire-marbella
+[2026-05-31 01:18:39]   [5/40] ✓ catamaran-rental-puerto-banus
+[2026-05-31 01:19:13]   [6/40] ✓ boat-rental-marbella-port
+[2026-05-31 01:19:53]   [7/40] ✗ private-yacht-charter-marbella: JSONDecodeError: Expecting ',' delimiter: line 6 column 6418 (char 7921)
+[2026-05-31 01:20:28]   [8/40] ✓ boat-hire-benalmadena
+[2026-05-31 01:20:58]   [9/40] ✓ yacht-charter-marbella-prices
+[2026-05-31 01:21:35]   [10/40] ✓ motor-yacht-rental-puerto-banus
+[2026-05-31 01:22:09]   [11/40] ✓ catamaran-charter-puerto-banus
+[2026-05-31 01:22:42]   [12/40] ✓ boat-rental-estepona-port
+[2026-05-31 01:23:13]   [13/40] ✓ luxury-catamaran-rental-marbella
+[2026-05-31 01:23:45]   [14/40] ✓ speedboat-rental-puerto-banus
+[2026-05-31 01:24:16]   [15/40] ✓ private-boat-charter-marbella
+[2026-05-31 01:24:47]   [16/40] ✓ yacht-hire-puerto-banus
+[2026-05-31 01:25:15]   [17/40] ✓ boat-rental-benalmadena-marina
+[2026-05-31 01:25:50]   [18/40] ✓ motor-yacht-charter-marbella
+[2026-05-31 01:26:24]   [19/40] ✓ catamaran-hire-puerto-banus
+[2026-05-31 01:26:56]   [20/40] ✓ luxury-yacht-rental-puerto-banus
+[2026-05-31 01:27:25]   [21/40] ✓ speedboat-hire-estepona
+[2026-05-31 01:27:59]   [22/40] ✓ private-yacht-rental-marbella
+[2026-05-31 01:28:31]   [23/40] ✓ boat-hire-marbella-port
+[2026-05-31 01:29:03]   [24/40] ✓ catamaran-rental-marbella
+[2026-05-31 01:29:33]   [25/40] ✓ yacht-charter-estepona
+[2026-05-31 01:30:07]   [26/40] ✓ boat-rental-fuengirola-port
+[2026-05-31 01:30:49]   [27/40] ✓ luxury-catamaran-puerto-banus
+[2026-05-31 01:31:24]   [28/40] ✓ speedboat-rental-estepona
+[2026-05-31 01:31:57]   [29/40] ✓ private-boat-hire-marbella
+[2026-05-31 01:32:29]   [30/40] ✓ catamaran-charter-estepona
+[2026-05-31 01:33:04]   [31/40] ✓ yacht-rental-fuengirola
+[2026-05-31 01:33:41]   [32/40] ✓ boat-hire-puerto-banus
+[2026-05-31 01:34:18]   [33/40] ✓ luxury-yacht-hire-marbella
+[2026-05-31 01:34:42]   [34/40] ✓ speedboat-charter-puerto-banus
+[2026-05-31 01:35:18]   [35/40] ✓ private-catamaran-marbella
+[2026-05-31 01:35:49]   [36/40] ✓ yacht-charter-fuengirola
+[2026-05-31 01:36:16]   [37/40] ✓ boat-rental-estepona
+[2026-05-31 01:36:51]   [38/40] ✓ catamaran-hire-marbella
+[2026-05-31 01:37:24]   [39/40] ✓ motor-yacht-rental-marbella
+[2026-05-31 01:37:55]   [40/40] ✓ yacht-hire-marbella
+[2026-05-31 01:37:55] es: 39/40 translated (total es=49)
+[2026-05-31 01:37:56] es: pushed

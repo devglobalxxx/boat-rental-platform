@@ -104,7 +104,7 @@ BoatHire24 is an online marketplace for boat charter in Marbella, Spain and beyo
 **Headquarters:** Marbella, Spain
 **Service area:** Marbella, Ibiza, Miami and 45+ destinations globally
 **Payment:** Stripe (card, Apple Pay, Google Pay) — funds held in escrow until charter day
-**Commission:** 15% service fee; hosts keep 85%
+**Pricing:** All-inclusive — listing price is the final price guests pay (no fees added at checkout). Platform takes 15% commission from this price; hosts receive 85% as their payout.
 
 ## Fleet (Marbella / Puerto Banús)
 
@@ -135,7 +135,7 @@ Every BoatHire24 charter includes: licensed skipper, fuel, drinks (water, soft d
 - Standard 12 m motor yacht: €749–€2,299 (2–8 hours)
 - Mid-size (14–17 m): priced on request
 - Flagship 24 m superyacht: from €4,719 / 4 hours
-- A 15% service fee applies to all bookings
+- All listed prices are all-inclusive — no service fees or surcharges added at checkout
 
 ## Editorial content — Charter guides
 

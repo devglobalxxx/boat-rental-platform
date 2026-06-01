@@ -65,20 +65,15 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Price breakdown */}
-      <div style={{ background: card, border: `1px solid ${border}`, borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: muted }}>
-          <span>Charter fee</span>
-          <span>{formatPrice(fees.subtotal, meta.currency)}</span>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: dim }}>
-          <span>Service fee (15%)</span>
-          <span>{formatPrice(fees.serviceFee, meta.currency)}</span>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '15px', fontWeight: 800, color: gold, paddingTop: '10px', borderTop: `1px solid ${border}` }}>
+      {/* Total — all-inclusive */}
+      <div style={{ background: card, border: `1px solid ${border}`, borderRadius: '12px', padding: '18px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '15px', fontWeight: 800, color: gold }}>
           <span>Total due today</span>
-          <span>{formatPrice(fees.total, meta.currency)}</span>
+          <span style={{ fontSize: '22px' }}>{formatPrice(fees.total, meta.currency)}</span>
         </div>
+        <p style={{ fontSize: '12px', color: dim, margin: '6px 0 0' }}>
+          All-inclusive price · no extra fees at checkout
+        </p>
       </div>
 
       <PaymentElement />
@@ -122,6 +117,9 @@ function BookPageInner() {
       const date = params.get('date') ?? ''
       const pricingId = params.get('pricing_id') ?? ''
       const guests = Number(params.get('guests') ?? 1)
+      const time = params.get('time') ?? '09:00'
+      const occasion = params.get('occasion') ?? ''
+      const notes = params.get('notes') ?? ''
 
       const { data: boat } = await supabase
         .from('boats')
@@ -139,7 +137,7 @@ function BookPageInner() {
       const res = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ boatId: boat.id, pricingId: pricing.id, date, guests }),
+        body: JSON.stringify({ boatId: boat.id, pricingId: pricing.id, date, guests, time, occasion, notes }),
       })
 
       if (!res.ok) { setError('Could not create booking'); setLoading(false); return }

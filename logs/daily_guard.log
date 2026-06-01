@@ -162,3 +162,323 @@
 [2026-05-31 01:15:14]   ✓ generated
 [2026-05-31 01:15:14] queue under threshold (22 < 100) — refilling…
 [2026-05-31 01:15:50] refill: +32 (queue now 54)
+[main fd192c0] Daily content: +80 pages (40 blog, 40 landing)
+ Committer: master <master@masters-MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 7 files changed, 4862 insertions(+), 318 deletions(-)
+ create mode 100644 lib/i18n/translations.ts
+ create mode 100644 logs/daily_guard.log
+To https://github.com/mardo89/boat-rental-platform.git
+   74f4da6..fd192c0  HEAD -> main
+[2026-05-31 01:15:52] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-05-31 01:15:54] reindex ping: 200 {"ok":true,"urls_total":499,"indexnow":{"ok":true,"status":200,"count":499},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.google.com":404,"www.bing.com":410},"timestamp":"2026-05-30T22:15
+[2026-05-31 01:15:54] === Done: 80 ok, 0 failed ===
+
+[2026-05-31 01:15:54] es: translating 40 landing page(s)
+[2026-05-31 01:16:27]   [1/40] ✓ yacht-rental-puerto-banus
+[2026-05-31 01:16:59]   [2/40] ✓ boat-hire-fuengirola
+[2026-05-31 01:17:33]   [3/40] ✓ luxury-yacht-charter-marbella
+[2026-05-31 01:18:07]   [4/40] ✓ speedboat-hire-marbella
+[2026-05-31 01:18:39]   [5/40] ✓ catamaran-rental-puerto-banus
+[2026-05-31 01:19:13]   [6/40] ✓ boat-rental-marbella-port
+[2026-05-31 01:19:53]   [7/40] ✗ private-yacht-charter-marbella: JSONDecodeError: Expecting ',' delimiter: line 6 column 6418 (char 7921)
+[2026-05-31 01:20:28]   [8/40] ✓ boat-hire-benalmadena
+[2026-05-31 01:20:58]   [9/40] ✓ yacht-charter-marbella-prices
+[2026-05-31 01:21:35]   [10/40] ✓ motor-yacht-rental-puerto-banus
+[2026-05-31 01:22:09]   [11/40] ✓ catamaran-charter-puerto-banus
+[2026-05-31 01:22:42]   [12/40] ✓ boat-rental-estepona-port
+[2026-05-31 01:23:13]   [13/40] ✓ luxury-catamaran-rental-marbella
+[2026-05-31 01:23:45]   [14/40] ✓ speedboat-rental-puerto-banus
+[2026-05-31 01:24:16]   [15/40] ✓ private-boat-charter-marbella
+[2026-05-31 01:24:47]   [16/40] ✓ yacht-hire-puerto-banus
+[2026-05-31 01:25:15]   [17/40] ✓ boat-rental-benalmadena-marina
+[2026-05-31 01:25:50]   [18/40] ✓ motor-yacht-charter-marbella
+[2026-05-31 01:26:24]   [19/40] ✓ catamaran-hire-puerto-banus
+[2026-05-31 01:26:56]   [20/40] ✓ luxury-yacht-rental-puerto-banus
+[2026-05-31 01:27:25]   [21/40] ✓ speedboat-hire-estepona
+[2026-05-31 01:27:59]   [22/40] ✓ private-yacht-rental-marbella
+[2026-05-31 01:28:31]   [23/40] ✓ boat-hire-marbella-port
+[2026-05-31 01:29:03]   [24/40] ✓ catamaran-rental-marbella
+[2026-05-31 01:29:33]   [25/40] ✓ yacht-charter-estepona
+[2026-05-31 01:30:07]   [26/40] ✓ boat-rental-fuengirola-port
+[2026-05-31 01:30:49]   [27/40] ✓ luxury-catamaran-puerto-banus
+[2026-05-31 01:31:24]   [28/40] ✓ speedboat-rental-estepona
+[2026-05-31 01:31:57]   [29/40] ✓ private-boat-hire-marbella
+[2026-05-31 01:32:29]   [30/40] ✓ catamaran-charter-estepona
+[2026-05-31 01:33:04]   [31/40] ✓ yacht-rental-fuengirola
+[2026-05-31 01:33:41]   [32/40] ✓ boat-hire-puerto-banus
+[2026-05-31 01:34:18]   [33/40] ✓ luxury-yacht-hire-marbella
+[2026-05-31 01:34:42]   [34/40] ✓ speedboat-charter-puerto-banus
+[2026-05-31 01:35:18]   [35/40] ✓ private-catamaran-marbella
+[2026-05-31 01:35:49]   [36/40] ✓ yacht-charter-fuengirola
+[2026-05-31 01:36:16]   [37/40] ✓ boat-rental-estepona
+[2026-05-31 01:36:51]   [38/40] ✓ catamaran-hire-marbella
+[2026-05-31 01:37:24]   [39/40] ✓ motor-yacht-rental-marbella
+[2026-05-31 01:37:55]   [40/40] ✓ yacht-hire-marbella
+[2026-05-31 01:37:55] es: 39/40 translated (total es=49)
+[main 0017cc2] es: +39 Spanish landing translations
+ Committer: master <master@masters-MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1599 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   fd192c0..0017cc2  HEAD -> main
+[2026-05-31 01:37:56] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-05-31 01:37:57] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-05-31 01:37:58] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-05-31 01:37:58] Blogger: 0/80 published this run
+[2026-05-31 01:37:58] WP: publishing 40 post(s) + 40 page(s) to boathire24guides.wordpress.com
+[2026-05-31 01:38:06]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/dolphin-watching-tips-marbella/
+[2026-05-31 01:38:15]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/sunset-champagne-boat-marbella/
+[2026-05-31 01:38:25]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-weather-guide/
+[2026-05-31 01:38:34]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/snorkeling-tours-marbella/
+[2026-05-31 01:38:43]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-photography/
+[2026-05-31 01:38:52]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/fishing-boat-rental-marbella/
+[2026-05-31 01:38:58]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-party-f1/
+[2026-05-31 01:39:00]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-05-31 01:39:05]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/dolphin-boat-tour-marbella/
+[2026-05-31 01:39:11]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/hen-party-boat-puerto-banus/
+[2026-05-31 01:39:17]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-licence-guide/
+[2026-05-31 01:39:26]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/sunset-boat-dinner-marbella/
+[2026-05-31 01:39:36]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/family-fishing-marbella/
+[2026-05-31 01:39:44]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/snorkeling-gear-costa-del-sol/
+[2026-05-31 01:39:52]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/stag-party-boat-puerto-banus/
+[2026-05-31 01:39:58]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-safety-tips/
+[2026-05-31 01:40:04]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/dolphin-watching-benalmadena/
+[2026-05-31 01:40:15]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/fishing-trip-puerto-banus/
+[2026-05-31 01:40:23]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/snorkeling-estepona-coves/
+[2026-05-31 01:40:29]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-birthday-party/
+[2026-05-31 01:40:38]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/sunset-boat-marbella-price/
+[2026-05-31 01:40:48]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/family-boat-day-puerto-banus/
+[2026-05-31 01:40:57]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-winter-boat-trips/
+[2026-05-31 01:41:04]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/dolphin-watching-estepona/
+[2026-05-31 01:41:10]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/snorkeling-puerto-banus/
+[2026-05-31 01:41:18]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-wedding/
+[2026-05-31 01:41:24]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-dolphin-season/
+[2026-05-31 01:41:30]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/hen-party-boat-estepona/
+[2026-05-31 01:41:36]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-photoshoot-tips/
+[2026-05-31 01:41:45]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-party-dj/
+[2026-05-31 01:41:54]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/best-time-year-boat-trip-marbella/
+[2026-05-31 01:42:03]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-party-starlite/
+[2026-05-31 01:42:10]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/dolphin-watching-marbella-early-morning/
+[2026-05-31 01:42:19]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-trip-snorkel-coves/
+[2026-05-31 01:42:29]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-feria-boat-party-costumes/
+[2026-05-31 01:42:38]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-weather-winter/
+[2026-05-31 01:42:44]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/stag-do-boat-activities-marbella/
+[2026-05-31 01:42:51]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-photoshoot-sunset/
+[2026-05-31 01:42:57]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-boat-party-ideas/
+[2026-05-31 01:43:04]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/fishing-charter-benalmadena/
+[2026-05-31 01:43:10]   ✓ post https://boathire24guides.wordpress.com/2026/05/31/marbella-new-years-eve-yacht-fireworks/
+[2026-05-31 01:43:11]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-05-31 01:43:14]   ✓ page https://boathire24guides.wordpress.com/private-boat-hire-marbella/
+[2026-05-31 01:43:20]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-estepona/
+[2026-05-31 01:43:26]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-fuengirola/
+[2026-05-31 01:43:33]   ✓ page https://boathire24guides.wordpress.com/boat-hire-puerto-banus/
+[2026-05-31 01:43:38]   ✓ page https://boathire24guides.wordpress.com/luxury-yacht-hire-marbella/
+[2026-05-31 01:43:44]   ✓ page https://boathire24guides.wordpress.com/speedboat-charter-puerto-banus/
+[2026-05-31 01:43:50]   ✓ page https://boathire24guides.wordpress.com/private-catamaran-marbella/
+[2026-05-31 01:43:56]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-fuengirola/
+[2026-05-31 01:43:57]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-05-31 01:43:59]   ✓ page https://boathire24guides.wordpress.com/boat-rental-estepona/
+[2026-05-31 01:44:05]   ✓ page https://boathire24guides.wordpress.com/catamaran-hire-marbella/
+[2026-05-31 01:44:11]   ✓ page https://boathire24guides.wordpress.com/motor-yacht-rental-marbella/
+[2026-05-31 01:44:13]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-05-31 01:44:15]   ✓ page https://boathire24guides.wordpress.com/yacht-hire-marbella/
+[2026-05-31 01:44:21]   ✓ page https://boathire24guides.wordpress.com/speedboat-hire-fuengirola/
+[2026-05-31 01:44:28]   ✓ page https://boathire24guides.wordpress.com/luxury-yacht-charter-puerto-banus/
+[2026-05-31 01:44:33]   ✓ page https://boathire24guides.wordpress.com/boat-rental-puerto-banus/
+[2026-05-31 01:44:40]   ✓ page https://boathire24guides.wordpress.com/catamaran-rental-estepona/
+[2026-05-31 01:44:45]   ✓ page https://boathire24guides.wordpress.com/private-yacht-hire-puerto-banus/
+[2026-05-31 01:44:52]   ✓ page https://boathire24guides.wordpress.com/speedboat-rental-fuengirola/
+[2026-05-31 01:44:55]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-benalmadena/
+[2026-05-31 01:45:01]   ✓ page https://boathire24guides.wordpress.com/motor-yacht-hire-marbella/
+[2026-05-31 01:45:03]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-05-31 01:45:05]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-fuengirola/
+[2026-05-31 01:45:12]   ✓ page https://boathire24guides.wordpress.com/luxury-boat-rental-marbella/
+[2026-05-31 01:45:15]   ✓ page https://boathire24guides.wordpress.com/speedboat-charter-marbella/
+[2026-05-31 01:45:22]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-benalmadena/
+[2026-05-31 01:45:28]   ✓ page https://boathire24guides.wordpress.com/boat-hire-fuengirola-port/
+[2026-05-31 01:45:34]   ✓ page https://boathire24guides.wordpress.com/speedboat-hire-benalmadena/
+[2026-05-31 01:45:37]   ✓ page https://boathire24guides.wordpress.com/catamaran-rental-fuengirola/
+[2026-05-31 01:45:43]   ✓ page https://boathire24guides.wordpress.com/affordable-yacht-charter-marbella/
+[2026-05-31 01:45:47]   ✓ page https://boathire24guides.wordpress.com/catamaran-rental-puerto-banus-hourly/
+[2026-05-31 01:45:53]   ✓ page https://boathire24guides.wordpress.com/luxury-motor-yacht-hire-marbella/
+[2026-05-31 01:45:57]   ✓ page https://boathire24guides.wordpress.com/speedboat-rental-marbella-port/
+[2026-05-31 01:46:03]   ✓ page https://boathire24guides.wordpress.com/private-yacht-charter-marbella-birthday/
+[2026-05-31 01:46:06]   ✓ page https://boathire24guides.wordpress.com/boat-hire-marbella-wedding-reception/
+[2026-05-31 01:46:10]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-puerto-banus-group/
+[2026-05-31 01:46:16]   ✓ page https://boathire24guides.wordpress.com/luxury-yacht-rental-marbella-weekend/
+[2026-05-31 01:46:22]   ✓ page https://boathire24guides.wordpress.com/motor-yacht-hire-puerto-banus-day/
+[2026-05-31 01:46:28]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-usa/
+[2026-05-31 01:46:35]   ✓ page https://boathire24guides.wordpress.com/electric-boat-rental-usa/
+[2026-05-31 01:46:41]   ✓ page https://boathire24guides.wordpress.com/row-boat-rental-usa/
+[2026-05-31 01:46:47]   ✓ page https://boathire24guides.wordpress.com/party-boat-rentals-usa/
+[2026-05-31 01:46:48] WP: 80/80 published
+[2026-05-31 01:46:48] done 2026-05-31
+[2026-06-01 07:04:22] starting daily run for 2026-06-01
+[2026-06-01 07:04:22] === Generate: 28 blog + 40 landing = 68 item(s) (backend=deepseek) ===
+[2026-06-01 07:04:23] [1/68] blog · marbella-boat-trip-snorkel-spots-map
+[2026-06-01 07:05:05]   ✓ generated
+[2026-06-01 07:05:05] [2/68] blog · marbella-new-years-eve-boat-party
+[2026-06-01 07:05:54]   ✓ generated
+[2026-06-01 07:05:54] [3/68] blog · marbella-boat-photoshoot-engagement
+[2026-06-01 07:06:36]   ✓ generated
+[2026-06-01 07:06:36] [4/68] blog · marbella-boat-licence-requirements
+[2026-06-01 07:07:14]   ✓ generated
+[2026-06-01 07:07:14] [5/68] blog · marbella-feria-boat-party-what-to-wear
+[2026-06-01 07:07:54]   ✓ generated
+[2026-06-01 07:07:54] [6/68] blog · marbella-boat-trip-dolphins-morning-vs-afternoon
+[2026-06-01 07:08:37]   ✓ generated
+[2026-06-01 07:08:37] [7/68] blog · marbella-boat-party-ideas-for-kids
+[2026-06-01 07:09:16]   ✓ generated
+[2026-06-01 07:09:16] [8/68] blog · marbella-boat-weather-forecast-weekly
+[2026-06-01 07:09:57]   ✓ generated
+[2026-06-01 07:09:57] [9/68] blog · marbella-snorkeling-gear-rental-boat
+[2026-06-01 07:10:38]   ✓ generated
+[2026-06-01 07:10:38] [10/68] blog · marbella-boat-birthday-party-cake
+[2026-06-01 07:11:18]   ✓ generated
+[2026-06-01 07:11:18] [11/68] blog · marbella-boat-trip-best-snorkeling-gear
+[2026-06-01 07:11:58]   ✓ generated
+[2026-06-01 07:11:58] [12/68] blog · marbella-boat-weather-july
+[2026-06-01 07:12:32]   ✓ generated
+[2026-06-01 07:12:32] [13/68] blog · marbella-boat-weather-october
+[2026-06-01 07:13:13]   ✓ generated
+[2026-06-01 07:13:13] [14/68] blog · hen-party-boat-marbella-activities
+[2026-06-01 07:13:53]   ✓ generated
+[2026-06-01 07:13:53] [15/68] blog · marbella-feria-boat-party-tips
+[2026-06-01 07:14:35]   ✓ generated
+[2026-06-01 07:14:35] [16/68] blog · dolphin-watching-marbella-best-time
+[2026-06-01 07:15:14]   ✓ generated
+[2026-06-01 07:15:14] [17/68] blog · marbella-new-years-eve-boat-dinner-menu
+[2026-06-01 07:15:56]   ✓ generated
+[2026-06-01 07:15:56] [18/68] blog · marbella-boat-party-f1-weekend
+[2026-06-01 07:16:35]   ✓ generated
+[2026-06-01 07:16:35] [19/68] blog · stag-do-boat-marbella-ideas
+[2026-06-01 07:17:20]   ✓ generated
+[2026-06-01 07:17:20] [20/68] blog · marbella-snorkeling-gear-boat
+[2026-06-01 07:17:20]   (near-duplicate topic, skipping: marbella snorkeling gear boat)
+[2026-06-01 07:17:20] [21/68] blog · marbella-boat-trip-dolphins-morning
+[2026-06-01 07:18:04]   ✓ generated
+[2026-06-01 07:18:04] [22/68] blog · marbella-winter-boat-trips-whale
+[2026-06-01 07:18:44]   ✓ generated
+[2026-06-01 07:18:44] [23/68] blog · marbella-boat-party-ideas-kids
+[2026-06-01 07:18:44]   (near-duplicate topic, skipping: marbella boat party ideas kids)
+[2026-06-01 07:18:44] [24/68] blog · marbella-boat-party-ideas-adults
+[2026-06-01 07:19:24]   ✓ generated
+[2026-06-01 07:19:24] [25/68] blog · marbella-boat-trip-dolphins-afternoon
+[2026-06-01 07:19:58]   ✓ generated
+[2026-06-01 07:19:58] [26/68] blog · marbella-boat-party-cake
+[2026-06-01 07:20:34]   ✓ generated
+[2026-06-01 07:20:34] [27/68] blog · marbella-boat-party-catering
+[2026-06-01 07:21:14]   ✓ generated
+[2026-06-01 07:21:14] [28/68] blog · marbella-boat-party-decorations
+[2026-06-01 07:21:56]   ✓ generated
+[2026-06-01 07:21:56] [29/68] landing · luxury-motor-yacht-hire-puerto-banus-day
+[2026-06-01 07:22:41]   ✓ generated
+[2026-06-01 07:22:41] [30/68] landing · private-yacht-rental-marbella-hen
+[2026-06-01 07:23:26]   ✓ generated
+[2026-06-01 07:23:26] [31/68] landing · fishing-charter-estepona-half-day
+[2026-06-01 07:24:00]   ✓ generated
+[2026-06-01 07:24:00] [32/68] landing · speedboat-hire-estepona-port-no-licence
+[2026-06-01 07:24:46]   ✓ generated
+[2026-06-01 07:24:46] [33/68] landing · luxury-catamaran-rental-puerto-banus-weekend
+[2026-06-01 07:25:35]   ✓ generated
+[2026-06-01 07:25:35] [34/68] landing · private-boat-charter-marbella-stag
+[2026-06-01 07:26:14]   ✓ generated
+[2026-06-01 07:26:14] [35/68] landing · motor-yacht-charter-fuengirola-day
+[2026-06-01 07:26:57]   ✓ generated
+[2026-06-01 07:26:57] [36/68] landing · catamaran-hire-puerto-banus-group
+[2026-06-01 07:27:42]   ✓ generated
+[2026-06-01 07:27:42] [37/68] landing · speedboat-rental-marbella-port-no-licence
+[2026-06-01 07:28:21]   ✓ generated
+[2026-06-01 07:28:21] [38/68] landing · luxury-yacht-hire-marbella-week
+[2026-06-01 07:29:07]   ✓ generated
+[2026-06-01 07:29:07] [39/68] landing · private-yacht-charter-marbella-sunset
+[2026-06-01 07:29:43]   ✓ generated
+[2026-06-01 07:29:43] [40/68] landing · catamaran-rental-puerto-banus-sunset
+[2026-06-01 07:30:23]   ✓ generated
+[2026-06-01 07:30:23] [41/68] landing · speedboat-hire-benalmadena-marina
+[2026-06-01 07:31:06]   ✓ generated
+[2026-06-01 07:31:06] [42/68] landing · luxury-yacht-charter-marbella-week
+[2026-06-01 07:31:52]   ✓ generated
+[2026-06-01 07:31:52] [43/68] landing · yacht-rental-benalmadena-marina
+[2026-06-01 07:32:35]   ✓ generated
+[2026-06-01 07:32:35] [44/68] landing · speedboat-rental-estepona-port
+[2026-06-01 07:33:15]   ✓ generated
+[2026-06-01 07:33:15] [45/68] landing · private-yacht-hire-puerto-banus-hen
+[2026-06-01 07:34:02]   ✓ generated
+[2026-06-01 07:34:02] [46/68] landing · motor-yacht-rental-marbella-day
+[2026-06-01 07:34:45]   ✓ generated
+[2026-06-01 07:34:45] [47/68] landing · speedboat-hire-puerto-banus-no-licence
+[2026-06-01 07:35:15]   ✓ generated
+[2026-06-01 07:35:15] [48/68] landing · luxury-yacht-hire-marbella-weekend
+[2026-06-01 07:35:49]   ✓ generated
+[2026-06-01 07:35:49] [49/68] landing · catamaran-rental-marbella-birthday
+[2026-06-01 07:36:30]   ✓ generated
+[2026-06-01 07:36:30] [50/68] landing · speedboat-rental-marbella-port-hourly
+[2026-06-01 07:37:05]   ✓ generated
+[2026-06-01 07:37:05] [51/68] landing · yacht-rental-fuengirola-port
+[2026-06-01 07:37:41]   ✓ generated
+[2026-06-01 07:37:41] [52/68] landing · catamaran-hire-marbella-sunset
+[2026-06-01 07:38:23]   ✓ generated
+[2026-06-01 07:38:23] [53/68] landing · luxury-catamaran-hire-puerto-banus
+[2026-06-01 07:39:07]   ✓ generated
+[2026-06-01 07:39:07] [54/68] landing · speedboat-hire-estepona-port
+[2026-06-01 07:39:41]   ✓ generated
+[2026-06-01 07:39:41] [55/68] landing · boat-rental
+[2026-06-01 07:40:22]   ✓ generated
+[2026-06-01 07:40:22] [56/68] landing · boat-rentals-near-me
+[2026-06-01 07:40:52]   ✓ generated
+[2026-06-01 07:40:52] [57/68] landing · jet-ski-rental
+[2026-06-01 07:41:26]   ✓ generated
+[2026-06-01 07:41:26] [58/68] landing · pontoon-rentals
+[2026-06-01 07:42:04]   ✓ generated
+[2026-06-01 07:42:04] [59/68] landing · yacht-rental
+[2026-06-01 07:42:53]   ✓ generated
+[2026-06-01 07:42:53] [60/68] landing · boat-rental-services
+[2026-06-01 07:43:34]   ✓ generated
+[2026-06-01 07:43:34] [61/68] landing · boat-hire
+[2026-06-01 07:43:34]   (near-duplicate topic, skipping: boat hire)
+[2026-06-01 07:43:34] [62/68] landing · lake-bled-boat-hire
+[2026-06-01 07:44:18]   ✓ generated
+[2026-06-01 07:44:18] [63/68] landing · santorini-boat-hire
+[2026-06-01 07:44:57]   ✓ generated
+[2026-06-01 07:44:57] [64/68] landing · hire-a-yacht
+[2026-06-01 07:44:57]   (near-duplicate topic, skipping: hire a yacht)
+[2026-06-01 07:44:57] [65/68] landing · boat-hire-in-cannes
+[2026-06-01 07:45:38]   ✓ generated
+[2026-06-01 07:45:38] [66/68] landing · yacht-to-hire
+[2026-06-01 07:45:38]   (near-duplicate topic, skipping: yacht to hire)
+[2026-06-01 07:45:38] [67/68] landing · yacht-hire
+[2026-06-01 07:45:38]   (near-duplicate topic, skipping: yacht hire)
+[2026-06-01 07:45:38] [68/68] landing · boat-hire-cannes
+[2026-06-01 07:45:38]   (near-duplicate topic, skipping: boat hire cannes)

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Calendar, Users, Zap, Shield } from 'lucide-react'
+import { Calendar, Users, Zap, Shield, Clock, MessageSquare } from 'lucide-react'
 import { formatPrice, calcFees } from '@/lib/utils/pricing'
 import type { BoatWithDetails } from '@/types/database'
 import { createClient } from '@/lib/supabase/client'
@@ -23,10 +23,34 @@ interface BookingWidgetProps {
   blockedDates?: string[]
 }
 
+const TIME_SLOTS = [
+  { value: '09:00', label: '9:00', sub: 'Morning' },
+  { value: '11:00', label: '11:00', sub: 'Late morning' },
+  { value: '13:00', label: '13:00', sub: 'Afternoon' },
+  { value: '15:00', label: '15:00', sub: 'Late afternoon' },
+  { value: '17:00', label: '17:00', sub: 'Sunset' },
+]
+
+const OCCASIONS = [
+  { value: 'birthday',     emoji: '🎂', label: 'Birthday' },
+  { value: 'bachelor',     emoji: '🥳', label: 'Bachelor/ette' },
+  { value: 'anniversary',  emoji: '💞', label: 'Anniversary' },
+  { value: 'proposal',     emoji: '💍', label: 'Proposal' },
+  { value: 'honeymoon',    emoji: '🌅', label: 'Honeymoon' },
+  { value: 'family',       emoji: '👨‍👩‍👧', label: 'Family day' },
+  { value: 'corporate',    emoji: '💼', label: 'Corporate' },
+  { value: 'sunset',       emoji: '🌇', label: 'Sunset cruise' },
+]
+
 export default function BookingWidget({ boat, blockedDates = [] }: BookingWidgetProps) {
   const [date, setDate] = useState('')
+  const [time, setTime] = useState('09:00')
+  const [customTime, setCustomTime] = useState(false)
   const [selectedPricingId, setSelectedPricingId] = useState<string>('')
   const [guests, setGuests] = useState(1)
+  const [occasion, setOccasion] = useState<string>('')
+  const [notes, setNotes] = useState('')
+  const [showNotes, setShowNotes] = useState(false)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const supabase = createClient()
@@ -47,7 +71,10 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
       date,
       pricing_id: selectedPricing.id,
       guests: String(guests),
+      time,
     })
+    if (occasion) params.set('occasion', occasion)
+    if (notes.trim()) params.set('notes', notes.trim())
     router.push(`/boats/${boat.slug}/book?${params.toString()}`)
   }
 
@@ -106,6 +133,42 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
         />
       </div>
 
+      {/* Preferred start time */}
+      <div style={{ marginBottom: '18px' }}>
+        <label style={{ fontSize: '11px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px' }}>
+          <Clock style={{ width: 12, height: 12 }} />Preferred start time
+        </label>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+          {TIME_SLOTS.map((slot) => {
+            const active = !customTime && time === slot.value
+            return (
+              <button
+                key={slot.value}
+                onClick={() => { setTime(slot.value); setCustomTime(false) }}
+                style={{ padding: '8px 6px', borderRadius: '10px', cursor: 'pointer', background: active ? goldFaint : inputBg, border: `1px solid ${active ? gold : inputBorder}`, color: active ? gold : text, transition: 'all 0.15s', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
+              >
+                <span style={{ fontSize: '14px', fontWeight: 700 }}>{slot.label}</span>
+                <span style={{ fontSize: '10px', color: active ? gold : muted, opacity: 0.8 }}>{slot.sub}</span>
+              </button>
+            )
+          })}
+          <button
+            onClick={() => setCustomTime(true)}
+            style={{ padding: '8px 6px', borderRadius: '10px', cursor: 'pointer', background: customTime ? goldFaint : inputBg, border: `1px solid ${customTime ? gold : inputBorder}`, color: customTime ? gold : text, fontSize: '12px', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+          >
+            <Clock style={{ width: 12, height: 12 }} /> Other
+          </button>
+        </div>
+        {customTime && (
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            style={{ marginTop: '8px', width: '100%', height: '42px', borderRadius: '10px', border: `1px solid ${goldBorder}`, background: inputBg, padding: '0 12px', fontSize: '14px', color: text, outline: 'none', colorScheme: 'dark', boxSizing: 'border-box' }}
+          />
+        )}
+      </div>
+
       {/* Guests */}
       <div style={{ marginBottom: '18px' }}>
         <label style={{ fontSize: '11px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px' }}>
@@ -128,20 +191,76 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
         </div>
       </div>
 
-      {/* Price breakdown */}
+      {/* Occasion (optional quick-tags) */}
+      <div style={{ marginBottom: '14px' }}>
+        <label style={{ fontSize: '11px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px' }}>
+          🎉 Occasion <span style={{ fontSize: '10px', fontWeight: 500, textTransform: 'none', letterSpacing: 0, color: dim, marginLeft: '4px' }}>(optional)</span>
+        </label>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+          {OCCASIONS.map((opt) => {
+            const active = occasion === opt.value
+            return (
+              <button
+                key={opt.value}
+                onClick={() => setOccasion(active ? '' : opt.value)}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '6px 11px', borderRadius: '50px', cursor: 'pointer', background: active ? goldFaint : inputBg, border: `1px solid ${active ? gold : inputBorder}`, color: active ? gold : text, fontSize: '11px', fontWeight: 600, transition: 'all 0.15s' }}
+              >
+                <span style={{ fontSize: '13px' }}>{opt.emoji}</span>
+                {opt.label}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Special requests / Notes */}
+      <div style={{ marginBottom: '18px' }}>
+        {!showNotes ? (
+          <button
+            onClick={() => setShowNotes(true)}
+            style={{ width: '100%', padding: '11px 14px', borderRadius: '10px', background: 'transparent', border: `1px dashed ${inputBorder}`, color: muted, fontSize: '13px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: 'inherit' }}
+          >
+            <MessageSquare style={{ width: 13, height: 13 }} />
+            <span>Add a note to the host</span>
+            <span style={{ fontSize: '11px', color: dim }}>(optional)</span>
+          </button>
+        ) : (
+          <>
+            <label style={{ fontSize: '11px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px' }}>
+              <MessageSquare style={{ width: 12, height: 12 }} /> Anything we should know?
+            </label>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              rows={3}
+              maxLength={500}
+              autoFocus
+              placeholder="E.g. We're celebrating a 40th birthday — would love a chilled bottle of cava on arrival. Bringing 2 kids (ages 5, 8). Vegetarian lunch please. Music: chill house. Pickup from Marbella Marina if possible."
+              style={{ width: '100%', minHeight: '90px', padding: '12px 14px', borderRadius: '10px', background: inputBg, border: `1px solid ${inputBorder}`, color: text, fontSize: '13px', resize: 'vertical', outline: 'none', boxSizing: 'border-box', lineHeight: 1.55, fontFamily: 'inherit', transition: 'border-color 0.15s' }}
+              onFocus={(e) => { e.target.style.borderColor = goldBorder }}
+              onBlur={(e) => { e.target.style.borderColor = inputBorder }}
+            />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
+              <p style={{ fontSize: '11px', color: dim, margin: 0 }}>
+                Dietary needs · music · pickup time · special celebrations
+              </p>
+              <span style={{ fontSize: '10px', color: notes.length > 450 ? '#f59e0b' : dim }}>
+                {notes.length}/500
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Total — all-inclusive price (commission already included) */}
       {fees && (
-        <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '14px', marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: muted }}>
-            <span>Charter fee</span>
-            <span>{formatPrice(fees.subtotal, selectedPricing?.currency)}</span>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: dim }}>
-            <span>Service fee (15%)</span>
-            <span>{formatPrice(fees.serviceFee, selectedPricing?.currency)}</span>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: 800, color: gold, paddingTop: '8px', borderTop: `1px solid ${border}` }}>
+        <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '14px', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px', fontWeight: 800, color: gold }}>
             <span>Total</span>
-            <span>{formatPrice(fees.total, selectedPricing?.currency)}</span>
+            <span style={{ fontSize: '18px' }}>{formatPrice(fees.total, selectedPricing?.currency)}</span>
+          </div>
+          <div style={{ fontSize: '11px', color: dim, marginTop: '4px' }}>
+            All-inclusive · no extra fees at checkout
           </div>
         </div>
       )}

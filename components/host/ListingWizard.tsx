@@ -14,6 +14,12 @@ interface WizardProps {
   locations: Pick<Location, 'id' | 'name' | 'city' | 'country'>[]
   initialData?: any
   boatId?: string
+  /**
+   * If set, this listing is created on behalf of the given user (admin concierge mode).
+   * The boat's host_id will be this ID, not the current authenticated user's ID.
+   * Server-side checks in the page already validate the caller is an admin.
+   */
+  targetHostId?: string
 }
 
 const STEPS = ['Basics', 'Specs & features', 'Pricing', 'Photos', 'Review & publish']
@@ -156,7 +162,7 @@ function DarkSelect({ value, onChange, children }: { value: string; onChange: (v
   )
 }
 
-export default function ListingWizard({ locations, initialData, boatId }: WizardProps) {
+export default function ListingWizard({ locations, initialData, boatId, targetHostId }: WizardProps) {
   const [step, setStep] = useState(0)
   const [form, setForm] = useState<FormData>(() => formFromInitial(initialData))
   const [loading, setLoading] = useState(false)
@@ -222,11 +228,23 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
         await supabase.from('boat_pricing').delete().eq('boat_id', boatId)
       } else {
         const slug = form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + Date.now()
-        const { data: boat, error: boatErr } = await supabase
-          .from('boats').insert({ host_id: user.id, slug, status: 'draft', ...boatFields })
-          .select('id').single()
-        if (boatErr || !boat) throw new Error(boatErr?.message ?? 'Failed to create listing')
-        targetBoatId = boat.id
+        // For admin concierge mode, route through API so server-side service role can set arbitrary host_id
+        if (targetHostId) {
+          const res = await fetch('/api/admin/create-listing', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ hostId: targetHostId, slug, status: 'draft', ...boatFields }),
+          })
+          const json = await res.json()
+          if (!res.ok || !json.id) throw new Error(json.error ?? 'Failed to create listing')
+          targetBoatId = json.id
+        } else {
+          const { data: boat, error: boatErr } = await supabase
+            .from('boats').insert({ host_id: user.id, slug, status: 'draft', ...boatFields })
+            .select('id').single()
+          if (boatErr || !boat) throw new Error(boatErr?.message ?? 'Failed to create listing')
+          targetBoatId = boat.id
+        }
       }
 
       const pricingRecords = form.pricing
@@ -247,7 +265,11 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
         )
       }
 
-      if (pricingRecords.length > 0) await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
+      // Auto-activate only when the actual host is publishing.
+      // Admin concierge listings stay as drafts so the host can review & activate themselves.
+      if (pricingRecords.length > 0 && !targetHostId) {
+        await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
+      }
       router.push('/host')
     } catch (err: any) {
       setError(err.message)
@@ -422,7 +444,7 @@ export default function ListingWizard({ locations, initialData, boatId }: Wizard
                   </div>
                 </div>
               ))}
-              <p style={{ fontSize: '12px', color: dim }}>A 15% service fee is added to these prices at checkout.</p>
+              <p style={{ fontSize: '12px', color: dim }}>The price guests pay is exactly what you enter above — all-inclusive. BoatHire24 takes a 15% platform commission from this price, so you receive 85% as your payout.</p>
             </div>
           </>
         )}

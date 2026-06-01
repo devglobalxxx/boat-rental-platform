@@ -248,7 +248,7 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
                 </table>
               </div>
               <p style={{ fontSize: '12px', color: 'rgba(244,244,242,0.32)', marginTop: '10px' }}>
-                All prices include a 15% platform service fee at checkout.
+                All-inclusive prices · no extra fees at checkout.
               </p>
             </div>
 
