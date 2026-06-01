@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Ship, ChevronDown, ChevronUp, ExternalLink, Loader2, X } from 'lucide-react'
 
@@ -52,6 +52,17 @@ export default function AdminBoatsButton({ userId, boatCount }: { userId: string
   const [boats, setBoats] = useState<Boat[]>([])
   const [loading, setLoading] = useState(false)
   const [selected, setSelected] = useState<Boat | null>(null)
+  const wrapRef = useRef<HTMLDivElement>(null)
+
+  // Close the dropdown when clicking outside it, or pressing Escape.
+  useEffect(() => {
+    if (!open) return
+    const onDown = (e: MouseEvent) => { if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false) }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    document.addEventListener('mousedown', onDown)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey) }
+  }, [open])
 
   async function toggle() {
     if (open) { setOpen(false); return }
@@ -73,6 +84,7 @@ export default function AdminBoatsButton({ userId, boatCount }: { userId: string
 
   return (
     <>
+      <div ref={wrapRef} style={{ display: 'inline-block' }}>
       <button
         onClick={toggle}
         style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '8px', background: open ? goldFaint : 'rgba(255,255,255,0.05)', border: `1px solid ${open ? goldBorder : 'rgba(255,255,255,0.10)'}`, color: open ? gold : text, fontSize: '13px', fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}
@@ -121,6 +133,7 @@ export default function AdminBoatsButton({ userId, boatCount }: { userId: string
           )}
         </div>
       )}
+      </div>
 
       {/* ── Detail modal ── */}
       {selected && <BoatDetailModal boat={selected} onClose={() => setSelected(null)} />}
@@ -247,10 +260,10 @@ function BoatDetailModal({ boat, onClose }: { boat: Boat; onClose: () => void })
           </Section>
 
           {/* Amenities */}
-          {boat.boat_features.length > 0 && (
+          {boat.boat_features.filter((f) => !f.feature.startsWith('__REFUND_POLICY__::')).length > 0 && (
             <Section title="Amenities">
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', padding: '8px 0' }}>
-                {boat.boat_features.map((f, i) => (
+                {boat.boat_features.filter((f) => !f.feature.startsWith('__REFUND_POLICY__::')).map((f, i) => (
                   <span key={i} style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}` }}>{f.feature}</span>
                 ))}
               </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import { ChevronLeft, ShieldCheck, Upload, CheckCircle, AlertCircle, User, Building2 } from 'lucide-react'
 
 const gold = '#c9a84e'
@@ -96,25 +97,56 @@ export default function VerifyPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!docs.passport && ownerType === 'individual') {
+    if (ownerType === 'individual' && !docs.passport) {
       setError('Passport / ID copy is required for individual owners.')
       return
     }
-    if (ownerType === 'company' && !docs.company_registration) {
-      setError('Company registration document is required for company owners.')
-      return
+    if (ownerType === 'company') {
+      if (!docs.company_registration) {
+        setError('Company registration document is required for company owners.')
+        return
+      }
+      if (!docs.passport) {
+        setError("The director's / owner's passport or ID is also required for company owners.")
+        return
+      }
     }
     setError('')
     setSubmitting(true)
 
-    const fd = new FormData()
-    fd.append('owner_type', ownerType)
-    Object.entries(docs).forEach(([key, file]) => {
-      if (file) fd.append(key, file)
-    })
-
     try {
-      const res = await fetch('/api/verify-submit', { method: 'POST', body: fd })
+      const supabase = createClient()
+      const fileEntries = Object.entries(docs).filter(([, f]) => !!f) as [string, File][]
+
+      // 1) Ask the server for a signed upload URL per file
+      const presignRes = await fetch('/api/verify-presign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          files: fileEntries.map(([type, file]) => ({ type, ext: file.name.split('.').pop() ?? 'pdf' })),
+        }),
+      })
+      const presign = await presignRes.json()
+      if (!presignRes.ok || !presign.uploads) throw new Error(presign.error ?? 'Could not start upload')
+
+      // 2) Upload each file DIRECTLY to Supabase Storage (bypasses Vercel's 4.5MB limit)
+      const uploaded: { type: string; name: string; path: string }[] = []
+      for (const up of presign.uploads as { type: string; path: string; token: string }[]) {
+        const file = docs[up.type as keyof DocState]
+        if (!file) continue
+        const { error: upErr } = await supabase.storage
+          .from('verification-docs')
+          .uploadToSignedUrl(up.path, up.token, file)
+        if (upErr) throw new Error(`Upload failed for ${up.type.replace(/_/g, ' ')}: ${upErr.message}`)
+        uploaded.push({ type: up.type, name: file.name, path: up.path })
+      }
+
+      // 3) Tell the server which files were uploaded (small JSON only)
+      const res = await fetch('/api/verify-submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ownerType, docs: uploaded }),
+      })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? 'Submission failed')
       setSubmitted(true)
@@ -217,11 +249,18 @@ export default function VerifyPage() {
             )}
 
             {ownerType === 'company' && (
-              <FileField
-                docKey="company_registration" label="Company Registration Certificate" required
-                desc="Official registration document — PDF, JPG, PNG"
-                file={docs.company_registration} onChange={set('company_registration')}
-              />
+              <>
+                <FileField
+                  docKey="company_registration" label="Company Registration Certificate" required
+                  desc="Official registration document — PDF, JPG, PNG"
+                  file={docs.company_registration} onChange={set('company_registration')}
+                />
+                <FileField
+                  docKey="passport" label="Director / Owner Passport or ID" required
+                  desc="Photo ID of the company's authorised representative — PDF, JPG, PNG"
+                  file={docs.passport} onChange={set('passport')}
+                />
+              </>
             )}
 
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '12px', marginTop: '4px' }}>

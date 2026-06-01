@@ -4,6 +4,7 @@ import { createClient as createAdmin } from '@supabase/supabase-js'
 import AdminVerifyButton from './AdminVerifyButton'
 import AdminDocsButton from './AdminDocsButton'
 import AdminBoatsButton from './AdminBoatsButton'
+import AdminPayoutButton from './AdminPayoutButton'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Admin Panel' }
@@ -87,12 +88,18 @@ export default async function AdminPage({
     docMap[d.user_id] = (docMap[d.user_id] ?? 0) + 1
   }
 
+  // Which hosts have saved bank/payout details (table may not exist yet → empty set)
+  const payoutSet = new Set<string>()
+  const { data: payoutRows } = await supabaseAdmin.from('payout_methods').select('host_id')
+  for (const p of payoutRows ?? []) payoutSet.add(p.host_id)
+
   const all = (profiles ?? []).map((p) => ({
     ...p,
     email: emailMap[p.id]?.email ?? '',
     joined: emailMap[p.id]?.created_at ?? '',
     boats: boatMap[p.id] ?? 0,
     docs: docMap[p.id] ?? 0,
+    hasPayout: payoutSet.has(p.id),
   }))
 
   const filtered = filter === 'all' ? all : all.filter((p) => p.verification_status === filter)
@@ -161,8 +168,8 @@ export default async function AdminPage({
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', minWidth: '700px' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-                    {['User', 'Email', 'Joined', 'Boats', 'Documents', 'Status', 'Actions'].map((h, i) => (
-                      <th key={h} style={{ padding: '12px 16px', textAlign: i === 6 ? 'right' : 'left', fontWeight: 600, color: muted, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
+                    {['User', 'Email', 'Joined', 'Boats', 'Documents', 'Payout', 'Status', 'Actions'].map((h, i, arr) => (
+                      <th key={h} style={{ padding: '12px 16px', textAlign: i === arr.length - 1 ? 'right' : 'left', fontWeight: 600, color: muted, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -194,6 +201,9 @@ export default async function AdminPage({
                         </td>
                         <td style={{ padding: '14px 16px', position: 'relative' }}>
                           <AdminDocsButton userId={u.id} docCount={u.docs} />
+                        </td>
+                        <td style={{ padding: '14px 16px', position: 'relative' }}>
+                          <AdminPayoutButton userId={u.id} hasMethod={u.hasPayout} />
                         </td>
                         <td style={{ padding: '14px 16px' }}>
                           <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '99px', background: s.bg, color: s.color, border: `1px solid ${s.bd}`, whiteSpace: 'nowrap' }}>

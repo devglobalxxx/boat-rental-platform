@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { FileText, ChevronDown, ChevronUp, ExternalLink, Loader2 } from 'lucide-react'
 
 const gold = '#c9a84e'
@@ -31,6 +31,17 @@ export default function AdminDocsButton({ userId, docCount }: { userId: string; 
   const [open, setOpen] = useState(false)
   const [docs, setDocs] = useState<Doc[]>([])
   const [loading, setLoading] = useState(false)
+  const wrapRef = useRef<HTMLDivElement>(null)
+
+  // Close when clicking outside the dropdown, or pressing Escape.
+  useEffect(() => {
+    if (!open) return
+    const onDown = (e: MouseEvent) => { if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false) }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    document.addEventListener('mousedown', onDown)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey) }
+  }, [open])
 
   async function toggle() {
     if (open) { setOpen(false); return }
@@ -51,7 +62,7 @@ export default function AdminDocsButton({ userId, docCount }: { userId: string; 
   }
 
   return (
-    <div>
+    <div ref={wrapRef}>
       <button
         onClick={toggle}
         style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '8px', background: open ? goldFaint : 'rgba(255,255,255,0.05)', border: `1px solid ${open ? goldBorder : 'rgba(255,255,255,0.10)'}`, color: open ? gold : muted, fontSize: '12px', fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}
