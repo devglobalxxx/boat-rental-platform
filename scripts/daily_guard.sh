@@ -29,6 +29,12 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] starting daily run for $TODAY" >> "$LOG"
 # day retries on the next wake instead of being marked done.
 if "$PY" "$ROOT/scripts/generate_content.py" >> "$LOG" 2>&1; then
     echo "$TODAY" > "$MARKER"
+    # SEO maintenance: quarantine thin, canonical-consolidate dupes, rebuild
+    # distributed cross-links + affiliate links across all pages, then push.
+    "$PY" "$ROOT/scripts/audit_fix.py" >> "$LOG" 2>&1
+    cd "$ROOT" && git add -A >> "$LOG" 2>&1 && \
+        git commit -m "Daily SEO maintenance ($TODAY): relink + canonical + affiliate" >> "$LOG" 2>&1 && \
+        git push origin HEAD >> "$LOG" 2>&1
     "$PY" "$ROOT/scripts/translate_es.py" --limit 40 >> "$LOG" 2>&1
     "$PY" "$ROOT/scripts/post_blogger.py" --limit 40 >> "$LOG" 2>&1
     "$PY" "$ROOT/scripts/wp_publish.py" --limit 40 >> "$LOG" 2>&1
