@@ -1022,3 +1022,7 @@
 [2026-06-02 01:09:01]   ✓ generated
 [2026-06-02 01:09:01] [40/40] landing · boat-rental-in-mallorca
 [2026-06-02 01:09:01]   (near-duplicate topic, skipping: boat rental in mallorca)
+[2026-06-02 01:09:04] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-02 01:09:06] reindex ping: 200 {"ok":true,"urls_total":820,"indexnow":{"ok":true,"status":200,"count":820},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-01T22:09
+[2026-06-02 01:09:06] === Done: 40 ok, 0 failed ===
+
