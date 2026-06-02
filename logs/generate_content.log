@@ -1069,3 +1069,38 @@
 [2026-06-02 16:54:19]   (near-duplicate topic, skipping: jet ski rental mijas)
 [2026-06-02 16:54:19] === Done: 18 ok, 0 failed ===
 
+[2026-06-02 16:54:40]   ✓ generated
+[2026-06-02 16:54:40] [3/18] landing · jet-ski-puerto-banus
+[2026-06-02 16:55:22]   ✓ generated
+[2026-06-02 16:55:22] [4/18] landing · jet-ski-rental-puerto-banus
+[2026-06-02 16:56:10]   ✓ generated
+[2026-06-02 16:56:10] [5/18] landing · jet-ski-hire-marbella
+[2026-06-02 16:56:50]   ✓ generated
+[2026-06-02 16:56:50] [6/18] landing · jet-ski-rental-estepona
+[2026-06-02 16:57:37]   ✓ generated
+[2026-06-02 16:57:37] [7/18] landing · jet-ski-rental-fuengirola
+[2026-06-02 16:58:35]   ✓ generated
+[2026-06-02 16:58:35] [8/18] landing · jet-ski-rental-benalmadena
+[2026-06-02 16:59:25]   ✓ generated
+[2026-06-02 16:59:25] [9/18] landing · jet-ski-rental-malaga
+[2026-06-02 17:00:13]   ✓ generated
+[2026-06-02 17:00:13] [10/18] landing · jet-ski-rental-costa-del-sol
+[2026-06-02 17:01:03]   ✓ generated
+[2026-06-02 17:01:03] [11/18] landing · jet-ski-rental-torremolinos
+[2026-06-02 17:01:53]   ✓ generated
+[2026-06-02 17:01:53] [12/18] landing · jet-ski-rental-nerja
+[2026-06-02 17:02:46]   ✓ generated
+[2026-06-02 17:02:46] [13/18] landing · jet-ski-rental-sotogrande
+[2026-06-02 17:03:33]   ✓ generated
+[2026-06-02 17:03:33] [14/18] landing · jet-ski-tours-marbella
+[2026-06-02 17:04:13]   ✓ generated
+[2026-06-02 17:04:13] [15/18] landing · jet-ski-safari-puerto-banus
+[2026-06-02 17:05:03]   ✓ generated
+[2026-06-02 17:05:03] [16/18] landing · flyboard-marbella
+[2026-06-02 17:05:47]   ✓ generated
+[2026-06-02 17:05:47] [17/18] landing · water-sports-marbella
+[2026-06-02 17:06:39]   ✓ generated
+[2026-06-02 17:06:39] [18/18] landing · jet-ski-rental-mijas
+[2026-06-02 17:07:31]   ✓ generated
+[2026-06-02 17:07:31] === Done: 18 ok, 0 failed ===
+

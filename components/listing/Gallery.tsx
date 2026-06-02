@@ -12,6 +12,11 @@ interface GalleryProps {
   boatName: string
 }
 
+const cell: React.CSSProperties = {
+  position: 'relative', overflow: 'hidden', border: 'none', padding: 0,
+  cursor: 'pointer', background: 'rgba(255,255,255,0.04)',
+}
+
 export default function Gallery({ images, boatName }: GalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const hero = images.find((i) => i.is_hero) ?? images[0]
@@ -21,90 +26,86 @@ export default function Gallery({ images, boatName }: GalleryProps) {
 
   return (
     <>
-      {/* Grid */}
-      <div className="grid grid-cols-4 grid-rows-2 gap-2 rounded-2xl overflow-hidden h-[420px]">
-        {/* Hero — takes left half */}
-        <button
-          className="col-span-2 row-span-2 relative group overflow-hidden"
-          onClick={() => setLightboxIndex(0)}
-        >
+      {/* Responsive grid: 4-col mosaic on desktop, full-width hero + thumb row on mobile */}
+      <div className="bh-gal">
+        <button className="bh-gal-hero" style={cell} onClick={() => setLightboxIndex(0)}>
           <Image
             src={hero.storage_url}
             alt={hero.alt ?? boatName}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            style={{ objectFit: 'cover' }}
             priority
-            sizes="50vw"
+            sizes="(max-width: 640px) 100vw, 50vw"
           />
         </button>
 
-        {/* Right grid — up to 4 thumbnails */}
         {rest.map((img, idx) => (
-          <button
-            key={img.id}
-            className="relative group overflow-hidden"
-            onClick={() => setLightboxIndex(idx + 1)}
-          >
+          <button key={img.id} className="bh-gal-thumb" style={cell} onClick={() => setLightboxIndex(idx + 1)}>
             <Image
               src={img.storage_url}
               alt={img.alt ?? `${boatName} photo ${idx + 2}`}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-              sizes="25vw"
+              style={{ objectFit: 'cover' }}
+              sizes="(max-width: 640px) 25vw, 25vw"
             />
-            {/* Show all button on last thumbnail */}
             {idx === 3 && images.length > 5 && (
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center gap-1.5 text-white text-sm font-semibold">
-                <Grid className="w-4 h-4" />
-                +{images.length - 5} more
+              <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, color: '#fff', fontSize: 13, fontWeight: 600 }}>
+                <Grid style={{ width: 15, height: 15 }} /> +{images.length - 5} more
               </div>
             )}
           </button>
         ))}
-
-        {/* Show-all trigger if < 4 thumbnails */}
-        {rest.length === 0 && images.length > 1 && (
-          <button
-            className="col-span-2 row-span-2 relative group overflow-hidden"
-            onClick={() => setLightboxIndex(1)}
-          >
-            <Image src={images[1].storage_url} alt={images[1].alt ?? boatName} fill className="object-cover" sizes="50vw" />
-          </button>
-        )}
       </div>
 
       {/* Lightbox */}
       {lightboxIndex !== null && (
-        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center" onClick={() => setLightboxIndex(null)}>
-          <button className="absolute top-4 right-4 text-white hover:text-slate-300 transition-colors z-10" onClick={() => setLightboxIndex(null)}>
-            <X className="w-8 h-8" />
+        <div onClick={() => setLightboxIndex(null)} style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(0,0,0,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <button onClick={() => setLightboxIndex(null)} style={{ position: 'absolute', top: 16, right: 16, background: 'none', border: 'none', color: '#fff', cursor: 'pointer', zIndex: 10, padding: 4 }}>
+            <X style={{ width: 30, height: 30 }} />
           </button>
-          <button
-            className="absolute left-4 text-white hover:text-slate-300 transition-colors z-10 p-2"
-            onClick={(e) => { e.stopPropagation(); setLightboxIndex(Math.max(0, lightboxIndex - 1)) }}
-          >
-            <ChevronLeft className="w-8 h-8" />
+          <button onClick={(e) => { e.stopPropagation(); setLightboxIndex(Math.max(0, lightboxIndex - 1)) }} style={{ position: 'absolute', left: 6, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#fff', cursor: 'pointer', zIndex: 10, padding: 8 }}>
+            <ChevronLeft style={{ width: 30, height: 30 }} />
           </button>
-          <button
-            className="absolute right-4 text-white hover:text-slate-300 transition-colors z-10 p-2"
-            onClick={(e) => { e.stopPropagation(); setLightboxIndex(Math.min(images.length - 1, lightboxIndex + 1)) }}
-          >
-            <ChevronRight className="w-8 h-8" />
+          <button onClick={(e) => { e.stopPropagation(); setLightboxIndex(Math.min(images.length - 1, lightboxIndex + 1)) }} style={{ position: 'absolute', right: 6, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#fff', cursor: 'pointer', zIndex: 10, padding: 8 }}>
+            <ChevronRight style={{ width: 30, height: 30 }} />
           </button>
-          <div className="relative w-full max-w-5xl max-h-[85vh] mx-8" onClick={(e) => e.stopPropagation()}>
+          <div onClick={(e) => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: '64rem', maxHeight: '85vh', margin: '0 28px', display: 'flex', justifyContent: 'center' }}>
             <Image
               src={images[lightboxIndex].storage_url}
               alt={images[lightboxIndex].alt ?? boatName}
               width={1200}
               height={800}
-              className="object-contain w-full h-full max-h-[85vh] rounded-xl"
+              style={{ objectFit: 'contain', width: '100%', height: 'auto', maxHeight: '85vh', borderRadius: 12 }}
             />
           </div>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
+          <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>
             {lightboxIndex + 1} / {images.length}
           </div>
         </div>
       )}
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        .bh-gal {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-template-rows: repeat(2, 1fr);
+          gap: 8px;
+          height: 420px;
+          border-radius: 16px;
+          overflow: hidden;
+        }
+        .bh-gal-hero { grid-column: span 2; grid-row: span 2; }
+        @media (max-width: 640px) {
+          .bh-gal {
+            grid-template-rows: 240px;
+            grid-auto-rows: 76px;
+            height: auto;
+            gap: 6px;
+            border-radius: 14px;
+          }
+          .bh-gal-hero { grid-column: 1 / -1; grid-row: 1; }
+        }
+      ` }} />
     </>
   )
 }
