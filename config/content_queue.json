@@ -2972,16 +2972,15 @@
       "target_words": 2200,
       "search_volume": 10,
       "consumed_at": "2026-06-02"
-    }
-  ],
-  "queue": [
+    },
     {
       "kind": "landing",
       "slug": "boat-rental-ibiza",
       "primary_keyword": "boat rental ibiza",
       "title": "Boat Rental Ibiza | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -2989,7 +2988,8 @@
       "primary_keyword": "boat hire ibiza",
       "title": "Boat Hire Ibiza | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -2997,7 +2997,8 @@
       "primary_keyword": "boat rental in ibiza",
       "title": "Boat Rental In Ibiza | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3005,7 +3006,8 @@
       "primary_keyword": "yacht charter cancun",
       "title": "Yacht Charter Cancun | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3013,7 +3015,8 @@
       "primary_keyword": "boat rental amalfi",
       "title": "Boat Rental Amalfi | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3021,7 +3024,8 @@
       "primary_keyword": "boat hire amalfi",
       "title": "Boat Hire Amalfi | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3029,7 +3033,8 @@
       "primary_keyword": "boat rental in amalfi",
       "title": "Boat Rental In Amalfi | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3037,7 +3042,8 @@
       "primary_keyword": "yacht charter sardinia",
       "title": "Yacht Charter Sardinia | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3045,7 +3051,8 @@
       "primary_keyword": "boat rental amsterdam",
       "title": "Boat Rental Amsterdam | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3053,7 +3060,8 @@
       "primary_keyword": "boat rental in amsterdam",
       "title": "Boat Rental In Amsterdam | BoatHire24",
       "target_words": 2200,
-      "search_volume": 720
+      "search_volume": 720,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3061,7 +3069,8 @@
       "primary_keyword": "yacht charter amalfi",
       "title": "Yacht Charter Amalfi | BoatHire24",
       "target_words": 2200,
-      "search_volume": 590
+      "search_volume": 590,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3069,7 +3078,8 @@
       "primary_keyword": "yacht charter ibiza",
       "title": "Yacht Charter Ibiza | BoatHire24",
       "target_words": 2200,
-      "search_volume": 480
+      "search_volume": 480,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3077,7 +3087,8 @@
       "primary_keyword": "boat rental capri",
       "title": "Boat Rental Capri | BoatHire24",
       "target_words": 2200,
-      "search_volume": 480
+      "search_volume": 480,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3085,7 +3096,8 @@
       "primary_keyword": "boat hire capri",
       "title": "Boat Hire Capri | BoatHire24",
       "target_words": 2200,
-      "search_volume": 480
+      "search_volume": 480,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3093,7 +3105,8 @@
       "primary_keyword": "boat rental in capri",
       "title": "Boat Rental In Capri | BoatHire24",
       "target_words": 2200,
-      "search_volume": 480
+      "search_volume": 480,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3101,7 +3114,8 @@
       "primary_keyword": "boat rental sardinia",
       "title": "Boat Rental Sardinia | BoatHire24",
       "target_words": 2200,
-      "search_volume": 480
+      "search_volume": 480,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3109,7 +3123,8 @@
       "primary_keyword": "boat hire sardinia",
       "title": "Boat Hire Sardinia | BoatHire24",
       "target_words": 2200,
-      "search_volume": 480
+      "search_volume": 480,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3117,7 +3132,8 @@
       "primary_keyword": "boat rental in sardinia",
       "title": "Boat Rental In Sardinia | BoatHire24",
       "target_words": 2200,
-      "search_volume": 480
+      "search_volume": 480,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3125,7 +3141,8 @@
       "primary_keyword": "yacht rental key west",
       "title": "Yacht Rental Key West | BoatHire24",
       "target_words": 2200,
-      "search_volume": 480
+      "search_volume": 480,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3133,7 +3150,8 @@
       "primary_keyword": "boat rental mykonos",
       "title": "Boat Rental Mykonos | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3141,7 +3159,8 @@
       "primary_keyword": "boat hire mykonos",
       "title": "Boat Hire Mykonos | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3149,7 +3168,8 @@
       "primary_keyword": "boat rental in mykonos",
       "title": "Boat Rental In Mykonos | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3157,7 +3177,8 @@
       "primary_keyword": "boat rental santorini",
       "title": "Boat Rental Santorini | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3165,7 +3186,8 @@
       "primary_keyword": "boat hire santorini",
       "title": "Boat Hire Santorini | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3173,7 +3195,8 @@
       "primary_keyword": "boat rental in santorini",
       "title": "Boat Rental In Santorini | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3181,7 +3204,8 @@
       "primary_keyword": "boat rental nice",
       "title": "Boat Rental Nice | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3189,7 +3213,8 @@
       "primary_keyword": "boat hire nice",
       "title": "Boat Hire Nice | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3197,7 +3222,8 @@
       "primary_keyword": "boat rental in nice",
       "title": "Boat Rental In Nice | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3205,7 +3231,8 @@
       "primary_keyword": "boat hire naples",
       "title": "Boat Hire Naples | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3213,7 +3240,8 @@
       "primary_keyword": "yacht rental monaco",
       "title": "Yacht Rental Monaco | BoatHire24",
       "target_words": 2200,
-      "search_volume": 390
+      "search_volume": 390,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3221,7 +3249,8 @@
       "primary_keyword": "yacht charter mallorca",
       "title": "Yacht Charter Mallorca | BoatHire24",
       "target_words": 2200,
-      "search_volume": 320
+      "search_volume": 320,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3229,7 +3258,8 @@
       "primary_keyword": "boat rental split",
       "title": "Boat Rental Split | BoatHire24",
       "target_words": 2200,
-      "search_volume": 320
+      "search_volume": 320,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3237,7 +3267,8 @@
       "primary_keyword": "boat hire split",
       "title": "Boat Hire Split | BoatHire24",
       "target_words": 2200,
-      "search_volume": 320
+      "search_volume": 320,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3245,7 +3276,8 @@
       "primary_keyword": "boat rental in split",
       "title": "Boat Rental In Split | BoatHire24",
       "target_words": 2200,
-      "search_volume": 320
+      "search_volume": 320,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3253,7 +3285,8 @@
       "primary_keyword": "yacht charter monaco",
       "title": "Yacht Charter Monaco | BoatHire24",
       "target_words": 2200,
-      "search_volume": 320
+      "search_volume": 320,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3261,7 +3294,8 @@
       "primary_keyword": "yacht rental mallorca",
       "title": "Yacht Rental Mallorca | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3269,7 +3303,8 @@
       "primary_keyword": "boat rental barcelona",
       "title": "Boat Rental Barcelona | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3277,7 +3312,8 @@
       "primary_keyword": "boat hire barcelona",
       "title": "Boat Hire Barcelona | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3285,7 +3321,8 @@
       "primary_keyword": "boat rental in barcelona",
       "title": "Boat Rental In Barcelona | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-03"
     },
     {
       "kind": "landing",
@@ -3293,8 +3330,11 @@
       "primary_keyword": "boat rental cannes",
       "title": "Boat Rental Cannes | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
-    },
+      "search_volume": 260,
+      "consumed_at": "2026-06-03"
+    }
+  ],
+  "queue": [
     {
       "kind": "landing",
       "slug": "boat-rental-in-cannes",
@@ -4086,6 +4126,104 @@
       "title": "Yacht Rental Corfu | BoatHire24",
       "target_words": 2200,
       "search_volume": 30
+    },
+    {
+      "kind": "blog",
+      "slug": "best-snorkeling-coves-costa-del-sol",
+      "primary_keyword": "best snorkeling coves Costa del Sol",
+      "title": "Best Snorkeling Coves on the Costa del Sol for Boat Trips",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "private-yacht-charter-marbella-day",
+      "primary_keyword": "private yacht charter Marbella day",
+      "title": "Private Yacht Charter Marbella – Day Rentals for Groups",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "boat-trip-marbella-starlite-festival-2025",
+      "primary_keyword": "Starlite Festival boat trip Marbella",
+      "title": "Boat Trip to Starlite Festival 2025 – Marbella Transfer Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-hire-puerto-banus-birthday",
+      "primary_keyword": "catamaran hire Puerto Banus birthday",
+      "title": "Catamaran Hire Puerto Banus for Birthday Parties",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "speedboat-rental-marbella-no-licence",
+      "primary_keyword": "speedboat rental Marbella no licence",
+      "title": "Speedboat Rental Marbella No Licence Needed – Affordable Fun",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-early-morning-vs-afternoon",
+      "primary_keyword": "dolphin watching Marbella early morning vs afternoon",
+      "title": "Dolphin Watching Marbella: Early Morning vs Afternoon Trips",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "private-boat-charter-marbella-fishing",
+      "primary_keyword": "private boat charter Marbella fishing",
+      "title": "Private Boat Charter Marbella for Fishing – Expert Skippers",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "stag-party-boat-activities-marbella",
+      "primary_keyword": "stag party boat activities Marbella",
+      "title": "Top Stag Party Boat Activities in Marbella",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-motor-yacht-hire-marbella-day",
+      "primary_keyword": "luxury motor yacht hire Marbella day",
+      "title": "Luxury Motor Yacht Hire Marbella for a Day – Premium Experience",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-estepona-group",
+      "primary_keyword": "catamaran charter Estepona group",
+      "title": "Catamaran Charter Estepona for Groups – Party at Sea",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-motor-yacht-rental-puerto-banus-weekend",
+      "primary_keyword": "luxury motor yacht rental Puerto Banus weekend",
+      "title": "Luxury Motor Yacht Rental Puerto Banus for a Weekend",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-fuengirola-sunset",
+      "primary_keyword": "catamaran charter Fuengirola sunset",
+      "title": "Catamaran Charter Fuengirola for Sunset Views",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-yacht-charter-marbella-prices",
+      "primary_keyword": "luxury yacht charter Marbella prices",
+      "title": "Luxury Yacht Charter Marbella Prices – Compare Options",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-puerto-banus-sunset",
+      "primary_keyword": "catamaran charter Puerto Banus sunset",
+      "title": "Catamaran Charter Puerto Banus for Sunset Cruises",
+      "target_words": 1100
     }
   ]
 }

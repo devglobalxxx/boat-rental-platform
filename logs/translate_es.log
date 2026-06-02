@@ -160,3 +160,24 @@
 [2026-06-02 17:04:44]   [18/18] ✓ private-yacht-charter-marbella-sunset
 [2026-06-02 17:04:44] es: 18/18 translated (total es=146)
 [2026-06-02 17:04:47] es: pushed
+[2026-06-02 17:07:44] es: translating 18 landing page(s)
+[2026-06-02 17:08:22]   [1/18] ✓ catamaran-rental-puerto-banus-sunset
+[2026-06-02 17:09:04]   [2/18] ✓ speedboat-hire-benalmadena-marina
+[2026-06-02 17:09:53]   [3/18] ✗ luxury-yacht-charter-marbella-week: JSONDecodeError: Invalid control character at: line 6 column 16968 (char 18217)
+[2026-06-02 17:10:33]   [4/18] ✓ yacht-rental-benalmadena-marina
+[2026-06-02 17:11:14]   [5/18] ✓ speedboat-rental-estepona-port
+[2026-06-02 17:12:02]   [6/18] ✓ private-yacht-hire-puerto-banus-hen
+[2026-06-02 17:12:44]   [7/18] ✓ motor-yacht-rental-marbella-day
+[2026-06-02 17:13:14]   [8/18] ✓ speedboat-hire-puerto-banus-no-licence
+[2026-06-02 17:13:51]   [9/18] ✓ luxury-yacht-hire-marbella-weekend
+[2026-06-02 17:14:31]   [10/18] ✓ catamaran-rental-marbella-birthday
+[2026-06-02 17:15:06]   [11/18] ✓ speedboat-rental-marbella-port-hourly
+[2026-06-02 17:15:40]   [12/18] ✓ yacht-rental-fuengirola-port
+[2026-06-02 17:16:19]   [13/18] ✓ catamaran-hire-marbella-sunset
+[2026-06-02 17:17:01]   [14/18] ✓ luxury-catamaran-hire-puerto-banus
+[2026-06-02 17:17:35]   [15/18] ✓ speedboat-hire-estepona-port
+[2026-06-02 17:18:15]   [16/18] ✓ boat-rental
+[2026-06-02 17:18:45]   [17/18] ✓ boat-rentals-near-me
+[2026-06-02 17:19:18]   [18/18] ✓ jet-ski-rental
+[2026-06-02 17:19:18] es: 17/18 translated (total es=163)
+[2026-06-02 17:19:21] es: pushed

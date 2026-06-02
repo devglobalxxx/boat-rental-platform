@@ -1104,3 +1104,86 @@
 [2026-06-02 17:07:31]   ✓ generated
 [2026-06-02 17:07:31] === Done: 18 ok, 0 failed ===
 
+[2026-06-03 00:18:21] === Generate: 0 blog + 40 landing = 40 item(s) (backend=deepseek) ===
+[2026-06-03 00:18:22] [1/40] landing · boat-rental-ibiza
+[2026-06-03 00:19:09]   ✓ generated
+[2026-06-03 00:19:09] [2/40] landing · boat-hire-ibiza
+[2026-06-03 00:19:09]   (near-duplicate topic, skipping: boat hire ibiza)
+[2026-06-03 00:19:09] [3/40] landing · boat-rental-in-ibiza
+[2026-06-03 00:19:09]   (near-duplicate topic, skipping: boat rental in ibiza)
+[2026-06-03 00:19:09] [4/40] landing · yacht-charter-cancun
+[2026-06-03 00:19:09]   (near-duplicate topic, skipping: yacht charter cancun)
+[2026-06-03 00:19:09] [5/40] landing · boat-rental-amalfi
+[2026-06-03 00:19:58]   ✓ generated
+[2026-06-03 00:19:58] [6/40] landing · boat-hire-amalfi
+[2026-06-03 00:19:58]   (near-duplicate topic, skipping: boat hire amalfi)
+[2026-06-03 00:19:58] [7/40] landing · boat-rental-in-amalfi
+[2026-06-03 00:19:58]   (near-duplicate topic, skipping: boat rental in amalfi)
+[2026-06-03 00:19:58] [8/40] landing · yacht-charter-sardinia
+[2026-06-03 00:20:52]   ✓ generated
+[2026-06-03 00:20:52] [9/40] landing · boat-rental-amsterdam
+[2026-06-03 00:21:41]   ✓ generated
+[2026-06-03 00:21:41] [10/40] landing · boat-rental-in-amsterdam
+[2026-06-03 00:21:41]   (near-duplicate topic, skipping: boat rental in amsterdam)
+[2026-06-03 00:21:41] [11/40] landing · yacht-charter-amalfi
+[2026-06-03 00:22:27]   ✓ generated
+[2026-06-03 00:22:27] [12/40] landing · yacht-charter-ibiza
+[2026-06-03 00:23:20]   ✓ generated
+[2026-06-03 00:23:20] [13/40] landing · boat-rental-capri
+[2026-06-03 00:24:08]   ✓ generated
+[2026-06-03 00:24:08] [14/40] landing · boat-hire-capri
+[2026-06-03 00:24:08]   (near-duplicate topic, skipping: boat hire capri)
+[2026-06-03 00:24:08] [15/40] landing · boat-rental-in-capri
+[2026-06-03 00:24:08]   (near-duplicate topic, skipping: boat rental in capri)
+[2026-06-03 00:24:08] [16/40] landing · boat-rental-sardinia
+[2026-06-03 00:25:05]   ✓ generated
+[2026-06-03 00:25:05] [17/40] landing · boat-hire-sardinia
+[2026-06-03 00:25:05]   (near-duplicate topic, skipping: boat hire sardinia)
+[2026-06-03 00:25:05] [18/40] landing · boat-rental-in-sardinia
+[2026-06-03 00:25:05]   (near-duplicate topic, skipping: boat rental in sardinia)
+[2026-06-03 00:25:05] [19/40] landing · yacht-rental-key-west
+[2026-06-03 00:25:05]   (near-duplicate topic, skipping: yacht rental key west)
+[2026-06-03 00:25:05] [20/40] landing · boat-rental-mykonos
+[2026-06-03 00:25:53]   ✓ generated
+[2026-06-03 00:25:53] [21/40] landing · boat-hire-mykonos
+[2026-06-03 00:25:53]   (near-duplicate topic, skipping: boat hire mykonos)
+[2026-06-03 00:25:53] [22/40] landing · boat-rental-in-mykonos
+[2026-06-03 00:25:53]   (near-duplicate topic, skipping: boat rental in mykonos)
+[2026-06-03 00:25:53] [23/40] landing · boat-rental-santorini
+[2026-06-03 00:25:53]   (near-duplicate topic, skipping: boat rental santorini)
+[2026-06-03 00:25:53] [24/40] landing · boat-hire-santorini
+[2026-06-03 00:25:53]   (near-duplicate topic, skipping: boat hire santorini)
+[2026-06-03 00:25:53] [25/40] landing · boat-rental-in-santorini
+[2026-06-03 00:25:53]   (near-duplicate topic, skipping: boat rental in santorini)
+[2026-06-03 00:25:53] [26/40] landing · boat-rental-nice
+[2026-06-03 00:26:29]   ✓ generated
+[2026-06-03 00:26:29] [27/40] landing · boat-hire-nice
+[2026-06-03 00:26:29]   (near-duplicate topic, skipping: boat hire nice)
+[2026-06-03 00:26:29] [28/40] landing · boat-rental-in-nice
+[2026-06-03 00:26:29]   (near-duplicate topic, skipping: boat rental in nice)
+[2026-06-03 00:26:29] [29/40] landing · boat-hire-naples
+[2026-06-03 00:26:29]   (near-duplicate topic, skipping: boat hire naples)
+[2026-06-03 00:26:29] [30/40] landing · yacht-rental-monaco
+[2026-06-03 00:27:16]   ✓ generated
+[2026-06-03 00:27:16] [31/40] landing · yacht-charter-mallorca
+[2026-06-03 00:28:08]   ✓ generated
+[2026-06-03 00:28:08] [32/40] landing · boat-rental-split
+[2026-06-03 00:28:56]   ✓ generated
+[2026-06-03 00:28:56] [33/40] landing · boat-hire-split
+[2026-06-03 00:28:56]   (near-duplicate topic, skipping: boat hire split)
+[2026-06-03 00:28:56] [34/40] landing · boat-rental-in-split
+[2026-06-03 00:28:56]   (near-duplicate topic, skipping: boat rental in split)
+[2026-06-03 00:28:56] [35/40] landing · yacht-charter-monaco
+[2026-06-03 00:28:56]   (near-duplicate topic, skipping: yacht charter monaco)
+[2026-06-03 00:28:56] [36/40] landing · yacht-rental-mallorca
+[2026-06-03 00:28:56]   (near-duplicate topic, skipping: yacht rental mallorca)
+[2026-06-03 00:28:56] [37/40] landing · boat-rental-barcelona
+[2026-06-03 00:29:40]   ✓ generated
+[2026-06-03 00:29:40] [38/40] landing · boat-hire-barcelona
+[2026-06-03 00:29:40]   (near-duplicate topic, skipping: boat hire barcelona)
+[2026-06-03 00:29:40] [39/40] landing · boat-rental-in-barcelona
+[2026-06-03 00:29:40]   (near-duplicate topic, skipping: boat rental in barcelona)
+[2026-06-03 00:29:40] [40/40] landing · boat-rental-cannes
+[2026-06-03 00:29:40]   (near-duplicate topic, skipping: boat rental cannes)
+[2026-06-03 00:29:40] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-03 00:30:23] refill (LLM fallback): +14 (queue now 113)

@@ -13,6 +13,7 @@ const BOAT_TYPES = [
   { value: 'fishing',     label: 'Fishing' },
   { value: 'rib',         label: 'RIB' },
   { value: 'jet_ski',     label: 'Jet ski' },
+  { value: 'jet_car',     label: 'Jet car' },
 ]
 
 const CAPACITIES = [
