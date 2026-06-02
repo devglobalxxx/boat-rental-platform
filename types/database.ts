@@ -1,6 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
-export type BoatType = 'motor_yacht' | 'catamaran' | 'sailing' | 'speedboat' | 'fishing' | 'rib' | 'luxury'
+export type BoatType = 'motor_yacht' | 'catamaran' | 'sailing' | 'speedboat' | 'fishing' | 'rib' | 'luxury' | 'jet_ski'
 export type PricingType = 'hourly' | 'daily'
 export type Season = 'all' | 'peak' | 'shoulder' | 'off'
 export type AvailabilityStatus = 'available' | 'blocked' | 'booked'

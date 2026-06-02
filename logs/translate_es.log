@@ -96,3 +96,46 @@
 [2026-06-01 08:07:09]   [40/40] ✓ private-catamaran-charter-marbella-group
 [2026-06-01 08:07:09] es: 40/40 translated (total es=89)
 [2026-06-01 08:07:12] es: pushed
+[2026-06-02 01:09:10] es: translating 40 landing page(s)
+[2026-06-02 01:09:39]   [1/40] ✓ luxury-yacht-hire-puerto-banus-week
+[2026-06-02 01:10:07]   [2/40] ✓ boat-hire-marbella-port-hourly
+[2026-06-02 01:10:41]   [3/40] ✓ catamaran-rental-puerto-banus-birthday
+[2026-06-02 01:11:13]   [4/40] ✓ motor-yacht-hire-marbella-stag
+[2026-06-02 01:11:41]   [5/40] ✓ speedboat-rental-estepona-marina
+[2026-06-02 01:12:16]   [6/40] ✓ luxury-catamaran-hire-puerto-banus-day
+[2026-06-02 01:12:42]   [7/40] ✓ private-yacht-charter-puerto-banus-hen
+[2026-06-02 01:13:14]   [8/40] ✓ catamaran-charter-marbella-wedding
+[2026-06-02 01:13:48]   [9/40] ✓ fishing-charter-puerto-banus-half-day
+[2026-06-02 01:14:15]   [10/40] ✓ speedboat-hire-benalmadena-marina-no-licence
+[2026-06-02 01:14:51]   [11/40] ✓ luxury-yacht-rental-puerto-banus-weekend
+[2026-06-02 01:15:25]   [12/40] ✓ private-boat-hire-marbella-fishing
+[2026-06-02 01:16:01]   [13/40] ✓ catamaran-rental-estepona-group
+[2026-06-02 01:16:36]   [14/40] ✓ motor-yacht-charter-estepona-day
+[2026-06-02 01:17:09]   [15/40] ✓ speedboat-rental-puerto-banus-hourly
+[2026-06-02 01:17:38]   [16/40] ✓ luxury-catamaran-charter-puerto-banus-group
+[2026-06-02 01:18:05]   [17/40] ✓ private-yacht-hire-marbella-wedding
+[2026-06-02 01:18:37]   [18/40] ✓ catamaran-hire-fuengirola-sunset
+[2026-06-02 01:19:06]   [19/40] ✓ fishing-charter-marbella-full-day
+[2026-06-02 01:19:36]   [20/40] ✓ speedboat-hire-marbella-port-group
+[2026-06-02 01:20:05]   [21/40] ✓ luxury-yacht-charter-puerto-banus-day
+[2026-06-02 01:20:33]   [22/40] ✓ private-catamaran-hire-marbella-sunset
+[2026-06-02 01:20:59]   [23/40] ✓ motor-yacht-rental-estepona-day
+[2026-06-02 01:21:31]   [24/40] ✓ catamaran-charter-marbella-birthday
+[2026-06-02 01:22:03]   [25/40] ✓ speedboat-rental-fuengirola-marina
+[2026-06-02 01:22:17]   [26/40] ✓ airbnb-for-boats
+[2026-06-02 01:22:32]   [27/40] ✓ boat-rental-insurance-us
+[2026-06-02 01:22:48]   [28/40] ✓ how-much-can-i-earn-renting-my-boat
+[2026-06-02 01:23:02]   [29/40] ✓ boat-charter-management
+[2026-06-02 01:23:19]   [30/40] ✓ how-to-rent-out-your-boat
+[2026-06-02 01:23:38]   [31/40] ✓ borrow-a-boat-uk-alternative
+[2026-06-02 01:23:54]   [32/40] ✓ boatsetter-alternative
+[2026-06-02 01:24:10]   [33/40] ✓ click-and-boat-alternative
+[2026-06-02 01:24:22]   [34/40] ✓ getmyboat-alternative
+[2026-06-02 01:24:35]   [35/40] ✓ samboat-alternative
+[2026-06-02 01:25:01]   [36/40] ✓ list-your-boat-marbella
+[2026-06-02 01:25:24]   [37/40] ✓ peer-to-peer-boat-rental-marbella
+[2026-06-02 01:25:48]   [38/40] ✓ boat-rental-insurance-spain
+[2026-06-02 01:26:12]   [39/40] ✓ start-boat-rental-business-marbella
+[2026-06-02 01:26:36]   [40/40] ✗ list-your-yacht-marbella: JSONDecodeError: Invalid control character at: line 6 column 5983 (char 6990)
+[2026-06-02 01:26:36] es: 39/40 translated (total es=128)
+[2026-06-02 01:26:38] es: pushed

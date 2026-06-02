@@ -29,6 +29,16 @@ const STATUS_STYLE: Record<string, { color: string; bg: string; bd: string; labe
   rejected:   { color: '#f87171',  bg: 'rgba(248,113,113,0.10)', bd: 'rgba(248,113,113,0.28)', label: 'Rejected' },
 }
 
+const BOOKING_STATUS: Record<string, { color: string; bg: string; bd: string; label: string }> = {
+  pending:   { color: '#f59e0b', bg: 'rgba(245,158,11,0.10)',  bd: 'rgba(245,158,11,0.28)', label: 'Pending' },
+  confirmed: { color: '#22c55e', bg: 'rgba(34,197,94,0.10)',   bd: 'rgba(34,197,94,0.28)', label: 'Confirmed' },
+  completed: { color: '#c9a84e', bg: 'rgba(201,168,78,0.10)',  bd: 'rgba(201,168,78,0.28)', label: 'Completed' },
+  cancelled: { color: '#f87171', bg: 'rgba(248,113,113,0.10)', bd: 'rgba(248,113,113,0.28)', label: 'Cancelled' },
+}
+
+const fmtD = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })
+const fmtT = (d: string) => new Date(d).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+
 export default async function AdminPage({
   searchParams,
 }: {
@@ -70,13 +80,15 @@ export default async function AdminPage({
   const { data: { users: authUsers } } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
   const emailMap = Object.fromEntries(authUsers.map((u) => [u.id, { email: u.email, created_at: u.created_at }]))
 
-  // Fetch boat counts per host
+  // Fetch boats — counts per host + an id→name/slug lookup for the bookings table
   const { data: boatCounts } = await supabaseAdmin
     .from('boats')
-    .select('host_id')
+    .select('id, host_id, name, slug')
   const boatMap: Record<string, number> = {}
+  const boatById: Record<string, { name: string; slug: string }> = {}
   for (const b of boatCounts ?? []) {
     boatMap[b.host_id] = (boatMap[b.host_id] ?? 0) + 1
+    boatById[b.id] = { name: b.name, slug: b.slug }
   }
 
   // Fetch doc counts per user
@@ -92,6 +104,26 @@ export default async function AdminPage({
   const payoutSet = new Set<string>()
   const { data: payoutRows } = await supabaseAdmin.from('payout_methods').select('host_id')
   for (const p of payoutRows ?? []) payoutSet.add(p.host_id)
+
+  // Fetch bookings — who booked which boat
+  const { data: bookingRows } = await supabaseAdmin
+    .from('bookings')
+    .select('id, boat_id, renter_id, start_datetime, end_datetime, guests_count, total, currency, status, created_at, special_requests')
+    .order('created_at', { ascending: false })
+    .limit(100)
+  const profileNameById = Object.fromEntries((profiles ?? []).map((p) => [p.id, p.full_name]))
+  const bookings = (bookingRows ?? []).map((b) => ({
+    ...b,
+    renterName: profileNameById[b.renter_id] || emailMap[b.renter_id]?.email || '—',
+    renterEmail: emailMap[b.renter_id]?.email ?? '',
+    boat: boatById[b.boat_id] ?? null,
+  }))
+  const bookingStats = {
+    total: bookings.length,
+    pending: bookings.filter((b) => b.status === 'pending').length,
+    confirmed: bookings.filter((b) => b.status === 'confirmed' || b.status === 'completed').length,
+    revenue: bookings.filter((b) => b.status !== 'cancelled').reduce((s, b) => s + (b.total ?? 0), 0),
+  }
 
   const all = (profiles ?? []).map((p) => ({
     ...p,
@@ -117,13 +149,83 @@ export default async function AdminPage({
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px 80px' }}>
 
         {/* Header */}
-        <div style={{ marginBottom: '36px' }}>
+        <div style={{ marginBottom: '32px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '16px' }}>
             🔒 Admin Panel
           </div>
-          <h1 style={{ fontSize: '28px', fontWeight: 800, color: text, marginBottom: '6px' }}>User Management</h1>
-          <p style={{ fontSize: '14px', color: muted }}>Review and verify host accounts. Only verified hosts' listings appear on the platform.</p>
+          <h1 style={{ fontSize: '28px', fontWeight: 800, color: text, marginBottom: '6px' }}>Admin Panel</h1>
+          <p style={{ fontSize: '14px', color: muted }}>Bookings, hosts, verification &amp; payouts — all in one place.</p>
         </div>
+
+        {/* ── Bookings ── */}
+        <div style={{ marginBottom: '44px' }}>
+          <h2 style={{ fontSize: '18px', fontWeight: 800, color: text, marginBottom: '4px' }}>📅 Bookings</h2>
+          <p style={{ fontSize: '13px', color: muted, marginBottom: '16px' }}>Every booking on the platform — who booked, which boat, and how much.</p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '16px' }}>
+            {[
+              { label: 'Total bookings', value: String(bookingStats.total),                  color: gold },
+              { label: 'Pending',        value: String(bookingStats.pending),                color: '#f59e0b' },
+              { label: 'Confirmed/done', value: String(bookingStats.confirmed),              color: '#22c55e' },
+              { label: 'Gross value',    value: `€${bookingStats.revenue.toLocaleString()}`, color: text },
+            ].map((s) => (
+              <div key={s.label} style={{ background: card, borderRadius: '14px', border: `1px solid ${border}`, padding: '18px' }}>
+                <div style={{ fontSize: '24px', fontWeight: 800, color: s.color, marginBottom: '4px' }}>{s.value}</div>
+                <div style={{ fontSize: '12px', color: muted }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ background: card, borderRadius: '16px', border: `1px solid ${border}`, overflow: 'hidden' }}>
+            {bookings.length === 0 ? (
+              <div style={{ padding: '40px', textAlign: 'center', color: muted, fontSize: '14px' }}>No bookings yet.</div>
+            ) : (
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', minWidth: '760px' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+                      {['Guest', 'Boat', 'Trip', 'Guests', 'Total', 'Status', 'Booked'].map((h, i) => (
+                        <th key={h} style={{ padding: '12px 16px', textAlign: i === 3 || i === 4 ? 'right' : 'left', fontWeight: 600, color: muted, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {bookings.map((b, i) => {
+                      const bs = BOOKING_STATUS[b.status] ?? BOOKING_STATUS.pending
+                      return (
+                        <tr key={b.id} style={{ borderBottom: i < bookings.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                          <td style={{ padding: '14px 16px' }}>
+                            <div style={{ fontWeight: 600, color: text }}>{b.renterName}</div>
+                            {b.renterEmail && <div style={{ fontSize: '11px', color: muted }}>{b.renterEmail}</div>}
+                          </td>
+                          <td style={{ padding: '14px 16px' }}>
+                            {b.boat
+                              ? <a href={`/boats/${b.boat.slug}`} target="_blank" style={{ color: gold, textDecoration: 'none', fontWeight: 600 }}>{b.boat.name}</a>
+                              : <span style={{ color: muted }}>—</span>}
+                          </td>
+                          <td style={{ padding: '14px 16px', color: muted, whiteSpace: 'nowrap' }}>
+                            {fmtD(b.start_datetime)} · {fmtT(b.start_datetime)}–{fmtT(b.end_datetime)}
+                          </td>
+                          <td style={{ padding: '14px 16px', textAlign: 'right', color: text }}>{b.guests_count}</td>
+                          <td style={{ padding: '14px 16px', textAlign: 'right', fontWeight: 700, color: text, whiteSpace: 'nowrap' }}>
+                            {b.currency === 'EUR' ? '€' : b.currency + ' '}{(b.total ?? 0).toLocaleString()}
+                          </td>
+                          <td style={{ padding: '14px 16px' }}>
+                            <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '99px', background: bs.bg, color: bs.color, border: `1px solid ${bs.bd}`, whiteSpace: 'nowrap' }}>{bs.label}</span>
+                          </td>
+                          <td style={{ padding: '14px 16px', color: muted, whiteSpace: 'nowrap' }}>{fmtD(b.created_at)}</td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── Hosts & users ── */}
+        <h2 style={{ fontSize: '18px', fontWeight: 800, color: text, marginBottom: '14px' }}>👥 Hosts &amp; users</h2>
 
         {/* Stats */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '28px' }}>

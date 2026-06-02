@@ -18,6 +18,7 @@ const TYPE_LABELS: Record<string, string> = {
   fishing: 'Fishing boat',
   rib: 'RIB',
   luxury: 'Luxury yacht',
+  jet_ski: 'Jet ski',
 }
 
 const gold = '#c9a84e'

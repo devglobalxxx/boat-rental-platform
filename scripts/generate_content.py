@@ -506,6 +506,8 @@ def main():
     ap.add_argument("--landings", type=int, default=None)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-push", action="store_true")
+    ap.add_argument("--force", action="store_true",
+                    help="bypass the near-duplicate guard (for intentional keyword variants)")
     args = ap.parse_args()
 
     cfg = json.loads(QUEUE_PATH.read_text())
@@ -538,7 +540,7 @@ def main():
             log("  (already exists, skipping)")
             succeeded.append(item)
             continue
-        if is_near_duplicate(item, kw_sets):
+        if not args.force and is_near_duplicate(item, kw_sets):
             log(f"  (near-duplicate topic, skipping: {item['primary_keyword']})")
             succeeded.append(item)   # drop from queue, don't generate
             continue
