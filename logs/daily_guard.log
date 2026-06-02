@@ -915,3 +915,32 @@ To https://github.com/mardo89/boat-rental-platform.git
 [2026-06-03 00:29:40]   (near-duplicate topic, skipping: boat rental cannes)
 [2026-06-03 00:29:40] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-03 00:30:23] refill (LLM fallback): +14 (queue now 113)
+[main 8bbcffd] Daily content: +40 pages (0 blog, 40 landing)
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 19 files changed, 1336 insertions(+), 148 deletions(-)
+ create mode 100644 app/jet-ski-marbella/page.tsx
+ create mode 100644 public/video/hero-1.jpg
+ create mode 100644 public/video/hero-1.mp4
+ create mode 100644 public/video/hero-2.jpg
+ create mode 100644 public/video/hero-2.mp4
+To https://github.com/mardo89/boat-rental-platform.git
+   c3d3b1e..8bbcffd  HEAD -> main
+[2026-06-03 00:30:30] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-03 00:30:32] reindex ping: 200 {"ok":true,"urls_total":930,"indexnow":{"ok":true,"status":200,"count":930},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-02T21:30
+[2026-06-03 00:30:32] === Done: 40 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 219
+cannibalization: 55 variant pages canonicalized to a primary
+relinked: blogs=141 (homepage 141/141), landings=219 (homepage 219/219), affiliate-link pool=9

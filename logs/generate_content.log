@@ -1187,3 +1187,7 @@
 [2026-06-03 00:29:40]   (near-duplicate topic, skipping: boat rental cannes)
 [2026-06-03 00:29:40] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-03 00:30:23] refill (LLM fallback): +14 (queue now 113)
+[2026-06-03 00:30:30] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-03 00:30:32] reindex ping: 200 {"ok":true,"urls_total":930,"indexnow":{"ok":true,"status":200,"count":930},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-02T21:30
+[2026-06-03 00:30:32] === Done: 40 ok, 0 failed ===
+
