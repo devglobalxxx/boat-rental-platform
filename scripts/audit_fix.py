@@ -172,6 +172,31 @@ def main():
         b = ensure_home(strip_related(p.get("bodyHtml", "")))
         tok = topic_tokens(f"{p['slug']} {p.get('keyword','')} {p.get('h1') or p['title']}")
         p["bodyHtml"] = b + related_block(len(blogs) + i, f"/{p['slug']}/", tok)
+
+    # Orphan sweep: guarantee every page receives >=1 inbound link. Any page with
+    # zero inbound gets injected into the related list of a different page.
+    def all_targets():
+        t = set()
+        for p in blogs:
+            t.update(re.findall(r'href="(/[^"]+)"', p["content"]))
+        for p in keep:
+            t.update(re.findall(r'href="(/[^"]+)"', p["bodyHtml"]))
+        return t
+    targets = all_targets()
+    everything = ([("blog", p) for p in blogs] + [("land", p) for p in keep])
+    for j, (kind, p) in enumerate(everything):
+        href = f"/blog/{p['slug']}/" if kind == "blog" else f"/{p['slug']}/"
+        if href in targets:
+            continue
+        anchor = p["title"] if kind == "blog" else (p.get("h1") or p["title"])
+        host = everything[(j + 1) % len(everything)][1]  # a different page
+        field = "content" if "content" in host else "bodyHtml"
+        host_field = "content" if host in blogs else "bodyHtml"
+        host[host_field] = host[host_field].replace(
+            "</ul>", f'<li><a href="{href}">{anchor}</a></li></ul>', 1)
+        targets.add(href)
+
+    BLOG.write_text(json.dumps(blogs, ensure_ascii=False, indent=2) + "\n")
     LAND.write_text(json.dumps(keep, ensure_ascii=False, indent=2) + "\n")
 
     # report
