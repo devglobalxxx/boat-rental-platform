@@ -7,6 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 const FROM = process.env.RESEND_FROM_EMAIL || 'BoatHire24 <info@boathire24.com>'
 const SITE = 'https://boathire24.com'
+const OPS_INBOX = 'info@boathire24.com' // central boathire24 inbox — copied on every request
 
 async function emailOf(userId: string): Promise<string | null> {
   try { const { data } = await admin.auth.admin.getUserById(userId); return data.user?.email ?? null } catch { return null }
@@ -79,8 +80,8 @@ export async function sendHostNewRequest(bookingId: string) {
   }
   const f = fmt(ctx.b, ctx.boat.name)
   const to = await emailOf(ctx.boat.host_id)
-  if (to) await resend.emails.send({
-    from: FROM, to, subject: `New booking request — ${f.boatName} · ${f.date}`,
+  await resend.emails.send({
+    from: FROM, to: [to, OPS_INBOX].filter(Boolean) as string[], subject: `New booking request — ${f.boatName} · ${f.date}`,
     html: shell('📅 New booking request', '#c9a84e', `
       <p>You have a new booking request. The guest's card is <strong style="color:#f4f4f2">held (not charged)</strong> — approve within <strong>24h</strong> and they're charged; decline and the hold is released automatically.</p>
       ${detailRows(f)}
@@ -123,4 +124,83 @@ export async function sendBookerDeclined(bookingId: string) {
   }).catch(() => {})
   await sendWhatsApp(await phoneOf(ctx.b.renter_id),
     `Update: your ${f.boatName} request for ${f.date} couldn't be confirmed. *You have not been charged* — the hold was released.\nFind another boat: ${SITE}/search`)
+}
+
+/** Visitor asked for a price on an unpriced boat → notify the owner (email + WhatsApp). */
+export async function sendHostQuoteRequest(opts: {
+  boatId: string; name: string; email?: string; phone?: string; date?: string; guests?: number; message?: string
+}) {
+  const { data: boatRow } = await admin.from('boats').select('name, host_id').eq('id', opts.boatId).single()
+  if (!boatRow) return
+  const boat = boatRow as { name: string; host_id: string }
+  const contact = [opts.email, opts.phone].filter(Boolean).join(' · ') || '—'
+  const when = [opts.date, opts.guests ? `${opts.guests} guests` : ''].filter(Boolean).join(' · ') || '—'
+
+  const hostEmail = await emailOf(boat.host_id)
+  await resend.emails.send({
+    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `💬 Quote request — ${boat.name}`,
+    html: shell('💬 New quote request', '#c9a84e', `
+      <p>Someone wants a price for your <strong style="color:#f4f4f2">${boat.name}</strong>:</p>
+      <table style="width:100%;border-collapse:collapse;margin:14px 0">
+        <tr><td style="padding:6px 0;color:#8b94a3">From</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.name || '—'}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Contact</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${contact}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">When</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${when}</td></tr>
+      </table>
+      ${opts.message ? `<p style="color:#cfd6df;font-style:italic">&ldquo;${opts.message}&rdquo;</p>` : ''}
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Reply to them directly at ${contact}.</p>`),
+  }).catch(() => {})
+
+  await sendWhatsApp(await phoneOf(boat.host_id),
+    `💬 *Quote request* — ${boat.name}\nFrom: ${opts.name || '—'} (${contact})\nWhen: ${when}${opts.message ? `\n"${opts.message}"` : ''}\nReply to them directly.`)
+}
+
+/** Request-first booking (priced boat): notify the owner of a date+hours request — no card yet. */
+export async function sendHostBookingRequest(opts: {
+  boatId: string; guestEmail?: string; guestName?: string; guestPhone?: string
+  date: string; time?: string; durationHours?: number | null; guests?: number; total?: number; currency?: string
+}) {
+  const { data: boatRow } = await admin.from('boats').select('name, host_id').eq('id', opts.boatId).single()
+  if (!boatRow) return
+  const boat = boatRow as { name: string; host_id: string }
+  const money = opts.total != null ? `${opts.currency === 'EUR' ? '€' : (opts.currency || '') + ' '}${opts.total.toLocaleString()}` : '—'
+  const dur = opts.durationHours ? `${opts.durationHours}h` : ''
+  const dt = new Date(`${opts.date}T${opts.time || '09:00'}:00`)
+  const dateStr = isNaN(dt.getTime()) ? opts.date : dt.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
+  const contact = [opts.guestEmail, opts.guestPhone].filter(Boolean).join(' · ') || '—'
+
+  const hostEmail = await emailOf(boat.host_id)
+  await resend.emails.send({
+    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `📅 Booking request — ${boat.name} · ${dateStr}`,
+    html: shell('📅 New booking request', '#c9a84e', `
+      <p>New booking request for <strong style="color:#f4f4f2">${boat.name}</strong> — confirm availability with the guest and send a payment link.</p>
+      <table style="width:100%;border-collapse:collapse;margin:14px 0">
+        <tr><td style="padding:6px 0;color:#8b94a3">Date</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${dateStr}${opts.time ? ` · ${opts.time}` : ''}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Duration</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${dur || '—'}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Guests</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.guests ?? '—'}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Price</td><td style="padding:6px 0;color:#c9a84e;text-align:right;font-weight:800">${money}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Guest</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.guestName || '—'}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Contact</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${contact}</td></tr>
+      </table>`),
+  }).catch(() => {})
+
+  await sendWhatsApp(await phoneOf(boat.host_id),
+    `📅 *Booking request* — ${boat.name}\n${dateStr}${opts.time ? ` ${opts.time}` : ''}${dur ? ` · ${dur}` : ''} · ${opts.guests ?? '?'} guests · ${money}\nGuest: ${opts.guestName || '—'} (${contact})\nConfirm + send a payment link.`)
+}
+
+/** Host accepted a request-first booking → send the guest a Stripe payment link to pay. */
+export async function sendBookerPaymentLink(bookingId: string, url: string) {
+  const ctx = await loadBooking(bookingId)
+  if (!ctx?.boat) return
+  const f = fmt(ctx.b, ctx.boat.name)
+  const to = await emailOf(ctx.b.renter_id)
+  if (to) await resend.emails.send({
+    from: FROM, to, subject: `✅ ${f.boatName} accepted — complete your payment`,
+    html: shell('✅ Your request was accepted!', '#22c55e', `
+      <p>Great news — the owner accepted your request for <strong style="color:#f4f4f2">${f.boatName}</strong>. Complete your payment to lock it in:</p>
+      ${detailRows(f)}
+      <p style="margin:18px 0 6px">${btn(url, 'Pay & confirm →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Secure Stripe checkout · this finalises your booking.</p>`),
+  }).catch(() => {})
+  await sendWhatsApp(await phoneOf(ctx.b.renter_id),
+    `✅ *${f.boatName}* — the owner accepted your request for ${f.date}! Pay ${f.money} to confirm:\n${url}`)
 }

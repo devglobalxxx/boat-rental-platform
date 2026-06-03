@@ -52,6 +52,8 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
   const [notes, setNotes] = useState('')
   const [showNotes, setShowNotes] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [requestSent, setRequestSent] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
   const supabase = createClient()
 
@@ -67,6 +69,22 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
     }
     if (!date || !selectedPricing) return
     setLoading(true)
+    setError(null)
+
+    // Request-first (non-instant boats): notify the owner now — no card. They confirm + send a pay link.
+    if (!boat.instant_book) {
+      const res = await fetch('/api/booking-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ boatId: boat.id, pricingId: selectedPricing.id, date, time, guests }),
+      })
+      setLoading(false)
+      if (res.ok) setRequestSent(true)
+      else setError("Couldn't send your request — please try again.")
+      return
+    }
+
+    // Instant book: straight to card checkout.
     const params = new URLSearchParams({
       date,
       pricing_id: selectedPricing.id,
@@ -78,15 +96,25 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
     router.push(`/boats/${boat.slug}/book?${params.toString()}`)
   }
 
+  if (requestSent) {
+    return (
+      <div style={{ position: 'sticky', top: '96px', background: card, border: '1px solid rgba(34,197,94,0.30)', borderRadius: '20px', padding: '28px', textAlign: 'center' }}>
+        <div style={{ fontSize: '40px', marginBottom: '8px' }}>✅</div>
+        <div style={{ fontSize: '18px', fontWeight: 800, color: '#22c55e', marginBottom: '6px' }}>Request sent!</div>
+        <p style={{ fontSize: '14px', color: muted, lineHeight: 1.6 }}>The owner has been notified of your {selectedPricing?.duration_hours ? `${selectedPricing.duration_hours}h ` : ''}request{date ? ` for ${date}` : ''}. They&apos;ll confirm availability and send you a payment link.</p>
+      </div>
+    )
+  }
+
   return (
     <div style={{ position: 'sticky', top: '96px', background: card, border: `1px solid ${border}`, borderRadius: '20px', padding: '24px', boxShadow: '0 8px 32px rgba(0,0,0,0.40)' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '20px' }}>
         <div>
-          {sortedPricing[0] && (
+          {selectedPricing && (
             <>
-              <span style={{ fontSize: '24px', fontWeight: 800, color: text }}>{formatPrice(sortedPricing[0].price, sortedPricing[0].currency)}</span>
-              <span style={{ fontSize: '13px', color: muted }}> / {sortedPricing[0]?.duration_hours ? `${sortedPricing[0].duration_hours}h` : 'day'}</span>
+              <span style={{ fontSize: '24px', fontWeight: 800, color: text }}>{formatPrice(selectedPricing.price, selectedPricing.currency)}</span>
+              <span style={{ fontSize: '13px', color: muted }}> / {selectedPricing.duration_hours ? `${selectedPricing.duration_hours}h` : 'day'}</span>
             </>
           )}
         </div>
@@ -263,6 +291,10 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
             All-inclusive · no extra fees at checkout
           </div>
         </div>
+      )}
+
+      {error && (
+        <div style={{ padding: '10px 14px', marginBottom: '12px', background: 'rgba(248,113,113,0.10)', border: '1px solid rgba(248,113,113,0.28)', borderRadius: '10px', fontSize: '13px', color: '#f87171' }}>{error}</div>
       )}
 
       <button

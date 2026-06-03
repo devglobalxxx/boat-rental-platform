@@ -1079,3 +1079,109 @@ To https://github.com/mardo89/boat-rental-platform.git
 [2026-06-03 00:57:12]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-fuengirola/
 [2026-06-03 00:57:13] WP: 40/40 published
 [2026-06-03 00:57:13] done 2026-06-03
+[2026-06-04 00:58:02] starting daily run for 2026-06-04
+[2026-06-04 00:58:02] === Generate: 4 blog + 40 landing = 44 item(s) (backend=deepseek) ===
+[2026-06-04 00:58:03] [1/44] blog · best-snorkeling-coves-costa-del-sol
+[2026-06-04 00:58:45]   ✓ generated
+[2026-06-04 00:58:45] [2/44] blog · boat-trip-marbella-starlite-festival-2025
+[2026-06-04 00:59:31]   ✓ generated
+[2026-06-04 00:59:31] [3/44] blog · dolphin-watching-marbella-early-morning-vs-afternoon
+[2026-06-04 01:00:08]   ✓ generated
+[2026-06-04 01:00:08] [4/44] blog · stag-party-boat-activities-marbella
+[2026-06-04 01:00:56]   ✓ generated
+[2026-06-04 01:00:56] [5/44] landing · boat-rental-in-cannes
+[2026-06-04 01:00:56]   (near-duplicate topic, skipping: boat rental in cannes)
+[2026-06-04 01:00:56] [6/44] landing · yacht-rental-amalfi
+[2026-06-04 01:00:56]   (near-duplicate topic, skipping: yacht rental amalfi)
+[2026-06-04 01:00:56] [7/44] landing · yacht-rental-naples
+[2026-06-04 01:01:42]   ✓ generated
+[2026-06-04 01:01:42] [8/44] landing · yacht-charter-phuket
+[2026-06-04 01:02:15]   ✗ FAILED: JSONDecodeError: Expecting ',' delimiter: line 5 column 8218 (char 9393)
+Traceback (most recent call last):
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 555, in main
+    rec = gen_landing(item)
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 396, in gen_landing
+    data = extract_json(call_model(system, build_landing_user(item)))
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 149, in extract_json
+    return json.loads(raw[s:e + 1])
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 5 column 8218 (char 9393)
+[2026-06-04 01:02:15] [9/44] landing · hire-yachts
+[2026-06-04 01:02:53]   ✓ generated
+[2026-06-04 01:02:53] [10/44] landing · yacht-on-hire
+[2026-06-04 01:02:53]   (near-duplicate topic, skipping: yacht on hire)
+[2026-06-04 01:02:53] [11/44] landing · hire-yacht
+[2026-06-04 01:02:53]   (near-duplicate topic, skipping: hire yacht)
+[2026-06-04 01:02:53] [12/44] landing · boat-hire-cannes-france
+[2026-06-04 01:03:45]   ✓ generated
+[2026-06-04 01:03:45] [13/44] landing · speedboat-rental
+[2026-06-04 01:04:21]   ✓ generated
+[2026-06-04 01:04:21] [14/44] landing · cannes-boat-hire
+[2026-06-04 01:04:21]   (near-duplicate topic, skipping: cannes boat hire)
+[2026-06-04 01:04:21] [15/44] landing · yachts-to-hire
+[2026-06-04 01:04:21]   (near-duplicate topic, skipping: yachts to hire)
+[2026-06-04 01:04:21] [16/44] landing · boat-rental-in-marbella
+[2026-06-04 01:04:21]   (near-duplicate topic, skipping: boat rental in marbella)
+[2026-06-04 01:04:21] [17/44] landing · yacht-charter-dubai
+[2026-06-04 01:04:21]   (near-duplicate topic, skipping: yacht charter dubai)
+[2026-06-04 01:04:21] [18/44] landing · yacht-charter-mykonos
+[2026-06-04 01:05:11]   ✓ generated
+[2026-06-04 01:05:11] [19/44] landing · yacht-rental-mykonos
+[2026-06-04 01:05:11]   (near-duplicate topic, skipping: yacht rental mykonos)
+[2026-06-04 01:05:11] [20/44] landing · boat-rental-dubrovnik
+[2026-06-04 01:05:57]   ✓ generated
+[2026-06-04 01:05:57] [21/44] landing · boat-rental-in-dubrovnik
+[2026-06-04 01:05:57]   (near-duplicate topic, skipping: boat rental in dubrovnik)
+[2026-06-04 01:05:57] [22/44] landing · yacht-charter-naples
+[2026-06-04 01:05:57]   (near-duplicate topic, skipping: yacht charter naples)
+[2026-06-04 01:05:57] [23/44] landing · boat-rental-phuket
+[2026-06-04 01:06:45]   ✓ generated
+[2026-06-04 01:06:45] [24/44] landing · boat-hire-phuket
+[2026-06-04 01:06:45]   (near-duplicate topic, skipping: boat hire phuket)
+[2026-06-04 01:06:45] [25/44] landing · boat-rental-in-phuket
+[2026-06-04 01:06:45]   (near-duplicate topic, skipping: boat rental in phuket)
+[2026-06-04 01:06:45] [26/44] landing · yacht-charter-key-west
+[2026-06-04 01:06:45]   (near-duplicate topic, skipping: yacht charter key west)
+[2026-06-04 01:06:45] [27/44] landing · boat-rental-corfu
+[2026-06-04 01:07:29]   ✓ generated
+[2026-06-04 01:07:29] [28/44] landing · boat-rental-in-corfu
+[2026-06-04 01:07:29]   (near-duplicate topic, skipping: boat rental in corfu)
+[2026-06-04 01:07:29] [29/44] landing · rent-a-speedboat-san-diego
+[2026-06-04 01:08:18]   ✓ generated
+[2026-06-04 01:08:18] [30/44] landing · boat-rental-dubai
+[2026-06-04 01:08:58]   ✓ generated
+[2026-06-04 01:08:58] [31/44] landing · boat-hire-dubai
+[2026-06-04 01:08:58]   (near-duplicate topic, skipping: boat hire dubai)
+[2026-06-04 01:08:58] [32/44] landing · boat-rental-in-dubai
+[2026-06-04 01:08:58]   (near-duplicate topic, skipping: boat rental in dubai)
+[2026-06-04 01:08:58] [33/44] landing · boat-rental-athens
+[2026-06-04 01:09:45]   ✓ generated
+[2026-06-04 01:09:45] [34/44] landing · yacht-charter-athens
+[2026-06-04 01:10:22]   ✓ generated
+[2026-06-04 01:10:22] [35/44] landing · boat-hire-athens
+[2026-06-04 01:10:22]   (near-duplicate topic, skipping: boat hire athens)
+[2026-06-04 01:10:22] [36/44] landing · boat-rental-in-athens
+[2026-06-04 01:10:22]   (near-duplicate topic, skipping: boat rental in athens)
+[2026-06-04 01:10:22] [37/44] landing · yacht-charter-cannes
+[2026-06-04 01:11:05]   ✓ generated
+[2026-06-04 01:11:05] [38/44] landing · yacht-rental-phuket
+[2026-06-04 01:11:49]   ✓ generated
+[2026-06-04 01:11:49] [39/44] landing · catamaran-charter-key-west
+[2026-06-04 01:11:49]   (near-duplicate topic, skipping: catamaran charter key west)
+[2026-06-04 01:11:49] [40/44] landing · boat-captains-for-hire
+[2026-06-04 01:12:30]   ✓ generated
+[2026-06-04 01:12:30] [41/44] landing · yacht-rental-ibiza
+[2026-06-04 01:12:30]   (near-duplicate topic, skipping: yacht rental ibiza)
+[2026-06-04 01:12:30] [42/44] landing · yacht-charter-split
+[2026-06-04 01:13:15]   ✓ generated
+[2026-06-04 01:13:15] [43/44] landing · yacht-rental-cannes
+[2026-06-04 01:13:15]   (near-duplicate topic, skipping: yacht rental cannes)
+[2026-06-04 01:13:15] [44/44] landing · yacht-rental-sardinia
+[2026-06-04 01:13:15]   (near-duplicate topic, skipping: yacht rental sardinia)
+[2026-06-04 01:13:15] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-04 01:13:56] refill failed: RuntimeError: no JSON found in model output

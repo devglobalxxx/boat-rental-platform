@@ -33,7 +33,7 @@ export default async function HostBookingsPage({
 
   let query = supabase
     .from('bookings')
-    .select(`id, status, start_datetime, end_datetime, duration_hours, guests_count, subtotal, service_fee, total, currency, special_requests, created_at, boats(name, slug), profiles!renter_id(full_name, avatar_url)`)
+    .select(`id, status, stripe_payment_intent_id, start_datetime, end_datetime, duration_hours, guests_count, subtotal, service_fee, total, currency, special_requests, created_at, boats(name, slug), profiles!renter_id(full_name, avatar_url)`)
     .in('boat_id', boatIds.length ? boatIds : ['none'])
     .order('created_at', { ascending: false })
 
@@ -132,18 +132,24 @@ export default async function HostBookingsPage({
                         {new Date(booking.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                       </div>
                       {booking.status === 'pending' && (
-                        <div style={{ display: 'flex', gap: '8px', marginTop: '12px', justifyContent: 'flex-end' }}>
-                          <form action={`/api/host/bookings/${booking.id}/confirm`} method="POST">
-                            <button type="submit" style={{ padding: '8px 16px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '13px', fontWeight: 700, cursor: 'pointer', border: 'none' }}>
-                              Accept
-                            </button>
-                          </form>
-                          <form action={`/api/host/bookings/${booking.id}/decline`} method="POST">
-                            <button type="submit" style={{ padding: '8px 16px', borderRadius: '99px', background: 'transparent', color: muted, fontSize: '13px', fontWeight: 600, cursor: 'pointer', border: '1px solid rgba(255,255,255,0.15)' }}>
-                              Decline
-                            </button>
-                          </form>
-                        </div>
+                        (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_') ? (
+                          <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'flex-end' }}>
+                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#22c55e', padding: '6px 12px', borderRadius: '99px', background: 'rgba(34,197,94,0.10)', border: '1px solid rgba(34,197,94,0.28)' }}>✓ Accepted — payment link sent, awaiting guest</span>
+                          </div>
+                        ) : (
+                          <div style={{ display: 'flex', gap: '8px', marginTop: '12px', justifyContent: 'flex-end' }}>
+                            <form action={`/api/host/bookings/${booking.id}/confirm`} method="POST">
+                              <button type="submit" style={{ padding: '8px 16px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '13px', fontWeight: 700, cursor: 'pointer', border: 'none' }}>
+                                Accept
+                              </button>
+                            </form>
+                            <form action={`/api/host/bookings/${booking.id}/decline`} method="POST">
+                              <button type="submit" style={{ padding: '8px 16px', borderRadius: '99px', background: 'transparent', color: muted, fontSize: '13px', fontWeight: 600, cursor: 'pointer', border: '1px solid rgba(255,255,255,0.15)' }}>
+                                Decline
+                              </button>
+                            </form>
+                          </div>
+                        )
                       )}
                     </div>
                   </div>

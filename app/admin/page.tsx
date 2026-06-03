@@ -5,6 +5,7 @@ import AdminVerifyButton from './AdminVerifyButton'
 import AdminDocsButton from './AdminDocsButton'
 import AdminBoatsButton from './AdminBoatsButton'
 import AdminPayoutButton from './AdminPayoutButton'
+import AdminLinkButton from './AdminLinkButton'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Admin Panel' }
@@ -105,6 +106,24 @@ export default async function AdminPage({
   const { data: payoutRows } = await supabaseAdmin.from('payout_methods').select('host_id')
   for (const p of payoutRows ?? []) payoutSet.add(p.host_id)
 
+  // Accounts users have deleted (audit trail; table may not exist yet → empty)
+  type DeletedAccount = { id: string; email: string | null; full_name: string | null; verification_status: string | null; boats_count: number | null; deleted_at: string }
+  let deletedAccounts: DeletedAccount[] = []
+  try {
+    const { data } = await supabaseAdmin
+      .from('deleted_accounts')
+      .select('id, email, full_name, verification_status, boats_count, deleted_at')
+      .order('deleted_at', { ascending: false })
+    deletedAccounts = (data as DeletedAccount[] | null) ?? []
+  } catch { deletedAccounts = [] }
+
+  // Host website/feed links the admin has added (stored on auth user_metadata — no migration)
+  const websiteMap: Record<string, string> = {}
+  for (const u of authUsers ?? []) {
+    const w = (u.user_metadata as { website_url?: string } | undefined)?.website_url
+    if (w) websiteMap[u.id] = w
+  }
+
   // Fetch bookings — who booked which boat
   const { data: bookingRows } = await supabaseAdmin
     .from('bookings')
@@ -132,6 +151,7 @@ export default async function AdminPage({
     boats: boatMap[p.id] ?? 0,
     docs: docMap[p.id] ?? 0,
     hasPayout: payoutSet.has(p.id),
+    website_url: websiteMap[p.id] ?? null,
   }))
 
   const filtered = filter === 'all' ? all : all.filter((p) => p.verification_status === filter)
@@ -142,6 +162,7 @@ export default async function AdminPage({
     verified: all.filter((p) => p.verification_status === 'verified').length,
     unverified: all.filter((p) => p.verification_status === 'unverified').length,
     rejected: all.filter((p) => p.verification_status === 'rejected').length,
+    deleted: deletedAccounts.length,
   }
 
   return (
@@ -250,6 +271,7 @@ export default async function AdminPage({
             { key: 'verified',   label: `Verified (${counts.verified})` },
             { key: 'unverified', label: `Unverified (${counts.unverified})` },
             { key: 'rejected',   label: `Rejected (${counts.rejected})` },
+            { key: 'deleted',    label: `🗑 Deleted (${counts.deleted})` },
           ].map((tab) => (
             <a
               key={tab.key}
@@ -261,7 +283,47 @@ export default async function AdminPage({
           ))}
         </div>
 
+        {/* Deleted accounts table */}
+        {filter === 'deleted' && (
+          <div style={{ background: card, borderRadius: '16px', border: `1px solid ${border}`, overflow: 'hidden' }}>
+            {deletedAccounts.length === 0 ? (
+              <div style={{ padding: '48px', textAlign: 'center', color: muted, fontSize: '14px' }}>No deleted accounts yet.</div>
+            ) : (
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', minWidth: '640px' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+                      {['User', 'Email', 'Was', 'Boats had', 'Deleted on'].map((h, i, arr) => (
+                        <th key={h} style={{ padding: '12px 16px', textAlign: i === arr.length - 1 ? 'right' : 'left', fontWeight: 600, color: muted, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {deletedAccounts.map((u, i) => {
+                      const s = STATUS_STYLE[u.verification_status ?? 'unverified'] ?? STATUS_STYLE.unverified
+                      return (
+                        <tr key={u.id} style={{ borderBottom: i < deletedAccounts.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                          <td style={{ padding: '14px 16px', fontWeight: 600, color: text }}>{u.full_name || '—'}</td>
+                          <td style={{ padding: '14px 16px', color: muted }}>{u.email || '—'}</td>
+                          <td style={{ padding: '14px 16px' }}>
+                            <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '99px', background: s.bg, color: s.color, border: `1px solid ${s.bd}`, whiteSpace: 'nowrap' }}>{s.label}</span>
+                          </td>
+                          <td style={{ padding: '14px 16px', color: muted }}>{u.boats_count ?? 0}</td>
+                          <td style={{ padding: '14px 16px', textAlign: 'right', color: muted, whiteSpace: 'nowrap' }}>
+                            {u.deleted_at ? new Date(u.deleted_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' }) : '—'}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Users table */}
+        {filter !== 'deleted' && (
         <div style={{ background: card, borderRadius: '16px', border: `1px solid ${border}`, overflow: 'hidden' }}>
           {filtered.length === 0 ? (
             <div style={{ padding: '48px', textAlign: 'center', color: muted, fontSize: '14px' }}>No users in this filter.</div>
@@ -299,6 +361,7 @@ export default async function AdminPage({
                             >
                               + Add
                             </a>
+                            <AdminLinkButton userId={u.id} currentUrl={u.website_url} />
                           </div>
                         </td>
                         <td style={{ padding: '14px 16px', position: 'relative' }}>
@@ -328,6 +391,7 @@ export default async function AdminPage({
             </div>
           )}
         </div>
+        )}
       </div>
     </div>
   )

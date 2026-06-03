@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 // Market-relevant country dial codes (one entry per unique code), Spain first.
 const COUNTRIES: { flag: string; name: string; dial: string }[] = [
@@ -15,13 +15,27 @@ const COUNTRIES: { flag: string; name: string; dial: string }[] = [
   { flag: '🇵🇹', name: 'Portugal', dial: '+351' },
   { flag: '🇨🇭', name: 'Switzerland', dial: '+41' },
   { flag: '🇦🇹', name: 'Austria', dial: '+43' },
+  { flag: '🇱🇺', name: 'Luxembourg', dial: '+352' },
   { flag: '🇸🇪', name: 'Sweden', dial: '+46' },
   { flag: '🇳🇴', name: 'Norway', dial: '+47' },
   { flag: '🇩🇰', name: 'Denmark', dial: '+45' },
   { flag: '🇫🇮', name: 'Finland', dial: '+358' },
+  { flag: '🇮🇸', name: 'Iceland', dial: '+354' },
+  { flag: '🇪🇪', name: 'Estonia', dial: '+372' },
+  { flag: '🇱🇻', name: 'Latvia', dial: '+371' },
+  { flag: '🇱🇹', name: 'Lithuania', dial: '+370' },
   { flag: '🇵🇱', name: 'Poland', dial: '+48' },
   { flag: '🇨🇿', name: 'Czechia', dial: '+420' },
+  { flag: '🇸🇰', name: 'Slovakia', dial: '+421' },
+  { flag: '🇭🇺', name: 'Hungary', dial: '+36' },
+  { flag: '🇷🇴', name: 'Romania', dial: '+40' },
+  { flag: '🇧🇬', name: 'Bulgaria', dial: '+359' },
+  { flag: '🇭🇷', name: 'Croatia', dial: '+385' },
+  { flag: '🇸🇮', name: 'Slovenia', dial: '+386' },
+  { flag: '🇷🇸', name: 'Serbia', dial: '+381' },
   { flag: '🇬🇷', name: 'Greece', dial: '+30' },
+  { flag: '🇨🇾', name: 'Cyprus', dial: '+357' },
+  { flag: '🇲🇹', name: 'Malta', dial: '+356' },
   { flag: '🇷🇺', name: 'Russia', dial: '+7' },
   { flag: '🇺🇦', name: 'Ukraine', dial: '+380' },
   { flag: '🇹🇷', name: 'Turkey', dial: '+90' },
@@ -30,17 +44,31 @@ const COUNTRIES: { flag: string; name: string; dial: string }[] = [
   { flag: '🇸🇦', name: 'Saudi Arabia', dial: '+966' },
   { flag: '🇶🇦', name: 'Qatar', dial: '+974' },
   { flag: '🇰🇼', name: 'Kuwait', dial: '+965' },
+  { flag: '🇧🇭', name: 'Bahrain', dial: '+973' },
   { flag: '🇮🇱', name: 'Israel', dial: '+972' },
+  { flag: '🇱🇧', name: 'Lebanon', dial: '+961' },
+  { flag: '🇪🇬', name: 'Egypt', dial: '+20' },
   { flag: '🇲🇦', name: 'Morocco', dial: '+212' },
   { flag: '🇿🇦', name: 'South Africa', dial: '+27' },
+  { flag: '🇳🇬', name: 'Nigeria', dial: '+234' },
   { flag: '🇧🇷', name: 'Brazil', dial: '+55' },
   { flag: '🇲🇽', name: 'Mexico', dial: '+52' },
+  { flag: '🇦🇷', name: 'Argentina', dial: '+54' },
+  { flag: '🇨🇴', name: 'Colombia', dial: '+57' },
+  { flag: '🇨🇱', name: 'Chile', dial: '+56' },
   { flag: '🇦🇺', name: 'Australia', dial: '+61' },
+  { flag: '🇳🇿', name: 'New Zealand', dial: '+64' },
   { flag: '🇨🇳', name: 'China', dial: '+86' },
   { flag: '🇮🇳', name: 'India', dial: '+91' },
   { flag: '🇯🇵', name: 'Japan', dial: '+81' },
+  { flag: '🇰🇷', name: 'South Korea', dial: '+82' },
   { flag: '🇭🇰', name: 'Hong Kong', dial: '+852' },
   { flag: '🇸🇬', name: 'Singapore', dial: '+65' },
+  { flag: '🇹🇭', name: 'Thailand', dial: '+66' },
+  { flag: '🇲🇾', name: 'Malaysia', dial: '+60' },
+  { flag: '🇮🇩', name: 'Indonesia', dial: '+62' },
+  { flag: '🇵🇭', name: 'Philippines', dial: '+63' },
+  { flag: '🇻🇳', name: 'Vietnam', dial: '+84' },
 ]
 
 const DEFAULT_DIAL = '+34'
@@ -48,20 +76,31 @@ const DEFAULT_DIAL = '+34'
 const text = '#f4f4f2'
 
 export function PhoneInput({ value, onChange, id }: { value: string; onChange: (e164: string) => void; id?: string }) {
-  // Split the stored E.164 value into (dial code, local digits) for display.
-  const { dial, local } = useMemo(() => {
+  // Parse the stored E.164 value into (dial code from value | null, local digits).
+  const parsed = useMemo(() => {
     const v = (value || '').trim()
     if (v.startsWith('+')) {
       const byLongest = [...COUNTRIES].sort((a, b) => b.dial.length - a.dial.length)
       const match = byLongest.find((c) => v.startsWith(c.dial))
-      if (match) return { dial: match.dial, local: v.slice(match.dial.length).replace(/\D/g, '') }
+      if (match) return { dial: match.dial as string | null, local: v.slice(match.dial.length).replace(/\D/g, '') }
     }
-    return { dial: DEFAULT_DIAL, local: v.replace(/\D/g, '') }
+    return { dial: null as string | null, local: v.replace(/\D/g, '') }
   }, [value])
 
-  function emit(nextDial: string, nextLocal: string) {
-    const digits = nextLocal.replace(/\D/g, '')
+  // Remember the chosen country even before a number is typed, so selecting a code sticks
+  // (previously: picking a country with an empty number emitted '' and snapped back to +34).
+  const [pickedDial, setPickedDial] = useState(DEFAULT_DIAL)
+  const dial = parsed.dial ?? pickedDial
+  const local = parsed.local
+
+  function setDial(nextDial: string) {
+    setPickedDial(nextDial)
+    const digits = local.replace(/\D/g, '')
     onChange(digits ? `${nextDial}${digits}` : '')
+  }
+  function setLocal(nextLocal: string) {
+    const digits = nextLocal.replace(/\D/g, '')
+    onChange(digits ? `${dial}${digits}` : '')
   }
 
   return (
@@ -69,7 +108,7 @@ export function PhoneInput({ value, onChange, id }: { value: string; onChange: (
       <select
         aria-label="Country code"
         value={dial}
-        onChange={(e) => emit(e.target.value, local)}
+        onChange={(e) => setDial(e.target.value)}
         style={{
           padding: '11px 8px', borderRadius: '10px', background: '#0c1828',
           border: '1px solid rgba(255,255,255,0.14)', color: text, fontSize: '14px',
@@ -85,7 +124,7 @@ export function PhoneInput({ value, onChange, id }: { value: string; onChange: (
         type="tel"
         inputMode="tel"
         value={local}
-        onChange={(e) => emit(dial, e.target.value)}
+        onChange={(e) => setLocal(e.target.value)}
         placeholder="600 000 000"
         style={{
           flex: 1, minWidth: 0, padding: '11px 14px', borderRadius: '10px',

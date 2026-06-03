@@ -5,6 +5,7 @@ import Gallery from '@/components/listing/Gallery'
 import Reviews from '@/components/listing/Reviews'
 import AvailabilityCalendar from '@/components/listing/AvailabilityCalendar'
 import BookingWidget from '@/components/booking/BookingWidget'
+import QuoteRequestCard from '@/components/booking/QuoteRequestCard'
 import { formatPrice } from '@/lib/utils/pricing'
 import { MapPin, Users, Ruler, Anchor, Star, Check, Waves, Zap } from 'lucide-react'
 import VerifiedBadge from '@/components/ui/VerifiedBadge'
@@ -356,10 +357,15 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
 
           {/* ── Booking widget sidebar ── */}
           <div style={{ flex: '1 1 340px', position: 'sticky', top: '24px' }}>
-            <BookingWidget
-              boat={{ ...boat, avg_rating: avgRating, review_count: reviews?.length ?? 0 }}
-              blockedDates={blockedDates}
-            />
+            {sortedPricing.length === 0 ? (
+              /* No price set yet → enquiry form that notifies the owner (email + WhatsApp) */
+              <QuoteRequestCard boatId={boat.id} boatName={boat.name} />
+            ) : (
+              <BookingWidget
+                boat={{ ...boat, avg_rating: avgRating, review_count: reviews?.length ?? 0 }}
+                blockedDates={blockedDates}
+              />
+            )}
           </div>
 
         </div>

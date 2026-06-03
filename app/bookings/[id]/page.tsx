@@ -20,7 +20,7 @@ const STATUS_CONFIG = {
 
 interface Props {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ confirmed?: string; requested?: string }>
+  searchParams: Promise<{ confirmed?: string; requested?: string; paid?: string }>
 }
 
 export default async function BookingDetailPage({ params, searchParams }: Props) {
@@ -147,10 +147,16 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
           <Link href="/dashboard/messages" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: muted, fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
             <MessageSquare style={{ width: 16, height: 16 }} /> Message host
           </Link>
-          {booking.status === 'pending' && (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.22)', color: '#f59e0b', fontSize: '13px', fontWeight: 600 }}>
-              <Clock style={{ width: 15, height: 15 }} /> Waiting for the host to accept — we&apos;ll email you the moment they do
-            </div>
+          {booking.status === 'pending' && !sp.paid && (
+            (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_') ? (
+              <a href={`/api/bookings/${id}/pay`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, textDecoration: 'none' }}>
+                ✅ Owner accepted — Pay {formatPrice(booking.total, booking.currency)} to confirm
+              </a>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.22)', color: '#f59e0b', fontSize: '13px', fontWeight: 600 }}>
+                <Clock style={{ width: 15, height: 15 }} /> Waiting for the host to accept — we&apos;ll email you the moment they do
+              </div>
+            )
           )}
         </div>
       </div>

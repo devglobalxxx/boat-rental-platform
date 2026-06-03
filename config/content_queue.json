@@ -3566,16 +3566,47 @@
       "target_words": 2200,
       "search_volume": 40,
       "consumed_at": "2026-06-03"
-    }
-  ],
-  "queue": [
+    },
+    {
+      "kind": "blog",
+      "slug": "best-snorkeling-coves-costa-del-sol",
+      "primary_keyword": "best snorkeling coves Costa del Sol",
+      "title": "Best Snorkeling Coves on the Costa del Sol for Boat Trips",
+      "target_words": 1100,
+      "consumed_at": "2026-06-04"
+    },
+    {
+      "kind": "blog",
+      "slug": "boat-trip-marbella-starlite-festival-2025",
+      "primary_keyword": "Starlite Festival boat trip Marbella",
+      "title": "Boat Trip to Starlite Festival 2025 – Marbella Transfer Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-06-04"
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-early-morning-vs-afternoon",
+      "primary_keyword": "dolphin watching Marbella early morning vs afternoon",
+      "title": "Dolphin Watching Marbella: Early Morning vs Afternoon Trips",
+      "target_words": 1100,
+      "consumed_at": "2026-06-04"
+    },
+    {
+      "kind": "blog",
+      "slug": "stag-party-boat-activities-marbella",
+      "primary_keyword": "stag party boat activities Marbella",
+      "title": "Top Stag Party Boat Activities in Marbella",
+      "target_words": 1100,
+      "consumed_at": "2026-06-04"
+    },
     {
       "kind": "landing",
       "slug": "boat-rental-in-cannes",
       "primary_keyword": "boat rental in cannes",
       "title": "Boat Rental In Cannes | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3583,7 +3614,8 @@
       "primary_keyword": "yacht rental amalfi",
       "title": "Yacht Rental Amalfi | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3591,15 +3623,8 @@
       "primary_keyword": "yacht rental naples",
       "title": "Yacht Rental Naples | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
-    },
-    {
-      "kind": "landing",
-      "slug": "yacht-charter-phuket",
-      "primary_keyword": "yacht charter phuket",
-      "title": "Yacht Charter Phuket | BoatHire24",
-      "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3607,7 +3632,8 @@
       "primary_keyword": "hire yachts",
       "title": "Hire Yachts | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3615,7 +3641,8 @@
       "primary_keyword": "yacht on hire",
       "title": "Yacht On Hire | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3623,7 +3650,8 @@
       "primary_keyword": "hire yacht",
       "title": "Hire Yacht | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3631,7 +3659,8 @@
       "primary_keyword": "boat hire cannes france",
       "title": "Boat Hire Cannes France | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3639,7 +3668,8 @@
       "primary_keyword": "speedboat rental",
       "title": "Speedboat Rental | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3647,7 +3677,8 @@
       "primary_keyword": "cannes boat hire",
       "title": "Cannes Boat Hire | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3655,7 +3686,8 @@
       "primary_keyword": "yachts to hire",
       "title": "Yachts To Hire | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3663,7 +3695,8 @@
       "primary_keyword": "boat rental in marbella",
       "title": "Boat Rental In Marbella | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3671,7 +3704,8 @@
       "primary_keyword": "yacht charter dubai",
       "title": "Yacht Charter Dubai | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3679,7 +3713,8 @@
       "primary_keyword": "yacht charter mykonos",
       "title": "Yacht Charter Mykonos | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3687,7 +3722,8 @@
       "primary_keyword": "yacht rental mykonos",
       "title": "Yacht Rental Mykonos | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3695,7 +3731,8 @@
       "primary_keyword": "boat rental dubrovnik",
       "title": "Boat Rental Dubrovnik | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3703,7 +3740,8 @@
       "primary_keyword": "boat rental in dubrovnik",
       "title": "Boat Rental In Dubrovnik | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3711,7 +3749,8 @@
       "primary_keyword": "yacht charter naples",
       "title": "Yacht Charter Naples | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3719,7 +3758,8 @@
       "primary_keyword": "boat rental phuket",
       "title": "Boat Rental Phuket | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3727,7 +3767,8 @@
       "primary_keyword": "boat hire phuket",
       "title": "Boat Hire Phuket | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3735,7 +3776,8 @@
       "primary_keyword": "boat rental in phuket",
       "title": "Boat Rental In Phuket | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3743,7 +3785,8 @@
       "primary_keyword": "yacht charter key west",
       "title": "Yacht Charter Key West | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3751,7 +3794,8 @@
       "primary_keyword": "boat rental corfu",
       "title": "Boat Rental Corfu | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3759,7 +3803,8 @@
       "primary_keyword": "boat rental in corfu",
       "title": "Boat Rental In Corfu | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3767,7 +3812,8 @@
       "primary_keyword": "rent a speedboat san diego",
       "title": "Rent A Speedboat San Diego | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3775,7 +3821,8 @@
       "primary_keyword": "boat rental dubai",
       "title": "Boat Rental Dubai | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3783,7 +3830,8 @@
       "primary_keyword": "boat hire dubai",
       "title": "Boat Hire Dubai | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3791,7 +3839,8 @@
       "primary_keyword": "boat rental in dubai",
       "title": "Boat Rental In Dubai | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3799,7 +3848,8 @@
       "primary_keyword": "boat rental athens",
       "title": "Boat Rental Athens | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3807,7 +3857,8 @@
       "primary_keyword": "yacht charter athens",
       "title": "Yacht Charter Athens | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3815,7 +3866,8 @@
       "primary_keyword": "boat hire athens",
       "title": "Boat Hire Athens | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3823,7 +3875,8 @@
       "primary_keyword": "boat rental in athens",
       "title": "Boat Rental In Athens | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3831,7 +3884,8 @@
       "primary_keyword": "yacht charter cannes",
       "title": "Yacht Charter Cannes | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3839,7 +3893,8 @@
       "primary_keyword": "yacht rental phuket",
       "title": "Yacht Rental Phuket | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3847,7 +3902,8 @@
       "primary_keyword": "catamaran charter key west",
       "title": "Catamaran Charter Key West | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3855,7 +3911,8 @@
       "primary_keyword": "boat captains for hire",
       "title": "Boat Captains For Hire | BoatHire24",
       "target_words": 2200,
-      "search_volume": 170
+      "search_volume": 170,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3863,7 +3920,8 @@
       "primary_keyword": "yacht rental ibiza",
       "title": "Yacht Rental Ibiza | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3871,7 +3929,8 @@
       "primary_keyword": "yacht charter split",
       "title": "Yacht Charter Split | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3879,7 +3938,8 @@
       "primary_keyword": "yacht rental cannes",
       "title": "Yacht Rental Cannes | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3887,7 +3947,18 @@
       "primary_keyword": "yacht rental sardinia",
       "title": "Yacht Rental Sardinia | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
+    }
+  ],
+  "queue": [
+    {
+      "kind": "landing",
+      "slug": "yacht-charter-phuket",
+      "primary_keyword": "yacht charter phuket",
+      "title": "Yacht Charter Phuket | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 260
     },
     {
       "kind": "landing",
@@ -4362,24 +4433,10 @@
       "search_volume": 30
     },
     {
-      "kind": "blog",
-      "slug": "best-snorkeling-coves-costa-del-sol",
-      "primary_keyword": "best snorkeling coves Costa del Sol",
-      "title": "Best Snorkeling Coves on the Costa del Sol for Boat Trips",
-      "target_words": 1100
-    },
-    {
       "kind": "landing",
       "slug": "private-yacht-charter-marbella-day",
       "primary_keyword": "private yacht charter Marbella day",
       "title": "Private Yacht Charter Marbella – Day Rentals for Groups",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "boat-trip-marbella-starlite-festival-2025",
-      "primary_keyword": "Starlite Festival boat trip Marbella",
-      "title": "Boat Trip to Starlite Festival 2025 – Marbella Transfer Guide",
       "target_words": 1100
     },
     {
@@ -4397,24 +4454,10 @@
       "target_words": 1100
     },
     {
-      "kind": "blog",
-      "slug": "dolphin-watching-marbella-early-morning-vs-afternoon",
-      "primary_keyword": "dolphin watching Marbella early morning vs afternoon",
-      "title": "Dolphin Watching Marbella: Early Morning vs Afternoon Trips",
-      "target_words": 1100
-    },
-    {
       "kind": "landing",
       "slug": "private-boat-charter-marbella-fishing",
       "primary_keyword": "private boat charter Marbella fishing",
       "title": "Private Boat Charter Marbella for Fishing – Expert Skippers",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "stag-party-boat-activities-marbella",
-      "primary_keyword": "stag party boat activities Marbella",
-      "title": "Top Stag Party Boat Activities in Marbella",
       "target_words": 1100
     },
     {

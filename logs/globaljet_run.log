@@ -56,3 +56,30 @@
 quarantined 0 thin landings; kept 245
 cannibalization: 55 variant pages canonicalized to a primary
 relinked: blogs=141 (homepage 141/141), landings=245 (homepage 245/245), affiliate-link pool=9
+[main e432367] Add 26 global jet-ski rental landing pages
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 30 files changed, 2680 insertions(+), 357 deletions(-)
+ create mode 100644 app/api/bookings/[id]/notify-host/route.ts
+ create mode 100644 app/api/cron/expire-requests/route.ts
+ create mode 100644 app/api/feed/boats/route.ts
+ create mode 100644 app/api/host/import-feed/route.ts
+ create mode 100644 app/host/fleet/connect/FeedConnectClient.tsx
+ create mode 100644 app/host/fleet/connect/page.tsx
+ create mode 100644 components/ui/PhoneInput.tsx
+ create mode 100644 lib/email/bookings.ts
+ create mode 100644 lib/whatsapp.ts
+ create mode 100644 logs/globaljet_run.log
+To https://github.com/mardo89/boat-rental-platform.git
+   612ba78..e432367  HEAD -> main

@@ -12,7 +12,7 @@ const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
 
 const STATUS_CONFIG = {
-  pending:   { label: 'Pending',   color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',   border: 'rgba(245,158,11,0.30)' },
+  pending:   { label: 'Requested', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',   border: 'rgba(245,158,11,0.30)' },
   confirmed: { label: 'Confirmed', color: '#22c55e', bg: 'rgba(34,197,94,0.12)',    border: 'rgba(34,197,94,0.30)' },
   cancelled: { label: 'Cancelled', color: '#f87171', bg: 'rgba(248,113,113,0.10)',  border: 'rgba(248,113,113,0.28)' },
   completed: { label: 'Completed', color: gold,      bg: 'rgba(201,168,78,0.10)',   border: 'rgba(201,168,78,0.28)' },
