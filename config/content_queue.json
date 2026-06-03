@@ -3337,6 +3337,214 @@
   "queue": [
     {
       "kind": "landing",
+      "slug": "jet-ski-miami",
+      "primary_keyword": "jet ski miami",
+      "title": "Jet Ski Miami | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 8100
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-san-diego",
+      "primary_keyword": "jet ski rental san diego",
+      "title": "Jet Ski Rental San Diego | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 5400
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-chicago",
+      "primary_keyword": "jet ski chicago",
+      "title": "Jet Ski Chicago | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 4400
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-tampa",
+      "primary_keyword": "jet ski rental tampa",
+      "title": "Jet Ski Rental Tampa | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2900
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-key-west",
+      "primary_keyword": "jet ski rental key west",
+      "title": "Jet Ski Rental Key West | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2900
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-fort-lauderdale",
+      "primary_keyword": "jet ski rental fort lauderdale",
+      "title": "Jet Ski Rental Fort Lauderdale | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2400
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-orlando",
+      "primary_keyword": "jet ski rental orlando",
+      "title": "Jet Ski Rental Orlando | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2400
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-lake-havasu",
+      "primary_keyword": "jet ski rental lake havasu",
+      "title": "Jet Ski Rental Lake Havasu | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 2400
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-austin",
+      "primary_keyword": "jet ski rental austin",
+      "title": "Jet Ski Rental Austin | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1300
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-los-angeles",
+      "primary_keyword": "jet ski rental los angeles",
+      "title": "Jet Ski Rental Los Angeles | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 1000
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-las-vegas",
+      "primary_keyword": "jet ski rental las vegas",
+      "title": "Jet Ski Rental Las Vegas | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 720
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-dallas",
+      "primary_keyword": "jet ski rental dallas",
+      "title": "Jet Ski Rental Dallas | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 480
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-cancun",
+      "primary_keyword": "jet ski rental cancun",
+      "title": "Jet Ski Rental Cancun | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 320
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-naples",
+      "primary_keyword": "jet ski rental naples",
+      "title": "Jet Ski Rental Naples | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 320
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-dubai",
+      "primary_keyword": "jet ski rental dubai",
+      "title": "Jet Ski Rental Dubai | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-bali",
+      "primary_keyword": "jet ski bali",
+      "title": "Jet Ski Bali | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 140
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-barcelona",
+      "primary_keyword": "jet ski barcelona",
+      "title": "Jet Ski Barcelona | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-nice",
+      "primary_keyword": "jet ski nice",
+      "title": "Jet Ski Nice | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 90
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-santorini",
+      "primary_keyword": "jet ski santorini",
+      "title": "Jet Ski Santorini | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 70
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-toronto",
+      "primary_keyword": "jet ski rental toronto",
+      "title": "Jet Ski Rental Toronto | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 70
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-mykonos",
+      "primary_keyword": "jet ski mykonos",
+      "title": "Jet Ski Mykonos | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 50
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-phuket",
+      "primary_keyword": "jet ski rental phuket",
+      "title": "Jet Ski Rental Phuket | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 50
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-maldives",
+      "primary_keyword": "jet ski maldives",
+      "title": "Jet Ski Maldives | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 50
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-ibiza",
+      "primary_keyword": "jet ski rental ibiza",
+      "title": "Jet Ski Rental Ibiza | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-tenerife",
+      "primary_keyword": "jet ski tenerife",
+      "title": "Jet Ski Tenerife | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-dubrovnik",
+      "primary_keyword": "jet ski rental dubrovnik",
+      "title": "Jet Ski Rental Dubrovnik | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 40
+    },
+    {
+      "kind": "landing",
       "slug": "boat-rental-in-cannes",
       "primary_keyword": "boat rental in cannes",
       "title": "Boat Rental In Cannes | BoatHire24",
