@@ -3949,16 +3949,15 @@
       "target_words": 2200,
       "search_volume": 140,
       "consumed_at": "2026-06-04"
-    }
-  ],
-  "queue": [
+    },
     {
       "kind": "landing",
       "slug": "yacht-charter-phuket",
       "primary_keyword": "yacht charter phuket",
       "title": "Yacht Charter Phuket | BoatHire24",
       "target_words": 2200,
-      "search_volume": 260
+      "search_volume": 260,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3966,7 +3965,8 @@
       "primary_keyword": "boat rental malta",
       "title": "Boat Rental Malta | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3974,7 +3974,8 @@
       "primary_keyword": "yacht charter malta",
       "title": "Yacht Charter Malta | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3982,7 +3983,8 @@
       "primary_keyword": "boat rental in malta",
       "title": "Boat Rental In Malta | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3990,7 +3992,8 @@
       "primary_keyword": "boat rental bali",
       "title": "Boat Rental Bali | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -3998,7 +4001,8 @@
       "primary_keyword": "boat hire bali",
       "title": "Boat Hire Bali | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4006,7 +4010,8 @@
       "primary_keyword": "boat rental in bali",
       "title": "Boat Rental In Bali | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4014,7 +4019,8 @@
       "primary_keyword": "yacht charter maldives",
       "title": "Yacht Charter Maldives | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4022,7 +4028,8 @@
       "primary_keyword": "catamaran charter san diego",
       "title": "Catamaran Charter San Diego | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4030,7 +4037,8 @@
       "primary_keyword": "yacht charter corfu",
       "title": "Yacht Charter Corfu | BoatHire24",
       "target_words": 2200,
-      "search_volume": 140
+      "search_volume": 140,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4038,7 +4046,8 @@
       "primary_keyword": "yacht charter marbella",
       "title": "Yacht Charter Marbella | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4046,7 +4055,8 @@
       "primary_keyword": "yacht charter barcelona",
       "title": "Yacht Charter Barcelona | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4054,7 +4064,8 @@
       "primary_keyword": "yacht rental barcelona",
       "title": "Yacht Rental Barcelona | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4062,7 +4073,8 @@
       "primary_keyword": "yacht charter dubrovnik",
       "title": "Yacht Charter Dubrovnik | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4070,7 +4082,8 @@
       "primary_keyword": "yacht rental bali",
       "title": "Yacht Rental Bali | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4078,7 +4091,8 @@
       "primary_keyword": "yacht rental tulum",
       "title": "Yacht Rental Tulum | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4086,7 +4100,8 @@
       "primary_keyword": "boat rental lisbon",
       "title": "Boat Rental Lisbon | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4094,7 +4109,8 @@
       "primary_keyword": "boat hire lisbon",
       "title": "Boat Hire Lisbon | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4102,7 +4118,8 @@
       "primary_keyword": "boat rental bodrum",
       "title": "Boat Rental Bodrum | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4110,7 +4127,8 @@
       "primary_keyword": "boat hire bodrum",
       "title": "Boat Hire Bodrum | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4118,7 +4136,8 @@
       "primary_keyword": "boat rental in bodrum",
       "title": "Boat Rental In Bodrum | BoatHire24",
       "target_words": 2200,
-      "search_volume": 110
+      "search_volume": 110,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4126,7 +4145,8 @@
       "primary_keyword": "catamaran charter miami",
       "title": "Catamaran Charter Miami | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4134,7 +4154,8 @@
       "primary_keyword": "yacht charter santorini",
       "title": "Yacht Charter Santorini | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4142,7 +4163,8 @@
       "primary_keyword": "yacht rental nice",
       "title": "Yacht Rental Nice | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4150,7 +4172,8 @@
       "primary_keyword": "yacht charter capri",
       "title": "Yacht Charter Capri | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4158,7 +4181,8 @@
       "primary_keyword": "yacht rental capri",
       "title": "Yacht Rental Capri | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4166,7 +4190,8 @@
       "primary_keyword": "boat rental tulum",
       "title": "Boat Rental Tulum | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4174,7 +4199,8 @@
       "primary_keyword": "boat rental monaco",
       "title": "Boat Rental Monaco | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4182,7 +4208,8 @@
       "primary_keyword": "boat hire monaco",
       "title": "Boat Hire Monaco | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4190,7 +4217,8 @@
       "primary_keyword": "boat rental in monaco",
       "title": "Boat Rental In Monaco | BoatHire24",
       "target_words": 2200,
-      "search_volume": 90
+      "search_volume": 90,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4198,7 +4226,8 @@
       "primary_keyword": "boat hire mallorca",
       "title": "Boat Hire Mallorca | BoatHire24",
       "target_words": 2200,
-      "search_volume": 70
+      "search_volume": 70,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4206,7 +4235,8 @@
       "primary_keyword": "yacht rental santorini",
       "title": "Yacht Rental Santorini | BoatHire24",
       "target_words": 2200,
-      "search_volume": 70
+      "search_volume": 70,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4214,7 +4244,8 @@
       "primary_keyword": "yacht charter bali",
       "title": "Yacht Charter Bali | BoatHire24",
       "target_words": 2200,
-      "search_volume": 70
+      "search_volume": 70,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4222,7 +4253,8 @@
       "primary_keyword": "yacht charter tulum",
       "title": "Yacht Charter Tulum | BoatHire24",
       "target_words": 2200,
-      "search_volume": 70
+      "search_volume": 70,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4230,7 +4262,8 @@
       "primary_keyword": "yacht charter bodrum",
       "title": "Yacht Charter Bodrum | BoatHire24",
       "target_words": 2200,
-      "search_volume": 70
+      "search_volume": 70,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4238,7 +4271,8 @@
       "primary_keyword": "yacht rental bodrum",
       "title": "Yacht Rental Bodrum | BoatHire24",
       "target_words": 2200,
-      "search_volume": 70
+      "search_volume": 70,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4246,7 +4280,8 @@
       "primary_keyword": "catamaran charter mallorca",
       "title": "Catamaran Charter Mallorca | BoatHire24",
       "target_words": 2200,
-      "search_volume": 50
+      "search_volume": 50,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4254,7 +4289,8 @@
       "primary_keyword": "catamaran charter athens",
       "title": "Catamaran Charter Athens | BoatHire24",
       "target_words": 2200,
-      "search_volume": 50
+      "search_volume": 50,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4262,7 +4298,8 @@
       "primary_keyword": "boat hire dubrovnik",
       "title": "Boat Hire Dubrovnik | BoatHire24",
       "target_words": 2200,
-      "search_volume": 50
+      "search_volume": 50,
+      "consumed_at": "2026-06-04"
     },
     {
       "kind": "landing",
@@ -4270,8 +4307,11 @@
       "primary_keyword": "catamaran charter sardinia",
       "title": "Catamaran Charter Sardinia | BoatHire24",
       "target_words": 2200,
-      "search_volume": 50
-    },
+      "search_volume": 50,
+      "consumed_at": "2026-06-04"
+    }
+  ],
+  "queue": [
     {
       "kind": "landing",
       "slug": "yacht-rental-marbella",

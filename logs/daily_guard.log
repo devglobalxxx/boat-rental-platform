@@ -1185,3 +1185,115 @@ json.decoder.JSONDecodeError: Expecting ',' delimiter: line 5 column 8218 (char 
 [2026-06-04 01:13:15]   (near-duplicate topic, skipping: yacht rental sardinia)
 [2026-06-04 01:13:15] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-04 01:13:56] refill failed: RuntimeError: no JSON found in model output
+[main 548bb53] Daily content: +43 pages (4 blog, 39 landing)
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 22 files changed, 1794 insertions(+), 122 deletions(-)
+ create mode 100644 app/admin/AdminLinkButton.tsx
+ create mode 100644 app/api/admin/set-link/route.ts
+ create mode 100644 app/api/booking-request/route.ts
+ create mode 100644 app/api/bookings/[id]/pay/route.ts
+ create mode 100644 app/api/quote-request/route.ts
+ create mode 100644 components/booking/QuoteRequestCard.tsx
+To https://github.com/mardo89/boat-rental-platform.git
+   b94f172..548bb53  HEAD -> main
+[2026-06-04 01:13:59] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-04 01:14:01] reindex ping: 200 {"ok":true,"urls_total":1011,"indexnow":{"ok":true,"status":200,"count":1011},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-03T22:
+[2026-06-04 01:14:01] === Done: 43 ok, 1 failed ===
+
+[2026-06-04 01:14:01] generation failed; will retry next wake
+[2026-06-04 02:14:01] starting daily run for 2026-06-04
+[2026-06-04 02:14:01] === Generate: 0 blog + 40 landing = 40 item(s) (backend=deepseek) ===
+[2026-06-04 02:14:02] [1/40] landing · yacht-charter-phuket
+[2026-06-04 02:14:02]   (near-duplicate topic, skipping: yacht charter phuket)
+[2026-06-04 02:14:02] [2/40] landing · boat-rental-malta
+[2026-06-04 02:14:45]   ✓ generated
+[2026-06-04 02:14:45] [3/40] landing · yacht-charter-malta
+[2026-06-04 02:15:18]   ✓ generated
+[2026-06-04 02:15:18] [4/40] landing · boat-rental-in-malta
+[2026-06-04 02:15:18]   (near-duplicate topic, skipping: boat rental in malta)
+[2026-06-04 02:15:18] [5/40] landing · boat-rental-bali
+[2026-06-04 02:15:59]   ✓ generated
+[2026-06-04 02:15:59] [6/40] landing · boat-hire-bali
+[2026-06-04 02:15:59]   (near-duplicate topic, skipping: boat hire bali)
+[2026-06-04 02:15:59] [7/40] landing · boat-rental-in-bali
+[2026-06-04 02:15:59]   (near-duplicate topic, skipping: boat rental in bali)
+[2026-06-04 02:15:59] [8/40] landing · yacht-charter-maldives
+[2026-06-04 02:16:27]   ✓ generated
+[2026-06-04 02:16:27] [9/40] landing · catamaran-charter-san-diego
+[2026-06-04 02:16:27]   (near-duplicate topic, skipping: catamaran charter san diego)
+[2026-06-04 02:16:27] [10/40] landing · yacht-charter-corfu
+[2026-06-04 02:17:04]   ✓ generated
+[2026-06-04 02:17:04] [11/40] landing · yacht-charter-marbella
+[2026-06-04 02:17:04]   (near-duplicate topic, skipping: yacht charter marbella)
+[2026-06-04 02:17:04] [12/40] landing · yacht-charter-barcelona
+[2026-06-04 02:17:42]   ✓ generated
+[2026-06-04 02:17:42] [13/40] landing · yacht-rental-barcelona
+[2026-06-04 02:17:42]   (near-duplicate topic, skipping: yacht rental barcelona)
+[2026-06-04 02:17:42] [14/40] landing · yacht-charter-dubrovnik
+[2026-06-04 02:18:18]   ✓ generated
+[2026-06-04 02:18:18] [15/40] landing · yacht-rental-bali
+[2026-06-04 02:18:59]   ✓ generated
+[2026-06-04 02:18:59] [16/40] landing · yacht-rental-tulum
+[2026-06-04 02:19:32]   ✓ generated
+[2026-06-04 02:19:32] [17/40] landing · boat-rental-lisbon
+[2026-06-04 02:20:18]   ✓ generated
+[2026-06-04 02:20:18] [18/40] landing · boat-hire-lisbon
+[2026-06-04 02:20:18]   (near-duplicate topic, skipping: boat hire lisbon)
+[2026-06-04 02:20:18] [19/40] landing · boat-rental-bodrum
+[2026-06-04 02:20:57]   ✓ generated
+[2026-06-04 02:20:57] [20/40] landing · boat-hire-bodrum
+[2026-06-04 02:20:57]   (near-duplicate topic, skipping: boat hire bodrum)
+[2026-06-04 02:20:57] [21/40] landing · boat-rental-in-bodrum
+[2026-06-04 02:20:57]   (near-duplicate topic, skipping: boat rental in bodrum)
+[2026-06-04 02:20:57] [22/40] landing · catamaran-charter-miami
+[2026-06-04 02:21:37]   ✓ generated
+[2026-06-04 02:21:37] [23/40] landing · yacht-charter-santorini
+[2026-06-04 02:22:07]   ✓ generated
+[2026-06-04 02:22:07] [24/40] landing · yacht-rental-nice
+[2026-06-04 02:22:44]   ✓ generated
+[2026-06-04 02:22:44] [25/40] landing · yacht-charter-capri
+[2026-06-04 02:23:29]   ✓ generated
+[2026-06-04 02:23:29] [26/40] landing · yacht-rental-capri
+[2026-06-04 02:23:29]   (near-duplicate topic, skipping: yacht rental capri)
+[2026-06-04 02:23:29] [27/40] landing · boat-rental-tulum
+[2026-06-04 02:24:00]   ✓ generated
+[2026-06-04 02:24:00] [28/40] landing · boat-rental-monaco
+[2026-06-04 02:24:40]   ✓ generated
+[2026-06-04 02:24:40] [29/40] landing · boat-hire-monaco
+[2026-06-04 02:24:40]   (near-duplicate topic, skipping: boat hire monaco)
+[2026-06-04 02:24:40] [30/40] landing · boat-rental-in-monaco
+[2026-06-04 02:24:40]   (near-duplicate topic, skipping: boat rental in monaco)
+[2026-06-04 02:24:40] [31/40] landing · boat-hire-mallorca
+[2026-06-04 02:24:40]   (near-duplicate topic, skipping: boat hire mallorca)
+[2026-06-04 02:24:40] [32/40] landing · yacht-rental-santorini
+[2026-06-04 02:24:40]   (near-duplicate topic, skipping: yacht rental santorini)
+[2026-06-04 02:24:40] [33/40] landing · yacht-charter-bali
+[2026-06-04 02:24:40]   (near-duplicate topic, skipping: yacht charter bali)
+[2026-06-04 02:24:40] [34/40] landing · yacht-charter-tulum
+[2026-06-04 02:24:40]   (near-duplicate topic, skipping: yacht charter tulum)
+[2026-06-04 02:24:40] [35/40] landing · yacht-charter-bodrum
+[2026-06-04 02:25:25]   ✓ generated
+[2026-06-04 02:25:25] [36/40] landing · yacht-rental-bodrum
+[2026-06-04 02:25:25]   (near-duplicate topic, skipping: yacht rental bodrum)
+[2026-06-04 02:25:25] [37/40] landing · catamaran-charter-mallorca
+[2026-06-04 02:26:07]   ✓ generated
+[2026-06-04 02:26:07] [38/40] landing · catamaran-charter-athens
+[2026-06-04 02:26:46]   ✓ generated
+[2026-06-04 02:26:46] [39/40] landing · boat-hire-dubrovnik
+[2026-06-04 02:26:46]   (near-duplicate topic, skipping: boat hire dubrovnik)
+[2026-06-04 02:26:46] [40/40] landing · catamaran-charter-sardinia
+[2026-06-04 02:27:24]   ✓ generated
+[2026-06-04 02:27:24] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-04 02:28:02] refill failed: RuntimeError: no JSON found in model output
