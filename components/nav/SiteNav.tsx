@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { X, User, LogOut, LayoutDashboard, Ship, Menu, Search, Compass, HelpCircle, Anchor, Layers, ShieldCheck, Settings } from 'lucide-react'
+import { X, User, LogOut, LayoutDashboard, Ship, Menu, Search, Compass, HelpCircle, Anchor, Layers, ShieldCheck, Settings, MessageCircle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import Logo from '@/components/ui/Logo'
 import LanguageSwitcher from '@/components/nav/LanguageSwitcher'
@@ -223,6 +223,7 @@ export default function SiteNav() {
                       { href: '/host',               Icon: Ship,            label: 'Host dashboard' },
                       { href: '/host/fleet',         Icon: Layers,          label: 'Fleet Manager' },
                       { href: '/dashboard/messages', Icon: User,            label: 'Messages' },
+                      { href: '/settings#whatsapp',  Icon: MessageCircle,   label: 'WhatsApp alerts' },
                       { href: '/settings',           Icon: Settings,        label: 'Settings' },
                       ...(isAdmin ? [{ href: '/admin', Icon: ShieldCheck, label: 'Admin' }] : []),
                     ].map((item) => (
@@ -384,6 +385,7 @@ export default function SiteNav() {
                 <Link href="/dashboard" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>My trips</Link>
                 <Link href="/host" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>Host dashboard</Link>
                 <Link href="/host/fleet" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>Fleet Manager</Link>
+                <Link href="/settings#whatsapp" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>WhatsApp alerts</Link>
                 <Link href="/settings" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>Settings</Link>
                 {isAdmin && (
                   <Link href="/admin" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: gold, textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }} onClick={() => setOpen(false)}>🔒 Admin</Link>

@@ -7,6 +7,7 @@ import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-
 import { formatPrice, calcFees } from '@/lib/utils/pricing'
 import { Shield, ArrowLeft, Calendar, Users } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { PhoneInput } from '@/components/ui/PhoneInput'
 
 const gold = '#c9a84e'
 const card = '#0c1828'
@@ -29,6 +30,7 @@ interface BookingMeta {
   pricingId: string
   clientSecret?: string
   bookingId?: string
+  requestToBook?: boolean
 }
 
 function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: string) => void }) {
@@ -37,6 +39,9 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const fees = calcFees(meta.price)
+  const supabase = createClient()
+  const [phone, setPhone] = useState('')
+  useEffect(() => { supabase.auth.getUser().then(({ data }) => { const p = (data.user?.user_metadata as any)?.phone; if (p) setPhone(p) }) }, [])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -46,6 +51,9 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
 
     const { error: submitErr } = await elements.submit()
     if (submitErr) { setError(submitErr.message ?? 'Payment failed'); setLoading(false); return }
+
+    // Save the booker's WhatsApp/phone for booking-update notifications.
+    if (phone.trim()) { await supabase.auth.updateUser({ data: { phone: phone.trim() } }).catch(() => {}) }
 
     const { error: confirmErr, paymentIntent } = await stripe.confirmPayment({
       elements,
@@ -58,8 +66,15 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
     if (confirmErr) {
       setError(confirmErr.message ?? 'Payment failed')
       setLoading(false)
-    } else if (paymentIntent?.status === 'succeeded' && meta.bookingId) {
+    } else if ((paymentIntent?.status === 'succeeded' || paymentIntent?.status === 'requires_capture') && meta.bookingId) {
+      // 'requires_capture' = request-to-book hold authorized (charged only on host approval).
+      if (paymentIntent?.status === 'requires_capture') {
+        // Notify the host immediately (server-side, idempotent) — independent of Stripe webhook config.
+        fetch(`/api/bookings/${meta.bookingId}/notify-host`, { method: 'POST' }).catch(() => {})
+      }
       onSuccess(meta.bookingId)
+    } else {
+      setLoading(false)
     }
   }
 
@@ -68,12 +83,20 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
       {/* Total — all-inclusive */}
       <div style={{ background: card, border: `1px solid ${border}`, borderRadius: '12px', padding: '18px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '15px', fontWeight: 800, color: gold }}>
-          <span>Total due today</span>
+          <span>{meta.requestToBook ? 'Held on your card' : 'Total due today'}</span>
           <span style={{ fontSize: '22px' }}>{formatPrice(fees.total, meta.currency)}</span>
         </div>
         <p style={{ fontSize: '12px', color: dim, margin: '6px 0 0' }}>
-          All-inclusive price · no extra fees at checkout
+          {meta.requestToBook
+            ? "You're not charged until the host accepts your request — the hold is released automatically if they decline."
+            : 'All-inclusive price · no extra fees at checkout'}
         </p>
+      </div>
+
+      <div>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: muted, marginBottom: '8px' }}>Mobile / WhatsApp number</label>
+        <PhoneInput value={phone} onChange={setPhone} />
+        <p style={{ fontSize: '11px', color: dim, marginTop: '6px' }}>Optional · we&apos;ll send booking updates here on WhatsApp.</p>
       </div>
 
       <PaymentElement />
@@ -89,7 +112,11 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
         disabled={loading || !stripe}
         style={{ width: '100%', padding: '14px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, cursor: loading || !stripe ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)', opacity: loading || !stripe ? 0.6 : 1, transition: 'opacity 0.15s' }}
       >
-        {loading ? 'Processing…' : `Pay ${formatPrice(fees.total, meta.currency)}`}
+        {loading
+          ? (meta.requestToBook ? 'Submitting request…' : 'Processing…')
+          : meta.requestToBook
+            ? `Request to book — hold ${formatPrice(fees.total, meta.currency)}`
+            : `Pay ${formatPrice(fees.total, meta.currency)}`}
       </button>
 
       <p style={{ textAlign: 'center', fontSize: '12px', color: dim, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', margin: 0 }}>
@@ -141,7 +168,7 @@ function BookPageInner() {
       })
 
       if (!res.ok) { setError('Could not create booking'); setLoading(false); return }
-      const { clientSecret, bookingId } = await res.json()
+      const { clientSecret, bookingId, requestToBook } = await res.json()
 
       setMeta({
         boatName: boat.name,
@@ -155,6 +182,7 @@ function BookPageInner() {
         pricingId: pricing.id,
         clientSecret,
         bookingId,
+        requestToBook,
       })
       setLoading(false)
     }
@@ -189,7 +217,8 @@ function BookPageInner() {
           <ArrowLeft style={{ width: 16, height: 16 }} /> Back
         </button>
 
-        <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '24px' }}>Confirm your booking</h1>
+        <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '8px' }}>{meta.requestToBook ? 'Request to book' : 'Confirm your booking'}</h1>
+        {meta.requestToBook && <p style={{ fontSize: '14px', color: muted, marginBottom: '24px' }}>We&apos;ll hold the amount on your card and only charge it once the host accepts (usually within 24h).</p>}
 
         {/* Booking summary */}
         <div style={{ display: 'flex', gap: '16px', padding: '16px', background: card, border: `1px solid ${border}`, borderRadius: '16px', marginBottom: '28px' }}>
@@ -226,7 +255,7 @@ function BookPageInner() {
         >
           <CheckoutForm
             meta={meta}
-            onSuccess={(id) => router.push(`/bookings/${id}?confirmed=1`)}
+            onSuccess={(id) => router.push(`/bookings/${id}?${meta.requestToBook ? 'requested' : 'confirmed'}=1`)}
           />
         </Elements>
       </div>

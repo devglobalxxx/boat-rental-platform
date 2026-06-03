@@ -12,7 +12,7 @@ const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
 
 const STATUS_CONFIG = {
-  pending:   { label: 'Pending payment', Icon: Clock,        color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  bd: 'rgba(245,158,11,0.30)' },
+  pending:   { label: 'Awaiting host approval', Icon: Clock, color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  bd: 'rgba(245,158,11,0.30)' },
   confirmed: { label: 'Confirmed',       Icon: CheckCircle,  color: '#22c55e', bg: 'rgba(34,197,94,0.12)',   bd: 'rgba(34,197,94,0.30)' },
   cancelled: { label: 'Cancelled',       Icon: XCircle,      color: '#f87171', bg: 'rgba(248,113,113,0.10)', bd: 'rgba(248,113,113,0.28)' },
   completed: { label: 'Completed',       Icon: CheckCircle,  color: gold,      bg: 'rgba(201,168,78,0.10)',  bd: 'rgba(201,168,78,0.28)' },
@@ -20,7 +20,7 @@ const STATUS_CONFIG = {
 
 interface Props {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ confirmed?: string }>
+  searchParams: Promise<{ confirmed?: string; requested?: string }>
 }
 
 export default async function BookingDetailPage({ params, searchParams }: Props) {
@@ -64,6 +64,16 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
             <div>
               <div style={{ fontWeight: 700, color: '#22c55e' }}>Booking confirmed!</div>
               <div style={{ fontSize: '13px', color: muted, marginTop: '2px' }}>You&apos;ll receive a confirmation email shortly.</div>
+            </div>
+          </div>
+        )}
+
+        {sp.requested && (
+          <div style={{ marginBottom: '24px', padding: '16px', background: 'rgba(245,158,11,0.10)', border: '1px solid rgba(245,158,11,0.30)', borderRadius: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <Clock style={{ width: 20, height: 20, color: '#f59e0b', flexShrink: 0 }} />
+            <div>
+              <div style={{ fontWeight: 700, color: '#f59e0b' }}>Request submitted!</div>
+              <div style={{ fontSize: '13px', color: muted, marginTop: '2px' }}>The host has 24h to accept. Your card is <strong style={{ color: text }}>held, not charged</strong> — you&apos;re only charged once they confirm, and the hold is released automatically if they decline.</div>
             </div>
           </div>
         )}
@@ -138,9 +148,9 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
             <MessageSquare style={{ width: 16, height: 16 }} /> Message host
           </Link>
           {booking.status === 'pending' && (
-            <Link href={`/boats/${boat?.slug}/book`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
-              Complete payment
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.22)', color: '#f59e0b', fontSize: '13px', fontWeight: 600 }}>
+              <Clock style={{ width: 15, height: 15 }} /> Waiting for the host to accept — we&apos;ll email you the moment they do
+            </div>
           )}
         </div>
       </div>

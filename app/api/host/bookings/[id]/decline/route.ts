@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { stripe } from '@/lib/stripe'
+import { sendBookerDeclined } from '@/lib/email/bookings'
 
 export async function POST(
   _req: NextRequest,
@@ -12,7 +14,7 @@ export async function POST(
 
   const { data: booking } = await supabase
     .from('bookings')
-    .select('id, status, boats(host_id)')
+    .select('id, status, stripe_payment_intent_id, boats(host_id)')
     .eq('id', id)
     .single()
 
@@ -21,12 +23,17 @@ export async function POST(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const { error } = await supabase
-    .from('bookings')
-    .update({ status: 'cancelled' })
-    .eq('id', id)
+  // Decline = release the card hold (cancel the authorization). No charge.
+  const piId = (booking as any).stripe_payment_intent_id as string | null
+  if (piId) {
+    try {
+      const pi = await stripe.paymentIntents.retrieve(piId)
+      const cancelable = ['requires_capture', 'requires_payment_method', 'requires_confirmation', 'requires_action']
+      if (cancelable.includes(pi.status)) await stripe.paymentIntents.cancel(piId)
+    } catch { /* ignore — proceed to mark declined */ }
+  }
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-
+  await supabase.from('bookings').update({ status: 'cancelled' }).eq('id', id)
+  await sendBookerDeclined(id)
   return NextResponse.redirect(new URL('/host/bookings', _req.url))
 }

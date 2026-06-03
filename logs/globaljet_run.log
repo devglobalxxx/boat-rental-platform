@@ -1,0 +1,58 @@
+[2026-06-03 18:07:40] === Generate: 0 blog + 26 landing = 26 item(s) (backend=deepseek) ===
+[2026-06-03 18:07:40] [1/26] landing · jet-ski-miami
+[2026-06-03 18:08:31]   ✓ generated
+[2026-06-03 18:08:31] [2/26] landing · jet-ski-rental-san-diego
+[2026-06-03 18:09:24]   ✓ generated
+[2026-06-03 18:09:24] [3/26] landing · jet-ski-chicago
+[2026-06-03 18:10:04]   ✓ generated
+[2026-06-03 18:10:04] [4/26] landing · jet-ski-rental-tampa
+[2026-06-03 18:10:55]   ✓ generated
+[2026-06-03 18:10:55] [5/26] landing · jet-ski-rental-key-west
+[2026-06-03 18:11:43]   ✓ generated
+[2026-06-03 18:11:43] [6/26] landing · jet-ski-rental-fort-lauderdale
+[2026-06-03 18:12:28]   ✓ generated
+[2026-06-03 18:12:28] [7/26] landing · jet-ski-rental-orlando
+[2026-06-03 18:13:11]   ✓ generated
+[2026-06-03 18:13:11] [8/26] landing · jet-ski-rental-lake-havasu
+[2026-06-03 18:14:10]   ✓ generated
+[2026-06-03 18:14:10] [9/26] landing · jet-ski-rental-austin
+[2026-06-03 18:15:01]   ✓ generated
+[2026-06-03 18:15:01] [10/26] landing · jet-ski-rental-los-angeles
+[2026-06-03 18:15:46]   ✓ generated
+[2026-06-03 18:15:46] [11/26] landing · jet-ski-rental-las-vegas
+[2026-06-03 18:16:37]   ✓ generated
+[2026-06-03 18:16:37] [12/26] landing · jet-ski-rental-dallas
+[2026-06-03 18:17:22]   ✓ generated
+[2026-06-03 18:17:22] [13/26] landing · jet-ski-rental-cancun
+[2026-06-03 18:18:12]   ✓ generated
+[2026-06-03 18:18:12] [14/26] landing · jet-ski-rental-naples
+[2026-06-03 18:18:47]   ✓ generated
+[2026-06-03 18:18:47] [15/26] landing · jet-ski-rental-dubai
+[2026-06-03 18:19:38]   ✓ generated
+[2026-06-03 18:19:38] [16/26] landing · jet-ski-bali
+[2026-06-03 18:20:27]   ✓ generated
+[2026-06-03 18:20:27] [17/26] landing · jet-ski-barcelona
+[2026-06-03 18:21:14]   ✓ generated
+[2026-06-03 18:21:14] [18/26] landing · jet-ski-nice
+[2026-06-03 18:22:04]   ✓ generated
+[2026-06-03 18:22:04] [19/26] landing · jet-ski-santorini
+[2026-06-03 18:22:43]   ✓ generated
+[2026-06-03 18:22:43] [20/26] landing · jet-ski-rental-toronto
+[2026-06-03 18:23:34]   ✓ generated
+[2026-06-03 18:23:34] [21/26] landing · jet-ski-mykonos
+[2026-06-03 18:24:23]   ✓ generated
+[2026-06-03 18:24:23] [22/26] landing · jet-ski-rental-phuket
+[2026-06-03 18:25:14]   ✓ generated
+[2026-06-03 18:25:14] [23/26] landing · jet-ski-maldives
+[2026-06-03 18:26:05]   ✓ generated
+[2026-06-03 18:26:05] [24/26] landing · jet-ski-rental-ibiza
+[2026-06-03 18:26:53]   ✓ generated
+[2026-06-03 18:26:53] [25/26] landing · jet-ski-tenerife
+[2026-06-03 18:27:41]   ✓ generated
+[2026-06-03 18:27:41] [26/26] landing · jet-ski-rental-dubrovnik
+[2026-06-03 18:28:27]   ✓ generated
+[2026-06-03 18:28:27] === Done: 26 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 245
+cannibalization: 55 variant pages canonicalized to a primary
+relinked: blogs=141 (homepage 141/141), landings=245 (homepage 245/245), affiliate-link pool=9

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { User, Lock, Trash2, ChevronLeft, CheckCircle, Eye, EyeOff, AlertTriangle } from 'lucide-react'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
+import { PhoneInput } from '@/components/ui/PhoneInput'
 
 const gold = '#c9a84e'
 const goldFaint = 'rgba(201,168,78,0.10)'
@@ -56,6 +57,7 @@ export default function SettingsPage() {
   const [savingName, setSavingName] = useState(false)
   const [avatarUrl, setAvatarUrl] = useState('')
   const [uploadingAvatar, setUploadingAvatar] = useState(false)
+  const [phone, setPhone] = useState('')
 
   // Password
   const [currentPw, setCurrentPw] = useState('')
@@ -77,6 +79,7 @@ export default function SettingsPage() {
       setUser(data.user)
       setName(data.user.user_metadata?.full_name ?? '')
       setAvatarUrl(data.user.user_metadata?.avatar_url ?? '')
+      setPhone(data.user.user_metadata?.phone ?? '')
       // Check if user has a password (email identity)
       const identities = data.user.identities ?? []
       setHasPassword(identities.some((id) => id.provider === 'email'))
@@ -107,10 +110,10 @@ export default function SettingsPage() {
     if (!name.trim()) return
     setSavingName(true)
     setNameMsg(null)
-    const { error } = await supabase.auth.updateUser({ data: { full_name: name.trim() } })
+    const { error } = await supabase.auth.updateUser({ data: { full_name: name.trim(), phone: phone.trim() } })
     if (!error) {
       await supabase.from('profiles').update({ full_name: name.trim() }).eq('id', user!.id)
-      setNameMsg({ text: 'Name updated successfully.', type: 'success' })
+      setNameMsg({ text: 'Profile updated successfully.', type: 'success' })
     } else {
       setNameMsg({ text: error.message, type: 'error' })
     }
@@ -217,6 +220,11 @@ export default function SettingsPage() {
               <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>Display name</label>
               <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" style={INPUT} />
             </div>
+            <div id="whatsapp" style={{ scrollMarginTop: '90px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>Mobile / WhatsApp number</label>
+              <PhoneInput value={phone} onChange={setPhone} />
+              <p style={{ fontSize: '11px', color: 'rgba(244,244,242,0.35)', marginTop: '6px' }}>Used for instant booking alerts on WhatsApp. Pick your country code, then enter the number.</p>
+            </div>
             <div>
               <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>Email</label>
               <input value={user?.email ?? ''} disabled style={{ ...INPUT, opacity: 0.5, cursor: 'not-allowed' }} />
@@ -224,7 +232,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <button type="submit" disabled={savingName || !name.trim()} style={{ padding: '11px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '13px', fontWeight: 700, border: 'none', cursor: savingName ? 'not-allowed' : 'pointer', opacity: savingName ? 0.7 : 1 }}>
-                {savingName ? 'Saving…' : 'Save name'}
+                {savingName ? 'Saving…' : 'Save profile'}
               </button>
             </div>
           </form>

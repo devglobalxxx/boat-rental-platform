@@ -262,7 +262,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       }
 
       const pricingRecords = form.pricing
-        .filter((p) => p.price && Number(p.price) > 0)
+        .filter((p) => p.price && Number(p.price) > 0 && p.durationHours && Number(p.durationHours) > 0)
         .map((p) => ({ boat_id: targetBoatId, duration_hours: p.durationHours, price: Number(p.price), currency: 'EUR', season: 'all' as const }))
       if (pricingRecords.length > 0) await supabase.from('boat_pricing').insert(pricingRecords)
 
@@ -494,9 +494,24 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>Pricing tiers (EUR)</label>
+              <p style={{ fontSize: '12px', color: dim, margin: '-6px 0 2px' }}>Add a row for each duration you offer (e.g. 3h, 4h, 7h). Set the hours, then the all-inclusive price.</p>
               {form.pricing.map((p, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ fontSize: '13px', color: muted, width: '32px', flexShrink: 0 }}>{p.durationHours}h</span>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ position: 'relative', width: '92px', flexShrink: 0 }}>
+                    <DarkInput
+                      type="number"
+                      value={p.durationHours || ''}
+                      onChange={(e) => {
+                        const updated = [...form.pricing]
+                        updated[i] = { ...updated[i], durationHours: Number(e.target.value) }
+                        update('pricing', updated)
+                      }}
+                      placeholder="2"
+                      min={1}
+                      style={{ paddingRight: '26px' }}
+                    />
+                    <span style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', color: muted, fontSize: '13px', pointerEvents: 'none' }}>h</span>
+                  </div>
                   <div style={{ flex: 1, position: 'relative' }}>
                     <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: muted, fontSize: '14px', pointerEvents: 'none' }}>€</span>
                     <DarkInput
@@ -512,8 +527,21 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                       style={{ paddingLeft: '32px' }}
                     />
                   </div>
+                  {form.pricing.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => update('pricing', form.pricing.filter((_, j) => j !== i))}
+                      aria-label="Remove pricing tier"
+                      style={{ flexShrink: 0, width: '34px', height: '34px', borderRadius: '8px', background: 'transparent', border: `1px solid ${inputBorder}`, color: muted, fontSize: '18px', lineHeight: 1, cursor: 'pointer' }}
+                    >×</button>
+                  )}
                 </div>
               ))}
+              <button
+                type="button"
+                onClick={() => update('pricing', [...form.pricing, { durationHours: 0, price: '' }])}
+                style={{ alignSelf: 'flex-start', padding: '8px 14px', borderRadius: '8px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+              >+ Add duration</button>
               <p style={{ fontSize: '12px', color: dim }}>The price guests pay is exactly what you enter above — all-inclusive. BoatHire24 takes a 15% platform commission from this price, so you receive 85% as your payout.</p>
             </div>
           </>

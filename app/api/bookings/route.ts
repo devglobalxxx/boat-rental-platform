@@ -22,10 +22,10 @@ export async function POST(req: NextRequest) {
     // Fetch boat + pricing + host stripe account
     const { data: boatRaw } = await supabase
       .from('boats')
-      .select('id, capacity_pax, status, profiles(stripe_account_id, id)')
+      .select('id, capacity_pax, status, instant_book, profiles(stripe_account_id, id)')
       .eq('id', boatId)
       .single()
-    const boat = boatRaw as (Pick<BoatRow, 'id' | 'capacity_pax' | 'status'> & { profiles: Pick<ProfileRow, 'id' | 'stripe_account_id'> | null }) | null
+    const boat = boatRaw as (Pick<BoatRow, 'id' | 'capacity_pax' | 'status' | 'instant_book'> & { profiles: Pick<ProfileRow, 'id' | 'stripe_account_id'> | null }) | null
 
     if (!boat || boat.status !== 'active') {
       return NextResponse.json({ error: 'Boat not available' }, { status: 400 })
@@ -113,6 +113,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Could not create booking' }, { status: 500 })
     }
 
+    // Request-to-book (Model C): if the boat is NOT instant-book, authorize a hold
+    // now and only capture once the host approves. Instant-book charges immediately.
+    const manualCapture = !boat.instant_book
+
     // Create Stripe PaymentIntent
     let clientSecret: string
     if (hostStripeAccountId) {
@@ -122,6 +126,7 @@ export async function POST(req: NextRequest) {
         connectedAccountId: hostStripeAccountId,
         bookingId: booking.id,
         customerId: customerId ?? undefined,
+        manualCapture,
       })
       await supabase.from('bookings').update({ stripe_payment_intent_id: pi.id } as any).eq('id', booking.id)
       clientSecret = pi.client_secret!
@@ -131,12 +136,13 @@ export async function POST(req: NextRequest) {
         currency: (pricing.currency ?? 'EUR').toLowerCase(),
         metadata: { bookingId: booking.id },
         customer: customerId ?? undefined,
+        ...(manualCapture ? { capture_method: 'manual' as const } : {}),
       })
       await supabase.from('bookings').update({ stripe_payment_intent_id: pi.id } as any).eq('id', booking.id)
       clientSecret = pi.client_secret!
     }
 
-    return NextResponse.json({ clientSecret, bookingId: booking.id })
+    return NextResponse.json({ clientSecret, bookingId: booking.id, requestToBook: manualCapture })
   } catch (err) {
     console.error('Booking creation error:', err)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

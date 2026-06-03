@@ -32,12 +32,15 @@ export async function createPaymentIntent({
   connectedAccountId,
   bookingId,
   customerId,
+  manualCapture,
 }: {
   amount: number
   currency: string
   connectedAccountId: string
   bookingId: string
   customerId?: string
+  // Request-to-book: authorize (hold) the card now, capture only when the host approves.
+  manualCapture?: boolean
 }) {
   const applicationFeeAmount = Math.round(amount * (PLATFORM_FEE_PERCENT / 100))
   return stripe.paymentIntents.create({
@@ -46,6 +49,7 @@ export async function createPaymentIntent({
     application_fee_amount: applicationFeeAmount * 100,
     transfer_data: { destination: connectedAccountId },
     metadata: { bookingId },
+    ...(manualCapture ? { capture_method: 'manual' as const } : {}),
     ...(customerId ? { customer: customerId } : {}),
   })
 }

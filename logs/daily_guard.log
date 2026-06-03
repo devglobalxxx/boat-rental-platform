@@ -944,3 +944,138 @@ To https://github.com/mardo89/boat-rental-platform.git
 quarantined 0 thin landings; kept 219
 cannibalization: 55 variant pages canonicalized to a primary
 relinked: blogs=141 (homepage 141/141), landings=219 (homepage 219/219), affiliate-link pool=9
+[main 3bac400] Daily SEO maintenance (2026-06-03): relink + canonical + affiliate
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 333 insertions(+), 296 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   8bbcffd..3bac400  HEAD -> main
+[2026-06-03 00:30:36] es: translating 40 landing page(s)
+[2026-06-03 00:31:22]   [1/40] ✓ luxury-yacht-charter-marbella-week
+[2026-06-03 00:31:58]   [2/40] ✓ pontoon-rentals
+[2026-06-03 00:32:46]   [3/40] ✓ yacht-rental
+[2026-06-03 00:33:24]   [4/40] ✓ boat-rental-services
+[2026-06-03 00:34:01]   [5/40] ✓ lake-bled-boat-hire
+[2026-06-03 00:34:35]   [6/40] ✓ santorini-boat-hire
+[2026-06-03 00:35:12]   [7/40] ✓ boat-hire-in-cannes
+[2026-06-03 00:35:51]   [8/40] ✓ luxury-motor-yacht-charter
+[2026-06-03 00:36:28]   [9/40] ✓ yacht-rental-marina-del-rey
+[2026-06-03 00:37:03]   [10/40] ✓ havasu-boat-rentals
+[2026-06-03 00:37:39]   [11/40] ✓ yacht-rental-miami
+[2026-06-03 00:38:06]   [12/40] ✓ lake-travis-rent-boat
+[2026-06-03 00:38:47]   [13/40] ✓ rent-a-boat
+[2026-06-03 00:39:23]   [14/40] ✓ boat-rental-lake-of-the-ozarks
+[2026-06-03 00:39:56]   [15/40] ✓ boat-rental-miami
+[2026-06-03 00:40:26]   [16/40] ✓ boat-rental-fort-lauderdale
+[2026-06-03 00:41:04]   [17/40] ✓ boat-rental-san-diego
+[2026-06-03 00:41:37]   [18/40] ✓ boat-rental-naples
+[2026-06-03 00:42:11]   [19/40] ✓ yacht-rental-cancun
+[2026-06-03 00:42:40]   [20/40] ✓ boat-rental-key-west
+[2026-06-03 00:43:08]   [21/40] ✓ boat-rental-cancun
+[2026-06-03 00:43:39]   [22/40] ✓ yacht-rental-dubai
+[2026-06-03 00:44:16]   [23/40] ✓ boat-rental-lake-como
+[2026-06-03 00:44:50]   [24/40] ✓ boat-rental-mallorca
+[2026-06-03 00:45:21]   [25/40] ✓ jet-ski-rental-marbella
+[2026-06-03 00:46:00]   [26/40] ✓ jet-ski-marbella
+[2026-06-03 00:46:32]   [27/40] ✓ jet-ski-puerto-banus
+[2026-06-03 00:47:04]   [28/40] ✓ jet-ski-rental-puerto-banus
+[2026-06-03 00:47:33]   [29/40] ✓ jet-ski-hire-marbella
+[2026-06-03 00:48:05]   [30/40] ✓ jet-ski-rental-estepona
+[2026-06-03 00:48:45]   [31/40] ✓ jet-ski-rental-fuengirola
+[2026-06-03 00:49:19]   [32/40] ✓ jet-ski-rental-benalmadena
+[2026-06-03 00:49:54]   [33/40] ✓ jet-ski-rental-malaga
+[2026-06-03 00:50:31]   [34/40] ✓ jet-ski-rental-costa-del-sol
+[2026-06-03 00:51:03]   [35/40] ✓ jet-ski-rental-torremolinos
+[2026-06-03 00:51:40]   [36/40] ✓ jet-ski-rental-nerja
+[2026-06-03 00:52:13]   [37/40] ✓ jet-ski-rental-sotogrande
+[2026-06-03 00:52:40]   [38/40] ✓ jet-ski-tours-marbella
+[2026-06-03 00:53:16]   [39/40] ✓ jet-ski-safari-puerto-banus
+[2026-06-03 00:53:46]   [40/40] ✓ flyboard-marbella
+[2026-06-03 00:53:46] es: 40/40 translated (total es=203)
+[main 1ae1d95] es: +40 Spanish landing translations
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1640 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   3bac400..1ae1d95  HEAD -> main
+[2026-06-03 00:53:48] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-06-03 00:53:49] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-03 00:53:50] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-03 00:53:50] Blogger: 0/80 published this run
+[2026-06-03 00:53:50] WP: publishing 0 post(s) + 40 page(s) to boathire24guides.wordpress.com
+[2026-06-03 00:53:54]   ✓ page https://boathire24guides.wordpress.com/luxury-yacht-hire-marbella-weekend/
+[2026-06-03 00:54:00]   ✓ page https://boathire24guides.wordpress.com/catamaran-rental-marbella-birthday/
+[2026-06-03 00:54:06]   ✓ page https://boathire24guides.wordpress.com/speedboat-rental-marbella-port-hourly/
+[2026-06-03 00:54:12]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-fuengirola-port/
+[2026-06-03 00:54:18]   ✓ page https://boathire24guides.wordpress.com/catamaran-hire-marbella-sunset/
+[2026-06-03 00:54:24]   ✓ page https://boathire24guides.wordpress.com/luxury-catamaran-hire-puerto-banus/
+[2026-06-03 00:54:29]   ✓ page https://boathire24guides.wordpress.com/speedboat-hire-estepona-port/
+[2026-06-03 00:54:36]   ✓ page https://boathire24guides.wordpress.com/boat-rental/
+[2026-06-03 00:54:39]   ✓ page https://boathire24guides.wordpress.com/boat-rentals-near-me/
+[2026-06-03 00:54:45]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental/
+[2026-06-03 00:54:52]   ✓ page https://boathire24guides.wordpress.com/pontoon-rentals/
+[2026-06-03 00:54:58]   ✓ page https://boathire24guides.wordpress.com/yacht-rental/
+[2026-06-03 00:55:05]   ✓ page https://boathire24guides.wordpress.com/boat-rental-services/
+[2026-06-03 00:55:12]   ✓ page https://boathire24guides.wordpress.com/lake-bled-boat-hire/
+[2026-06-03 00:55:18]   ✓ page https://boathire24guides.wordpress.com/santorini-boat-hire/
+[2026-06-03 00:55:24]   ✓ page https://boathire24guides.wordpress.com/boat-hire-in-cannes/
+[2026-06-03 00:55:31]   ✓ page https://boathire24guides.wordpress.com/luxury-motor-yacht-charter/
+[2026-06-03 00:55:34]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-marina-del-rey/
+[2026-06-03 00:55:41]   ✓ page https://boathire24guides.wordpress.com/havasu-boat-rentals/
+[2026-06-03 00:55:44]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-miami/
+[2026-06-03 00:55:51]   ✓ page https://boathire24guides.wordpress.com/lake-travis-rent-boat/
+[2026-06-03 00:55:57]   ✓ page https://boathire24guides.wordpress.com/rent-a-boat/
+[2026-06-03 00:55:59]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-03 00:56:01]   ✓ page https://boathire24guides.wordpress.com/boat-rental-lake-of-the-ozarks/
+[2026-06-03 00:56:05]   ✓ page https://boathire24guides.wordpress.com/boat-rental-miami/
+[2026-06-03 00:56:08]   ✓ page https://boathire24guides.wordpress.com/boat-rental-fort-lauderdale/
+[2026-06-03 00:56:15]   ✓ page https://boathire24guides.wordpress.com/boat-rental-san-diego/
+[2026-06-03 00:56:22]   ✓ page https://boathire24guides.wordpress.com/boat-rental-naples/
+[2026-06-03 00:56:25]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-cancun/
+[2026-06-03 00:56:26]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-03 00:56:28]   ✓ page https://boathire24guides.wordpress.com/boat-rental-key-west/
+[2026-06-03 00:56:30]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-03 00:56:32]   ✓ page https://boathire24guides.wordpress.com/boat-rental-cancun/
+[2026-06-03 00:56:38]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-dubai/
+[2026-06-03 00:56:41]   ✓ page https://boathire24guides.wordpress.com/boat-rental-lake-como/
+[2026-06-03 00:56:42]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-03 00:56:45]   ✓ page https://boathire24guides.wordpress.com/boat-rental-mallorca/
+[2026-06-03 00:56:51]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-marbella/
+[2026-06-03 00:56:55]   ✓ page https://boathire24guides.wordpress.com/jet-ski-marbella/
+[2026-06-03 00:56:58]   ✓ page https://boathire24guides.wordpress.com/jet-ski-puerto-banus/
+[2026-06-03 00:57:02]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-puerto-banus/
+[2026-06-03 00:57:05]   ✓ page https://boathire24guides.wordpress.com/jet-ski-hire-marbella/
+[2026-06-03 00:57:09]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-estepona/
+[2026-06-03 00:57:12]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-fuengirola/
+[2026-06-03 00:57:13] WP: 40/40 published
+[2026-06-03 00:57:13] done 2026-06-03

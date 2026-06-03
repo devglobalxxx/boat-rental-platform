@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { createAdminClient } from '@/lib/supabase/server'
+import { sendHostNewRequest, sendBookerConfirmed } from '@/lib/email/bookings'
 import type Stripe from 'stripe'
 
 export const runtime = 'nodejs'
@@ -20,6 +21,15 @@ export async function POST(req: NextRequest) {
   const supabase = await createAdminClient()
 
   switch (event.type) {
+    // Request-to-book: the guest authorized a hold → ask the host to approve.
+    case 'payment_intent.amount_capturable_updated': {
+      const pi = event.data.object as Stripe.PaymentIntent
+      const bookingId = pi.metadata?.bookingId
+      if (!bookingId) break
+      await sendHostNewRequest(bookingId)
+      break
+    }
+
     case 'payment_intent.succeeded': {
       const pi = event.data.object as Stripe.PaymentIntent
       const bookingId = pi.metadata?.bookingId
@@ -42,6 +52,8 @@ export async function POST(req: NextRequest) {
           status: 'booked',
         }] as any)
       }
+      // Confirmed (host captured, or instant book) → notify the guest.
+      await sendBookerConfirmed(bookingId)
       break
     }
 

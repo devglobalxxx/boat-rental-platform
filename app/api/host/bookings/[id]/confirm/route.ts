@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { stripe } from '@/lib/stripe'
 
 export async function POST(
   _req: NextRequest,
@@ -10,10 +11,9 @@ export async function POST(
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  // Verify this booking belongs to the host
   const { data: booking } = await supabase
     .from('bookings')
-    .select('id, boat_id, status, boats(host_id)')
+    .select('id, status, stripe_payment_intent_id, boats(host_id)')
     .eq('id', id)
     .single()
 
@@ -25,12 +25,17 @@ export async function POST(
     return NextResponse.json({ error: 'Booking is not pending' }, { status: 400 })
   }
 
-  const { error } = await supabase
-    .from('bookings')
-    .update({ status: 'confirmed' })
-    .eq('id', id)
+  // Approve = capture the held payment. (The webhook then books the date + emails the guest.)
+  const piId = (booking as any).stripe_payment_intent_id as string | null
+  if (piId) {
+    try {
+      const pi = await stripe.paymentIntents.retrieve(piId)
+      if (pi.status === 'requires_capture') await stripe.paymentIntents.capture(piId)
+    } catch (e: any) {
+      return NextResponse.json({ error: `Could not capture payment: ${e?.message ?? 'Stripe error'}` }, { status: 500 })
+    }
+  }
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-
+  await supabase.from('bookings').update({ status: 'confirmed' }).eq('id', id)
   return NextResponse.redirect(new URL('/host/bookings', _req.url))
 }
