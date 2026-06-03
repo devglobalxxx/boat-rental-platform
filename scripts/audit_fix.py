@@ -102,17 +102,48 @@ def main():
             lp = next(p for p in keep if p["slug"] == s)
             aff_pool.append({"href": f"/{s}/", "anchor": lp.get("h1") or lp["title"]})
 
-    N_REL = 5
-    pool = ([{"href": f"/blog/{p['slug']}/", "anchor": p["title"]} for p in blogs] +
-            [{"href": f"/{p['slug']}/", "anchor": p.get("h1") or p["title"]} for p in keep])
+    # HYBRID TOPICAL + DISTRIBUTED linking.
+    #  - N_TOPIC links to the most topically-related pages (shared city / boat
+    #    category) -> builds topic clusters (e.g. jet-ski pages link to jet-ski
+    #    pages and jet-ski blog posts).
+    #  - N_DIST distributed rotating links -> guarantees no orphans + spreads equity.
+    N_TOPIC, N_DIST = 4, 2
+    STOPT = {"the","a","an","in","to","of","for","and","your","with","best","guide",
+             "tips","day","near","me","how","what","you","rent"}
+    def topic_tokens(text):
+        return {w for w in re.findall(r"[a-z0-9]+", (text or "").lower())
+                if w not in STOPT and len(w) > 2}
+
+    pool = ([{"href": f"/blog/{p['slug']}/", "anchor": p["title"],
+              "tok": topic_tokens(f"{p['slug']} {p.get('primary_keyword','')} {p['title']}"),
+              "is_blog": True} for p in blogs] +
+            [{"href": f"/{p['slug']}/", "anchor": p.get("h1") or p["title"],
+              "tok": topic_tokens(f"{p['slug']} {p.get('keyword','')} {p.get('h1') or p['title']}"),
+              "is_blog": False} for p in keep])
     M = len(pool)
 
-    def related_block(idx: int, self_href: str) -> str:
-        picks, k = [], 1
-        while len(picks) < N_REL and k <= M:
-            cand = pool[(idx * N_REL + k) % M]
-            if cand["href"] != self_href and cand not in picks:
-                picks.append(cand)
+    def related_block(idx: int, self_href: str, self_tok: set) -> str:
+        picks, used = [], {self_href}
+        # (a) topical: rank others by shared-token overlap; prefer a blog among them
+        scored = sorted(
+            (c for c in pool if c["href"] not in used and self_tok & c["tok"]),
+            key=lambda c: len(self_tok & c["tok"]), reverse=True,
+        )
+        for c in scored:
+            if len(picks) >= N_TOPIC:
+                break
+            picks.append(c); used.add(c["href"])
+        # ensure at least one BLOG link in the cluster when available
+        if not any(c["is_blog"] for c in picks):
+            for c in scored:
+                if c["is_blog"] and c["href"] not in used:
+                    picks.append(c); used.add(c["href"]); break
+        # (b) distributed: fill remaining slots from rotating window (no orphans)
+        k = 1
+        while len(picks) < N_TOPIC + N_DIST and k <= M:
+            c = pool[(idx * (N_TOPIC + N_DIST) + k) % M]
+            if c["href"] not in used:
+                picks.append(c); used.add(c["href"])
             k += 1
         items = "".join(f'<li><a href="{x["href"]}">{x["anchor"]}</a></li>' for x in picks)
         block = f'\n<h2>Related guides</h2>\n<ul>{items}</ul>'
@@ -133,12 +164,14 @@ def main():
 
     for i, p in enumerate(blogs):
         c = ensure_home(strip_related(p["content"]))
-        p["content"] = c + related_block(i, f"/blog/{p['slug']}/")
+        tok = topic_tokens(f"{p['slug']} {p.get('primary_keyword','')} {p['title']}")
+        p["content"] = c + related_block(i, f"/blog/{p['slug']}/", tok)
     BLOG.write_text(json.dumps(blogs, ensure_ascii=False, indent=2) + "\n")
 
     for i, p in enumerate(keep):
         b = ensure_home(strip_related(p.get("bodyHtml", "")))
-        p["bodyHtml"] = b + related_block(len(blogs) + i, f"/{p['slug']}/")
+        tok = topic_tokens(f"{p['slug']} {p.get('keyword','')} {p.get('h1') or p['title']}")
+        p["bodyHtml"] = b + related_block(len(blogs) + i, f"/{p['slug']}/", tok)
     LAND.write_text(json.dumps(keep, ensure_ascii=False, indent=2) + "\n")
 
     # report
