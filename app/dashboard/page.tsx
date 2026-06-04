@@ -45,10 +45,10 @@ export default async function DashboardPage() {
     .limit(20)
 
   const all = bookings ?? []
-  // A pending booking is a *request* — give it its own bucket so it never looks like a confirmed trip.
+  // Pending bookings show in their own "My requests" section AND still appear under Upcoming trips.
   const requests = all.filter((b) => b.status === 'pending')
-  const upcoming = all.filter((b) => b.status === 'confirmed' && new Date(b.start_datetime) >= new Date())
-  const past = all.filter((b) => b.status !== 'pending' && !(b.status === 'confirmed' && new Date(b.start_datetime) >= new Date()))
+  const upcoming = all.filter((b) => new Date(b.start_datetime) >= new Date() && b.status !== 'cancelled')
+  const past = all.filter((b) => new Date(b.start_datetime) < new Date() || b.status === 'completed')
 
   return (
     <div style={{ background: '#07101e', minHeight: '100vh', color: text }}>
