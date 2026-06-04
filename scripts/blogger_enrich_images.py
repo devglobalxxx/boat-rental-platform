@@ -17,18 +17,17 @@ pb = importlib.util.module_from_spec(spec); spec.loader.exec_module(pb)
 pb.load_env()
 BID = "4858233363667605156"
 
-# Curated, high-quality, landscape boat/yacht/marina/sea photos (Unsplash CDN,
-# reliably hotlinkable). Varied subjects so distributed images stay interesting.
-# All verified live (HTTP 200) on the Unsplash CDN.
-POOL = [
-    "1567899378494-47b22a2ae96a", "1540946485063-a40da27545f8",
-    "1605281317010-fe5ffe798166", "1559599238-308793637427",
-    "1473116763249-2faaef81ccda", "1528154291023-a6525fabe5b4",
-    "1610465299996-30f240ac2b1c", "1551801841-ecad875a5142",
-    "1542902093-d55926049754", "1469854523086-cc02fe5d8800",
-    "1502086223501-7ea6ecd79368", "1544551763-46a013bb70d5",
+# Topic-relevant, verified-loadable boat images come from Openverse (relevance
+# filtered to real vessels). Proven-boat Unsplash photos as a backstop.
+_si = importlib.util.spec_from_file_location("si", ROOT / "scripts" / "stock_images.py")
+si = importlib.util.module_from_spec(_si); _si.loader.exec_module(si)
+
+BACKUP = [  # proven boat/sea Unsplash IDs (HTTP 200, correct subject)
+    "1528154291023-a6525fabe5b4", "1567899378494-47b22a2ae96a",
+    "1605281317010-fe5ffe798166", "1473116763249-2faaef81ccda",
+    "1540946485063-a40da27545f8", "1559599238-308793637427",
 ]
-def img_url(pid, w=1200):
+def _unsplash(pid, w=1200):
     return f"https://images.unsplash.com/photo-{pid}?w={w}&q=80&auto=format&fit=crop"
 
 def img_tag(url, alt):
@@ -36,18 +35,27 @@ def img_tag(url, alt):
             f'loading="lazy" style="width:100%;height:auto;border-radius:8px" /></div>')
 
 
-def pick(slug, n):
-    h = sum(ord(c) for c in slug)
-    return [POOL[(h + i * 5) % len(POOL)] for i in range(n)]
+def boat_images(item, n):
+    kw = item.get("keyword") or item.get("primary_keyword") or item.get("title") or "yacht charter"
+    urls = list(si.open_library_images(kw, n=n + 2))            # topic-relevant boats
+    h = sum(ord(c) for c in item["slug"])
+    urls += [_unsplash(BACKUP[(h + i) % len(BACKUP)]) for i in range(len(BACKUP))]  # backstop
+    out, seen = [], set()
+    for u in urls:
+        if u not in seen:
+            seen.add(u); out.append(u)
+        if len(out) >= n:
+            break
+    return out
 
 
 def enrich(item, base_html, alt):
     # strip any existing <img>/<div>-wrapped images and the old hero <p><img>
     body = re.sub(r'<p>\s*<img[^>]*>\s*</p>', "", base_html)
     body = re.sub(r'<div[^>]*>\s*<img[^>]*>\s*</div>', "", body)
-    ids = pick(item["slug"], 5)
-    hero = img_tag(img_url(ids[0], 1400), alt)
-    inline = [img_tag(img_url(i), alt) for i in ids[1:]]
+    urls = boat_images(item, 5)
+    hero = img_tag(urls[0], alt)
+    inline = [img_tag(u, alt) for u in urls[1:]]
     # insert inline images after evenly-spaced </h2> closes (skip first section)
     marks = [m.end() for m in re.finditer(r"</h2>", body)]
     if len(marks) >= 2:
