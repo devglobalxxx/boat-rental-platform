@@ -1428,3 +1428,66 @@
 [2026-06-04 02:28:06] reindex ping: 200 {"ok":true,"urls_total":1011,"indexnow":{"ok":true,"status":200,"count":1011},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-03T23:
 [2026-06-04 02:28:06] === Done: 40 ok, 0 failed ===
 
+[2026-06-05 00:53:35] === Generate: 0 blog + 30 landing = 30 item(s) (backend=deepseek) ===
+[2026-06-05 00:53:36] [1/30] landing · yacht-rental-marbella
+[2026-06-05 00:53:36]   (near-duplicate topic, skipping: yacht rental marbella)
+[2026-06-05 00:53:36] [2/30] landing · catamaran-charter-ibiza
+[2026-06-05 00:54:27]   ✓ generated
+[2026-06-05 00:54:27] [3/30] landing · catamaran-charter-cancun
+[2026-06-05 00:55:21]   ✓ generated
+[2026-06-05 00:55:21] [4/30] landing · yacht-charter-nice
+[2026-06-05 00:55:21]   (near-duplicate topic, skipping: yacht charter nice)
+[2026-06-05 00:55:21] [5/30] landing · boat-rental-tenerife
+[2026-06-05 00:56:17]   ✓ generated
+[2026-06-05 00:56:17] [6/30] landing · boat-hire-tenerife
+[2026-06-05 00:56:17]   (near-duplicate topic, skipping: boat hire tenerife)
+[2026-06-05 00:56:17] [7/30] landing · boat-rental-in-tenerife
+[2026-06-05 00:56:17]   (near-duplicate topic, skipping: boat rental in tenerife)
+[2026-06-05 00:56:17] [8/30] landing · catamaran-charter-phuket
+[2026-06-05 00:57:07]   ✓ generated
+[2026-06-05 00:57:07] [9/30] landing · yacht-rental-athens
+[2026-06-05 00:57:07]   (near-duplicate topic, skipping: yacht rental athens)
+[2026-06-05 00:57:07] [10/30] landing · yacht-rental-split
+[2026-06-05 00:57:07]   (near-duplicate topic, skipping: yacht rental split)
+[2026-06-05 00:57:07] [11/30] landing · yacht-rental-dubrovnik
+[2026-06-05 00:57:07]   (near-duplicate topic, skipping: yacht rental dubrovnik)
+[2026-06-05 00:57:07] [12/30] landing · yacht-rental-malta
+[2026-06-05 00:57:07]   (near-duplicate topic, skipping: yacht rental malta)
+[2026-06-05 00:57:07] [13/30] landing · catamaran-charter-bali
+[2026-06-05 00:57:47]   ✓ generated
+[2026-06-05 00:57:47] [14/30] landing · yacht-rental-maldives
+[2026-06-05 00:57:47]   (near-duplicate topic, skipping: yacht rental maldives)
+[2026-06-05 00:57:47] [15/30] landing · catamaran-charter-fort-lauderdale
+[2026-06-05 00:57:47]   (near-duplicate topic, skipping: catamaran charter fort lauderdale)
+[2026-06-05 00:57:47] [16/30] landing · boat-hire-amsterdam
+[2026-06-05 00:57:47]   (near-duplicate topic, skipping: boat hire amsterdam)
+[2026-06-05 00:57:47] [17/30] landing · boat-rental-algarve
+[2026-06-05 00:58:38]   ✓ generated
+[2026-06-05 00:58:38] [18/30] landing · boat-hire-algarve
+[2026-06-05 00:58:38]   (near-duplicate topic, skipping: boat hire algarve)
+[2026-06-05 00:58:38] [19/30] landing · catamaran-charter-corfu
+[2026-06-05 00:59:24]   ✓ generated
+[2026-06-05 00:59:24] [20/30] landing · yacht-rental-corfu
+[2026-06-05 00:59:24]   (near-duplicate topic, skipping: yacht rental corfu)
+[2026-06-05 00:59:24] [21/30] landing · private-yacht-charter-marbella-day
+[2026-06-05 01:00:05]   ✓ generated
+[2026-06-05 01:00:05] [22/30] landing · catamaran-hire-puerto-banus-birthday
+[2026-06-05 01:01:07]   ✓ generated
+[2026-06-05 01:01:07] [23/30] landing · speedboat-rental-marbella-no-licence
+[2026-06-05 01:02:09]   ✓ generated
+[2026-06-05 01:02:09] [24/30] landing · private-boat-charter-marbella-fishing
+[2026-06-05 01:03:09]   ✓ generated
+[2026-06-05 01:03:09] [25/30] landing · luxury-motor-yacht-hire-marbella-day
+[2026-06-05 01:04:04]   ✓ generated
+[2026-06-05 01:04:04] [26/30] landing · catamaran-charter-estepona-group
+[2026-06-05 01:05:01]   ✓ generated
+[2026-06-05 01:05:01] [27/30] landing · luxury-motor-yacht-rental-puerto-banus-weekend
+[2026-06-05 01:06:03]   ✓ generated
+[2026-06-05 01:06:03] [28/30] landing · catamaran-charter-fuengirola-sunset
+[2026-06-05 01:07:03]   ✓ generated
+[2026-06-05 01:07:03] [29/30] landing · luxury-yacht-charter-marbella-prices
+[2026-06-05 01:08:06]   ✓ generated
+[2026-06-05 01:08:06] [30/30] landing · catamaran-charter-puerto-banus-sunset
+[2026-06-05 01:09:06]   ✓ generated
+[2026-06-05 01:09:06] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-05 01:09:47] refill (LLM fallback): +12 (queue now 12)

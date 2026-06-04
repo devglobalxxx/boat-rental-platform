@@ -1321,3 +1321,206 @@ To https://github.com/mardo89/boat-rental-platform.git
 quarantined 0 thin landings; kept 282
 cannibalization: 73 variant pages canonicalized to a primary
 relinked: blogs=145 (homepage 145/145), landings=282 (homepage 282/282), affiliate-link pool=9
+[main 6d3d1c7] Daily SEO maintenance (2026-06-04): relink + canonical + affiliate
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 471 insertions(+), 425 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   0840629..6d3d1c7  HEAD -> main
+[2026-06-04 02:28:10] es: translating 40 landing page(s)
+[2026-06-04 02:28:44]   [1/40] ✓ water-sports-marbella
+[2026-06-04 02:29:17]   [2/40] ✓ jet-ski-rental-mijas
+[2026-06-04 02:29:49]   [3/40] ✓ boat-rental-ibiza
+[2026-06-04 02:30:23]   [4/40] ✓ boat-rental-amalfi
+[2026-06-04 02:31:01]   [5/40] ✓ yacht-charter-sardinia
+[2026-06-04 02:31:35]   [6/40] ✓ boat-rental-amsterdam
+[2026-06-04 02:32:07]   [7/40] ✓ yacht-charter-amalfi
+[2026-06-04 02:32:42]   [8/40] ✓ yacht-charter-ibiza
+[2026-06-04 02:33:13]   [9/40] ✓ boat-rental-capri
+[2026-06-04 02:33:50]   [10/40] ✓ boat-rental-sardinia
+[2026-06-04 02:34:21]   [11/40] ✓ boat-rental-mykonos
+[2026-06-04 02:34:48]   [12/40] ✓ boat-rental-nice
+[2026-06-04 02:35:20]   [13/40] ✓ yacht-rental-monaco
+[2026-06-04 02:35:56]   [14/40] ✓ yacht-charter-mallorca
+[2026-06-04 02:36:29]   [15/40] ✓ boat-rental-split
+[2026-06-04 02:37:00]   [16/40] ✓ boat-rental-barcelona
+[2026-06-04 02:37:34]   [17/40] ✓ jet-ski-miami
+[2026-06-04 02:38:10]   [18/40] ✓ jet-ski-rental-san-diego
+[2026-06-04 02:38:38]   [19/40] ✓ jet-ski-chicago
+[2026-06-04 02:39:11]   [20/40] ✓ jet-ski-rental-tampa
+[2026-06-04 02:39:43]   [21/40] ✓ jet-ski-rental-key-west
+[2026-06-04 02:40:14]   [22/40] ✓ jet-ski-rental-fort-lauderdale
+[2026-06-04 02:40:44]   [23/40] ✓ jet-ski-rental-orlando
+[2026-06-04 02:41:26]   [24/40] ✓ jet-ski-rental-lake-havasu
+[2026-06-04 02:41:59]   [25/40] ✓ jet-ski-rental-austin
+[2026-06-04 02:42:28]   [26/40] ✓ jet-ski-rental-los-angeles
+[2026-06-04 02:43:02]   [27/40] ✓ jet-ski-rental-las-vegas
+[2026-06-04 02:43:31]   [28/40] ✓ jet-ski-rental-dallas
+[2026-06-04 02:44:04]   [29/40] ✓ jet-ski-rental-cancun
+[2026-06-04 02:44:32]   [30/40] ✓ jet-ski-rental-naples
+[2026-06-04 02:45:06]   [31/40] ✓ jet-ski-rental-dubai
+[2026-06-04 02:45:37]   [32/40] ✓ jet-ski-bali
+[2026-06-04 02:46:09]   [33/40] ✓ jet-ski-barcelona
+[2026-06-04 02:46:41]   [34/40] ✓ jet-ski-nice
+[2026-06-04 02:47:11]   [35/40] ✓ jet-ski-santorini
+[2026-06-04 02:47:46]   [36/40] ✓ jet-ski-rental-toronto
+[2026-06-04 02:48:19]   [37/40] ✓ jet-ski-mykonos
+[2026-06-04 02:48:55]   [38/40] ✓ jet-ski-rental-phuket
+[2026-06-04 02:49:31]   [39/40] ✓ jet-ski-maldives
+[2026-06-04 02:50:04]   [40/40] ✓ jet-ski-rental-ibiza
+[2026-06-04 02:50:04] es: 40/40 translated (total es=243)
+[main 0c024d9] es: +40 Spanish landing translations
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1640 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   6d3d1c7..0c024d9  HEAD -> main
+[2026-06-04 02:50:07] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-06-04 02:50:08] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-04 02:50:08] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-04 02:50:08] Blogger: 0/80 published this run
+[2026-06-04 02:50:08] WP: publishing 4 post(s) + 40 page(s) to boathire24guides.wordpress.com
+[2026-06-04 02:50:17]   ✓ post https://boathire24guides.wordpress.com/2026/06/04/best-snorkeling-coves-costa-del-sol/
+[2026-06-04 02:50:26]   ✓ post https://boathire24guides.wordpress.com/2026/06/04/boat-trip-marbella-starlite-festival-2025/
+[2026-06-04 02:50:34]   ✓ post https://boathire24guides.wordpress.com/2026/06/04/dolphin-watching-marbella-early-morning-vs-afternoon/
+[2026-06-04 02:50:43]   ✓ post https://boathire24guides.wordpress.com/2026/06/04/stag-party-boat-activities-marbella/
+[2026-06-04 02:50:49]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-benalmadena/
+[2026-06-04 02:50:55]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-malaga/
+[2026-06-04 02:51:01]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-costa-del-sol/
+[2026-06-04 02:51:05]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-torremolinos/
+[2026-06-04 02:51:08]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-nerja/
+[2026-06-04 02:51:11]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-sotogrande/
+[2026-06-04 02:51:15]   ✓ page https://boathire24guides.wordpress.com/jet-ski-tours-marbella/
+[2026-06-04 02:51:18]   ✓ page https://boathire24guides.wordpress.com/jet-ski-safari-puerto-banus/
+[2026-06-04 02:51:24]   ✓ page https://boathire24guides.wordpress.com/flyboard-marbella/
+[2026-06-04 02:51:27]   ✓ page https://boathire24guides.wordpress.com/water-sports-marbella/
+[2026-06-04 02:51:30]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-mijas/
+[2026-06-04 02:51:32]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-04 02:51:35]   ✓ page https://boathire24guides.wordpress.com/boat-rental-ibiza/
+[2026-06-04 02:51:36]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-04 02:51:38]   ✓ page https://boathire24guides.wordpress.com/boat-rental-amalfi/
+[2026-06-04 02:51:44]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-sardinia/
+[2026-06-04 02:51:46]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-04 02:51:48]   ✓ page https://boathire24guides.wordpress.com/boat-rental-amsterdam/
+[2026-06-04 02:51:55]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-amalfi/
+[2026-06-04 02:51:58]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-ibiza/
+[2026-06-04 02:52:04]   ✓ page https://boathire24guides.wordpress.com/boat-rental-capri/
+[2026-06-04 02:52:09]   ✓ page https://boathire24guides.wordpress.com/boat-rental-sardinia/
+[2026-06-04 02:52:13]   ✓ page https://boathire24guides.wordpress.com/boat-rental-mykonos/
+[2026-06-04 02:52:19]   ✓ page https://boathire24guides.wordpress.com/boat-rental-nice/
+[2026-06-04 02:52:25]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-monaco/
+[2026-06-04 02:52:27]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-04 02:52:29]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-mallorca/
+[2026-06-04 02:52:32]   ✓ page https://boathire24guides.wordpress.com/boat-rental-split/
+[2026-06-04 02:52:38]   ✓ page https://boathire24guides.wordpress.com/boat-rental-barcelona/
+[2026-06-04 02:52:42]   ✓ page https://boathire24guides.wordpress.com/jet-ski-miami/
+[2026-06-04 02:52:45]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-san-diego/
+[2026-06-04 02:52:51]   ✓ page https://boathire24guides.wordpress.com/jet-ski-chicago/
+[2026-06-04 02:52:55]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-tampa/
+[2026-06-04 02:52:58]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-key-west/
+[2026-06-04 02:53:01]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-fort-lauderdale/
+[2026-06-04 02:53:05]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-orlando/
+[2026-06-04 02:53:08]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-lake-havasu/
+[2026-06-04 02:53:12]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-austin/
+[2026-06-04 02:53:15]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-los-angeles/
+[2026-06-04 02:53:19]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-las-vegas/
+[2026-06-04 02:53:22]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-dallas/
+[2026-06-04 02:53:25]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-cancun/
+[2026-06-04 02:53:29]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-naples/
+[2026-06-04 02:53:33]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-dubai/
+[2026-06-04 02:53:34] WP: 44/44 published
+[2026-06-04 02:53:34] done 2026-06-04
+[2026-06-05 00:53:35] starting daily run for 2026-06-05
+[2026-06-05 00:53:35] === Generate: 0 blog + 30 landing = 30 item(s) (backend=deepseek) ===
+[2026-06-05 00:53:36] [1/30] landing · yacht-rental-marbella
+[2026-06-05 00:53:36]   (near-duplicate topic, skipping: yacht rental marbella)
+[2026-06-05 00:53:36] [2/30] landing · catamaran-charter-ibiza
+[2026-06-05 00:54:27]   ✓ generated
+[2026-06-05 00:54:27] [3/30] landing · catamaran-charter-cancun
+[2026-06-05 00:55:21]   ✓ generated
+[2026-06-05 00:55:21] [4/30] landing · yacht-charter-nice
+[2026-06-05 00:55:21]   (near-duplicate topic, skipping: yacht charter nice)
+[2026-06-05 00:55:21] [5/30] landing · boat-rental-tenerife
+[2026-06-05 00:56:17]   ✓ generated
+[2026-06-05 00:56:17] [6/30] landing · boat-hire-tenerife
+[2026-06-05 00:56:17]   (near-duplicate topic, skipping: boat hire tenerife)
+[2026-06-05 00:56:17] [7/30] landing · boat-rental-in-tenerife
+[2026-06-05 00:56:17]   (near-duplicate topic, skipping: boat rental in tenerife)
+[2026-06-05 00:56:17] [8/30] landing · catamaran-charter-phuket
+[2026-06-05 00:57:07]   ✓ generated
+[2026-06-05 00:57:07] [9/30] landing · yacht-rental-athens
+[2026-06-05 00:57:07]   (near-duplicate topic, skipping: yacht rental athens)
+[2026-06-05 00:57:07] [10/30] landing · yacht-rental-split
+[2026-06-05 00:57:07]   (near-duplicate topic, skipping: yacht rental split)
+[2026-06-05 00:57:07] [11/30] landing · yacht-rental-dubrovnik
+[2026-06-05 00:57:07]   (near-duplicate topic, skipping: yacht rental dubrovnik)
+[2026-06-05 00:57:07] [12/30] landing · yacht-rental-malta
+[2026-06-05 00:57:07]   (near-duplicate topic, skipping: yacht rental malta)
+[2026-06-05 00:57:07] [13/30] landing · catamaran-charter-bali
+[2026-06-05 00:57:47]   ✓ generated
+[2026-06-05 00:57:47] [14/30] landing · yacht-rental-maldives
+[2026-06-05 00:57:47]   (near-duplicate topic, skipping: yacht rental maldives)
+[2026-06-05 00:57:47] [15/30] landing · catamaran-charter-fort-lauderdale
+[2026-06-05 00:57:47]   (near-duplicate topic, skipping: catamaran charter fort lauderdale)
+[2026-06-05 00:57:47] [16/30] landing · boat-hire-amsterdam
+[2026-06-05 00:57:47]   (near-duplicate topic, skipping: boat hire amsterdam)
+[2026-06-05 00:57:47] [17/30] landing · boat-rental-algarve
+[2026-06-05 00:58:38]   ✓ generated
+[2026-06-05 00:58:38] [18/30] landing · boat-hire-algarve
+[2026-06-05 00:58:38]   (near-duplicate topic, skipping: boat hire algarve)
+[2026-06-05 00:58:38] [19/30] landing · catamaran-charter-corfu
+[2026-06-05 00:59:24]   ✓ generated
+[2026-06-05 00:59:24] [20/30] landing · yacht-rental-corfu
+[2026-06-05 00:59:24]   (near-duplicate topic, skipping: yacht rental corfu)
+[2026-06-05 00:59:24] [21/30] landing · private-yacht-charter-marbella-day
+[2026-06-05 01:00:05]   ✓ generated
+[2026-06-05 01:00:05] [22/30] landing · catamaran-hire-puerto-banus-birthday
+[2026-06-05 01:01:07]   ✓ generated
+[2026-06-05 01:01:07] [23/30] landing · speedboat-rental-marbella-no-licence
+[2026-06-05 01:02:09]   ✓ generated
+[2026-06-05 01:02:09] [24/30] landing · private-boat-charter-marbella-fishing
+[2026-06-05 01:03:09]   ✓ generated
+[2026-06-05 01:03:09] [25/30] landing · luxury-motor-yacht-hire-marbella-day
+[2026-06-05 01:04:04]   ✓ generated
+[2026-06-05 01:04:04] [26/30] landing · catamaran-charter-estepona-group
+[2026-06-05 01:05:01]   ✓ generated
+[2026-06-05 01:05:01] [27/30] landing · luxury-motor-yacht-rental-puerto-banus-weekend
+[2026-06-05 01:06:03]   ✓ generated
+[2026-06-05 01:06:03] [28/30] landing · catamaran-charter-fuengirola-sunset
+[2026-06-05 01:07:03]   ✓ generated
+[2026-06-05 01:07:03] [29/30] landing · luxury-yacht-charter-marbella-prices
+[2026-06-05 01:08:06]   ✓ generated
+[2026-06-05 01:08:06] [30/30] landing · catamaran-charter-puerto-banus-sunset
+[2026-06-05 01:09:06]   ✓ generated
+[2026-06-05 01:09:06] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-05 01:09:47] refill (LLM fallback): +12 (queue now 12)
