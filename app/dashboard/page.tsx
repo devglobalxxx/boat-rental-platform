@@ -88,7 +88,7 @@ export default async function DashboardPage() {
         {/* ── Pending requests ── */}
         {requests.length > 0 && (
           <div style={{ marginBottom: '36px' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Your requests</h2>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>My requests</h2>
             <p style={{ fontSize: '13px', color: muted, marginBottom: '16px' }}>We&apos;ve notified the owner — once they confirm, your payment link appears right here.</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {requests.map((booking) => {
