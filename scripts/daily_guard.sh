@@ -37,6 +37,9 @@ if "$PY" "$ROOT/scripts/generate_content.py" >> "$LOG" 2>&1; then
         git push origin HEAD >> "$LOG" 2>&1
     "$PY" "$ROOT/scripts/translate_es.py" --limit 40 >> "$LOG" 2>&1
     "$PY" "$ROOT/scripts/post_blogger.py" --limit 40 >> "$LOG" 2>&1
+    # Enrich every Blogger post/page with distributed boat images (API update
+    # works even though inserts may be 403-blocked).
+    "$PY" "$ROOT/scripts/blogger_enrich_images.py" >> "$LOG" 2>&1
     "$PY" "$ROOT/scripts/wp_publish.py" --limit 40 >> "$LOG" 2>&1
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] done $TODAY" >> "$LOG"
 else
