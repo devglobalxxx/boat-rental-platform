@@ -4,7 +4,10 @@
 export async function sendWhatsApp(toPhone: string | null | undefined, body: string): Promise<void> {
   const sid = process.env.TWILIO_ACCOUNT_SID
   const token = process.env.TWILIO_AUTH_TOKEN
-  const from = process.env.TWILIO_WHATSAPP_FROM // e.g. "whatsapp:+14155238886"
+  // Accept the From with or without the "whatsapp:" prefix — a very common config slip
+  // (storing just "+14155238886" makes Twilio reject the POST with no message created).
+  const fromRaw = (process.env.TWILIO_WHATSAPP_FROM || '').trim()
+  const from = fromRaw ? (fromRaw.startsWith('whatsapp:') ? fromRaw : `whatsapp:${fromRaw.startsWith('+') ? fromRaw : '+' + fromRaw}`) : ''
   if (!sid || !token || !from || !toPhone) return
 
   const clean = toPhone.trim().replace(/\s+/g, '')
