@@ -1,23 +1,60 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendHostQuoteRequest } from '@/lib/email/bookings'
+import { createClient } from '@/lib/supabase/server'
+import { createClient as createAdmin } from '@supabase/supabase-js'
+import { sendHostQuoteRequest, sendBookerQuoteReceived } from '@/lib/email/bookings'
+import { parseISO, addHours } from 'date-fns'
 
-// Public: a visitor asks for a price on an unpriced boat → notify the owner (email + WhatsApp).
+const admin = createAdmin(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+
+// Logged-in guest asks for a price on an unpriced boat. We already know who they are,
+// so there's no name/email field: we save the request (it shows in My Trips), notify the
+// owner (email + WhatsApp), and email the guest an immediate confirmation. No card taken.
 export async function POST(req: NextRequest) {
   try {
-    const { boatId, name, email, phone, date, guests, message } = await req.json()
-    if (!boatId || !name || (!email && !phone)) {
-      return NextResponse.json({ error: 'Missing boat, name, or contact' }, { status: 400 })
-    }
-    await sendHostQuoteRequest({
-      boatId,
-      name: String(name).slice(0, 120),
-      email: email ? String(email).slice(0, 160) : undefined,
-      phone: phone ? String(phone).slice(0, 40) : undefined,
-      date: date ? String(date).slice(0, 40) : undefined,
-      guests: guests ? Number(guests) || undefined : undefined,
-      message: message ? String(message).slice(0, 1000) : undefined,
-    })
-    return NextResponse.json({ ok: true })
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+    const { boatId, date, guests, message } = await req.json()
+    if (!boatId) return NextResponse.json({ error: 'Missing boat' }, { status: 400 })
+
+    const { data: boatRow } = await admin.from('boats').select('id, name, min_hours').eq('id', boatId).single()
+    if (!boatRow) return NextResponse.json({ error: 'Boat not found' }, { status: 404 })
+    const dur = (boatRow as { min_hours: number | null }).min_hours || 4
+
+    let start = new Date()
+    if (date) { try { const p = parseISO(`${String(date)}T09:00:00`); if (!isNaN(p.getTime())) start = p } catch { /* keep now */ } }
+
+    const note = 'Price on request — quote' + (message ? ` · ${String(message).slice(0, 800)}` : '')
+    const { data: booking, error } = await admin.from('bookings').insert({
+      boat_id: boatId,
+      renter_id: user.id,
+      start_datetime: start.toISOString(),
+      end_datetime: addHours(start, dur).toISOString(),
+      duration_hours: dur,
+      guests_count: Number(guests) || 1,
+      subtotal: 0, service_fee: 0, total: 0, currency: 'EUR',
+      status: 'pending',
+      special_requests: note,
+    }).select('id').single()
+    if (error || !booking) return NextResponse.json({ error: 'Could not create request' }, { status: 500 })
+
+    const meta = (user.user_metadata as Record<string, unknown>) || {}
+    const name = (meta.full_name as string) || user.email?.split('@')[0] || 'Guest'
+    try {
+      await sendHostQuoteRequest({
+        boatId,
+        name,
+        email: user.email || undefined,
+        phone: (meta.phone as string) || undefined,
+        date: date ? String(date) : undefined,
+        guests: Number(guests) || undefined,
+        message: message ? String(message).slice(0, 1000) : undefined,
+      })
+      await sendBookerQuoteReceived((booking as { id: string }).id)
+    } catch { /* best-effort notifications — never fail the request on these */ }
+
+    return NextResponse.json({ ok: true, bookingId: (booking as { id: string }).id })
   } catch {
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }

@@ -113,7 +113,7 @@ export default async function DashboardPage() {
                         {boat?.locations?.city ? ` · ${boat.locations.city}` : ''}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-                        <div style={{ fontSize: '14px', fontWeight: 700, color: gold }}>{formatPrice(booking.total, booking.currency)}</div>
+                        <div style={{ fontSize: '14px', fontWeight: 700, color: gold }}>{booking.total ? formatPrice(booking.total, booking.currency) : 'Price on request'}</div>
                         <span style={{ fontSize: '13px', fontWeight: 600, color: accepted ? '#22c55e' : '#f59e0b' }}>
                           {accepted ? 'Pay now →' : 'Awaiting owner confirmation'}
                         </span>
@@ -150,7 +150,7 @@ export default async function DashboardPage() {
                         {' · '}{boat?.locations?.city}
                       </div>
                       <div style={{ fontSize: '14px', fontWeight: 700, color: gold }}>
-                        {formatPrice(booking.total, booking.currency)}
+                        {booking.total ? formatPrice(booking.total, booking.currency) : 'Price on request'}
                       </div>
                     </div>
                   </Link>

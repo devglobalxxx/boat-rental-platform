@@ -126,13 +126,20 @@ export default async function HostBookingsPage({
 
                     <div style={{ textAlign: 'right', flexShrink: 0 }}>
                       <div style={{ fontWeight: 800, color: gold, fontSize: '18px' }}>
-                        {formatPrice(booking.total, booking.currency)}
+                        {booking.total ? formatPrice(booking.total, booking.currency) : 'Price on request'}
                       </div>
                       <div style={{ fontSize: '12px', color: dim, marginTop: '4px' }}>
                         {new Date(booking.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                       </div>
                       {booking.status === 'pending' && (
-                        (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_') ? (
+                        !booking.total ? (
+                          <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
+                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#c9a84e', padding: '6px 12px', borderRadius: '99px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.28)' }}>💬 Quote request — reply with a price</span>
+                            <form action={`/api/host/bookings/${booking.id}/decline`} method="POST">
+                              <button type="submit" style={{ padding: '7px 14px', borderRadius: '99px', background: 'transparent', color: muted, fontSize: '12px', fontWeight: 600, cursor: 'pointer', border: '1px solid rgba(255,255,255,0.15)' }}>Dismiss</button>
+                            </form>
+                          </div>
+                        ) : (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_') ? (
                           <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'flex-end' }}>
                             <span style={{ fontSize: '12px', fontWeight: 700, color: '#22c55e', padding: '6px 12px', borderRadius: '99px', background: 'rgba(34,197,94,0.10)', border: '1px solid rgba(34,197,94,0.28)' }}>✓ Accepted — payment link sent, awaiting guest</span>
                           </div>

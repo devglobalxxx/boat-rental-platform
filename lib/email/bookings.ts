@@ -154,6 +154,31 @@ export async function sendHostQuoteRequest(opts: {
     `💬 *Quote request* — ${boat.name}\nFrom: ${opts.name || '—'} (${contact})\nWhen: ${when}${opts.message ? `\n"${opts.message}"` : ''}\nReply to them directly.`)
 }
 
+/** Guest submitted a price-on-request quote → confirm to the guest (email + WhatsApp). */
+export async function sendBookerQuoteReceived(bookingId: string) {
+  const ctx = await loadBooking(bookingId)
+  if (!ctx?.boat) return
+  const f = fmt(ctx.b, ctx.boat.name)
+  const to = await emailOf(ctx.b.renter_id)
+  const rows = `
+    <table style="width:100%;border-collapse:collapse;margin:14px 0">
+      <tr><td style="padding:6px 0;color:#8b94a3">Boat</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.boatName}</td></tr>
+      <tr><td style="padding:6px 0;color:#8b94a3">Date</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.date}</td></tr>
+      <tr><td style="padding:6px 0;color:#8b94a3">Guests</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${ctx.b.guests_count}</td></tr>
+      <tr><td style="padding:6px 0;color:#8b94a3">Price</td><td style="padding:6px 0;color:#c9a84e;text-align:right;font-weight:800">On request</td></tr>
+    </table>`
+  if (to) await resend.emails.send({
+    from: FROM, to, subject: `✅ Request received — ${f.boatName}`,
+    html: shell('✅ Your request is in!', '#22c55e', `
+      <p>Thanks! We&rsquo;ve sent your request for <strong style="color:#f4f4f2">${f.boatName}</strong> to the owner — they&rsquo;ll get back to you shortly with a price and availability.</p>
+      ${rows}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/dashboard`, 'View my request →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Track it anytime under My Trips.</p>`),
+  }).catch(() => {})
+  await sendWhatsApp(await phoneOf(ctx.b.renter_id),
+    `✅ *Request received* — ${f.boatName} · ${f.date} · ${ctx.b.guests_count} guests.\nThe owner will reply with a price + availability. Track it: ${SITE}/dashboard`)
+}
+
 /** Request-first booking (priced boat): notify the owner of a date+hours request — no card yet. */
 export async function sendHostBookingRequest(opts: {
   boatId: string; guestEmail?: string; guestName?: string; guestPhone?: string
