@@ -36,13 +36,16 @@ export default async function DashboardPage() {
 
   const { data: bookings } = await supabase
     .from('bookings')
-    .select(`id, status, start_datetime, end_datetime, guests_count, total, currency, boats(name, slug, boat_images(storage_url, is_hero), locations(city, country))`)
+    .select(`id, status, stripe_payment_intent_id, start_datetime, end_datetime, duration_hours, guests_count, total, currency, boats(name, slug, boat_images(storage_url, is_hero), locations(city, country))`)
     .eq('renter_id', user.id)
     .order('start_datetime', { ascending: false })
-    .limit(10)
+    .limit(20)
 
-  const upcoming = (bookings ?? []).filter((b) => new Date(b.start_datetime) >= new Date() && b.status !== 'cancelled')
-  const past = (bookings ?? []).filter((b) => new Date(b.start_datetime) < new Date() || b.status === 'completed')
+  const all = bookings ?? []
+  // A pending booking is a *request* — give it its own bucket so it never looks like a confirmed trip.
+  const requests = all.filter((b) => b.status === 'pending')
+  const upcoming = all.filter((b) => b.status === 'confirmed' && new Date(b.start_datetime) >= new Date())
+  const past = all.filter((b) => b.status !== 'pending' && !(b.status === 'confirmed' && new Date(b.start_datetime) >= new Date()))
 
   return (
     <div style={{ background: '#07101e', minHeight: '100vh', color: text }}>
@@ -78,6 +81,47 @@ export default async function DashboardPage() {
             </Link>
           ))}
         </div>
+
+        {/* ── Pending requests ── */}
+        {requests.length > 0 && (
+          <div style={{ marginBottom: '36px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Your requests</h2>
+            <p style={{ fontSize: '13px', color: muted, marginBottom: '16px' }}>We&apos;ve notified the owner — once they confirm, your payment link appears right here.</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {requests.map((booking) => {
+                const boat = booking.boats as any
+                const hero = boat?.boat_images?.find((i: any) => i.is_hero) ?? boat?.boat_images?.[0]
+                const accepted = (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_')
+                return (
+                  <Link key={booking.id} href={`/bookings/${booking.id}`} style={{ display: 'flex', gap: '16px', padding: '18px', background: card, borderRadius: '16px', border: `1px solid ${accepted ? 'rgba(34,197,94,0.35)' : 'rgba(245,158,11,0.30)'}`, textDecoration: 'none', alignItems: 'flex-start' }}>
+                    {hero && (
+                      <img src={hero.storage_url} alt={boat?.name} style={{ width: '64px', height: '64px', borderRadius: '12px', objectFit: 'cover', flexShrink: 0 }} />
+                    )}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
+                        <div style={{ fontWeight: 700, color: text, fontSize: '15px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{boat?.name}</div>
+                        <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '99px', whiteSpace: 'nowrap', background: accepted ? 'rgba(34,197,94,0.12)' : 'rgba(245,158,11,0.12)', color: accepted ? '#22c55e' : '#f59e0b', border: `1px solid ${accepted ? 'rgba(34,197,94,0.30)' : 'rgba(245,158,11,0.30)'}` }}>
+                          {accepted ? 'Accepted' : 'Requested'}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '13px', color: muted, marginBottom: '6px' }}>
+                        {new Date(booking.start_datetime).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' })}
+                        {booking.duration_hours ? ` · ${booking.duration_hours}h` : ''}
+                        {boat?.locations?.city ? ` · ${boat.locations.city}` : ''}
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+                        <div style={{ fontSize: '14px', fontWeight: 700, color: gold }}>{formatPrice(booking.total, booking.currency)}</div>
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: accepted ? '#22c55e' : '#f59e0b' }}>
+                          {accepted ? 'Pay now →' : 'Awaiting owner confirmation'}
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        )}
 
         {/* ── Upcoming trips ── */}
         {upcoming.length > 0 && (
