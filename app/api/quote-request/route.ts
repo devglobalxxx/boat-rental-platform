@@ -33,7 +33,10 @@ export async function POST(req: NextRequest) {
       end_datetime: addHours(start, dur).toISOString(),
       duration_hours: dur,
       guests_count: Number(guests) || 1,
-      subtotal: 0, service_fee: 0, total: 0, currency: 'EUR',
+      // CHECK constraints require subtotal/total > 0; these are placeholders — a quote
+      // has no price. It's identified everywhere by the "Price on request" special_requests
+      // marker (see isQuote helpers), so the €1 is never shown.
+      subtotal: 1, service_fee: 0, total: 1, currency: 'EUR',
       status: 'pending',
       special_requests: note,
     }).select('id').single()

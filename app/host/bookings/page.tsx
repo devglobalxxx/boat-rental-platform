@@ -126,13 +126,13 @@ export default async function HostBookingsPage({
 
                     <div style={{ textAlign: 'right', flexShrink: 0 }}>
                       <div style={{ fontWeight: 800, color: gold, fontSize: '18px' }}>
-                        {booking.total ? formatPrice(booking.total, booking.currency) : 'Price on request'}
+                        {(booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? 'Price on request' : formatPrice(booking.total, booking.currency)}
                       </div>
                       <div style={{ fontSize: '12px', color: dim, marginTop: '4px' }}>
                         {new Date(booking.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                       </div>
                       {booking.status === 'pending' && (
-                        !booking.total ? (
+                        (booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? (
                           <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
                             <span style={{ fontSize: '12px', fontWeight: 700, color: '#c9a84e', padding: '6px 12px', borderRadius: '99px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.28)' }}>💬 Quote request — reply with a price</span>
                             <form action={`/api/host/bookings/${booking.id}/decline`} method="POST">

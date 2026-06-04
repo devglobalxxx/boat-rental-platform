@@ -39,7 +39,7 @@ export default async function DashboardPage() {
 
   const { data: bookings } = await supabase
     .from('bookings')
-    .select(`id, status, stripe_payment_intent_id, start_datetime, end_datetime, duration_hours, guests_count, total, currency, boats(name, slug, boat_images(storage_url, is_hero), locations(city, country))`)
+    .select(`id, status, stripe_payment_intent_id, start_datetime, end_datetime, duration_hours, guests_count, total, currency, special_requests, boats(name, slug, boat_images(storage_url, is_hero), locations(city, country))`)
     .eq('renter_id', user.id)
     .order('start_datetime', { ascending: false })
     .limit(20)
@@ -113,7 +113,7 @@ export default async function DashboardPage() {
                         {boat?.locations?.city ? ` · ${boat.locations.city}` : ''}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-                        <div style={{ fontSize: '14px', fontWeight: 700, color: gold }}>{booking.total ? formatPrice(booking.total, booking.currency) : 'Price on request'}</div>
+                        <div style={{ fontSize: '14px', fontWeight: 700, color: gold }}>{(booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? 'Price on request' : formatPrice(booking.total, booking.currency)}</div>
                         <span style={{ fontSize: '13px', fontWeight: 600, color: accepted ? '#22c55e' : '#f59e0b' }}>
                           {accepted ? 'Pay now →' : 'Awaiting owner confirmation'}
                         </span>
@@ -150,7 +150,7 @@ export default async function DashboardPage() {
                         {' · '}{boat?.locations?.city}
                       </div>
                       <div style={{ fontSize: '14px', fontWeight: 700, color: gold }}>
-                        {booking.total ? formatPrice(booking.total, booking.currency) : 'Price on request'}
+                        {(booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? 'Price on request' : formatPrice(booking.total, booking.currency)}
                       </div>
                     </div>
                   </Link>

@@ -130,10 +130,10 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
 
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '15px', fontWeight: 800, color: gold }}>
-              <span>Total paid</span>
-              <span style={{ fontSize: '20px' }}>{formatPrice(booking.total, booking.currency)}</span>
+              <span>{(booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? 'Price' : 'Total'}</span>
+              <span style={{ fontSize: '20px' }}>{(booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? 'On request' : formatPrice(booking.total, booking.currency)}</span>
             </div>
-            <p style={{ fontSize: '12px', color: dim, margin: '4px 0 0' }}>All-inclusive · no extra fees</p>
+            <p style={{ fontSize: '12px', color: dim, margin: '4px 0 0' }}>{(booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? 'The owner will reply with a quote.' : 'All-inclusive · no extra fees'}</p>
           </div>
         </div>
 
