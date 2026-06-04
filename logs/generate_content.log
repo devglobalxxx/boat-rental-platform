@@ -1491,3 +1491,7 @@
 [2026-06-05 01:09:06]   ✓ generated
 [2026-06-05 01:09:06] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-05 01:09:47] refill (LLM fallback): +12 (queue now 12)
+[2026-06-05 01:09:50] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-05 01:09:52] reindex ping: 200 {"ok":true,"urls_total":1104,"indexnow":{"ok":true,"status":200,"count":1104},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-04T22:
+[2026-06-05 01:09:52] === Done: 30 ok, 0 failed ===
+
