@@ -79,8 +79,12 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
         body: JSON.stringify({ boatId: boat.id, pricingId: selectedPricing.id, date, time, guests }),
       })
       setLoading(false)
-      if (res.ok) setRequestSent(true)
-      else setError("Couldn't send your request — please try again.")
+      if (res.ok) {
+        setRequestSent(true)
+        router.refresh() // clear the App Router cache so the request shows in My Trips immediately
+      } else {
+        setError("Couldn't send your request — please try again.")
+      }
       return
     }
 
@@ -101,7 +105,10 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
       <div style={{ position: 'sticky', top: '96px', background: card, border: '1px solid rgba(34,197,94,0.30)', borderRadius: '20px', padding: '28px', textAlign: 'center' }}>
         <div style={{ fontSize: '40px', marginBottom: '8px' }}>✅</div>
         <div style={{ fontSize: '18px', fontWeight: 800, color: '#22c55e', marginBottom: '6px' }}>Request sent!</div>
-        <p style={{ fontSize: '14px', color: muted, lineHeight: 1.6 }}>The owner has been notified of your {selectedPricing?.duration_hours ? `${selectedPricing.duration_hours}h ` : ''}request{date ? ` for ${date}` : ''}. They&apos;ll confirm availability and send you a payment link.</p>
+        <p style={{ fontSize: '14px', color: muted, lineHeight: 1.6, marginBottom: '18px' }}>The owner has been notified of your {selectedPricing?.duration_hours ? `${selectedPricing.duration_hours}h ` : ''}request{date ? ` for ${date}` : ''}. They&apos;ll confirm availability and send you a payment link.</p>
+        <a href="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+          View it in My Trips →
+        </a>
       </div>
     )
   }

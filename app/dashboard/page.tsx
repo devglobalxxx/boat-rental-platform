@@ -4,6 +4,9 @@ import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
 import { Calendar, Clock, CheckCircle, XCircle, Ship, MessageSquare, Search } from 'lucide-react'
 
+// Always render fresh so a brand-new request shows the instant the guest lands here.
+export const dynamic = 'force-dynamic'
+
 const gold = '#c9a84e'
 const card = '#0c1828'
 const border = 'rgba(201,168,78,0.15)'
