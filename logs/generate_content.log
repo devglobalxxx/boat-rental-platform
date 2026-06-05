@@ -1522,3 +1522,7 @@
 [2026-06-06 00:12:03]   ✓ generated
 [2026-06-06 00:12:03] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-06 00:12:57] refill failed: RuntimeError: no JSON found in model output
+[2026-06-06 00:13:00] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-06 00:13:02] reindex ping: 200 {"ok":true,"urls_total":1161,"indexnow":{"ok":true,"status":200,"count":1161},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-05T21:
+[2026-06-06 00:13:02] === Done: 12 ok, 0 failed ===
+

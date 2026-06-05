@@ -1712,3 +1712,27 @@ To https://github.com/mardo89/boat-rental-platform.git
 [2026-06-06 00:12:03]   ✓ generated
 [2026-06-06 00:12:03] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-06 00:12:57] refill failed: RuntimeError: no JSON found in model output
+[main 3692471] Daily content: +12 pages (9 blog, 3 landing)
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 9 files changed, 861 insertions(+), 16 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   38385d6..3692471  HEAD -> main
+[2026-06-06 00:13:00] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-06 00:13:02] reindex ping: 200 {"ok":true,"urls_total":1161,"indexnow":{"ok":true,"status":200,"count":1161},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-05T21:
+[2026-06-06 00:13:02] === Done: 12 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 302
+cannibalization: 80 variant pages canonicalized to a primary
+relinked: blogs=154 (homepage 154/154), landings=302 (homepage 302/302), affiliate-link pool=9
