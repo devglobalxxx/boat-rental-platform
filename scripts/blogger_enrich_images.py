@@ -31,9 +31,10 @@ QUERIES = [
 ]
 
 def build_pool():
+    # A curated pool file (verified-boat images) always wins, regardless of size.
     if POOL_CACHE.exists():
         cached = json.loads(POOL_CACHE.read_text())
-        if len(cached) >= 60:
+        if len(cached) >= 10:
             return cached
     pool = []
     for q in QUERIES:
