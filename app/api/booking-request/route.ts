@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
 import { calcFees } from '@/lib/utils/pricing'
-import { sendHostBookingRequest } from '@/lib/email/bookings'
+import { sendHostBookingRequest, sendBookerRequestReceived } from '@/lib/email/bookings'
 import { addHours, parseISO } from 'date-fns'
 
 const admin = createAdmin(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
@@ -62,6 +62,8 @@ export async function POST(req: NextRequest) {
     total: fees.total,
     currency: p.currency ?? 'EUR',
   })
+
+  if (booking) await sendBookerRequestReceived((booking as { id: string }).id)
 
   return NextResponse.json({ ok: true, bookingId: (booking as { id: string } | null)?.id })
 }

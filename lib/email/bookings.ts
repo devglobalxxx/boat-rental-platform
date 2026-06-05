@@ -229,6 +229,15 @@ export async function sendBookerPaymentLink(bookingId: string, url: string) {
       <p style="margin:18px 0 6px">${btn(url, 'Pay & confirm →')}</p>
       <p style="color:#8b94a3;font-size:12px;margin-top:14px">Secure Stripe checkout · this finalises your booking.</p>`),
   }).catch(() => {})
+  const hostEmail = await emailOf(ctx.boat.host_id)
+  await resend.emails.send({
+    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[],
+    subject: `✅ You accepted ${f.boatName} — payment link sent`,
+    html: shell('✅ Request accepted', '#22c55e', `
+      <p>You accepted the request for <strong style="color:#f4f4f2">${f.boatName}</strong>. The guest now has a secure payment link — you&rsquo;ll get a confirmation the moment they pay.</p>
+      ${detailRows(f)}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'View in dashboard →')}</p>`),
+  }).catch(() => {})
   await sendWhatsApp(await phoneOf(ctx.b.renter_id),
     `✅ *${f.boatName}* — the owner accepted your request for ${f.date}! Pay ${f.money} to confirm:\n${url}`)
 }
@@ -247,6 +256,15 @@ export async function sendBookerOffer(bookingId: string, url: string, message?: 
       ${message ? `<p style="color:#cfd6df;font-style:italic">&ldquo;${message}&rdquo;</p>` : ''}
       <p style="margin:18px 0 6px">${btn(url, 'Accept & pay →')}</p>
       <p style="color:#8b94a3;font-size:12px;margin-top:14px">Secure Stripe checkout · your date is held the moment you pay.</p>`),
+  }).catch(() => {})
+  const hostEmail = await emailOf(ctx.boat.host_id)
+  await resend.emails.send({
+    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[],
+    subject: `💬 You sent an offer for ${f.boatName} — ${f.money}`,
+    html: shell('💬 Offer sent', '#c9a84e', `
+      <p>You priced the request for <strong style="color:#f4f4f2">${f.boatName}</strong> at <strong style="color:#c9a84e">${f.money}</strong> and sent it to the guest. You&rsquo;ll get a confirmation when they pay.</p>
+      ${detailRows(f)}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'View in dashboard →')}</p>`),
   }).catch(() => {})
   await sendWhatsApp(await phoneOf(ctx.b.renter_id),
     `💬 *Offer received!* The owner priced your ${f.boatName} on ${f.date} at ${f.money}.${message ? `\n"${message}"` : ''}\nAccept & pay:\n${url}`)
@@ -305,4 +323,22 @@ export async function sendNewMessageAlert(conversationId: string, senderId: stri
   }).catch(() => {})
   await sendWhatsApp(await phoneOf(recipientId),
     `💬 *New message* from ${senderName} about ${boatName}:\n"${body.slice(0, 200)}"\nReply: ${url}`)
+}
+
+/** Guest submitted a request-to-book (priced) → confirm to the guest it's been sent. */
+export async function sendBookerRequestReceived(bookingId: string) {
+  const ctx = await loadBooking(bookingId)
+  if (!ctx?.boat) return
+  const f = fmt(ctx.b, ctx.boat.name)
+  const to = await emailOf(ctx.b.renter_id)
+  if (to) await resend.emails.send({
+    from: FROM, to, subject: `✅ Request received — ${f.boatName}`,
+    html: shell('✅ Your request is in!', '#22c55e', `
+      <p>Thanks! We&rsquo;ve sent your booking request for <strong style="color:#f4f4f2">${f.boatName}</strong> to the owner. They&rsquo;ll confirm availability, then we&rsquo;ll email you a secure payment link to lock it in.</p>
+      ${detailRows(f)}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/dashboard`, 'View my request →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">No charge yet — you only pay once the owner accepts.</p>`),
+  }).catch(() => {})
+  await sendWhatsApp(await phoneOf(ctx.b.renter_id),
+    `✅ *Request received* — ${f.boatName} · ${f.date} · ${ctx.b.guests_count} guests · ${f.money}.\nThe owner will confirm, then you'll get a payment link — no charge yet.\nTrack it: ${SITE}/dashboard`)
 }
