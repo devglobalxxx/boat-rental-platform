@@ -95,6 +95,7 @@ export default async function DashboardPage() {
                 const boat = booking.boats as any
                 const hero = boat?.boat_images?.find((i: any) => i.is_hero) ?? boat?.boat_images?.[0]
                 const accepted = (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_')
+                const offered = (booking as { special_requests?: string | null }).special_requests?.startsWith('Offer sent')
                 return (
                   <div key={booking.id} style={{ padding: '18px', background: card, borderRadius: '16px', border: `1px solid ${accepted ? 'rgba(34,197,94,0.35)' : 'rgba(245,158,11,0.30)'}` }}>
                   <Link href={`/bookings/${booking.id}`} style={{ display: 'flex', gap: '16px', textDecoration: 'none', alignItems: 'flex-start' }}>
@@ -105,7 +106,7 @@ export default async function DashboardPage() {
                       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
                         <div style={{ fontWeight: 700, color: text, fontSize: '15px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{boat?.name}</div>
                         <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '99px', whiteSpace: 'nowrap', background: accepted ? 'rgba(34,197,94,0.12)' : 'rgba(245,158,11,0.12)', color: accepted ? '#22c55e' : '#f59e0b', border: `1px solid ${accepted ? 'rgba(34,197,94,0.30)' : 'rgba(245,158,11,0.30)'}` }}>
-                          {accepted ? 'Accepted' : 'Requested'}
+                          {offered ? 'Offer received' : accepted ? 'Accepted' : 'Requested'}
                         </span>
                       </div>
                       <div style={{ fontSize: '13px', color: muted, marginBottom: '6px' }}>

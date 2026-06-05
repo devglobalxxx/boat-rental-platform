@@ -134,10 +134,13 @@ export default async function HostBookingsPage({
                       {booking.status === 'pending' && (
                         (booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? (
                           <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#c9a84e', padding: '6px 12px', borderRadius: '99px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.28)' }}>💬 Quote request — reply with a price</span>
-                            <form action={`/api/host/bookings/${booking.id}/decline`} method="POST">
-                              <button type="submit" style={{ padding: '7px 14px', borderRadius: '99px', background: 'transparent', color: muted, fontSize: '12px', fontWeight: 600, cursor: 'pointer', border: '1px solid rgba(255,255,255,0.15)' }}>Dismiss</button>
-                            </form>
+                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#c9a84e', padding: '6px 12px', borderRadius: '99px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.28)' }}>💬 Quote request</span>
+                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                              <Link href={`/host/bookings/${booking.id}/offer`} style={{ padding: '8px 16px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '13px', fontWeight: 700, textDecoration: 'none' }}>Send offer →</Link>
+                              <form action={`/api/host/bookings/${booking.id}/decline`} method="POST">
+                                <button type="submit" style={{ padding: '7px 14px', borderRadius: '99px', background: 'transparent', color: muted, fontSize: '12px', fontWeight: 600, cursor: 'pointer', border: '1px solid rgba(255,255,255,0.15)' }}>Dismiss</button>
+                              </form>
+                            </div>
                           </div>
                         ) : (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_') ? (
                           <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'flex-end' }}>
