@@ -32,7 +32,7 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
 
   const { data: booking } = await supabase
     .from('bookings')
-    .select(`*, boats(name, slug, includes_skipper, includes_fuel, boat_images(storage_url, is_hero), locations(city, country), profiles(full_name))`)
+    .select(`*, boats(name, slug, departure_port, includes_skipper, includes_fuel, boat_images(storage_url, is_hero), locations(city, country), profiles(full_name))`)
     .eq('id', id)
     .single()
 
@@ -111,9 +111,10 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
           <h2 style={{ fontWeight: 700, color: text, fontSize: '16px', marginBottom: '16px' }}>Trip details</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', fontSize: '14px', marginBottom: '20px' }}>
             <div>
-              <div style={{ color: muted, display: 'flex', alignItems: 'center', gap: '4px' }}><Calendar style={{ width: 13, height: 13 }} /> Date</div>
+              <div style={{ color: muted, display: 'flex', alignItems: 'center', gap: '4px' }}><Calendar style={{ width: 13, height: 13 }} /> Departure</div>
               <div style={{ fontWeight: 600, color: text, marginTop: '6px' }}>
                 {new Date(booking.start_datetime).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                <span style={{ display: 'block', color: gold, fontSize: '13px', marginTop: '2px' }}>{new Date(booking.start_datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
             </div>
             <div>
@@ -124,6 +125,12 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
               <div>
                 <div style={{ color: muted }}>Duration</div>
                 <div style={{ fontWeight: 600, color: text, marginTop: '6px' }}>{booking.duration_hours} hours</div>
+              </div>
+            )}
+            {boat?.departure_port && (
+              <div>
+                <div style={{ color: muted, display: 'flex', alignItems: 'center', gap: '4px' }}>📍 Departure port</div>
+                <div style={{ fontWeight: 600, color: text, marginTop: '6px' }}>{boat.departure_port}</div>
               </div>
             )}
           </div>

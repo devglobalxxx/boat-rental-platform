@@ -152,6 +152,7 @@ export default async function HostBookingsPage({
                             <span style={{ fontSize: '12px', fontWeight: 700, color: '#22c55e', padding: '6px 12px', borderRadius: '99px', background: 'rgba(34,197,94,0.10)', border: '1px solid rgba(34,197,94,0.28)' }}>✓ Accepted — payment link sent, awaiting guest</span>
                           </div>
                         ) : (
+                          <>
                           <div style={{ display: 'flex', gap: '8px', marginTop: '12px', justifyContent: 'flex-end' }}>
                             <form action={`/api/host/bookings/${booking.id}/confirm`} method="POST">
                               <button type="submit" style={{ padding: '8px 16px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '13px', fontWeight: 700, cursor: 'pointer', border: 'none' }}>
@@ -167,6 +168,7 @@ export default async function HostBookingsPage({
                           <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
                             <Link href={`/host/bookings/${booking.id}/offer`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: 600 }}>Propose a different date / price →</Link>
                           </div>
+                          </>
                         )
                       )}
                     </div>
