@@ -158,6 +158,13 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
               </div>
             )
           )}
+          {booking.status === 'pending' && (
+            <form action={`/api/bookings/${id}/cancel`} method="POST">
+              <button type="submit" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'transparent', border: '1px solid rgba(248,113,113,0.30)', color: 'rgba(248,113,113,0.9)', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}>
+                <XCircle style={{ width: 16, height: 16 }} /> Cancel request
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </div>

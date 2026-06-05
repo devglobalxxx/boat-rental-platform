@@ -96,7 +96,8 @@ export default async function DashboardPage() {
                 const hero = boat?.boat_images?.find((i: any) => i.is_hero) ?? boat?.boat_images?.[0]
                 const accepted = (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_')
                 return (
-                  <Link key={booking.id} href={`/bookings/${booking.id}`} style={{ display: 'flex', gap: '16px', padding: '18px', background: card, borderRadius: '16px', border: `1px solid ${accepted ? 'rgba(34,197,94,0.35)' : 'rgba(245,158,11,0.30)'}`, textDecoration: 'none', alignItems: 'flex-start' }}>
+                  <div key={booking.id} style={{ padding: '18px', background: card, borderRadius: '16px', border: `1px solid ${accepted ? 'rgba(34,197,94,0.35)' : 'rgba(245,158,11,0.30)'}` }}>
+                  <Link href={`/bookings/${booking.id}`} style={{ display: 'flex', gap: '16px', textDecoration: 'none', alignItems: 'flex-start' }}>
                     {hero && (
                       <img src={hero.storage_url} alt={boat?.name} style={{ width: '64px', height: '64px', borderRadius: '12px', objectFit: 'cover', flexShrink: 0 }} />
                     )}
@@ -120,6 +121,14 @@ export default async function DashboardPage() {
                       </div>
                     </div>
                   </Link>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '14px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                    <form action={`/api/bookings/${booking.id}/cancel`} method="POST">
+                      <button type="submit" style={{ padding: '7px 16px', borderRadius: '99px', background: 'transparent', color: 'rgba(248,113,113,0.85)', fontSize: '12px', fontWeight: 600, cursor: 'pointer', border: '1px solid rgba(248,113,113,0.30)' }}>
+                        Cancel request
+                      </button>
+                    </form>
+                  </div>
+                  </div>
                 )
               })}
             </div>
