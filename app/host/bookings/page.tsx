@@ -122,6 +122,11 @@ export default async function HostBookingsPage({
                           &ldquo;{booking.special_requests}&rdquo;
                         </p>
                       )}
+                      <div style={{ marginTop: '10px' }}>
+                        <Link href={`/api/conversations/start?booking=${booking.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: gold, textDecoration: 'none', fontWeight: 600 }}>
+                          💬 Message guest
+                        </Link>
+                      </div>
                     </div>
 
                     <div style={{ textAlign: 'right', flexShrink: 0 }}>

@@ -122,7 +122,8 @@ export default async function DashboardPage() {
                       </div>
                     </div>
                   </Link>
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '14px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                    <Link href={`/api/conversations/start?booking=${booking.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: 600 }}>💬 Message host</Link>
                     <form action={`/api/bookings/${booking.id}/cancel`} method="POST">
                       <button type="submit" style={{ padding: '7px 16px', borderRadius: '99px', background: 'transparent', color: 'rgba(248,113,113,0.85)', fontSize: '12px', fontWeight: 600, cursor: 'pointer', border: '1px solid rgba(248,113,113,0.30)' }}>
                         Cancel request

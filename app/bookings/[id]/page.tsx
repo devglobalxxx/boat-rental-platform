@@ -144,7 +144,7 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
               <Star style={{ width: 16, height: 16 }} /> Leave a review
             </Link>
           )}
-          <Link href="/dashboard/messages" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: muted, fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
+          <Link href={`/api/conversations/start?booking=${id}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: muted, fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
             <MessageSquare style={{ width: 16, height: 16 }} /> Message host
           </Link>
           {booking.status === 'pending' && !sp.paid && (
