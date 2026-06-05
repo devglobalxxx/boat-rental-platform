@@ -303,8 +303,7 @@ export async function sendHostBookingConfirmed(bookingId: string) {
 }
 
 /** Someone sent a chat message → email + WhatsApp the other participant so they don't miss it. */
-export async function sendNewMessageAlert(conversationId: string, senderId: string, recipientId: string, body: string, boatId: string | null) {
-  const to = await emailOf(recipientId)
+export async function sendNewMessageAlert(conversationId: string, senderId: string, body: string, boatId: string | null, participantIds: string[]) {
   const { data: sp } = await admin.from('profiles').select('full_name').eq('id', senderId).single()
   const senderName = (sp as { full_name?: string } | null)?.full_name || 'Someone'
   let boatName = 'your booking'
@@ -313,16 +312,21 @@ export async function sendNewMessageAlert(conversationId: string, senderId: stri
     boatName = (bt as { name?: string } | null)?.name || boatName
   }
   const url = `${SITE}/dashboard/messages?conversation=${conversationId}`
-  if (to) await resend.emails.send({
-    from: FROM, to, subject: `💬 New message from ${senderName} — ${boatName}`,
-    html: shell('💬 New message', '#c9a84e', `
-      <p><strong style="color:#f4f4f2">${senderName}</strong> sent you a message about <strong style="color:#f4f4f2">${boatName}</strong>:</p>
-      <p style="color:#cfd6df;font-style:italic;padding:12px 14px;background:#07101e;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0">&ldquo;${body.slice(0, 400)}&rdquo;</p>
-      <p style="margin:18px 0 6px">${btn(url, 'Reply →')}</p>
-      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Reply in your BoatHire24 messages to keep the conversation going.</p>`),
-  }).catch(() => {})
-  await sendWhatsApp(await phoneOf(recipientId),
-    `💬 *New message* from ${senderName} about ${boatName}:\n"${body.slice(0, 200)}"\nReply: ${url}`)
+  for (const uid of (participantIds || [])) {
+    const to = await emailOf(uid)
+    if (!to) continue
+    const self = uid === senderId
+    await resend.emails.send({
+      from: FROM, to,
+      subject: self ? `💬 Your message — ${boatName}` : `💬 New message from ${senderName} — ${boatName}`,
+      html: shell(self ? '💬 Message sent' : '💬 New message', '#c9a84e', `
+        <p>${self ? 'Your message in the' : `<strong style="color:#f4f4f2">${senderName}</strong> sent a message in your`} <strong style="color:#f4f4f2">${boatName}</strong> conversation:</p>
+        <p style="color:#cfd6df;font-style:italic;padding:12px 14px;background:#07101e;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0">&ldquo;${body.slice(0, 400)}&rdquo;</p>
+        <p style="margin:18px 0 6px">${btn(url, 'Open the conversation →')}</p>`),
+    }).catch(() => {})
+    if (!self) await sendWhatsApp(await phoneOf(uid),
+      `💬 *New message* from ${senderName} about ${boatName}:\n"${body.slice(0, 200)}"\nReply: ${url}`)
+  }
 }
 
 /** Guest submitted a request-to-book (priced) → confirm to the guest it's been sent. */

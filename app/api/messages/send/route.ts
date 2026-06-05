@@ -29,9 +29,8 @@ export async function POST(req: NextRequest) {
   })
   if (error) return NextResponse.json({ error: 'Could not send' }, { status: 500 })
 
-  const otherId = parts.find((id) => id !== user.id)
   const boatId = (conv as { boat_id: string | null }).boat_id
-  if (otherId) sendNewMessageAlert(conversationId, user.id, otherId, text, boatId).catch(() => {})
+  sendNewMessageAlert(conversationId, user.id, text, boatId, parts).catch(() => {})
 
   return NextResponse.json({ ok: true })
 }
