@@ -1548,3 +1548,167 @@ To https://github.com/mardo89/boat-rental-platform.git
 quarantined 0 thin landings; kept 299
 cannibalization: 79 variant pages canonicalized to a primary
 relinked: blogs=145 (homepage 145/145), landings=299 (homepage 299/299), affiliate-link pool=9
+[main 8baaaf4] Daily SEO maintenance (2026-06-05): relink + canonical + affiliate
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 419 insertions(+), 385 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   5eeccfa..8baaaf4  HEAD -> main
+[2026-06-05 01:09:55] es: translating 40 landing page(s)
+[2026-06-05 01:10:38]   [1/40] ✓ jet-ski-tenerife
+[2026-06-05 01:11:17]   [2/40] ✓ jet-ski-rental-dubrovnik
+[2026-06-05 01:12:01]   [3/40] ✓ yacht-rental-naples
+[2026-06-05 01:12:37]   [4/40] ✓ hire-yachts
+[2026-06-05 01:13:22]   [5/40] ✓ boat-hire-cannes-france
+[2026-06-05 01:13:55]   [6/40] ✓ speedboat-rental
+[2026-06-05 01:14:42]   [7/40] ✓ yacht-charter-mykonos
+[2026-06-05 01:15:22]   [8/40] ✓ boat-rental-dubrovnik
+[2026-06-05 01:16:06]   [9/40] ✓ boat-rental-phuket
+[2026-06-05 01:16:45]   [10/40] ✓ boat-rental-corfu
+[2026-06-05 01:17:30]   [11/40] ✓ rent-a-speedboat-san-diego
+[2026-06-05 01:18:09]   [12/40] ✓ boat-rental-dubai
+[2026-06-05 01:18:51]   [13/40] ✓ boat-rental-athens
+[2026-06-05 01:19:26]   [14/40] ✓ yacht-charter-athens
+[2026-06-05 01:20:05]   [15/40] ✓ yacht-charter-cannes
+[2026-06-05 01:20:45]   [16/40] ✓ yacht-rental-phuket
+[2026-06-05 01:21:23]   [17/40] ✓ boat-captains-for-hire
+[2026-06-05 01:22:04]   [18/40] ✓ yacht-charter-split
+[2026-06-05 01:22:44]   [19/40] ✓ boat-rental-malta
+[2026-06-05 01:23:15]   [20/40] ✓ yacht-charter-malta
+[2026-06-05 01:23:56]   [21/40] ✓ boat-rental-bali
+[2026-06-05 01:24:25]   [22/40] ✓ yacht-charter-maldives
+[2026-06-05 01:25:01]   [23/40] ✓ yacht-charter-corfu
+[2026-06-05 01:25:39]   [24/40] ✓ yacht-charter-barcelona
+[2026-06-05 01:26:13]   [25/40] ✓ yacht-charter-dubrovnik
+[2026-06-05 01:26:54]   [26/40] ✓ yacht-rental-bali
+[2026-06-05 01:27:28]   [27/40] ✓ yacht-rental-tulum
+[2026-06-05 01:28:12]   [28/40] ✓ boat-rental-lisbon
+[2026-06-05 01:28:50]   [29/40] ✓ boat-rental-bodrum
+[2026-06-05 01:29:27]   [30/40] ✓ catamaran-charter-miami
+[2026-06-05 01:29:57]   [31/40] ✓ yacht-charter-santorini
+[2026-06-05 01:30:36]   [32/40] ✓ yacht-rental-nice
+[2026-06-05 01:31:21]   [33/40] ✓ yacht-charter-capri
+[2026-06-05 01:31:53]   [34/40] ✓ boat-rental-tulum
+[2026-06-05 01:32:34]   [35/40] ✓ boat-rental-monaco
+[2026-06-05 01:33:13]   [36/40] ✓ yacht-charter-bodrum
+[2026-06-05 01:33:53]   [37/40] ✓ catamaran-charter-mallorca
+[2026-06-05 01:34:29]   [38/40] ✓ catamaran-charter-athens
+[2026-06-05 01:35:08]   [39/40] ✓ catamaran-charter-sardinia
+[2026-06-05 01:35:43]   [40/40] ✓ catamaran-charter-ibiza
+[2026-06-05 01:35:43] es: 40/40 translated (total es=283)
+[main d2a8b56] es: +40 Spanish landing translations
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1636 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   8baaaf4..d2a8b56  HEAD -> main
+[2026-06-05 01:35:46] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-06-05 01:35:46] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-05 01:35:46] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-05 01:35:46] Blogger: 0/80 published this run
+[2026-06-05 01:35:47] WP: publishing 0 post(s) + 40 page(s) to boathire24guides.wordpress.com
+[2026-06-05 01:35:51]   ✓ page https://boathire24guides.wordpress.com/jet-ski-bali/
+[2026-06-05 01:35:55]   ✓ page https://boathire24guides.wordpress.com/jet-ski-barcelona/
+[2026-06-05 01:36:01]   ✓ page https://boathire24guides.wordpress.com/jet-ski-nice/
+[2026-06-05 01:36:05]   ✓ page https://boathire24guides.wordpress.com/jet-ski-santorini/
+[2026-06-05 01:36:08]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-toronto/
+[2026-06-05 01:36:14]   ✓ page https://boathire24guides.wordpress.com/jet-ski-mykonos/
+[2026-06-05 01:36:20]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-phuket/
+[2026-06-05 01:36:26]   ✓ page https://boathire24guides.wordpress.com/jet-ski-maldives/
+[2026-06-05 01:36:29]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-ibiza/
+[2026-06-05 01:36:33]   ✓ page https://boathire24guides.wordpress.com/jet-ski-tenerife/
+[2026-06-05 01:36:36]   ✓ page https://boathire24guides.wordpress.com/jet-ski-rental-dubrovnik/
+[2026-06-05 01:36:41]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-naples/
+[2026-06-05 01:36:48]   ✓ page https://boathire24guides.wordpress.com/hire-yachts/
+[2026-06-05 01:36:53]   ✓ page https://boathire24guides.wordpress.com/boat-hire-cannes-france/
+[2026-06-05 01:36:59]   ✓ page https://boathire24guides.wordpress.com/speedboat-rental/
+[2026-06-05 01:37:05]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-mykonos/
+[2026-06-05 01:37:06]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-05 01:37:08]   ✓ page https://boathire24guides.wordpress.com/boat-rental-dubrovnik/
+[2026-06-05 01:37:14]   ✓ page https://boathire24guides.wordpress.com/boat-rental-phuket/
+[2026-06-05 01:37:20]   ✓ page https://boathire24guides.wordpress.com/boat-rental-corfu/
+[2026-06-05 01:37:26]   ✓ page https://boathire24guides.wordpress.com/rent-a-speedboat-san-diego/
+[2026-06-05 01:37:28]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-05 01:37:30]   ✓ page https://boathire24guides.wordpress.com/boat-rental-dubai/
+[2026-06-05 01:37:33]   ✓ page https://boathire24guides.wordpress.com/boat-rental-athens/
+[2026-06-05 01:37:39]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-athens/
+[2026-06-05 01:37:43]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-cannes/
+[2026-06-05 01:37:49]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-phuket/
+[2026-06-05 01:37:56]   ✓ page https://boathire24guides.wordpress.com/boat-captains-for-hire/
+[2026-06-05 01:38:03]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-split/
+[2026-06-05 01:38:06]   ✓ page https://boathire24guides.wordpress.com/boat-rental-malta/
+[2026-06-05 01:38:10]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-malta/
+[2026-06-05 01:38:11]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-05 01:38:13]   ✓ page https://boathire24guides.wordpress.com/boat-rental-bali/
+[2026-06-05 01:38:20]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-maldives/
+[2026-06-05 01:38:26]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-corfu/
+[2026-06-05 01:38:33]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-barcelona/
+[2026-06-05 01:38:39]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-dubrovnik/
+[2026-06-05 01:38:45]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-bali/
+[2026-06-05 01:38:48]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-tulum/
+[2026-06-05 01:38:49]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-05 01:38:52]   ✓ page https://boathire24guides.wordpress.com/boat-rental-lisbon/
+[2026-06-05 01:38:53]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-05 01:38:55]   ✓ page https://boathire24guides.wordpress.com/boat-rental-bodrum/
+[2026-06-05 01:39:01]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-miami/
+[2026-06-05 01:39:04]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-santorini/
+[2026-06-05 01:39:05] WP: 40/40 published
+[2026-06-05 01:39:05] done 2026-06-05
+[2026-06-06 00:00:02] starting daily run for 2026-06-06
+[2026-06-06 00:00:02] === Generate: 9 blog + 3 landing = 12 item(s) (backend=deepseek) ===
+[2026-06-06 00:00:03] [1/12] blog · best-time-to-see-dolphins-marbella
+[2026-06-06 00:01:09]   ✓ generated
+[2026-06-06 00:01:09] [2/12] blog · dolphin-species-costa-del-sol
+[2026-06-06 00:02:16]   ✓ generated
+[2026-06-06 00:02:16] [3/12] blog · best-snorkeling-coves-marbella
+[2026-06-06 00:03:09]   ✓ generated
+[2026-06-06 00:03:09] [4/12] blog · sunset-boat-trip-marbella-champagne
+[2026-06-06 00:04:07]   ✓ generated
+[2026-06-06 00:04:07] [5/12] blog · best-sunset-spots-costa-del-sol-boat
+[2026-06-06 00:04:56]   ✓ generated
+[2026-06-06 00:04:56] [6/12] blog · marbella-sunset-catamaran-party
+[2026-06-06 00:05:47]   ✓ generated
+[2026-06-06 00:05:47] [7/12] blog · hen-party-boat-marbella-games
+[2026-06-06 00:06:48]   ✓ generated
+[2026-06-06 00:06:48] [8/12] blog · stag-party-boat-marbella-ideas
+[2026-06-06 00:08:07]   ✓ generated
+[2026-06-06 00:08:07] [9/12] blog · stag-do-boat-marbella-activities
+[2026-06-06 00:09:10]   ✓ generated
+[2026-06-06 00:09:10] [10/12] landing · catamaran-charter-benalmadena
+[2026-06-06 00:10:09]   ✓ generated
+[2026-06-06 00:10:09] [11/12] landing · catamaran-rental-benalmadena
+[2026-06-06 00:11:13]   ✓ generated
+[2026-06-06 00:11:13] [12/12] landing · boat-rental-marbella-port-group
+[2026-06-06 00:12:03]   ✓ generated
+[2026-06-06 00:12:03] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-06 00:12:57] refill failed: RuntimeError: no JSON found in model output

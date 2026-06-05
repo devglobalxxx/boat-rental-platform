@@ -4569,92 +4569,103 @@
       "title": "Catamaran Charter Puerto Banus for Sunset Cruises",
       "target_words": 1100,
       "consumed_at": "2026-06-05"
-    }
-  ],
-  "queue": [
+    },
     {
       "kind": "blog",
       "slug": "best-time-to-see-dolphins-marbella",
       "primary_keyword": "best time to see dolphins Marbella",
       "title": "Best Time to See Dolphins in Marbella: A Complete Guide",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "blog",
       "slug": "dolphin-species-costa-del-sol",
       "primary_keyword": "dolphin species Costa del Sol",
       "title": "Dolphin Species in Costa del Sol: What You Might See",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "blog",
       "slug": "best-snorkeling-coves-marbella",
       "primary_keyword": "best snorkeling coves Marbella",
       "title": "Best Snorkeling Coves in Marbella for Boat Trips",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "blog",
       "slug": "sunset-boat-trip-marbella-champagne",
       "primary_keyword": "sunset boat trip Marbella champagne",
       "title": "Sunset Boat Trip Marbella with Champagne: A Perfect Evening",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "blog",
       "slug": "best-sunset-spots-costa-del-sol-boat",
       "primary_keyword": "best sunset spots Costa del Sol boat",
       "title": "Best Sunset Spots on Costa del Sol for a Boat Trip",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "blog",
       "slug": "marbella-sunset-catamaran-party",
       "primary_keyword": "Marbella sunset catamaran party",
       "title": "Marbella Sunset Catamaran Party: How to Plan It",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "blog",
       "slug": "hen-party-boat-marbella-games",
       "primary_keyword": "hen party boat games Marbella",
       "title": "Hen Party Boat Games in Marbella: Fun Ideas",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "blog",
       "slug": "stag-party-boat-marbella-ideas",
       "primary_keyword": "stag party boat ideas Marbella",
       "title": "Stag Party Boat Ideas in Marbella: Ultimate Guide",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "blog",
       "slug": "stag-do-boat-marbella-activities",
       "primary_keyword": "stag do boat activities Marbella",
       "title": "Stag Do Boat Activities in Marbella: Top Picks",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "landing",
       "slug": "catamaran-charter-benalmadena",
       "primary_keyword": "catamaran charter Benalmadena",
       "title": "Catamaran Charter Benalmadena: Day Trips & More",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "landing",
       "slug": "catamaran-rental-benalmadena",
       "primary_keyword": "catamaran rental Benalmadena",
       "title": "Catamaran Rental Benalmadena: Book Your Cat",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     },
     {
       "kind": "landing",
       "slug": "boat-rental-marbella-port-group",
       "primary_keyword": "boat rental Marbella port group",
       "title": "Boat Rental Marbella Port for Groups: Best Deals",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-06"
     }
-  ]
+  ],
+  "queue": []
 }

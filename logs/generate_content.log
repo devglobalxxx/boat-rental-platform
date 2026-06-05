@@ -1495,3 +1495,30 @@
 [2026-06-05 01:09:52] reindex ping: 200 {"ok":true,"urls_total":1104,"indexnow":{"ok":true,"status":200,"count":1104},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-04T22:
 [2026-06-05 01:09:52] === Done: 30 ok, 0 failed ===
 
+[2026-06-06 00:00:02] === Generate: 9 blog + 3 landing = 12 item(s) (backend=deepseek) ===
+[2026-06-06 00:00:03] [1/12] blog · best-time-to-see-dolphins-marbella
+[2026-06-06 00:01:09]   ✓ generated
+[2026-06-06 00:01:09] [2/12] blog · dolphin-species-costa-del-sol
+[2026-06-06 00:02:16]   ✓ generated
+[2026-06-06 00:02:16] [3/12] blog · best-snorkeling-coves-marbella
+[2026-06-06 00:03:09]   ✓ generated
+[2026-06-06 00:03:09] [4/12] blog · sunset-boat-trip-marbella-champagne
+[2026-06-06 00:04:07]   ✓ generated
+[2026-06-06 00:04:07] [5/12] blog · best-sunset-spots-costa-del-sol-boat
+[2026-06-06 00:04:56]   ✓ generated
+[2026-06-06 00:04:56] [6/12] blog · marbella-sunset-catamaran-party
+[2026-06-06 00:05:47]   ✓ generated
+[2026-06-06 00:05:47] [7/12] blog · hen-party-boat-marbella-games
+[2026-06-06 00:06:48]   ✓ generated
+[2026-06-06 00:06:48] [8/12] blog · stag-party-boat-marbella-ideas
+[2026-06-06 00:08:07]   ✓ generated
+[2026-06-06 00:08:07] [9/12] blog · stag-do-boat-marbella-activities
+[2026-06-06 00:09:10]   ✓ generated
+[2026-06-06 00:09:10] [10/12] landing · catamaran-charter-benalmadena
+[2026-06-06 00:10:09]   ✓ generated
+[2026-06-06 00:10:09] [11/12] landing · catamaran-rental-benalmadena
+[2026-06-06 00:11:13]   ✓ generated
+[2026-06-06 00:11:13] [12/12] landing · boat-rental-marbella-port-group
+[2026-06-06 00:12:03]   ✓ generated
+[2026-06-06 00:12:03] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-06 00:12:57] refill failed: RuntimeError: no JSON found in model output
