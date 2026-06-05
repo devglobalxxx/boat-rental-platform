@@ -62,13 +62,13 @@ export default function ChatThread({
     setSending(true)
     setBody('')
 
-    const { error } = await supabase.from('messages').insert({
-      conversation_id: conversationId,
-      sender_id: currentUserId,
-      body: text,
-    })
+    const res = await fetch('/api/messages/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ conversationId, body: text }),
+    }).catch(() => null)
 
-    if (error) {
+    if (!res || !res.ok) {
       setBody(text)
     }
     setSending(false)

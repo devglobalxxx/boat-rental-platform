@@ -164,6 +164,9 @@ export default async function HostBookingsPage({
                               </button>
                             </form>
                           </div>
+                          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
+                            <Link href={`/host/bookings/${booking.id}/offer`} style={{ fontSize: '12px', color: gold, textDecoration: 'none', fontWeight: 600 }}>Propose a different date / price →</Link>
+                          </div>
                         )
                       )}
                     </div>

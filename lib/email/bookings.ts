@@ -283,3 +283,26 @@ export async function sendHostBookingConfirmed(bookingId: string) {
   await sendWhatsApp(await phoneOf(ctx.boat.host_id),
     `✅ *Booking confirmed!*\n${renterName} booked *${f.boatName}*\n${f.date} ${f.time}${f.dur ? ` (${f.dur})` : ''} · ${ctx.b.guests_count} guests · ${f.money}\n📍 ${location}\nManage: ${SITE}/host/bookings`)
 }
+
+/** Someone sent a chat message → email + WhatsApp the other participant so they don't miss it. */
+export async function sendNewMessageAlert(conversationId: string, senderId: string, recipientId: string, body: string, boatId: string | null) {
+  const to = await emailOf(recipientId)
+  const { data: sp } = await admin.from('profiles').select('full_name').eq('id', senderId).single()
+  const senderName = (sp as { full_name?: string } | null)?.full_name || 'Someone'
+  let boatName = 'your booking'
+  if (boatId) {
+    const { data: bt } = await admin.from('boats').select('name').eq('id', boatId).single()
+    boatName = (bt as { name?: string } | null)?.name || boatName
+  }
+  const url = `${SITE}/dashboard/messages?conversation=${conversationId}`
+  if (to) await resend.emails.send({
+    from: FROM, to, subject: `💬 New message from ${senderName} — ${boatName}`,
+    html: shell('💬 New message', '#c9a84e', `
+      <p><strong style="color:#f4f4f2">${senderName}</strong> sent you a message about <strong style="color:#f4f4f2">${boatName}</strong>:</p>
+      <p style="color:#cfd6df;font-style:italic;padding:12px 14px;background:#07101e;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0">&ldquo;${body.slice(0, 400)}&rdquo;</p>
+      <p style="margin:18px 0 6px">${btn(url, 'Reply →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Reply in your BoatHire24 messages to keep the conversation going.</p>`),
+  }).catch(() => {})
+  await sendWhatsApp(await phoneOf(recipientId),
+    `💬 *New message* from ${senderName} about ${boatName}:\n"${body.slice(0, 200)}"\nReply: ${url}`)
+}
