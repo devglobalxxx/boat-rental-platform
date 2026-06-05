@@ -31,10 +31,10 @@ export default async function SendOfferPage({
     .eq('id', id)
     .single()
   if (!booking) notFound()
-  const boat = booking.boats as { name: string; host_id: string; min_hours: number | null } | null
+  const boat = booking.boats as unknown as { name: string; host_id: string; min_hours: number | null } | null
   if (boat?.host_id !== user.id) redirect('/host/bookings')
 
-  const renter = (booking as { profiles?: { full_name?: string } | null }).profiles
+  const renter = (booking as unknown as { profiles?: { full_name?: string } | null }).profiles
   const d = new Date(booking.start_datetime)
   const pad = (n: number) => String(n).padStart(2, '0')
   const dateVal = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
