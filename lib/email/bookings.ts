@@ -147,11 +147,12 @@ export async function sendHostQuoteRequest(opts: {
         <tr><td style="padding:6px 0;color:#8b94a3">When</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${when}</td></tr>
       </table>
       ${opts.message ? `<p style="color:#cfd6df;font-style:italic">&ldquo;${opts.message}&rdquo;</p>` : ''}
-      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Reply to them directly at ${contact}.</p>`),
+      <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'Manage in your dashboard →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Reply to them directly at ${contact}, or open your dashboard to manage all your requests.</p>`),
   }).catch(() => {})
 
   await sendWhatsApp(await phoneOf(boat.host_id),
-    `💬 *Quote request* — ${boat.name}\nFrom: ${opts.name || '—'} (${contact})\nWhen: ${when}${opts.message ? `\n"${opts.message}"` : ''}\nReply to them directly.`)
+    `💬 *Quote request* — ${boat.name}\nFrom: ${opts.name || '—'} (${contact})\nWhen: ${when}${opts.message ? `\n"${opts.message}"` : ''}\nReply to them directly, or manage it: ${SITE}/host/bookings`)
 }
 
 /** Guest submitted a price-on-request quote → confirm to the guest (email + WhatsApp). */
@@ -205,11 +206,13 @@ export async function sendHostBookingRequest(opts: {
         <tr><td style="padding:6px 0;color:#8b94a3">Price</td><td style="padding:6px 0;color:#c9a84e;text-align:right;font-weight:800">${money}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Guest</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.guestName || '—'}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Contact</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${contact}</td></tr>
-      </table>`),
+      </table>
+      <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'Manage in your dashboard →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Confirm availability and send the guest a payment link from your dashboard.</p>`),
   }).catch(() => {})
 
   await sendWhatsApp(await phoneOf(boat.host_id),
-    `📅 *Booking request* — ${boat.name}\n${dateStr}${opts.time ? ` ${opts.time}` : ''}${dur ? ` · ${dur}` : ''} · ${opts.guests ?? '?'} guests · ${money}\nGuest: ${opts.guestName || '—'} (${contact})\nConfirm + send a payment link.`)
+    `📅 *Booking request* — ${boat.name}\n${dateStr}${opts.time ? ` ${opts.time}` : ''}${dur ? ` · ${dur}` : ''} · ${opts.guests ?? '?'} guests · ${money}\nGuest: ${opts.guestName || '—'} (${contact})\nConfirm + send a payment link: ${SITE}/host/bookings`)
 }
 
 /** Host accepted a request-first booking → send the guest a Stripe payment link to pay. */
