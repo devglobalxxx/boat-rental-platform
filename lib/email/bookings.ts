@@ -138,8 +138,8 @@ export async function sendHostQuoteRequest(opts: {
 
   const hostEmail = await emailOf(boat.host_id)
   await resend.emails.send({
-    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `💬 Quote request — ${boat.name}`,
-    html: shell('💬 New quote request', '#c9a84e', `
+    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `💬 New booking request — ${boat.name}`,
+    html: shell('💬 New booking request', '#c9a84e', `
       <p>Someone wants a price for your <strong style="color:#f4f4f2">${boat.name}</strong>:</p>
       <table style="width:100%;border-collapse:collapse;margin:14px 0">
         <tr><td style="padding:6px 0;color:#8b94a3">From</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.name || '—'}</td></tr>
