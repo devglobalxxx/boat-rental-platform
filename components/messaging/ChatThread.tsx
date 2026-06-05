@@ -12,6 +12,10 @@ interface Message {
   read_at: string | null
 }
 
+const gold = '#c9a84e'
+const text = '#f4f4f2'
+const dim = 'rgba(244,244,242,0.40)'
+
 export default function ChatThread({
   conversationId,
   currentUserId,
@@ -38,83 +42,69 @@ export default function ChatThread({
       .channel(`conversation:${conversationId}`)
       .on(
         'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'messages',
-          filter: `conversation_id=eq.${conversationId}`,
-        },
+        { event: 'INSERT', schema: 'public', table: 'messages', filter: `conversation_id=eq.${conversationId}` },
         (payload) => {
           const msg = payload.new as Message
-          setMessages((prev) =>
-            prev.some((m) => m.id === msg.id) ? prev : [...prev, msg]
-          )
+          setMessages((prev) => (prev.some((m) => m.id === msg.id) ? prev : [...prev, msg]))
         }
       )
       .subscribe()
-
     return () => { supabase.removeChannel(channel) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId])
 
   async function send() {
-    const text = body.trim()
-    if (!text || sending) return
+    const txt = body.trim()
+    if (!txt || sending) return
     setSending(true)
     setBody('')
-
     const res = await fetch('/api/messages/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ conversationId, body: text }),
+      body: JSON.stringify({ conversationId, body: txt }),
     }).catch(() => null)
-
-    if (!res || !res.ok) {
-      setBody(text)
-    }
+    if (!res || !res.ok) { setBody(txt); setSending(false); return }
+    const data = await res.json().catch(() => null)
+    const msg = data?.message as Message | undefined
+    if (msg) setMessages((prev) => (prev.some((m) => m.id === msg.id) ? prev : [...prev, msg]))
     setSending(false)
   }
 
   function handleKey(e: React.KeyboardEvent) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      send()
-    }
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() }
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#07101e' }}>
       {/* Header */}
-      <div className="px-4 py-3 border-b border-slate-200 bg-white">
-        <div className="font-semibold text-slate-900">{otherPartyName}</div>
+      <div style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#0c1828' }}>
+        <div style={{ fontWeight: 700, color: text, fontSize: '15px' }}>{otherPartyName}</div>
+        <div style={{ fontSize: '12px', color: dim, marginTop: '2px' }}>Discuss availability, then confirm the booking</div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50">
+      <div style={{ flex: 1, overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {messages.length === 0 && (
-          <p className="text-center text-sm text-slate-400 py-8">
-            No messages yet. Start the conversation!
-          </p>
+          <p style={{ textAlign: 'center', fontSize: '13px', color: dim, padding: '36px 0' }}>No messages yet — say hello 👋</p>
         )}
         {messages.map((msg) => {
           const isMe = msg.sender_id === currentUserId
           return (
-            <div
-              key={msg.id}
-              className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}
-            >
-              <div
-                className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm ${
-                  isMe
-                    ? 'bg-[#0f2547] text-white rounded-br-sm'
-                    : 'bg-white text-slate-800 border border-slate-200 rounded-bl-sm'
-                }`}
-              >
-                <p className="leading-relaxed">{msg.body}</p>
-                <p className={`text-xs mt-1 ${isMe ? 'text-white/60' : 'text-slate-400'}`}>
-                  {new Date(msg.created_at).toLocaleTimeString('en-GB', {
-                    hour: '2-digit', minute: '2-digit',
-                  })}
-                </p>
+            <div key={msg.id} style={{ display: 'flex', justifyContent: isMe ? 'flex-end' : 'flex-start' }}>
+              <div style={{
+                maxWidth: '76%', padding: '10px 14px', fontSize: '14px', lineHeight: 1.5,
+                borderRadius: '16px',
+                borderBottomRightRadius: isMe ? '4px' : '16px',
+                borderBottomLeftRadius: isMe ? '16px' : '4px',
+                background: isMe ? 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)' : '#0c1828',
+                color: isMe ? '#07101e' : text,
+                border: isMe ? 'none' : '1px solid rgba(201,168,78,0.18)',
+                whiteSpace: 'pre-wrap', wordBreak: 'break-word',
+              }}>
+                <div>{msg.body}</div>
+                <div style={{ fontSize: '11px', marginTop: '4px', color: isMe ? 'rgba(7,16,30,0.55)' : dim }}>
+                  {new Date(msg.created_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+                </div>
               </div>
             </div>
           )
@@ -123,23 +113,32 @@ export default function ChatThread({
       </div>
 
       {/* Input */}
-      <div className="p-3 bg-white border-t border-slate-200">
-        <div className="flex gap-2 items-end">
+      <div style={{ padding: '12px 14px', borderTop: '1px solid rgba(255,255,255,0.08)', background: '#0c1828' }}>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
           <textarea
             value={body}
             onChange={(e) => setBody(e.target.value)}
             onKeyDown={handleKey}
             placeholder="Type a message… (Enter to send)"
             rows={1}
-            className="flex-1 resize-none rounded-xl border border-slate-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#06b6d4] bg-slate-50"
-            style={{ minHeight: '44px', maxHeight: '120px' }}
+            style={{
+              flex: 1, resize: 'none', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.14)',
+              background: '#07101e', color: text, fontSize: '14px', padding: '11px 14px',
+              minHeight: '46px', maxHeight: '120px', outline: 'none', fontFamily: 'inherit',
+            }}
           />
           <button
             onClick={send}
             disabled={!body.trim() || sending}
-            className="p-2.5 bg-[#0f2547] text-white rounded-xl hover:bg-[#1e3a6e] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            style={{
+              padding: '12px', borderRadius: '12px', border: 'none',
+              background: (!body.trim() || sending) ? 'rgba(201,168,78,0.30)' : 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)',
+              color: '#07101e', cursor: (!body.trim() || sending) ? 'default' : 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}
+            aria-label="Send"
           >
-            {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+            {sending ? <Loader2 style={{ width: 18, height: 18 }} className="animate-spin" /> : <Send style={{ width: 18, height: 18 }} />}
           </button>
         </div>
       </div>

@@ -22,15 +22,15 @@ export async function POST(req: NextRequest) {
   const parts = (conv as { participant_ids: string[] | null }).participant_ids || []
   if (!parts.includes(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
-  const { error } = await admin.from('messages').insert({
+  const { data: msg, error } = await admin.from('messages').insert({
     conversation_id: conversationId,
     sender_id: user.id,
     body: text.slice(0, 2000),
-  })
-  if (error) return NextResponse.json({ error: 'Could not send' }, { status: 500 })
+  }).select('id, sender_id, body, created_at, read_at').single()
+  if (error || !msg) return NextResponse.json({ error: 'Could not send' }, { status: 500 })
 
   const boatId = (conv as { boat_id: string | null }).boat_id
   sendNewMessageAlert(conversationId, user.id, text, boatId, parts).catch(() => {})
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, message: msg })
 }
