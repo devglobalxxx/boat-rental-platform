@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { createAdminClient } from '@/lib/supabase/server'
-import { sendHostNewRequest, sendBookerConfirmed } from '@/lib/email/bookings'
+import { sendHostNewRequest, sendBookerConfirmed, sendHostBookingConfirmed } from '@/lib/email/bookings'
 import type Stripe from 'stripe'
 
 export const runtime = 'nodejs'
@@ -52,8 +52,9 @@ export async function POST(req: NextRequest) {
           status: 'booked',
         }] as any)
       }
-      // Confirmed (host captured, or instant book) → notify the guest.
+      // Confirmed (host captured, instant book, or paid offer) → notify guest, host, and ops.
       await sendBookerConfirmed(bookingId)
+      await sendHostBookingConfirmed(bookingId)
       break
     }
 

@@ -251,3 +251,35 @@ export async function sendBookerOffer(bookingId: string, url: string, message?: 
   await sendWhatsApp(await phoneOf(ctx.b.renter_id),
     `💬 *Offer received!* The owner priced your ${f.boatName} on ${f.date} at ${f.money}.${message ? `\n"${message}"` : ''}\nAccept & pay:\n${url}`)
 }
+
+/** Booking paid & confirmed → notify the boat owner + the boathire24 ops inbox (both parties). */
+export async function sendHostBookingConfirmed(bookingId: string) {
+  const ctx = await loadBooking(bookingId)
+  if (!ctx?.boat) return
+  const f = fmt(ctx.b, ctx.boat.name)
+  const { data: boatLoc } = await admin.from('boats').select('departure_port, locations(city, country)').eq('id', ctx.b.boat_id).single()
+  const loc = boatLoc as { departure_port?: string | null; locations?: { city?: string; country?: string } | null } | null
+  const location = [loc?.departure_port, loc?.locations?.city, loc?.locations?.country].filter(Boolean).join(', ') || '—'
+  const { data: prof } = await admin.from('profiles').select('full_name').eq('id', ctx.b.renter_id).single()
+  const renterName = (prof as { full_name?: string } | null)?.full_name || 'A guest'
+  const hostEmail = await emailOf(ctx.boat.host_id)
+  await resend.emails.send({
+    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[],
+    subject: `✅ Booking confirmed — ${f.boatName} · ${f.date}`,
+    html: shell('✅ New confirmed booking', '#22c55e', `
+      <p><strong style="color:#f4f4f2">${renterName}</strong> booked <strong style="color:#f4f4f2">${f.boatName}</strong> and paid in full. Here are the details:</p>
+      <table style="width:100%;border-collapse:collapse;margin:14px 0">
+        <tr><td style="padding:6px 0;color:#8b94a3">Boat</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.boatName}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Location</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${location}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Date</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.date}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Time</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.time}${f.dur ? ` · ${f.dur}` : ''}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Guests</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${ctx.b.guests_count}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Guest</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${renterName}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Total paid</td><td style="padding:6px 0;color:#c9a84e;text-align:right;font-weight:800">${f.money}</td></tr>
+      </table>
+      <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'View in dashboard →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">The guest has paid — get the boat ready for ${f.date}.</p>`),
+  }).catch(() => {})
+  await sendWhatsApp(await phoneOf(ctx.boat.host_id),
+    `✅ *Booking confirmed!*\n${renterName} booked *${f.boatName}*\n${f.date} ${f.time}${f.dur ? ` (${f.dur})` : ''} · ${ctx.b.guests_count} guests · ${f.money}\n📍 ${location}\nManage: ${SITE}/host/bookings`)
+}
