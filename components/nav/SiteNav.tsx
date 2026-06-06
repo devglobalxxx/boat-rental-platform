@@ -92,8 +92,11 @@ export default function SiteNav() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
 
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
             <Logo size={52} />
+            <span style={{ fontWeight: 800, fontSize: '22px', letterSpacing: '-0.01em', color: '#f4f4f2', whiteSpace: 'nowrap' }}>
+              BoatHire<span style={{ color: '#c9a84e' }}>24</span>
+            </span>
           </Link>
 
           {/* Desktop nav links */}
