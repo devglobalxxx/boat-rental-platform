@@ -63,7 +63,7 @@ export default async function MessagesPage({
 
   const otherUserId = (activeConvFull?.participant_ids as string[] | null)?.find((id) => id !== user.id)
   const { data: otherProfile } = otherUserId
-    ? await supabase.from('profiles').select('full_name').eq('id', otherUserId).single()
+    ? await supabase.from('profiles').select('full_name, avatar_url').eq('id', otherUserId).single()
     : { data: null }
 
   return (
@@ -132,6 +132,7 @@ export default async function MessagesPage({
                     read_at: m.read_at,
                   }))}
                   otherPartyName={(otherProfile as any)?.full_name ?? 'Boat owner'}
+                  otherPartyAvatar={(otherProfile as any)?.avatar_url ?? null}
                 />
               ) : (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: dim, fontSize: '14px' }}>

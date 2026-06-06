@@ -21,11 +21,13 @@ export default function ChatThread({
   currentUserId,
   initialMessages,
   otherPartyName,
+  otherPartyAvatar,
 }: {
   conversationId: string
   currentUserId: string
   initialMessages: Message[]
   otherPartyName: string
+  otherPartyAvatar?: string | null
 }) {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [body, setBody] = useState('')
@@ -77,9 +79,18 @@ export default function ChatThread({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#07101e' }}>
       {/* Header */}
-      <div style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#0c1828' }}>
-        <div style={{ fontWeight: 700, color: text, fontSize: '15px' }}>{otherPartyName}</div>
-        <div style={{ fontSize: '12px', color: dim, marginTop: '2px' }}>Discuss availability, then confirm the booking</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#0c1828' }}>
+        {otherPartyAvatar ? (
+          <img src={otherPartyAvatar} alt={otherPartyName} style={{ width: 42, height: 42, borderRadius: '50%', objectFit: 'cover', flexShrink: 0, border: '1px solid rgba(201,168,78,0.30)' }} />
+        ) : (
+          <div style={{ width: 42, height: 42, borderRadius: '50%', flexShrink: 0, background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '17px' }}>
+            {(otherPartyName || '?').charAt(0).toUpperCase()}
+          </div>
+        )}
+        <div style={{ minWidth: 0 }}>
+          <div style={{ fontWeight: 700, color: text, fontSize: '15px' }}>{otherPartyName}</div>
+          <div style={{ fontSize: '12px', color: dim, marginTop: '2px' }}>Discuss availability, then confirm the booking</div>
+        </div>
       </div>
 
       {/* Messages */}
