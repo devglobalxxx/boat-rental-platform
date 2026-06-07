@@ -1736,3 +1736,152 @@ To https://github.com/mardo89/boat-rental-platform.git
 quarantined 0 thin landings; kept 302
 cannibalization: 80 variant pages canonicalized to a primary
 relinked: blogs=154 (homepage 154/154), landings=302 (homepage 302/302), affiliate-link pool=9
+[main 9c569c7] Daily SEO maintenance (2026-06-06): relink + canonical + affiliate
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 467 insertions(+), 438 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   3692471..9c569c7  HEAD -> main
+[2026-06-06 00:13:06] es: translating 19 landing page(s)
+[2026-06-06 00:13:49]   [1/19] ✓ catamaran-charter-cancun
+[2026-06-06 00:14:32]   [2/19] ✓ boat-rental-tenerife
+[2026-06-06 00:15:11]   [3/19] ✓ catamaran-charter-phuket
+[2026-06-06 00:15:45]   [4/19] ✓ catamaran-charter-bali
+[2026-06-06 00:16:28]   [5/19] ✓ boat-rental-algarve
+[2026-06-06 00:17:08]   [6/19] ✓ catamaran-charter-corfu
+[2026-06-06 00:17:43]   [7/19] ✓ private-yacht-charter-marbella-day
+[2026-06-06 00:18:22]   [8/19] ✓ catamaran-hire-puerto-banus-birthday
+[2026-06-06 00:19:10]   [9/19] ✓ speedboat-rental-marbella-no-licence
+[2026-06-06 00:19:54]   [10/19] ✓ private-boat-charter-marbella-fishing
+[2026-06-06 00:20:37]   [11/19] ✓ luxury-motor-yacht-hire-marbella-day
+[2026-06-06 00:21:22]   [12/19] ✓ catamaran-charter-estepona-group
+[2026-06-06 00:22:11]   [13/19] ✓ luxury-motor-yacht-rental-puerto-banus-weekend
+[2026-06-06 00:22:56]   [14/19] ✓ catamaran-charter-fuengirola-sunset
+[2026-06-06 00:23:44]   [15/19] ✓ luxury-yacht-charter-marbella-prices
+[2026-06-06 00:24:30]   [16/19] ✓ catamaran-charter-puerto-banus-sunset
+[2026-06-06 00:25:08]   [17/19] ✓ catamaran-charter-benalmadena
+[2026-06-06 00:25:50]   [18/19] ✓ catamaran-rental-benalmadena
+[2026-06-06 00:26:26]   [19/19] ✓ boat-rental-marbella-port-group
+[2026-06-06 00:26:26] es: 19/19 translated (total es=302)
+[main c826b9b] es: +19 Spanish landing translations
+ Committer: master <master@MacBookPro.lan>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 779 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   9c569c7..c826b9b  HEAD -> main
+[2026-06-06 00:26:29] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-06-06 00:26:29] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-06 00:26:30] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-06 00:26:30] Blogger: 0/80 published this run
+image pool size: 41
+  post: Hen Party Boat Marbella: Unforgettable Celebr
+  post: Fishing Charter Puerto Banus: Deep Sea Advent
+  post: Snorkeling Spots on Costa del Sol: Hidden Gem
+  post: Sunset Catamaran Marbella: Top Spots for Gold
+  post: Dolphin Watching in Puerto Banus: Best Times 
+  post: Do You Need a Licence to Rent a Boat in Spain
+  post: Photoshoot Boat Marbella: Capture Stunning Se
+  post: Marbella Feria Boat Parties: Celebrate on the
+  post: Planning a Family Boat Day in Marbella
+  post: Stag & Hen Boat Party Ideas in Marbella
+  post: The Best Anchorages and Swimming Spots near M
+  post: Catamaran vs Motor Yacht: Which to Charter in
+  post: What to Pack for a Boat Day on the Costa del 
+  post: Dolphin Watching Boat Trips from Marbella: A 
+  post: How Much Does a Yacht Charter in Marbella Cos
+  post: Marbella vs Puerto Banús: Which Departure Por
+  post: The Best Time to Charter a Boat in Marbella
+  page: Private Boat Party Marbella — Hen, Stag & Bir
+  page: Licence-Free Boat Hire Marbella — No Licence 
+  page: Fishing Charter Marbella — Deep Sea & Coastal
+  page: Sunset Boat Trip Marbella — Cava & Skipper In
+  page: Yacht Charter Puerto Banús — Day & Sunset Hir
+enriched 22 item(s) with UNIQUE distributed images
+[2026-06-06 00:27:12] WP: publishing 9 post(s) + 28 page(s) to boathire24guides.wordpress.com
+[2026-06-06 00:27:20]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/best-time-to-see-dolphins-marbella/
+[2026-06-06 00:27:30]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/dolphin-species-costa-del-sol/
+[2026-06-06 00:27:39]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/best-snorkeling-coves-marbella/
+[2026-06-06 00:27:47]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/sunset-boat-trip-marbella-champagne/
+[2026-06-06 00:27:56]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/best-sunset-spots-costa-del-sol-boat/
+[2026-06-06 00:28:04]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/marbella-sunset-catamaran-party/
+[2026-06-06 00:28:13]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/hen-party-boat-marbella-games/
+[2026-06-06 00:28:22]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/stag-party-boat-marbella-ideas/
+[2026-06-06 00:28:29]   ✓ post https://boathire24guides.wordpress.com/2026/06/06/stag-do-boat-marbella-activities/
+[2026-06-06 00:28:32]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:28:34]   ✓ page https://boathire24guides.wordpress.com/yacht-rental-nice/
+[2026-06-06 00:28:40]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-capri/
+[2026-06-06 00:28:45]   ✓ page https://boathire24guides.wordpress.com/boat-rental-tulum/
+[2026-06-06 00:28:52]   ✓ page https://boathire24guides.wordpress.com/boat-rental-monaco/
+[2026-06-06 00:28:57]   ✓ page https://boathire24guides.wordpress.com/yacht-charter-bodrum/
+[2026-06-06 00:29:00]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:29:02]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-mallorca/
+[2026-06-06 00:29:04]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:29:06]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-athens/
+[2026-06-06 00:29:07]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:29:09]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-sardinia/
+[2026-06-06 00:29:15]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-ibiza/
+[2026-06-06 00:29:17]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:29:19]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-cancun/
+[2026-06-06 00:29:21]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:29:23]   ✓ page https://boathire24guides.wordpress.com/boat-rental-tenerife/
+[2026-06-06 00:29:30]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-phuket/
+[2026-06-06 00:29:33]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-bali/
+[2026-06-06 00:29:37]   ✓ page https://boathire24guides.wordpress.com/boat-rental-algarve/
+[2026-06-06 00:29:38]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:29:41]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-corfu/
+[2026-06-06 00:29:47]   ✓ page https://boathire24guides.wordpress.com/private-yacht-charter-marbella-day/
+[2026-06-06 00:29:54]   ✓ page https://boathire24guides.wordpress.com/catamaran-hire-puerto-banus-birthday/
+[2026-06-06 00:30:01]   ✓ page https://boathire24guides.wordpress.com/speedboat-rental-marbella-no-licence/
+[2026-06-06 00:30:08]   ✓ page https://boathire24guides.wordpress.com/private-boat-charter-marbella-fishing/
+[2026-06-06 00:30:15]   ✓ page https://boathire24guides.wordpress.com/luxury-motor-yacht-hire-marbella-day/
+[2026-06-06 00:30:21]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-estepona-group/
+[2026-06-06 00:30:28]   ✓ page https://boathire24guides.wordpress.com/luxury-motor-yacht-rental-puerto-banus-weekend/
+[2026-06-06 00:30:32]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-fuengirola-sunset/
+[2026-06-06 00:30:37]   ✓ page https://boathire24guides.wordpress.com/luxury-yacht-charter-marbella-prices/
+[2026-06-06 00:30:39]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:30:41]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-puerto-banus-sunset/
+[2026-06-06 00:30:45]   ✓ page https://boathire24guides.wordpress.com/catamaran-charter-benalmadena/
+[2026-06-06 00:30:50]   ✓ page https://boathire24guides.wordpress.com/catamaran-rental-benalmadena/
+[2026-06-06 00:30:52]   (media upload failed: HTTP Error 424: Failed Dependency)
+[2026-06-06 00:30:54]   ✓ page https://boathire24guides.wordpress.com/boat-rental-marbella-port-group/
+[2026-06-06 00:30:55] WP: 37/37 published
+[2026-06-06 00:30:55] done 2026-06-06
+[2026-06-07 14:32:23] starting daily run for 2026-06-07
+[2026-06-07 14:32:24] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-06-07 14:32:25] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-07 14:33:08] refill (LLM fallback): +86 (queue now 86)
+[2026-06-07 14:33:08] === Done: 0 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 302
+cannibalization: 80 variant pages canonicalized to a primary
+relinked: blogs=154 (homepage 154/154), landings=302 (homepage 302/302), affiliate-link pool=9

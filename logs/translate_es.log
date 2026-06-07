@@ -310,3 +310,25 @@
 [2026-06-05 01:35:43]   [40/40] ✓ catamaran-charter-ibiza
 [2026-06-05 01:35:43] es: 40/40 translated (total es=283)
 [2026-06-05 01:35:46] es: pushed
+[2026-06-06 00:13:06] es: translating 19 landing page(s)
+[2026-06-06 00:13:49]   [1/19] ✓ catamaran-charter-cancun
+[2026-06-06 00:14:32]   [2/19] ✓ boat-rental-tenerife
+[2026-06-06 00:15:11]   [3/19] ✓ catamaran-charter-phuket
+[2026-06-06 00:15:45]   [4/19] ✓ catamaran-charter-bali
+[2026-06-06 00:16:28]   [5/19] ✓ boat-rental-algarve
+[2026-06-06 00:17:08]   [6/19] ✓ catamaran-charter-corfu
+[2026-06-06 00:17:43]   [7/19] ✓ private-yacht-charter-marbella-day
+[2026-06-06 00:18:22]   [8/19] ✓ catamaran-hire-puerto-banus-birthday
+[2026-06-06 00:19:10]   [9/19] ✓ speedboat-rental-marbella-no-licence
+[2026-06-06 00:19:54]   [10/19] ✓ private-boat-charter-marbella-fishing
+[2026-06-06 00:20:37]   [11/19] ✓ luxury-motor-yacht-hire-marbella-day
+[2026-06-06 00:21:22]   [12/19] ✓ catamaran-charter-estepona-group
+[2026-06-06 00:22:11]   [13/19] ✓ luxury-motor-yacht-rental-puerto-banus-weekend
+[2026-06-06 00:22:56]   [14/19] ✓ catamaran-charter-fuengirola-sunset
+[2026-06-06 00:23:44]   [15/19] ✓ luxury-yacht-charter-marbella-prices
+[2026-06-06 00:24:30]   [16/19] ✓ catamaran-charter-puerto-banus-sunset
+[2026-06-06 00:25:08]   [17/19] ✓ catamaran-charter-benalmadena
+[2026-06-06 00:25:50]   [18/19] ✓ catamaran-rental-benalmadena
+[2026-06-06 00:26:26]   [19/19] ✓ boat-rental-marbella-port-group
+[2026-06-06 00:26:26] es: 19/19 translated (total es=302)
+[2026-06-06 00:26:29] es: pushed
