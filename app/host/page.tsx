@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
-import { Plus, Settings, Calendar, BarChart3, Ship, Clock, CheckCircle, Layers, Upload, Building2, ShieldCheck, ShieldAlert } from 'lucide-react'
+import { Plus, Settings, Calendar, BarChart3, Ship, Clock, CheckCircle, Layers, Upload, Building2, ShieldCheck, ShieldAlert, MessageSquare } from 'lucide-react'
 import PayoutBadge from '@/components/ui/PayoutBadge'
 import DeleteListingButton from '@/components/host/DeleteListingButton'
 
@@ -62,9 +62,14 @@ export default async function HostDashboard() {
             <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '6px' }}>Host Dashboard</h1>
             <p style={{ fontSize: '15px', color: muted }}>Manage your fleet and bookings</p>
           </div>
-          <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.22)', whiteSpace: 'nowrap' }}>
-            <Plus style={{ width: 16, height: 16 }} /> Add listing
-          </Link>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <Link href="/dashboard/messages" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 22px', borderRadius: '99px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.30)', color: gold, fontSize: '14px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              <MessageSquare style={{ width: 16, height: 16 }} /> Messages
+            </Link>
+            <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.22)', whiteSpace: 'nowrap' }}>
+              <Plus style={{ width: 16, height: 16 }} /> Add listing
+            </Link>
+          </div>
         </div>
 
         {/* ── Admin revision required ── */}
