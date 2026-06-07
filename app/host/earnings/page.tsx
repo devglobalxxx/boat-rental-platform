@@ -1,7 +1,9 @@
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
-import { TrendingUp, DollarSign, Calendar, Ship } from 'lucide-react'
+import { getPayoutSummary } from '@/lib/stripe'
+import { TrendingUp, DollarSign, Calendar, Ship, Wallet, ArrowRight } from 'lucide-react'
 
 const gold = '#c9a84e'
 const card = '#0c1828'
@@ -26,6 +28,10 @@ export default async function HostEarningsPage() {
         .in('status', ['confirmed', 'completed'])
         .order('start_datetime', { ascending: false })
     : { data: [] }
+
+  const { data: profile } = await supabase.from('profiles').select('stripe_account_id').eq('id', user.id).single()
+  const stripeAccountId = (profile as { stripe_account_id?: string | null } | null)?.stripe_account_id ?? null
+  const payout = stripeAccountId ? await getPayoutSummary(stripeAccountId) : null
 
   const allBookings = bookings ?? []
   const now = new Date()
@@ -67,6 +73,53 @@ export default async function HostEarningsPage() {
       <div style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 20px 80px' }}>
 
         <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '32px' }}>Earnings</h1>
+
+        {/* ── Balance & payouts ── */}
+        <div style={{ background: card, borderRadius: '16px', border, padding: '24px', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <Wallet style={{ width: 20, height: 20, color: gold }} />
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text }}>Balance &amp; payouts</h2>
+          </div>
+
+          {!stripeAccountId ? (
+            <>
+              <p style={{ fontSize: '14px', color: muted, marginBottom: '16px', lineHeight: 1.6 }}>
+                Add your bank account to receive your booking payments. Setup is handled securely by Stripe — your bank details are stored with Stripe, never on BoatHire24.
+              </p>
+              <Link href="/host/onboarding" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+                Set up payouts <ArrowRight style={{ width: 15, height: 15 }} />
+              </Link>
+            </>
+          ) : !payout?.payoutsEnabled ? (
+            <>
+              <p style={{ fontSize: '14px', color: muted, marginBottom: '16px', lineHeight: 1.6 }}>
+                Your payout setup isn&apos;t finished yet. Add your bank details with Stripe to start receiving payouts.
+              </p>
+              <Link href="/host/onboarding" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+                Finish payout setup <ArrowRight style={{ width: 15, height: 15 }} />
+              </Link>
+            </>
+          ) : (
+            <>
+              <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', marginBottom: '14px' }}>
+                <div>
+                  <div style={{ fontSize: '12px', color: muted, marginBottom: '4px' }}>Available to pay out</div>
+                  <div style={{ fontSize: '28px', fontWeight: 800, color: '#22c55e' }}>{formatPrice(payout?.available ?? 0, payout?.currency ?? 'EUR')}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '12px', color: muted, marginBottom: '4px' }}>Pending (clearing)</div>
+                  <div style={{ fontSize: '28px', fontWeight: 800, color: muted }}>{formatPrice(payout?.pending ?? 0, payout?.currency ?? 'EUR')}</div>
+                </div>
+              </div>
+              <p style={{ fontSize: '13px', color: dim, marginBottom: '18px', lineHeight: 1.6 }}>
+                Stripe pays your available balance to your bank automatically on a rolling schedule — no need to request it. Use the button below to see payouts or change your bank account.
+              </p>
+              <a href="/api/host/payouts" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+                Manage payouts &amp; bank <ArrowRight style={{ width: 15, height: 15 }} />
+              </a>
+            </>
+          )}
+        </div>
 
         {/* Stats grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '32px' }}>

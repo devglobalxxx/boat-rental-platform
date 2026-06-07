@@ -73,3 +73,29 @@ export async function createConnectAccount(email: string) {
     },
   })
 }
+
+// One-time link into the host's own Stripe Express dashboard — where they see payouts and
+// add / change their bank account. (Stripe stores the bank details, never our DB.)
+export async function createExpressLoginLink(accountId: string) {
+  return stripe.accounts.createLoginLink(accountId)
+}
+
+// Live balance for a connected account, in whole currency units. payoutsEnabled is false until
+// the host finishes Stripe onboarding (or if the lookup fails) — callers gate the UI on it.
+export async function getPayoutSummary(accountId: string): Promise<{
+  payoutsEnabled: boolean
+  available: number
+  pending: number
+  currency: string
+}> {
+  try {
+    const acct = await stripe.accounts.retrieve(accountId)
+    if (acct.payouts_enabled !== true) return { payoutsEnabled: false, available: 0, pending: 0, currency: 'EUR' }
+    const bal = await stripe.balance.retrieve({}, { stripeAccount: accountId })
+    const sum = (arr: { amount: number }[]) => arr.reduce((s, x) => s + x.amount, 0)
+    const currency = (bal.available[0]?.currency ?? bal.pending[0]?.currency ?? 'eur').toUpperCase()
+    return { payoutsEnabled: true, available: sum(bal.available) / 100, pending: sum(bal.pending) / 100, currency }
+  } catch {
+    return { payoutsEnabled: false, available: 0, pending: 0, currency: 'EUR' }
+  }
+}

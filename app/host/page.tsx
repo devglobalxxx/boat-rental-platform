@@ -174,8 +174,8 @@ export default async function HostDashboard() {
           </div>
         )}
 
-        {/* ── Stripe Connect alert ── */}
-        {!profile?.stripe_account_id && (
+        {/* ── Payouts ── */}
+        {!profile?.stripe_account_id ? (
           <div style={{ marginBottom: '28px', padding: '18px 20px', background: 'rgba(201,168,78,0.08)', border: '1px solid rgba(201,168,78,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
             <div>
               <div style={{ fontWeight: 700, color: gold, fontSize: '14px', marginBottom: '4px' }}>Set up payouts</div>
@@ -183,6 +183,16 @@ export default async function HostDashboard() {
             </div>
             <Link href="/host/onboarding" style={{ display: 'inline-flex', padding: '10px 20px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '13px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
               Set up now
+            </Link>
+          </div>
+        ) : (
+          <div style={{ marginBottom: '28px', padding: '18px 20px', background: 'rgba(34,197,94,0.07)', border: '1px solid rgba(34,197,94,0.22)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+            <div>
+              <div style={{ fontWeight: 700, color: '#22c55e', fontSize: '14px', marginBottom: '4px' }}>Payouts active</div>
+              <div style={{ fontSize: '13px', color: muted }}>Your earnings are paid to your bank automatically by Stripe.</div>
+            </div>
+            <Link href="/host/earnings" style={{ display: 'inline-flex', padding: '10px 20px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '13px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              View balance &amp; payouts →
             </Link>
           </div>
         )}
