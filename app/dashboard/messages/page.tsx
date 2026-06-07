@@ -126,6 +126,7 @@ export default async function MessagesPage({
               <div style={{ flex: 1, minHeight: 0 }}>
                 {activeConv ? (
                   <ChatThread
+                    key={activeConv.id}
                     conversationId={activeConv.id}
                     currentUserId={user.id}
                     initialMessages={(messages ?? []).map((m) => ({
