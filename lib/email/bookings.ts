@@ -126,6 +126,47 @@ export async function sendBookerDeclined(bookingId: string) {
     `Update: your ${f.boatName} request for ${f.date} couldn't be confirmed. *You have not been charged* — the hold was released.\nFind another boat: ${SITE}/search`)
 }
 
+/** Either party cancelled → notify guest, host, and ops. `refundOwed` = the trip was already paid. */
+export async function sendBookingCancelled(bookingId: string, by: 'host' | 'renter', refundOwed: boolean) {
+  const ctx = await loadBooking(bookingId)
+  if (!ctx?.boat) return
+  const f = fmt(ctx.b, ctx.boat.name)
+  const renterEmail = await emailOf(ctx.b.renter_id)
+  const hostEmail = await emailOf(ctx.boat.host_id)
+  const who = by === 'host' ? 'the host' : 'the guest'
+
+  // Guest-facing
+  if (renterEmail) await resend.emails.send({
+    from: FROM, to: renterEmail, subject: `Cancelled — your ${f.boatName} on ${f.date}`,
+    html: shell('Booking cancelled', '#f87171', `
+      <p>This booking has been cancelled by ${who}.</p>
+      ${detailRows(f)}
+      ${refundOwed
+        ? `<p style="color:#f59e0b">If your card was charged, your refund will be returned to your original payment method.</p>`
+        : `<p style="color:#22c55e">No charge was taken.</p>`}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/search`, 'Browse other boats →')}</p>`),
+  }).catch(() => {})
+
+  // Host + ops
+  await resend.emails.send({
+    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `Booking cancelled — ${f.boatName} · ${f.date}`,
+    html: shell('Booking cancelled', '#f87171', `
+      <p>The booking below was cancelled by ${who}. The date has been released for new bookings.</p>
+      ${detailRows(f)}
+      ${refundOwed ? `<p style="color:#f59e0b"><strong>Action needed:</strong> this trip was paid — issue any refund from the Stripe dashboard.</p>` : ''}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'Open host dashboard →')}</p>`),
+  }).catch(() => {})
+
+  // WhatsApp the party that did NOT cancel.
+  if (by === 'host') {
+    await sendWhatsApp(await phoneOf(ctx.b.renter_id),
+      `Your ${f.boatName} booking on ${f.date} ${f.time} was cancelled by the host.${refundOwed ? ' Any charge will be refunded.' : ' No charge was taken.'}\n${SITE}/search`)
+  } else {
+    await sendWhatsApp(await phoneOf(ctx.boat.host_id),
+      `A booking was cancelled by the guest: ${f.boatName} · ${f.date} ${f.time}. The date is free again.\n${SITE}/host/bookings`)
+  }
+}
+
 /** Visitor asked for a price on an unpriced boat → notify the owner (email + WhatsApp). */
 export async function sendHostQuoteRequest(opts: {
   boatId: string; name: string; email?: string; phone?: string; date?: string; guests?: number; message?: string

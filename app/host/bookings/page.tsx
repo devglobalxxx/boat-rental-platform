@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
 import { Clock, CheckCircle, XCircle, Calendar, Users } from 'lucide-react'
+import CancelBookingButton from '@/components/booking/CancelBookingButton'
 
 const gold = '#c9a84e'
 const card = '#0c1828'
@@ -170,6 +171,11 @@ export default async function HostBookingsPage({
                           </div>
                           </>
                         )
+                      )}
+                      {booking.status === 'confirmed' && (
+                        <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'flex-end' }}>
+                          <CancelBookingButton bookingId={booking.id} label="Cancel booking" confirmText="Cancel this confirmed booking? The guest will be notified and the date freed. Issue any refund in Stripe." />
+                        </div>
                       )}
                     </div>
                   </div>

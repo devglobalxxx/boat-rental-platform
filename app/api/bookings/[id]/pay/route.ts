@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { stripe } from '@/lib/stripe'
+import { stripe, PLATFORM_FEE_PERCENT } from '@/lib/stripe'
 
 // Guest pays for a request-first booking the host has accepted → fresh Stripe Checkout.
+// Routes the charge to the host's connected account (minus the platform fee) when they're
+// onboarded for payouts, so the money lands in their claimable Stripe balance. Falls back to
+// a platform-only charge if the host hasn't set up payouts yet.
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const supabase = await createClient()
@@ -11,7 +14,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
   const { data: b } = await supabase
     .from('bookings')
-    .select('id, status, renter_id, total, currency, duration_hours, boats(name)')
+    .select('id, status, renter_id, boat_id, total, currency, duration_hours, boats(name)')
     .eq('id', id)
     .single()
 
@@ -23,6 +26,16 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   const total = (b as { total: number | null }).total ?? 0
   const currency = ((b as { currency: string | null }).currency ?? 'EUR').toLowerCase()
 
+  // Look up the host's connected account so the charge can be routed to them.
+  const { data: boatRow } = await supabase.from('boats').select('host_id').eq('id', (b as { boat_id: string }).boat_id).single()
+  const hostId = (boatRow as { host_id?: string } | null)?.host_id
+  let hostStripeAccountId: string | null = null
+  if (hostId) {
+    const { data: hp } = await supabase.from('profiles').select('stripe_account_id').eq('id', hostId).single()
+    hostStripeAccountId = (hp as { stripe_account_id?: string | null } | null)?.stripe_account_id ?? null
+  }
+  const applicationFeeAmount = Math.round(total * (PLATFORM_FEE_PERCENT / 100) * 100) // cents
+
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
     line_items: [{
@@ -33,7 +46,12 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       },
       quantity: 1,
     }],
-    payment_intent_data: { metadata: { bookingId: id } },
+    payment_intent_data: {
+      metadata: { bookingId: id },
+      ...(hostStripeAccountId
+        ? { application_fee_amount: applicationFeeAmount, transfer_data: { destination: hostStripeAccountId } }
+        : {}),
+    },
     metadata: { bookingId: id },
     success_url: `https://boathire24.com/bookings/${id}?paid=1`,
     cancel_url: `https://boathire24.com/bookings/${id}`,

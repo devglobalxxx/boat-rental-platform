@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
 import { CheckCircle, Clock, XCircle, Calendar, Users, MessageSquare, Star } from 'lucide-react'
+import CancelBookingButton from '@/components/booking/CancelBookingButton'
 
 const gold = '#c9a84e'
 const card = '#0c1828'
@@ -177,6 +178,20 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
                 <XCircle style={{ width: 16, height: 16 }} /> Cancel request
               </button>
             </form>
+          )}
+
+          {booking.status === 'confirmed' && (
+            <>
+              <p style={{ fontSize: '13px', color: dim, textAlign: 'center', margin: '4px 0 0' }}>
+                Need a different date or time? Use <strong style={{ color: muted }}>Message host</strong> above to arrange a change.
+              </p>
+              <CancelBookingButton
+                bookingId={id}
+                full
+                label="Cancel booking"
+                confirmText="Cancel this confirmed booking? Your date will be released and the host notified. Any refund is handled by the host in line with their policy."
+              />
+            </>
           )}
         </div>
       </div>
