@@ -185,3 +185,6 @@
 [2026-06-06 00:26:29] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
 [2026-06-06 00:26:30] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
 [2026-06-06 00:26:30] Blogger: 0/80 published this run
+[2026-06-07 14:33:13] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-07 14:33:13] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-07 14:33:13] Blogger: 0/80 published this run
