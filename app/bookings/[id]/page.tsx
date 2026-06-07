@@ -1,6 +1,6 @@
 import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
 import { CheckCircle, Clock, XCircle, Calendar, Users, MessageSquare, Star } from 'lucide-react'
 
@@ -30,21 +30,27 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect(`/login?next=/bookings/${id}`)
 
-  const { data: booking } = await supabase
+  // Fetch with the service-role client so a real booking is never hidden by an RLS /
+  // session edge case (e.g. right after returning from Stripe). We authorize in code below.
+  const admin = await createAdminClient()
+  const { data: booking } = await admin
     .from('bookings')
-    .select(`*, boats(name, slug, departure_port, includes_skipper, includes_fuel, boat_images(storage_url, is_hero), locations(city, country), profiles(full_name))`)
+    .select(`*, boats(name, slug, host_id, departure_port, includes_skipper, includes_fuel, boat_images(storage_url, is_hero), locations(city, country), profiles(full_name))`)
     .eq('id', id)
     .single()
 
   if (!booking) notFound()
 
   const boat = booking.boats as any
-  if (booking.renter_id !== user.id) redirect('/dashboard')
+  // The renter sees this page; the host has their own view; anyone else goes to their dashboard.
+  if (booking.renter_id !== user.id) {
+    redirect(boat?.host_id === user.id ? '/host/bookings' : '/dashboard')
+  }
 
   const cfg = STATUS_CONFIG[booking.status as keyof typeof STATUS_CONFIG] ?? STATUS_CONFIG.pending
   const { Icon } = cfg
 
-  const { data: existingReview } = await supabase
+  const { data: existingReview } = await admin
     .from('reviews')
     .select('id')
     .eq('booking_id', id)
