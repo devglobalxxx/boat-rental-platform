@@ -375,3 +375,19 @@ a { color: inherit; text-decoration: none; }
 .rdp { --rdp-accent-color: #c9a84e; color: #f4f4f2; }
 .rdp-day_selected button { background: #c9a84e !important; color: #07101e !important; }
 .rdp-day_today button { border: 1px solid rgba(201,168,78,0.5); }
+
+/* ── Messages: responsive list ↔ thread (mobile shows ONE at a time, Airbnb-style) ── */
+.msgs-grid { display: flex; height: 600px; }
+.msgs-list { width: 280px; flex-shrink: 0; overflow-y: auto; border-right: 1px solid rgba(255,255,255,0.07); }
+.msgs-thread { display: flex; flex: 1; min-width: 0; flex-direction: column; }
+.msgs-back { display: none; }
+@media (max-width: 767.98px) {
+  .msgs-grid { height: 75vh; }
+  .msgs-back { display: flex; }
+  /* No conversation open → list fills the screen, thread hidden */
+  .msgs-grid:not(.has-conv) .msgs-thread { display: none; }
+  .msgs-grid:not(.has-conv) .msgs-list { width: 100%; }
+  /* Conversation open → thread fills the screen, list hidden (tap "← All messages" to go back) */
+  .msgs-grid.has-conv .msgs-list { display: none; }
+  .msgs-grid.has-conv .msgs-thread { width: 100%; }
+}

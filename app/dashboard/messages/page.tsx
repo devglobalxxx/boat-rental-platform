@@ -78,9 +78,9 @@ export default async function MessagesPage({
             <p style={{ fontSize: '15px', color: muted }}>Contact a host from any boat listing to start a conversation.</p>
           </div>
         ) : (
-          <div style={{ display: 'flex', background: card, border: `1px solid ${border}`, borderRadius: '16px', overflow: 'hidden', height: '600px' }}>
+          <div className={`msgs-grid ${conversationId ? 'has-conv' : ''}`} style={{ background: card, border: `1px solid ${border}`, borderRadius: '16px', overflow: 'hidden' }}>
             {/* Conversation list — full width on mobile, hidden when a thread is open; 280px sidebar on desktop */}
-            <div className={`w-full md:w-[280px] shrink-0 ${conversationId ? 'hidden md:block' : 'block'}`} style={{ borderRight: '1px solid rgba(255,255,255,0.07)', overflowY: 'auto' }}>
+            <div className="msgs-list">
               {(conversations ?? []).map((conv) => {
                 const boat = conv.boats as any
                 const hero = boat?.boat_images?.find((i: any) => i.is_hero) ?? boat?.boat_images?.[0]
@@ -119,9 +119,9 @@ export default async function MessagesPage({
             </div>
 
             {/* Chat panel — full width on mobile (only when a thread is open), always shown on desktop */}
-            <div className={`flex-1 min-w-0 flex-col ${conversationId ? 'flex' : 'hidden md:flex'}`}>
+            <div className="msgs-thread">
               {activeConv && (
-                <Link href="/dashboard/messages" className="md:hidden" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#0c1828', color: gold, textDecoration: 'none', fontWeight: 600, fontSize: '14px', flexShrink: 0 }}>← All messages</Link>
+                <Link href="/dashboard/messages" className="msgs-back" style={{ alignItems: 'center', gap: '8px', padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#0c1828', color: gold, textDecoration: 'none', fontWeight: 600, fontSize: '14px', flexShrink: 0 }}>← All messages</Link>
               )}
               <div style={{ flex: 1, minHeight: 0 }}>
                 {activeConv ? (
