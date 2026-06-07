@@ -2102,3 +2102,27 @@ enriched 22 item(s) with UNIQUE distributed images
 [2026-06-08 01:57:22]   ✓ generated
 [2026-06-08 01:57:22] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-08 01:57:59] refill (LLM fallback): +27 (queue now 34)
+[main ca3f5ff] Daily content: +79 pages (40 blog, 39 landing)
+ Committer: master <master@masters-MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 8 files changed, 4225 insertions(+), 300 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   41b678b..ca3f5ff  HEAD -> main
+[2026-06-08 01:58:03] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-08 01:58:05] reindex ping: 200 {"ok":true,"urls_total":1192,"indexnow":{"ok":true,"status":200,"count":1192},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-07T21:
+[2026-06-08 01:58:05] === Done: 79 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 341
+cannibalization: 97 variant pages canonicalized to a primary
+relinked: blogs=194 (homepage 194/194), landings=341 (homepage 341/341), affiliate-link pool=9
