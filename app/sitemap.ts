@@ -32,6 +32,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
+      // Hero videos → <video:video> entries so they're eligible for Google Video / video results.
+      videos: [
+        {
+          title: 'Luxury yacht & boat charter — Marbella, Costa del Sol',
+          thumbnail_loc: `${BASE_URL}/video/hero-1.jpg`,
+          description: 'Charter motor yachts, catamarans and speedboats with BoatHire24 across Marbella and 45+ destinations — licensed skippers included.',
+          content_loc: `${BASE_URL}/video/hero-1.mp4`,
+        },
+        {
+          title: 'Rent a yacht on the Costa del Sol — BoatHire24',
+          thumbnail_loc: `${BASE_URL}/video/hero-2.jpg`,
+          description: 'Luxury boat and yacht rentals on the Costa del Sol with instant booking and verified listings.',
+          content_loc: `${BASE_URL}/video/hero-2.mp4`,
+        },
+      ],
     },
     {
       url: `${BASE_URL}/search`,
@@ -73,17 +88,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: post.tag === 'Boat review' ? 0.8 : 0.6,  // boat reviews rank higher — direct transaction intent
   }))
 
-  // ── Active boats ──────────────────────────────────────────────────────────
+  // ── Active boats (+ every photo as an <image:image> entry for Google Images) ──
   const boats = await supabaseFetch<{
+    id: string
     slug: string
     updated_at: string
-  }>('boats?select=slug,updated_at&status=eq.active')
+  }>('boats?select=id,slug,updated_at&status=eq.active')
+
+  const boatPhotos = await supabaseFetch<{ boat_id: string; storage_url: string }>(
+    'boat_images?select=boat_id,storage_url&order=sort_order.asc'
+  )
+  const photosByBoat = new Map<string, string[]>()
+  for (const p of boatPhotos) {
+    const arr = photosByBoat.get(p.boat_id) ?? []
+    arr.push(p.storage_url)
+    photosByBoat.set(p.boat_id, arr)
+  }
 
   const boatEntries: SitemapEntry[] = boats.map((boat) => ({
     url: `${BASE_URL}/boats/${boat.slug}`,
     lastModified: new Date(boat.updated_at),
     changeFrequency: 'daily' as const,
     priority: 0.9,
+    images: (photosByBoat.get(boat.id) ?? []).slice(0, 50),
   }))
 
   // ── Gallery images with slugs ─────────────────────────────────────────────

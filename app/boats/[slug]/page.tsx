@@ -54,15 +54,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const boat = await getBoat(slug)
   if (!boat) return { title: 'Boat not found' }
   const lowestPrice = [...boat.boat_pricing].sort((a, b) => a.price - b.price)[0]
+  const heroImg = boat.boat_images.find((i) => i.is_hero) ?? boat.boat_images[0]
+  const typeLabel = TYPE_LABELS[boat.type] ?? boat.type
   return {
-    title: `${boat.name} — ${TYPE_LABELS[boat.type] ?? boat.type} in ${boat.locations.city}`,
+    title: `${boat.name} — ${typeLabel} in ${boat.locations.city}`,
     description: boat.tagline ?? boat.description?.slice(0, 160) ?? '',
+    alternates: { canonical: `https://boathire24.com/boats/${boat.slug}` },
     openGraph: {
       title: boat.name,
       description: boat.tagline ?? '',
-      images: boat.boat_images.find((i) => i.is_hero)
-        ? [{ url: boat.boat_images.find((i) => i.is_hero)!.storage_url }]
-        : [],
+      images: [{
+        url: heroImg?.storage_url ?? 'https://boathire24.com/opengraph-image',
+        alt: `${boat.name} — ${typeLabel} in ${boat.locations.city}`,
+      }],
     },
   }
 }
