@@ -18,6 +18,8 @@ const inputStyle: React.CSSProperties = {
 
 export default function QuoteRequestCard({ boatId, boatName }: { boatId: string; boatName: string }) {
   const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [hours, setHours] = useState('')
   const [guests, setGuests] = useState('')
   const [message, setMessage] = useState('')
   const [sending, setSending] = useState(false)
@@ -41,7 +43,7 @@ export default function QuoteRequestCard({ boatId, boatName }: { boatId: string;
     const res = await fetch('/api/quote-request', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ boatId, date, guests, message: message.trim() }),
+      body: JSON.stringify({ boatId, date, time, hours, guests, message: message.trim() }),
     })
     setSending(false)
     if (res.status === 401) { router.push(loginUrl); return }
@@ -74,7 +76,11 @@ export default function QuoteRequestCard({ boatId, boatName }: { boatId: string;
       ) : (
         <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <input style={inputStyle} type="date" value={date} min={new Date().toISOString().split('T')[0]} onChange={(e) => setDate(e.target.value)} />
+            <input style={{ ...inputStyle, colorScheme: 'dark' }} type="date" value={date} min={new Date().toISOString().split('T')[0]} onChange={(e) => setDate(e.target.value)} />
+            <input style={{ ...inputStyle, colorScheme: 'dark' }} type="time" value={time} onChange={(e) => setTime(e.target.value)} aria-label="Preferred start time" />
+          </div>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <input style={inputStyle} type="number" min={1} max={12} placeholder="Duration (hrs)" value={hours} onChange={(e) => setHours(e.target.value)} />
             <input style={{ ...inputStyle, maxWidth: '110px' }} type="number" min={1} placeholder="Guests" value={guests} onChange={(e) => setGuests(e.target.value)} />
           </div>
           <textarea style={{ ...inputStyle, minHeight: '58px', resize: 'vertical' }} placeholder="Anything else? (optional)" value={message} onChange={(e) => setMessage(e.target.value)} />
