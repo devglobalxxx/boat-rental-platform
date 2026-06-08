@@ -156,12 +156,35 @@ export default function HomePage() {
       acceptedAnswer: { '@type': 'Answer', text: f.a },
     })),
   }
+  const videoSchema = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: 'Luxury yacht & boat charter — Marbella, Costa del Sol',
+      description: 'Charter motor yachts, catamarans and speedboats with BoatHire24 across Marbella and 45+ destinations — licensed skippers included.',
+      thumbnailUrl: 'https://boathire24.com/video/hero-1.jpg',
+      contentUrl: 'https://boathire24.com/video/hero-1.mp4',
+      uploadDate: '2026-01-01',
+      publisher: { '@type': 'Organization', name: 'BoatHire24', logo: { '@type': 'ImageObject', url: 'https://boathire24.com/brand-logo.jpg' } },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: 'Rent a yacht on the Costa del Sol — BoatHire24',
+      description: 'Luxury boat and yacht rentals on the Costa del Sol with instant booking and verified listings.',
+      thumbnailUrl: 'https://boathire24.com/video/hero-2.jpg',
+      contentUrl: 'https://boathire24.com/video/hero-2.mp4',
+      uploadDate: '2026-01-01',
+      publisher: { '@type': 'Organization', name: 'BoatHire24', logo: { '@type': 'ImageObject', url: 'https://boathire24.com/brand-logo.jpg' } },
+    },
+  ]
 
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
       {/* Structured data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
 
       {/* ══ 1 · HERO ══ */}
       <section className="relative" style={{ height: 'calc(100svh - 64px)', minHeight: '600px', maxHeight: '900px' }}>

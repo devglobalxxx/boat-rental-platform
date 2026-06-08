@@ -119,6 +119,7 @@ export async function generateMetadata({
     title: `${title} — Boat Gallery Marbella`,
     description,
     keywords: image.tags ?? [],
+    alternates: { canonical: `https://boathire24.com/gallery/${slug}` },
     openGraph: {
       title,
       description,
