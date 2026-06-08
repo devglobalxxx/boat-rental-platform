@@ -4,6 +4,7 @@ import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils/pricing'
 import { CheckCircle, Clock, XCircle, Calendar, Users, MessageSquare, Star } from 'lucide-react'
 import CancelBookingButton from '@/components/booking/CancelBookingButton'
+import ModifyBookingForm from '@/components/booking/ModifyBookingForm'
 
 const gold = '#c9a84e'
 const card = '#0c1828'
@@ -171,6 +172,14 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
                 <Clock style={{ width: 15, height: 15 }} /> Waiting for the host to accept — we&apos;ll email you the moment they do
               </div>
             )
+          )}
+          {booking.status === 'pending' && (
+            <ModifyBookingForm
+              bookingId={id}
+              currentDate={(booking.start_datetime as string).slice(0, 10)}
+              currentTime={(booking.start_datetime as string).slice(11, 16)}
+              currentHours={(booking as { duration_hours?: number | null }).duration_hours ?? 0}
+            />
           )}
           {booking.status === 'pending' && (
             <form action={`/api/bookings/${id}/cancel`} method="POST">

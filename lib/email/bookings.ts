@@ -167,6 +167,34 @@ export async function sendBookingCancelled(bookingId: string, by: 'host' | 'rent
   }
 }
 
+/** Guest changed their booking's date/time/duration → re-notify host (+ confirm to guest). */
+export async function sendBookingModified(bookingId: string) {
+  const ctx = await loadBooking(bookingId)
+  if (!ctx?.boat) return
+  const f = fmt(ctx.b, ctx.boat.name)
+  const hostEmail = await emailOf(ctx.boat.host_id)
+  const renterEmail = await emailOf(ctx.b.renter_id)
+
+  await resend.emails.send({
+    from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `Updated request — ${f.boatName} · ${f.date}`,
+    html: shell('📅 Booking updated by guest', '#c9a84e', `
+      <p>The guest changed their requested date, time, or duration. Please review the new details and approve if the slot works.</p>
+      ${detailRows(f)}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'Review →')}</p>`),
+  }).catch(() => {})
+
+  if (renterEmail) await resend.emails.send({
+    from: FROM, to: renterEmail, subject: `Your ${f.boatName} booking was updated`,
+    html: shell('Booking updated', '#22c55e', `
+      <p>Your booking has been updated to the new date and time below. The host has been notified.</p>
+      ${detailRows(f)}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/dashboard`, 'View my trip →')}</p>`),
+  }).catch(() => {})
+
+  await sendWhatsApp(await phoneOf(ctx.boat.host_id),
+    `📅 A guest updated their booking: ${f.boatName} · ${f.date} ${f.time}${f.dur ? ` (${f.dur})` : ''}. Review: ${SITE}/host/bookings`)
+}
+
 /** Visitor asked for a price on an unpriced boat → notify the owner (email + WhatsApp). */
 export async function sendHostQuoteRequest(opts: {
   boatId: string; name: string; email?: string; phone?: string; date?: string; guests?: number; message?: string
