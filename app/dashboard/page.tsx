@@ -46,9 +46,11 @@ export default async function DashboardPage() {
 
   const all = bookings ?? []
   // Pending bookings show in their own "My requests" section AND still appear under Upcoming trips.
+  // Cancelled bookings always land in "Past & cancelled" — otherwise a cancelled future trip
+  // matched none of the sections and silently disappeared (looking like the cancel failed).
   const requests = all.filter((b) => b.status === 'pending')
   const upcoming = all.filter((b) => new Date(b.start_datetime) >= new Date() && b.status !== 'cancelled')
-  const past = all.filter((b) => new Date(b.start_datetime) < new Date() || b.status === 'completed')
+  const past = all.filter((b) => b.status === 'cancelled' || b.status === 'completed' || new Date(b.start_datetime) < new Date())
 
   return (
     <div style={{ background: '#07101e', minHeight: '100vh', color: text }}>
@@ -174,7 +176,7 @@ export default async function DashboardPage() {
         {/* ── Past trips ── */}
         {past.length > 0 && (
           <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '16px' }}>Past trips</h2>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '16px' }}>Past &amp; cancelled trips</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {past.map((booking) => {
                 const boat = booking.boats as any
