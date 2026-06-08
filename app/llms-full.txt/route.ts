@@ -3,10 +3,9 @@ import { buildLlms } from '@/lib/seo/llms'
 
 export const dynamic = 'force-dynamic'
 
-// Concise machine-readable index for LLMs / AI search (the heavy full landing-page list
-// lives at /llms-full.txt).
+// Full machine-readable index — concise index PLUS every landing page, for deep AI ingestion.
 export async function GET(): Promise<NextResponse> {
-  const body = await buildLlms({ full: false })
+  const body = await buildLlms({ full: true })
   return new NextResponse(body, {
     status: 200,
     headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },

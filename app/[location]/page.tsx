@@ -97,6 +97,10 @@ export default async function LocationPage({ params }: Props) {
     review_count: 0,
   })) as BoatWithDetails[]
 
+  // Real "from" price across this location's fleet — a concrete fact for the answer box + AI citation.
+  const fleetPrices = boats.flatMap((b) => ((b as any).boat_pricing ?? []).map((p: any) => p.price as number)).filter((p) => p > 0)
+  const fromPrice = fleetPrices.length ? Math.min(...fleetPrices) : null
+
   const gold = '#c9a84e'
   const goldFaint = 'rgba(201,168,78,0.12)'
   const goldBorder = 'rgba(201,168,78,0.22)'
@@ -134,7 +138,7 @@ export default async function LocationPage({ params }: Props) {
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px 24px', display: 'flex', gap: '36px', flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
             { value: `${boats.length}`, label: 'boats available' },
-            { value: 'From €300', label: 'per half-day' },
+            { value: fromPrice ? `From €${fromPrice.toLocaleString('en')}` : 'From €230', label: 'per trip' },
             { value: '✓ Skipper', label: 'always included' },
             { value: 'Instant', label: 'confirmation' },
           ].map((s) => (
@@ -195,17 +199,36 @@ export default async function LocationPage({ params }: Props) {
         )}
       </div>
 
-      {/* Schema.org */}
+      {/* Schema.org — destination + service + breadcrumb (hierarchy signal for search + LLMs) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'TouristDestination',
-            name: `Boat Rental ${loc.city}`,
-            description: loc.description,
-            geo: { '@type': 'GeoCoordinates', latitude: loc.lat, longitude: loc.lng },
-          }),
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'TouristDestination',
+              name: `Boat Rental ${loc.city}`,
+              description: loc.description,
+              geo: { '@type': 'GeoCoordinates', latitude: loc.lat, longitude: loc.lng },
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'Service',
+              serviceType: 'Boat & yacht charter',
+              name: `Boat rental in ${loc.city}`,
+              areaServed: { '@type': 'City', name: loc.city, address: { '@type': 'PostalAddress', addressCountry: loc.country } },
+              provider: { '@type': 'Organization', name: 'BoatHire24', url: 'https://boathire24.com' },
+              url: `https://boathire24.com/${loc.slug}`,
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://boathire24.com' },
+                { '@type': 'ListItem', position: 2, name: `Boat Rental ${loc.city}`, item: `https://boathire24.com/${loc.slug}` },
+              ],
+            },
+          ]),
         }}
       />
     </div>
