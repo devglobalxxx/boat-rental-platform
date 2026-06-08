@@ -32,11 +32,13 @@ export default function ChatThread({
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [body, setBody] = useState('')
   const [sending, setSending] = useState(false)
-  const bottomRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    // Scroll only the message list to the bottom — NOT the whole page (which hid the header).
+    const el = listRef.current
+    if (el) el.scrollTop = el.scrollHeight
   }, [messages])
 
   useEffect(() => {
@@ -94,7 +96,7 @@ export default function ChatThread({
       </div>
 
       {/* Messages */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div ref={listRef} style={{ flex: 1, overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {messages.length === 0 && (
           <p style={{ textAlign: 'center', fontSize: '13px', color: dim, padding: '36px 0' }}>No messages yet — say hello 👋</p>
         )}
@@ -120,7 +122,6 @@ export default function ChatThread({
             </div>
           )
         })}
-        <div ref={bottomRef} />
       </div>
 
       {/* Input */}

@@ -90,7 +90,7 @@ export default async function HostBookingsPage({
               const cfg = STATUS_CONFIG[booking.status as keyof typeof STATUS_CONFIG] ?? STATUS_CONFIG.pending
               return (
                 <div key={booking.id} style={{ background: card, borderRadius: '16px', border, padding: '20px', transition: 'border-color 0.15s' }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                  <div className="bk-row">
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px', marginBottom: '10px', flexWrap: 'wrap' }}>
                         <div>
@@ -130,7 +130,7 @@ export default async function HostBookingsPage({
                       </div>
                     </div>
 
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                    <div className="bk-actions">
                       <div style={{ fontWeight: 800, color: gold, fontSize: '18px' }}>
                         {(booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? 'Price on request' : formatPrice(booking.total, booking.currency)}
                       </div>

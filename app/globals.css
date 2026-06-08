@@ -391,3 +391,11 @@ a { color: inherit; text-decoration: none; }
   .msgs-grid.has-conv .msgs-list { display: none; }
   .msgs-grid.has-conv .msgs-thread { width: 100%; }
 }
+
+/* ── Host bookings card: stack the row on phones so dates/notes don't wrap one word per line ── */
+.bk-row { display: flex; align-items: flex-start; gap: 16px; }
+.bk-actions { text-align: right; flex-shrink: 0; }
+@media (max-width: 639.98px) {
+  .bk-row { flex-direction: column; gap: 14px; }
+  .bk-actions { text-align: left; width: 100%; }
+}

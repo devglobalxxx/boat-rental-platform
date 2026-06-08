@@ -160,16 +160,14 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
           </div>
         </div>
 
-        {/* ── Gallery ── */}
-        <div style={{ marginBottom: '48px' }}>
-          <Gallery images={boat.boat_images} boatName={boat.name} />
-        </div>
-
-        {/* ── Two-column layout ── */}
+        {/* ── Two-column layout (gallery + content left, booking widget right — widget aligns with image top) ── */}
         <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
           {/* ── Main content ── */}
           <div style={{ flex: '2 1 520px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: '40px' }}>
+
+            {/* Gallery */}
+            <Gallery images={boat.boat_images} boatName={boat.name} />
 
             {/* Quick specs */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '12px' }}>
