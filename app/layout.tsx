@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import SiteNav from '@/components/nav/SiteNav'
 import Link from 'next/link'
@@ -70,6 +71,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} dir={rtl ? 'rtl' : 'ltr'} className="h-full">
       <body className="h-full flex flex-col antialiased" style={{ background: '#07101e' }}>
+        {/* ── Google Analytics (GA4) ── */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-PGT6ZGK9Z2"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-PGT6ZGK9Z2');`}
+        </Script>
         {/* ── Sitewide structured data (Organization + WebSite) ── */}
         <script
           type="application/ld+json"
