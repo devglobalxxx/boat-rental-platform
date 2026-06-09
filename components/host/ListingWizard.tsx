@@ -217,6 +217,25 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
     setPhotoBusy(false)
   }
 
+  // ── New-upload arranging (before the listing is saved): reorder, choose cover, remove ──
+  function moveNew(i: number, dir: -1 | 1) {
+    const j = i + dir
+    if (j < 0 || j >= form.images.length) return
+    const next = [...form.images]
+    ;[next[i], next[j]] = [next[j], next[i]]
+    update('images', next)
+  }
+  function coverNew(i: number) {
+    if (i === 0) return
+    const next = [...form.images]
+    const [pick] = next.splice(i, 1)
+    next.unshift(pick)
+    update('images', next)
+  }
+  function removeNew(i: number) {
+    update('images', form.images.filter((_, k) => k !== i))
+  }
+
   function toggleFeature(feat: string) {
     setForm((f) => ({
       ...f,
@@ -629,18 +648,29 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
             {/* New photo previews */}
             {form.images.length > 0 && (
               <div>
-                <p style={{ fontSize: '13px', fontWeight: 600, color: muted, marginBottom: '8px' }}>New photos to upload ({form.images.length})</p>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
-                  {form.images.map((f, i) => (
-                    <div key={i} style={{ aspectRatio: '16/9', borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.06)', position: 'relative' }}>
-                      <img src={URL.createObjectURL(f)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      {i === 0 && (initialData?.boat_images ?? []).length === 0 && (
-                        <span style={{ position: 'absolute', bottom: '6px', left: '6px', fontSize: '10px', background: 'rgba(201,168,78,0.85)', color: '#07101e', fontWeight: 700, padding: '2px 7px', borderRadius: '99px' }}>
-                          Hero
-                        </span>
-                      )}
-                    </div>
-                  ))}
+                <p style={{ fontSize: '13px', fontWeight: 600, color: muted, marginBottom: '8px' }}>New photos to upload ({form.images.length}) — use ← → to order{existingImages.length === 0 ? ', ★ for the cover' : ''}.</p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                  {form.images.map((f, i) => {
+                    const isHero = i === 0 && existingImages.length === 0
+                    return (
+                      <div key={i} style={{ borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.06)', border: isHero ? `2px solid ${gold}` : '1px solid rgba(255,255,255,0.08)' }}>
+                        <div style={{ aspectRatio: '16/9', position: 'relative' }}>
+                          <img src={URL.createObjectURL(f)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          {isHero && (
+                            <span style={{ position: 'absolute', top: '6px', left: '6px', fontSize: '10px', background: 'rgba(201,168,78,0.92)', color: '#07101e', fontWeight: 800, padding: '2px 8px', borderRadius: '99px' }}>★ Cover</span>
+                          )}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '6px', background: '#0c1828' }}>
+                          {existingImages.length === 0 && (
+                            <button type="button" disabled={isHero} onClick={() => coverNew(i)} title="Make this the cover" style={{ flex: 1, fontSize: '10px', fontWeight: 700, padding: '6px 4px', borderRadius: '7px', cursor: isHero ? 'default' : 'pointer', background: isHero ? 'transparent' : 'rgba(201,168,78,0.14)', color: isHero ? dim : gold, border: 'none' }}>{isHero ? 'Cover' : 'Set cover'}</button>
+                          )}
+                          <button type="button" disabled={i === 0} onClick={() => moveNew(i, -1)} title="Move left" style={{ fontSize: '13px', padding: '6px 8px', borderRadius: '7px', cursor: i === 0 ? 'default' : 'pointer', background: 'rgba(255,255,255,0.06)', color: i === 0 ? dim : text, border: 'none' }}>←</button>
+                          <button type="button" disabled={i === form.images.length - 1} onClick={() => moveNew(i, 1)} title="Move right" style={{ fontSize: '13px', padding: '6px 8px', borderRadius: '7px', cursor: i === form.images.length - 1 ? 'default' : 'pointer', background: 'rgba(255,255,255,0.06)', color: i === form.images.length - 1 ? dim : text, border: 'none' }}>→</button>
+                          <button type="button" onClick={() => removeNew(i)} title="Remove" style={{ fontSize: '12px', padding: '6px 8px', borderRadius: '7px', cursor: 'pointer', background: 'rgba(248,113,113,0.12)', color: '#f87171', border: 'none' }}>✕</button>
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             )}
