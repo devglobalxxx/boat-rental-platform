@@ -180,9 +180,41 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
   const supabase = createClient()
+  const [existingImages, setExistingImages] = useState<any[]>(() =>
+    [...((initialData?.boat_images as any[]) ?? [])].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+  )
+  const [photoBusy, setPhotoBusy] = useState(false)
 
   function update(key: keyof FormData, value: any) {
     setForm((f) => ({ ...f, [key]: value }))
+  }
+
+  // ── Existing-photo management (edit mode): set cover, reorder, delete ──
+  async function setCover(id: string) {
+    if (!boatId) return
+    setPhotoBusy(true)
+    await supabase.from('boat_images').update({ is_hero: false } as any).eq('boat_id', boatId)
+    await supabase.from('boat_images').update({ is_hero: true } as any).eq('id', id)
+    setExistingImages((imgs) => imgs.map((im) => ({ ...im, is_hero: im.id === id })))
+    setPhotoBusy(false)
+  }
+  async function deletePhoto(id: string) {
+    setPhotoBusy(true)
+    await supabase.from('boat_images').delete().eq('id', id)
+    setExistingImages((imgs) => imgs.filter((im) => im.id !== id))
+    setPhotoBusy(false)
+  }
+  async function movePhoto(id: string, dir: -1 | 1) {
+    const idx = existingImages.findIndex((im) => im.id === id)
+    const j = idx + dir
+    if (idx < 0 || j < 0 || j >= existingImages.length) return
+    const next = [...existingImages]
+    ;[next[idx], next[j]] = [next[j], next[idx]]
+    setExistingImages(next)
+    setPhotoBusy(true)
+    await supabase.from('boat_images').update({ sort_order: idx } as any).eq('id', next[idx].id)
+    await supabase.from('boat_images').update({ sort_order: j } as any).eq('id', next[j].id)
+    setPhotoBusy(false)
   }
 
   function toggleFeature(feat: string) {
@@ -553,29 +585,31 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
             <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Photos</h2>
 
             {/* Existing photos (edit mode) */}
-            {(initialData?.boat_images ?? []).length > 0 && (
+            {existingImages.length > 0 && (
               <div>
                 <p style={{ fontSize: '13px', fontWeight: 600, color: muted, marginBottom: '10px' }}>
-                  Current photos ({(initialData.boat_images as any[]).length}) — uploading new ones adds to these
+                  Current photos ({existingImages.length}) — set your cover (★), reorder with ← →, or remove. New uploads add to these.
                 </p>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '16px' }}>
-                  {(initialData.boat_images as any[])
-                    .slice()
-                    .sort((a: any, b: any) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
-                    .map((img: any, i: number) => (
-                      <div key={img.id ?? i} style={{ aspectRatio: '16/9', borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.06)', position: 'relative' }}>
-                        <img
-                          src={img.storage_url}
-                          alt={img.alt ?? ''}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                        {(img.is_hero || i === 0) && (
-                          <span style={{ position: 'absolute', bottom: '6px', left: '6px', fontSize: '10px', background: 'rgba(201,168,78,0.85)', color: '#07101e', fontWeight: 700, padding: '2px 7px', borderRadius: '99px' }}>
-                            Hero
-                          </span>
-                        )}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '16px' }}>
+                  {existingImages.map((img: any, i: number) => {
+                    const isHero = img.is_hero || (i === 0 && !existingImages.some((x: any) => x.is_hero))
+                    return (
+                      <div key={img.id ?? i} style={{ borderRadius: '10px', overflow: 'hidden', background: 'rgba(255,255,255,0.06)', border: isHero ? `2px solid ${gold}` : '1px solid rgba(255,255,255,0.08)' }}>
+                        <div style={{ aspectRatio: '16/9', position: 'relative' }}>
+                          <img src={img.storage_url} alt={img.alt ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          {isHero && (
+                            <span style={{ position: 'absolute', top: '6px', left: '6px', fontSize: '10px', background: 'rgba(201,168,78,0.92)', color: '#07101e', fontWeight: 800, padding: '2px 8px', borderRadius: '99px' }}>★ Cover</span>
+                          )}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '6px', background: '#0c1828' }}>
+                          <button type="button" disabled={photoBusy || isHero} onClick={() => setCover(img.id)} title="Set as cover" style={{ flex: 1, fontSize: '10px', fontWeight: 700, padding: '6px 4px', borderRadius: '7px', cursor: isHero ? 'default' : 'pointer', background: isHero ? 'transparent' : 'rgba(201,168,78,0.14)', color: isHero ? dim : gold, border: 'none' }}>{isHero ? 'Cover' : 'Set cover'}</button>
+                          <button type="button" disabled={photoBusy || i === 0} onClick={() => movePhoto(img.id, -1)} title="Move left" style={{ fontSize: '13px', padding: '6px 8px', borderRadius: '7px', cursor: i === 0 ? 'default' : 'pointer', background: 'rgba(255,255,255,0.06)', color: i === 0 ? dim : text, border: 'none' }}>←</button>
+                          <button type="button" disabled={photoBusy || i === existingImages.length - 1} onClick={() => movePhoto(img.id, 1)} title="Move right" style={{ fontSize: '13px', padding: '6px 8px', borderRadius: '7px', cursor: i === existingImages.length - 1 ? 'default' : 'pointer', background: 'rgba(255,255,255,0.06)', color: i === existingImages.length - 1 ? dim : text, border: 'none' }}>→</button>
+                          <button type="button" disabled={photoBusy} onClick={() => deletePhoto(img.id)} title="Delete photo" style={{ fontSize: '12px', padding: '6px 8px', borderRadius: '7px', cursor: 'pointer', background: 'rgba(248,113,113,0.12)', color: '#f87171', border: 'none' }}>✕</button>
+                        </div>
                       </div>
-                    ))}
+                    )
+                  })}
                 </div>
               </div>
             )}

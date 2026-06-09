@@ -25,7 +25,10 @@ const COUNTRIES: { code: string; name: string }[] = [
   { code: 'DK', name: 'Denmark' }, { code: 'FI', name: 'Finland' }, { code: 'NO', name: 'Norway' },
   { code: 'PL', name: 'Poland' }, { code: 'CH', name: 'Switzerland' }, { code: 'GB', name: 'United Kingdom' },
   { code: 'TH', name: 'Thailand' }, { code: 'AE', name: 'United Arab Emirates' }, { code: 'TR', name: 'Turkey' },
-  { code: 'ME', name: 'Montenegro' }, { code: 'US', name: 'United States' }, { code: 'OTHER', name: 'Other country…' },
+  { code: 'ME', name: 'Montenegro' }, { code: 'US', name: 'United States' },
+  { code: 'CW', name: 'Curaçao' }, { code: 'AW', name: 'Aruba' }, { code: 'MX', name: 'Mexico' },
+  { code: 'SC', name: 'Seychelles' }, { code: 'MU', name: 'Mauritius' }, { code: 'BS', name: 'Bahamas' },
+  { code: 'OTHER', name: 'Other country…' },
 ]
 
 const CURRENCIES = ['EUR', 'USD', 'GBP', 'THB', 'AED', 'CHF', 'SEK', 'NOK', 'DKK', 'PLN', 'TRY']
@@ -72,17 +75,22 @@ export default function BankDetailsForm({ initial }: { initial: PayoutMethod }) 
     currency: initial?.currency ?? 'EUR',
     notes: initial?.notes ?? '',
   })
+  // When the country isn't in the list, the host picks "Other country…" and types it here.
+  const [otherCountry, setOtherCountry] = useState('')
 
   const isSepa = SEPA.has(form.bank_country)
   function set<K extends keyof typeof form>(k: K, v: string) { setForm((f) => ({ ...f, [k]: v })) }
 
   async function save() {
-    setError(null); setSaving(true)
+    setError(null)
+    const effectiveCountry = form.bank_country === 'OTHER' ? otherCountry.trim() : form.bank_country
+    if (!effectiveCountry || effectiveCountry.toUpperCase() === 'OTHER') { setError('Please enter your bank country.'); return }
+    setSaving(true)
     try {
       const res = await fetch('/api/payout-method', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, bank_country: effectiveCountry }),
       })
       const json = await res.json().catch(() => ({}))
       if (!res.ok) { setError(json.error ?? 'Could not save. Please try again.'); return }
@@ -90,7 +98,7 @@ export default function BankDetailsForm({ initial }: { initial: PayoutMethod }) 
         account_holder_name: form.account_holder_name,
         account_holder_type: form.account_holder_type,
         account_holder_address: form.account_holder_address || null,
-        bank_country: form.bank_country,
+        bank_country: effectiveCountry,
         bank_name: form.bank_name || null,
         iban: form.iban || null,
         account_number: form.account_number || null,
@@ -202,6 +210,9 @@ export default function BankDetailsForm({ initial }: { initial: PayoutMethod }) 
             <select value={form.bank_country} onChange={(e) => set('bank_country', e.target.value)} style={{ ...inputStyle, cursor: 'pointer', colorScheme: 'dark' }}>
               {COUNTRIES.map((c) => <option key={c.code} value={c.code} style={{ background: '#0c1828' }}>{c.name}</option>)}
             </select>
+            {form.bank_country === 'OTHER' && (
+              <input value={otherCountry} onChange={(e) => setOtherCountry(e.target.value)} placeholder="Type your country (e.g. Curaçao)" style={{ ...inputStyle, marginTop: '8px' }} />
+            )}
           </div>
           <div style={{ flex: '1 1 110px' }}>
             <label style={labelStyle}>Currency</label>
