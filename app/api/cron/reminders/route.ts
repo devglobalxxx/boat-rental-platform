@@ -65,3 +65,4 @@ export async function GET(req: NextRequest) {
 }
 
 // deploy: booking reminders cron (7154c3b)
+// pro deploy trigger
