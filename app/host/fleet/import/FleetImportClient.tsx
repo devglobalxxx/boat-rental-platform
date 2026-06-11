@@ -29,7 +29,7 @@ interface ParsedBoat {
   errors: string[]
 }
 
-const VALID_TYPES = ['motor_yacht', 'catamaran', 'sailing', 'speedboat', 'fishing', 'rib', 'luxury']
+const VALID_TYPES = ['motor_yacht', 'catamaran', 'sailing', 'speedboat', 'fishing', 'rib', 'luxury', 'gulet']
 
 function parseCSV(text: string): ParsedBoat[] {
   const lines = text.trim().split('\n').filter(Boolean)
@@ -227,7 +227,7 @@ export default function FleetImportClient({ userId, locations }: Props) {
               <tbody>
                 {[
                   ['name', 'Yes', '"Sunseeker 48"'],
-                  ['type', 'Yes', 'motor_yacht | catamaran | sailing | speedboat | fishing | rib | luxury'],
+                  ['type', 'Yes', 'motor_yacht | catamaran | sailing | speedboat | fishing | rib | luxury | gulet'],
                   ['length_m', 'No', '14.6'],
                   ['capacity_pax', 'Yes', '8'],
                   ['hourly_price', 'Yes*', '350'],

@@ -8,6 +8,7 @@ const BOAT_TYPES = [
   { value: 'motor_yacht', label: 'Motor yacht' },
   { value: 'catamaran',   label: 'Catamaran' },
   { value: 'sailing',     label: 'Sailing' },
+  { value: 'gulet',       label: 'Gulet' },
   { value: 'speedboat',   label: 'Speedboat' },
   { value: 'luxury',      label: 'Luxury' },
   { value: 'fishing',     label: 'Fishing' },

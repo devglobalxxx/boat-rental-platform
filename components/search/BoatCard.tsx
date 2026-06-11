@@ -19,6 +19,7 @@ const TYPE_LABELS: Record<string, string> = {
   luxury:      'Luxury yacht',
   jet_ski:     'Jet ski',
   jet_car:     'Jet car',
+  gulet:       'Gulet',
 }
 
 export default function BoatCard({ boat }: BoatCardProps) {

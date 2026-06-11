@@ -29,7 +29,7 @@ const STEPS = ['Basics', 'Specs & features', 'Pricing', 'Photos', 'Review & publ
 export const REFUND_MARKER = '__REFUND_POLICY__::'
 
 const BOAT_TYPES = [
-  'motor_yacht', 'catamaran', 'sailing', 'speedboat', 'fishing', 'rib', 'luxury', 'jet_ski', 'jet_car',
+  'motor_yacht', 'catamaran', 'sailing', 'speedboat', 'fishing', 'rib', 'luxury', 'jet_ski', 'jet_car', 'gulet',
 ]
 
 const COMMON_FEATURES = [

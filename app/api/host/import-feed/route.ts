@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 
 const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
-const BOAT_TYPES = ['motor_yacht', 'catamaran', 'sailing', 'speedboat', 'fishing', 'rib', 'luxury', 'jet_ski', 'jet_car']
+const BOAT_TYPES = ['motor_yacht', 'catamaran', 'sailing', 'speedboat', 'fishing', 'rib', 'luxury', 'jet_ski', 'jet_car', 'gulet']
 function mapType(raw: unknown): string {
   const t = String(raw ?? '').toLowerCase().replace(/[\s-]+/g, '_')
   if (BOAT_TYPES.includes(t)) return t

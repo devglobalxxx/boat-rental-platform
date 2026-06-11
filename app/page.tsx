@@ -101,6 +101,7 @@ const BOAT_TYPES = [
   { slug: 'speedboat',   icon: '⚡',  label: 'Speedboat',       desc: 'When ten knots is not fast enough. Our speedboat fleet gets you to your anchorage, beach club, or island stop in record time.' },
   { slug: 'fishing',     icon: '🎣',  label: 'Sport Fishing',   desc: 'Fully rigged with professional tackle, fighting chairs, and local captains who know where the tuna, dorado, and marlin run.' },
   { slug: 'luxury',      icon: '👑',  label: 'Superyacht',      desc: 'Step aboard something extraordinary. Full crew, private chef, tender garage — the absolute pinnacle of the charter experience.' },
+  { slug: 'gulet',       icon: '⚓',  label: 'Gulet',           desc: 'Traditional hand-built wooden sailing yachts with multiple cabins and full crew — the heart of a Mediterranean "blue voyage", with relaxed multi-day cruising along the Turkish, Greek and Croatian coasts.' },
 ]
 
 const DESTINATIONS = [
