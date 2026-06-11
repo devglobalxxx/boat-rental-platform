@@ -1841,3 +1841,44 @@
 [2026-06-10 10:03:33] refill (LLM fallback): +19 (queue now 19)
 [2026-06-10 10:03:33] === Done: 0 ok, 0 failed ===
 
+[2026-06-11 09:42:42] === Generate: 19 blog + 0 landing = 19 item(s) (backend=deepseek) ===
+[2026-06-11 09:42:43] [1/19] blog · best-anchorages-near-benalmadena
+[2026-06-11 09:43:59]   ✓ generated
+[2026-06-11 09:43:59] [2/19] blog · best-coves-for-anchoring-near-benalmadena
+[2026-06-11 09:45:09]   ✓ generated
+[2026-06-11 09:45:09] [3/19] blog · best-snorkeling-coves-benalmadena
+[2026-06-11 09:46:19]   ✓ generated
+[2026-06-11 09:46:19] [4/19] blog · best-snorkeling-gear-for-benalmadena-boat-trips
+[2026-06-11 09:47:32]   ✓ generated
+[2026-06-11 09:47:32] [5/19] blog · best-snorkeling-spots-near-marbella
+[2026-06-11 09:48:35]   ✓ generated
+[2026-06-11 09:48:35] [6/19] blog · best-sunset-spots-near-benalmadena
+[2026-06-11 09:49:45]   ✓ generated
+[2026-06-11 09:49:45] [7/19] blog · best-sunset-spots-near-fuengirola
+[2026-06-11 09:50:53]   ✓ generated
+[2026-06-11 09:50:53] [8/19] blog · best-time-for-fishing-in-puerto-banus
+[2026-06-11 09:52:03]   ✓ generated
+[2026-06-11 09:52:03] [9/19] blog · best-time-for-sunset-boat-trip-puerto-banus
+[2026-06-11 09:53:11]   ✓ generated
+[2026-06-11 09:53:11] [10/19] blog · best-time-to-see-dolphins-in-puerto-banus
+[2026-06-11 09:54:16]   ✓ generated
+[2026-06-11 09:54:16] [11/19] blog · boat-rental-insurance-marbella-guide
+[2026-06-11 09:55:25]   ✓ generated
+[2026-06-11 09:55:25] [12/19] blog · boat-trip-marbella-for-engagement
+[2026-06-11 09:56:30]   ✓ generated
+[2026-06-11 09:56:30] [13/19] blog · boat-trip-marbella-for-birthday-surprise
+[2026-06-11 09:57:39]   ✓ generated
+[2026-06-11 09:57:39] [14/19] blog · boat-trip-marbella-to-cabo-pino
+[2026-06-11 09:58:50]   ✓ generated
+[2026-06-11 09:58:50] [15/19] blog · boat-trip-marbella-to-puerto-banus
+[2026-06-11 09:59:59]   ✓ generated
+[2026-06-11 09:59:59] [16/19] blog · boat-trip-marbella-in-winter
+[2026-06-11 10:01:07]   ✓ generated
+[2026-06-11 10:01:07] [17/19] blog · boat-trip-marbella-weather-june
+[2026-06-11 10:02:12]   ✓ generated
+[2026-06-11 10:02:12] [18/19] blog · marbella-boat-party-for-new-years-eve
+[2026-06-11 10:03:22]   ✓ generated
+[2026-06-11 10:03:22] [19/19] blog · marbella-boat-party-for-f1-weekend-tips
+[2026-06-11 10:04:34]   ✓ generated
+[2026-06-11 10:04:35] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-11 10:05:27] refill (LLM fallback): +56 (queue now 56)
