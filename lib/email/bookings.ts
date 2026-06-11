@@ -415,3 +415,40 @@ export async function sendBookerRequestReceived(bookingId: string) {
   await sendWhatsApp(await phoneOf(ctx.b.renter_id),
     `✅ *Request received* — ${f.boatName} · ${f.date} · ${ctx.b.guests_count} guests · ${f.money}.\nThe owner will confirm, then you'll get a payment link — no charge yet.\nTrack it: ${SITE}/dashboard`)
 }
+
+/** 24h before the trip → remind the guest their trip is coming up (email + WhatsApp). */
+export async function sendTripReminder(bookingId: string) {
+  const ctx = await loadBooking(bookingId)
+  if (!ctx?.boat) return
+  const f = fmt(ctx.b, ctx.boat.name)
+  const to = await emailOf(ctx.b.renter_id)
+  if (to) await resend.emails.send({
+    from: FROM, to, subject: `⏰ Reminder: your ${f.boatName} trip is tomorrow — ${f.date}`,
+    html: shell('⏰ Your trip is coming up', '#c9a84e', `
+      <p>Just a friendly reminder — your booking on <strong style="color:#f4f4f2">${f.boatName}</strong> starts in about <strong>24 hours</strong>. Here are your details:</p>
+      ${detailRows(f)}
+      <p>Please arrive 15 minutes early at the meeting point, bring a valid ID, and check the weather forecast. Reply to this email if anything's changed.</p>
+      <p style="margin:18px 0 6px">${btn(`${SITE}/dashboard`, 'View my trip →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">See you on the water!</p>`),
+  }).catch(() => {})
+  await sendWhatsApp(await phoneOf(ctx.b.renter_id),
+    `⏰ *Trip reminder* — your ${f.boatName} starts in ~24h!\n${f.date} ${f.time}${f.dur ? ` (${f.dur})` : ''} · ${ctx.b.guests_count} guests\nArrive 15 min early with a valid ID. Details: ${SITE}/dashboard\nSee you on the water!`)
+}
+
+/** Booking still unpaid 24h on → remind the guest to complete payment (email + WhatsApp). */
+export async function sendPaymentReminder(bookingId: string) {
+  const ctx = await loadBooking(bookingId)
+  if (!ctx?.boat) return
+  const f = fmt(ctx.b, ctx.boat.name)
+  const to = await emailOf(ctx.b.renter_id)
+  if (to) await resend.emails.send({
+    from: FROM, to, subject: `💳 Complete your payment for ${f.boatName} — ${f.date}`,
+    html: shell('💳 Payment still pending', '#f59e0b', `
+      <p>Your booking for <strong style="color:#f4f4f2">${f.boatName}</strong> isn't confirmed yet because payment hasn't been completed. To secure your date, please complete payment soon — <strong>unpaid bookings are released after 48 hours</strong>.</p>
+      ${detailRows(f)}
+      <p style="margin:18px 0 6px">${btn(`${SITE}/dashboard`, 'Complete payment →')}</p>
+      <p style="color:#8b94a3;font-size:12px;margin-top:14px">Already paid? You can ignore this — it can take a few minutes to update.</p>`),
+  }).catch(() => {})
+  await sendWhatsApp(await phoneOf(ctx.b.renter_id),
+    `💳 *Payment pending* — your ${f.boatName} booking (${f.date}, ${f.money}) isn't confirmed yet.\nComplete payment to secure it — unpaid bookings are released after 48h:\n${SITE}/dashboard`)
+}

@@ -2515,3 +2515,124 @@ To https://github.com/mardo89/boat-rental-platform.git
 quarantined 0 thin landings; kept 365
 cannibalization: 111 variant pages canonicalized to a primary
 relinked: blogs=232 (homepage 232/232), landings=365 (homepage 365/365), affiliate-link pool=9
+[main b5c6640] Daily SEO maintenance (2026-06-09): relink + canonical + affiliate
+ Committer: master <master@masters-MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 630 insertions(+), 588 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   8a7c7c7..b5c6640  HEAD -> main
+[2026-06-09 02:23:12] es: translating 24 landing page(s)
+[2026-06-09 02:23:49]   [1/24] ✓ rent-catamaran-marbella-port
+[2026-06-09 02:24:21]   [2/24] ✓ charter-motor-yacht-puerto-banus
+[2026-06-09 02:25:00]   [3/24] ✓ hire-speedboat-marbella-no-licence
+[2026-06-09 02:25:35]   [4/24] ✓ luxury-catamaran-charter-puerto-banus
+[2026-06-09 02:26:14]   [5/24] ✓ boat-hire-estepona-port
+[2026-06-09 02:26:49]   [6/24] ✓ dolphin-watching-boat-trip-marbella
+[2026-06-09 02:27:24]   [7/24] ✓ sunset-boat-trip-marbella-price
+[2026-06-09 02:28:03]   [8/24] ✓ private-boat-hire-marbella-for-hen-do
+[2026-06-09 02:28:41]   [9/24] ✓ private-boat-hire-marbella-for-wedding
+[2026-06-09 02:29:22]   [10/24] ✓ private-boat-hire-marbella-for-birthday
+[2026-06-09 02:30:06]   [11/24] ✓ private-boat-hire-marbella-for-photoshoot
+[2026-06-09 02:30:40]   [12/24] ✓ private-catamaran-hire-marbella
+[2026-06-09 02:31:16]   [13/24] ✓ affordable-catamaran-hire-puerto-banus
+[2026-06-09 02:31:53]   [14/24] ✓ luxury-yacht-rental-marbella-week
+[2026-06-09 02:32:31]   [15/24] ✓ speedboat-hire-marbella-hourly-rate
+[2026-06-09 02:33:09]   [16/24] ✓ private-yacht-charter-marbella-group
+[2026-06-09 02:33:50]   [17/24] ✓ fishing-charter-marbella-full-day-price
+[2026-06-09 02:34:27]   [18/24] ✓ private-boat-hire-marbella-hen-do
+[2026-06-09 02:35:03]   [19/24] ✓ luxury-motor-yacht-rental-marbella-day
+[2026-06-09 02:35:43]   [20/24] ✓ catamaran-hire-marbella-birthday
+[2026-06-09 02:36:21]   [21/24] ✓ catamaran-rental-fuengirola-day
+[2026-06-09 02:37:01]   [22/24] ✓ fishing-charter-marbella-half-day-price
+[2026-06-09 02:37:42]   [23/24] ✓ luxury-catamaran-hire-marbella-day
+[2026-06-09 02:38:17]   [24/24] ✓ luxury-yacht-charter-marbella-day
+[2026-06-09 02:38:17] es: 24/24 translated (total es=365)
+[main 0229c6d] es: +24 Spanish landing translations
+ Committer: master <master@masters-MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 980 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   b5c6640..0229c6d  HEAD -> main
+[2026-06-09 02:38:20] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-06-09 02:38:22] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-09 02:38:23] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-09 02:38:23] Blogger: 0/80 published this run
+image pool size: 41
+  post: Hen Party Boat Marbella: Unforgettable Celebr
+  post: Fishing Charter Puerto Banus: Deep Sea Advent
+  post: Snorkeling Spots on Costa del Sol: Hidden Gem
+  post: Sunset Catamaran Marbella: Top Spots for Gold
+  post: Dolphin Watching in Puerto Banus: Best Times 
+  post: Do You Need a Licence to Rent a Boat in Spain
+  post: Photoshoot Boat Marbella: Capture Stunning Se
+  post: Marbella Feria Boat Parties: Celebrate on the
+  post: Planning a Family Boat Day in Marbella
+  post: Stag & Hen Boat Party Ideas in Marbella
+  post: The Best Anchorages and Swimming Spots near M
+  post: Catamaran vs Motor Yacht: Which to Charter in
+  post: What to Pack for a Boat Day on the Costa del 
+  post: Dolphin Watching Boat Trips from Marbella: A 
+  post: How Much Does a Yacht Charter in Marbella Cos
+  post: Marbella vs Puerto Banús: Which Departure Por
+  post: The Best Time to Charter a Boat in Marbella
+  page: Private Boat Party Marbella — Hen, Stag & Bir
+  page: Licence-Free Boat Hire Marbella — No Licence 
+  page: Fishing Charter Marbella — Deep Sea & Coastal
+  page: Sunset Boat Trip Marbella — Cava & Skipper In
+  page: Yacht Charter Puerto Banús — Day & Sunset Hir
+enriched 22 item(s) with UNIQUE distributed images
+[2026-06-09 02:39:04] WP: publishing 38 post(s) + 24 page(s) to boathire24guides.wordpress.com
+Traceback (most recent call last):
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 236, in <module>
+    sys.exit(main())
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 209, in main
+    code, res = wp_post("posts", payload)
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 83, in wp_post
+    return r.status, json.loads(r.read())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-09 02:39:09] done 2026-06-09
+[2026-06-10 10:02:49] starting daily run for 2026-06-10
+[2026-06-10 10:02:51] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-06-10 10:02:53] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-10 10:03:33] refill (LLM fallback): +19 (queue now 19)
+[2026-06-10 10:03:33] === Done: 0 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 365
+cannibalization: 111 variant pages canonicalized to a primary
+relinked: blogs=232 (homepage 232/232), landings=365 (homepage 365/365), affiliate-link pool=9

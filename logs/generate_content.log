@@ -1836,3 +1836,8 @@
 [2026-06-09 02:23:07] reindex ping: 200 {"ok":true,"urls_total":1344,"indexnow":{"ok":true,"status":200,"count":1344},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-08T22:
 [2026-06-09 02:23:07] === Done: 29 ok, 0 failed ===
 
+[2026-06-10 10:02:51] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-06-10 10:02:53] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-10 10:03:33] refill (LLM fallback): +19 (queue now 19)
+[2026-06-10 10:03:33] === Done: 0 ok, 0 failed ===
+

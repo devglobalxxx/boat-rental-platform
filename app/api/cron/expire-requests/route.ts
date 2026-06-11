@@ -15,8 +15,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  // Pending requests older than 24h are expired.
-  const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+  // Pending requests older than 48h are expired (guests get a payment reminder at
+  // 24h via /api/cron/reminders before the hold is released here).
+  const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString()
   const { data: stale, error } = await admin
     .from('bookings')
     .select('id, stripe_payment_intent_id')
