@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { Layers, Upload, Calendar, Building2, ArrowRight, Ship, BarChart3, CheckCircle, Clock } from 'lucide-react'
+import { Layers, Upload, Calendar, Building2, ArrowRight, Ship, BarChart3, CheckCircle, Clock, Globe } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Fleet Manager' }
@@ -73,6 +73,14 @@ export default async function FleetManagerPage() {
         {/* ── Feature cards ── */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px', marginBottom: '52px' }}>
           {[
+            {
+              href: '/host/fleet/website',
+              Icon: Globe,
+              title: 'Import from your website',
+              desc: 'Paste your company website and we import every boat automatically — specs, prices, descriptions and photos.',
+              badge: 'AI-powered',
+              badgeColor: '#a855f7',
+            },
             {
               href: '/host/fleet/import',
               Icon: Upload,

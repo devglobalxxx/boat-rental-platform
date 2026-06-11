@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { after } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
 import { sendNewMessageAlert } from '@/lib/email/bookings'
+import { maybeAutoReply } from '@/lib/ai/autoreply'
+
+export const maxDuration = 60
 
 const admin = createAdmin(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
@@ -31,6 +35,10 @@ export async function POST(req: NextRequest) {
 
   const boatId = (conv as { boat_id: string | null }).boat_id
   sendNewMessageAlert(conversationId, user.id, text, boatId, parts).catch(() => {})
+
+  // Instant AI answer on the host's behalf (runs after the response is sent;
+  // realtime delivers it to the open thread like any other message).
+  after(() => maybeAutoReply(conversationId, user.id).catch((e) => console.error('autoreply:', e)))
 
   return NextResponse.json({ ok: true, message: msg })
 }

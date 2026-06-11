@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { createClient } from '@/lib/supabase/client'
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react'
+import { ChevronRight, ChevronLeft, Check, Sparkles } from 'lucide-react'
 import type { Location } from '@/types/database'
 
 interface WizardProps {
@@ -184,6 +184,36 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
     [...((initialData?.boat_images as any[]) ?? [])].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
   )
   const [photoBusy, setPhotoBusy] = useState(false)
+  const [aiBusy, setAiBusy] = useState(false)
+
+  // "Generate with AI" — writes a tagline + description from the facts already in the form.
+  async function generateDescription() {
+    if (!form.name.trim()) { setError('Give the boat a name first, then generate.'); return }
+    setAiBusy(true)
+    setError(null)
+    try {
+      const loc = locations.find((l) => l.id === form.locationId)
+      const res = await fetch('/api/ai/describe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name, type: form.type, lengthM: form.lengthM, capacityPax: form.capacityPax,
+          cabins: form.cabins, builder: form.builder, modelYear: form.modelYear,
+          departurePort: form.departurePort, locationName: loc ? `${loc.city}, ${loc.country}` : '',
+          includesSkipper: form.includesSkipper, includesFuel: form.includesFuel,
+          includesDrinks: form.includesDrinks, features: form.selectedFeatures,
+          existingDescription: form.description,
+        }),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Generation failed')
+      setForm((f) => ({ ...f, description: json.description, tagline: f.tagline || json.tagline || '' }))
+    } catch (e) {
+      setError((e as Error).message)
+    } finally {
+      setAiBusy(false)
+    }
+  }
 
   function update(key: keyof FormData, value: any) {
     setForm((f) => ({ ...f, [key]: value }))
@@ -388,6 +418,20 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
             </Field>
             <Field label="Full description">
               <DarkTextarea value={form.description} onChange={(e) => update('description', e.target.value)} placeholder="Describe the boat, the experience, what to expect…" rows={5} />
+              <button
+                type="button"
+                onClick={generateDescription}
+                disabled={aiBusy}
+                style={{
+                  alignSelf: 'flex-start', display: 'inline-flex', alignItems: 'center', gap: '7px',
+                  padding: '8px 16px', borderRadius: '99px', background: goldFaint,
+                  border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600,
+                  cursor: aiBusy ? 'wait' : 'pointer', opacity: aiBusy ? 0.6 : 1,
+                }}
+              >
+                <Sparkles style={{ width: 14, height: 14 }} />
+                {aiBusy ? 'Writing…' : form.description ? 'Rewrite with AI' : 'Generate with AI'}
+              </button>
             </Field>
             <Field label="Boat type" required>
               <DarkSelect value={form.type} onChange={(v) => update('type', v)}>

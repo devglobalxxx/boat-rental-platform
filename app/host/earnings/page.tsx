@@ -33,6 +33,19 @@ export default async function HostEarningsPage() {
   const stripeAccountId = (profile as { stripe_account_id?: string | null } | null)?.stripe_account_id ?? null
   const payout = stripeAccountId ? await getPayoutSummary(stripeAccountId) : null
 
+  // Per-trip payout ledger (written by the daily payout cron; empty until
+  // migration 007 is applied, in which case the section simply hides).
+  const { data: payoutRows } = await supabase
+    .from('payouts' as any)
+    .select('id, booking_id, amount, currency, method, status, paid_at, created_at')
+    .eq('host_id', user.id)
+    .order('created_at', { ascending: false })
+    .limit(20)
+  const payoutHistory = (payoutRows ?? []) as {
+    id: string; booking_id: string; amount: number; currency: string
+    method: string; status: string; paid_at: string | null; created_at: string
+  }[]
+
   const allBookings = bookings ?? []
   const now = new Date()
 
@@ -154,6 +167,40 @@ export default async function HostEarningsPage() {
               })}
             </div>
             <p style={{ fontSize: '12px', color: dim, marginTop: '16px' }}>Amounts shown after 15% platform fee. Payouts processed via Stripe.</p>
+          </div>
+        )}
+
+        {/* Per-trip payouts (from the daily payout automation) */}
+        {payoutHistory.length > 0 && (
+          <div style={{ background: card, borderRadius: '16px', border, padding: '24px', marginBottom: '24px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '6px' }}>Payout history</h2>
+            <p style={{ fontSize: '12.5px', color: dim, margin: '0 0 16px' }}>
+              Your 85% share is released automatically after each completed trip.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {payoutHistory.map((p, i, arr) => {
+                const boatName = allBookings.find((b) => b.id === p.booking_id)?.boats
+                const statusColor = p.status === 'paid' ? '#22c55e' : p.status === 'failed' ? '#f87171' : '#f59e0b'
+                const statusLabel = p.status === 'paid' ? 'Paid' : p.status === 'due' ? 'On its way' : p.status === 'failed' ? 'Retrying' : 'Processing'
+                const methodLabel = p.method === 'manual_bank' ? 'Bank transfer' : 'Stripe'
+                return (
+                  <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '12px 0', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ fontSize: '13.5px', fontWeight: 600, color: text }}>{(boatName as any)?.name ?? 'Trip'}</span>
+                      <span style={{ fontSize: '12px', color: muted, marginLeft: '10px' }}>
+                        {new Date(p.paid_at ?? p.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })} · {methodLabel}
+                      </span>
+                    </div>
+                    <span style={{ fontSize: '11.5px', fontWeight: 700, padding: '3px 10px', borderRadius: '99px', color: statusColor, background: `${statusColor}1a`, border: `1px solid ${statusColor}40` }}>
+                      {statusLabel}
+                    </span>
+                    <span style={{ fontSize: '14px', fontWeight: 800, color: gold, minWidth: '80px', textAlign: 'right' }}>
+                      {formatPrice(p.amount, p.currency)}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         )}
 

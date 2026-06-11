@@ -5,6 +5,7 @@ import { formatPrice } from '@/lib/utils/pricing'
 import { Plus, Settings, Calendar, BarChart3, Ship, Clock, CheckCircle, Layers, Upload, Building2, ShieldCheck, ShieldAlert, MessageSquare } from 'lucide-react'
 import PayoutBadge from '@/components/ui/PayoutBadge'
 import DeleteListingButton from '@/components/host/DeleteListingButton'
+import AutoReplyToggle from '@/components/host/AutoReplyToggle'
 
 const gold = '#c9a84e'
 const goldFaint = 'rgba(201,168,78,0.10)'
@@ -244,6 +245,9 @@ export default async function HostDashboard() {
             </Link>
           </div>
         </div>
+
+        {/* ── Auto-reply setting ── */}
+        <AutoReplyToggle />
 
         {/* ── Listings ── */}
         <div style={{ marginBottom: '36px' }}>

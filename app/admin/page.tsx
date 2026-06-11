@@ -6,6 +6,7 @@ import AdminDocsButton from './AdminDocsButton'
 import AdminBoatsButton from './AdminBoatsButton'
 import AdminPayoutButton from './AdminPayoutButton'
 import AdminLinkButton from './AdminLinkButton'
+import MarkPayoutPaidButton from './MarkPayoutPaidButton'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Admin Panel' }
@@ -70,6 +71,29 @@ export default async function AdminPage({
 
   const params = await searchParams
   const filter = params.filter ?? 'all'
+
+  // Manual bank payouts waiting on us + failed Stripe transfers (cron retries those).
+  // Empty until migration 007 is applied — the section hides itself.
+  const { data: payoutsDueRaw } = await supabaseAdmin
+    .from('payouts')
+    .select('id, booking_id, host_id, amount, currency, method, status, error, created_at')
+    .in('status', ['due', 'failed'])
+    .order('created_at', { ascending: true })
+    .limit(50)
+  const payoutsDue = (payoutsDueRaw ?? []) as {
+    id: string; booking_id: string; host_id: string; amount: number; currency: string
+    method: string; status: string; error: string | null; created_at: string
+  }[]
+  const payoutBank = new Map<string, string>()
+  if (payoutsDue.length) {
+    const { data: banks } = await supabaseAdmin
+      .from('payout_methods')
+      .select('host_id, iban, account_number, bank_name, account_holder_name')
+      .in('host_id', [...new Set(payoutsDue.map((p) => p.host_id))])
+    for (const b of (banks ?? []) as any[]) {
+      payoutBank.set(b.host_id, [b.account_holder_name, b.iban ?? b.account_number, b.bank_name].filter(Boolean).join(' · '))
+    }
+  }
 
   // Fetch all profiles with boat counts
   const { data: profiles } = await supabaseAdmin
@@ -244,6 +268,53 @@ export default async function AdminPage({
             )}
           </div>
         </div>
+
+        {/* ── Payouts needing attention ── */}
+        {payoutsDue.length > 0 && (
+          <div style={{ marginBottom: '44px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 800, color: text, marginBottom: '4px' }}>💸 Payouts due</h2>
+            <p style={{ fontSize: '13px', color: muted, marginBottom: '16px' }}>
+              Manual bank payouts (host has no Stripe) — send the transfer, then mark paid. Failed Stripe transfers retry automatically.
+            </p>
+            <div style={{ background: card, borderRadius: '16px', border: `1px solid ${border}`, overflow: 'hidden' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+                    {['Host', 'Amount', 'Bank details', 'Status', ''].map((h) => (
+                      <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 600, color: muted, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {payoutsDue.map((p, i, arr) => (
+                    <tr key={p.id} style={{ borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                      <td style={{ padding: '12px 16px', color: text, fontWeight: 600 }}>
+                        {(profiles ?? []).find((pr) => pr.id === p.host_id)?.full_name ?? '—'}
+                        <div style={{ color: muted, fontSize: '11.5px', fontWeight: 400 }}>since {fmtD(p.created_at)}</div>
+                      </td>
+                      <td style={{ padding: '12px 16px', color: gold, fontWeight: 800 }}>
+                        {p.currency === 'EUR' ? '€' : p.currency + ' '}{p.amount.toLocaleString()}
+                      </td>
+                      <td style={{ padding: '12px 16px', color: muted, fontSize: '12px', maxWidth: '280px' }}>
+                        {payoutBank.get(p.host_id) ?? 'No bank details on file — ask the host'}
+                      </td>
+                      <td style={{ padding: '12px 16px' }}>
+                        {p.status === 'failed' ? (
+                          <span style={{ color: '#f87171', fontSize: '12px' }} title={p.error ?? ''}>Stripe failed — retrying</span>
+                        ) : (
+                          <span style={{ color: '#f59e0b', fontSize: '12px' }}>Awaiting bank transfer</span>
+                        )}
+                      </td>
+                      <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                        {p.status === 'due' && <MarkPayoutPaidButton payoutId={p.id} />}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
         {/* ── Hosts & users ── */}
         <h2 style={{ fontSize: '18px', fontWeight: 800, color: text, marginBottom: '14px' }}>👥 Hosts &amp; users</h2>

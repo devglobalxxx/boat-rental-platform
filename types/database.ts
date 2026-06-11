@@ -19,6 +19,7 @@ export interface ProfileRow {
   stripe_account_id: string | null
   stripe_customer_id: string | null
   host_since: string | null
+  auto_reply_enabled?: boolean // migration 007 — instant AI replies to guest messages
   created_at: string
   updated_at: string
 }
@@ -146,6 +147,20 @@ export interface WishlistRow {
   boat_id: string
   created_at: string
 }
+// Migration 007 — per-booking payout ledger written by /api/cron/payouts.
+export interface PayoutRow {
+  id: string
+  booking_id: string
+  host_id: string
+  amount: number
+  currency: string
+  method: 'stripe_destination' | 'stripe_transfer' | 'manual_bank' | 'none'
+  status: 'due' | 'processing' | 'paid' | 'failed'
+  stripe_transfer_id: string | null
+  error: string | null
+  created_at: string
+  paid_at: string | null
+}
 
 // ─── Supabase Database (v2 format with Relationships) ────────────────────────
 
@@ -213,6 +228,11 @@ export interface Database {
         Row: WishlistRow
         Insert: Omit<WishlistRow, 'id' | 'created_at'>
         Update: Partial<Omit<WishlistRow, 'id' | 'created_at'>>
+      } & NoRelationships
+      payouts: {
+        Row: PayoutRow
+        Insert: Omit<PayoutRow, 'id' | 'created_at'>
+        Update: Partial<Omit<PayoutRow, 'id' | 'created_at'>>
       } & NoRelationships
     }
     Views: {

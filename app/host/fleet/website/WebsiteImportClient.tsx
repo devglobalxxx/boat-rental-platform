@@ -1,0 +1,303 @@
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+import { Globe, Sparkles, Check, ArrowLeft, Ship, ImageIcon, Loader2 } from 'lucide-react'
+
+/* ── tokens (match the rest of /host) ── */
+const card = '#0c1828'
+const border = 'rgba(201,168,78,0.18)'
+const gold = '#c9a84e'
+const goldFaint = 'rgba(201,168,78,0.10)'
+const goldBorder = 'rgba(201,168,78,0.28)'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
+const inputBg = 'rgba(255,255,255,0.05)'
+const inputBorder = 'rgba(255,255,255,0.14)'
+
+interface LocationOpt { id: string; name: string; city: string; country: string }
+interface FoundPage { url: string; title: string; selected: boolean }
+interface ExtractedBoat {
+  name: string; tagline: string; description: string; type: string
+  length_m: number | null; capacity_pax: number; cabins: number | null
+  builder: string | null; model_year: number | null; departure_port: string | null
+  currency: string; pricing: { duration_hours: number; price: number }[]
+  features: string[]; images: string[]; sourceUrl: string
+  selected: boolean
+}
+interface ImportResult { name: string; ok: boolean; slug?: string; images?: number; error?: string; updated?: boolean }
+
+const inputStyle: React.CSSProperties = {
+  background: inputBg, border: `1px solid ${inputBorder}`, borderRadius: '10px',
+  color: text, fontSize: '14px', padding: '11px 14px', outline: 'none', width: '100%',
+}
+const goldBtn: React.CSSProperties = {
+  display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px',
+  background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e',
+  fontSize: '14px', fontWeight: 700, border: 'none', cursor: 'pointer',
+}
+const ghostBtn: React.CSSProperties = {
+  display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '10px 18px', borderRadius: '99px',
+  background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, cursor: 'pointer',
+}
+
+export default function WebsiteImportClient({ locations }: { locations: LocationOpt[] }) {
+  const [url, setUrl] = useState('')
+  const [phase, setPhase] = useState<'idle' | 'scanning' | 'pages' | 'extracting' | 'review' | 'importing' | 'done'>('idle')
+  const [error, setError] = useState<string | null>(null)
+  const [pages, setPages] = useState<FoundPage[]>([])
+  const [progress, setProgress] = useState({ done: 0, total: 0 })
+  const [boats, setBoats] = useState<ExtractedBoat[]>([])
+  const [locationId, setLocationId] = useState('')
+  const [publishStatus, setPublishStatus] = useState<'draft' | 'active'>('draft')
+  const [results, setResults] = useState<ImportResult[]>([])
+
+  async function scan() {
+    setError(null)
+    setPhase('scanning')
+    try {
+      const res = await fetch('/api/host/import-website/scan', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url }),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Scan failed')
+      if (!json.pages?.length) throw new Error('No boat pages found on that site. Check the URL, or use Bulk Import (CSV) instead.')
+      setPages(json.pages.map((p: { url: string; title: string }) => ({ ...p, selected: true })))
+      setPhase('pages')
+    } catch (e) {
+      setError((e as Error).message)
+      setPhase('idle')
+    }
+  }
+
+  async function extract() {
+    setError(null)
+    const picked = pages.filter((p) => p.selected)
+    setProgress({ done: 0, total: picked.length })
+    setPhase('extracting')
+    const found: ExtractedBoat[] = []
+    for (let i = 0; i < picked.length; i++) {
+      try {
+        const res = await fetch('/api/host/import-website/extract', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: picked[i].url }),
+        })
+        const json = await res.json()
+        for (const b of json.boats ?? []) {
+          // The same boat sometimes appears on two pages — keep the first.
+          if (!found.some((x) => x.name.toLowerCase() === String(b.name).toLowerCase())) {
+            found.push({ ...b, selected: true })
+          }
+        }
+      } catch { /* one bad page shouldn't kill the run */ }
+      setProgress({ done: i + 1, total: picked.length })
+      setBoats([...found])
+    }
+    if (found.length === 0) {
+      setError('Could not extract any boats from the selected pages.')
+      setPhase('pages')
+      return
+    }
+    setPhase('review')
+  }
+
+  async function runImport() {
+    if (!locationId) { setError('Pick the location (city) for these boats first.'); return }
+    setError(null)
+    const picked = boats.filter((b) => b.selected)
+    setProgress({ done: 0, total: picked.length })
+    setResults([])
+    setPhase('importing')
+    const out: ImportResult[] = []
+    for (let i = 0; i < picked.length; i++) {
+      try {
+        const res = await fetch('/api/host/import-website/import', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ boat: picked[i], locationId, status: publishStatus }),
+        })
+        const json = await res.json()
+        out.push(res.ok
+          ? { name: picked[i].name, ok: true, slug: json.slug, images: json.images, updated: json.updated }
+          : { name: picked[i].name, ok: false, error: json.error || 'Import failed' })
+      } catch (e) {
+        out.push({ name: picked[i].name, ok: false, error: (e as Error).message })
+      }
+      setProgress({ done: i + 1, total: picked.length })
+      setResults([...out])
+    }
+    setPhase('done')
+  }
+
+  const priceLine = (b: ExtractedBoat) => {
+    if (!b.pricing.length) return 'No price found — set it before publishing'
+    return b.pricing.map((p) => `${p.duration_hours}h · ${p.price} ${b.currency}`).join('  ·  ')
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#07101e', padding: '40px 20px' }}>
+      <div style={{ maxWidth: '860px', margin: '0 auto' }}>
+        <Link href="/host/fleet" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: muted, fontSize: '13px', textDecoration: 'none', marginBottom: '24px' }}>
+          <ArrowLeft style={{ width: 14, height: 14 }} /> Fleet Manager
+        </Link>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '10px' }}>
+          <div style={{ width: 48, height: 48, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', background: goldFaint, border: `1px solid ${goldBorder}` }}>
+            <Globe style={{ width: 22, height: 22, color: gold }} />
+          </div>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, margin: 0 }}>Import from your website</h1>
+        </div>
+        <p style={{ color: muted, fontSize: '14px', lineHeight: 1.65, margin: '0 0 28px' }}>
+          Paste your company website and we read your boat pages automatically — names, specs, prices,
+          descriptions and photos — and turn them into BoatHire24 listings. You review everything before it goes live.
+        </p>
+
+        {/* ── Step 1: URL ── */}
+        <div style={{ background: card, borderRadius: 16, border: `1px solid ${border}`, padding: 24, marginBottom: 20 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: gold, marginBottom: 10 }}>STEP 1 — Your website</div>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <input
+              style={inputStyle}
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="e.g. www.your-charter-company.com"
+              onKeyDown={(e) => { if (e.key === 'Enter' && url.trim() && phase !== 'scanning') scan() }}
+            />
+            <button style={{ ...goldBtn, opacity: phase === 'scanning' || !url.trim() ? 0.6 : 1, whiteSpace: 'nowrap' }} disabled={phase === 'scanning' || !url.trim()} onClick={scan}>
+              {phase === 'scanning' ? <Loader2 style={{ width: 15, height: 15, animation: 'spin 1s linear infinite' }} /> : <Sparkles style={{ width: 15, height: 15 }} />}
+              {phase === 'scanning' ? 'Scanning…' : 'Scan website'}
+            </button>
+          </div>
+          {phase === 'scanning' && <div style={{ color: muted, fontSize: 13, marginTop: 12 }}>Reading your site and looking for boat pages — this takes up to a minute.</div>}
+        </div>
+
+        {/* ── Step 2: pages found ── */}
+        {(phase === 'pages' || phase === 'extracting') && (
+          <div style={{ background: card, borderRadius: 16, border: `1px solid ${border}`, padding: 24, marginBottom: 20 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: gold, marginBottom: 10 }}>
+              STEP 2 — {pages.length} boat page{pages.length === 1 ? '' : 's'} found
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxHeight: 320, overflowY: 'auto', marginBottom: 16 }}>
+              {pages.map((p, i) => (
+                <label key={p.url} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 8, background: p.selected ? goldFaint : 'transparent', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={p.selected}
+                    disabled={phase === 'extracting'}
+                    onChange={() => setPages((ps) => ps.map((x, j) => (j === i ? { ...x, selected: !x.selected } : x)))}
+                  />
+                  <span style={{ color: text, fontSize: 13, fontWeight: 600 }}>{p.title || 'Boat page'}</span>
+                  <span style={{ color: muted, fontSize: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.url}</span>
+                </label>
+              ))}
+            </div>
+            <button
+              style={{ ...goldBtn, opacity: phase === 'extracting' || !pages.some((p) => p.selected) ? 0.6 : 1 }}
+              disabled={phase === 'extracting' || !pages.some((p) => p.selected)}
+              onClick={extract}
+            >
+              {phase === 'extracting'
+                ? <><Loader2 style={{ width: 15, height: 15, animation: 'spin 1s linear infinite' }} /> Reading boats… {progress.done}/{progress.total}</>
+                : <><Ship style={{ width: 15, height: 15 }} /> Extract {pages.filter((p) => p.selected).length} page{pages.filter((p) => p.selected).length === 1 ? '' : 's'}</>}
+            </button>
+            {phase === 'extracting' && boats.length > 0 && (
+              <span style={{ marginLeft: 14, color: muted, fontSize: 13 }}>{boats.length} boat{boats.length === 1 ? '' : 's'} extracted so far</span>
+            )}
+          </div>
+        )}
+
+        {/* ── Step 3: review + import ── */}
+        {(phase === 'review' || phase === 'importing' || phase === 'done') && (
+          <div style={{ background: card, borderRadius: 16, border: `1px solid ${border}`, padding: 24, marginBottom: 20 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: gold, marginBottom: 14 }}>
+              STEP 3 — Review {boats.length} boat{boats.length === 1 ? '' : 's'}
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
+              {boats.map((b, i) => (
+                <div key={`${b.name}-${i}`} style={{ display: 'flex', gap: 14, padding: 14, borderRadius: 12, border: `1px solid ${b.selected ? goldBorder : inputBorder}`, background: b.selected ? goldFaint : 'transparent' }}>
+                  {b.images[0]
+                    ? <img src={b.images[0]} alt={b.name} style={{ width: 110, height: 78, objectFit: 'cover', borderRadius: 8, flexShrink: 0 }} />
+                    : <div style={{ width: 110, height: 78, borderRadius: 8, background: inputBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><ImageIcon style={{ width: 20, height: 20, color: muted }} /></div>}
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <input
+                        type="checkbox"
+                        checked={b.selected}
+                        disabled={phase !== 'review'}
+                        onChange={() => setBoats((bs) => bs.map((x, j) => (j === i ? { ...x, selected: !x.selected } : x)))}
+                      />
+                      <span style={{ color: text, fontWeight: 700, fontSize: 15 }}>{b.name}</span>
+                      <span style={{ color: muted, fontSize: 12 }}>
+                        {b.type.replace('_', ' ')}{b.length_m ? ` · ${b.length_m} m` : ''} · up to {b.capacity_pax} guests · {b.images.length} photo{b.images.length === 1 ? '' : 's'}
+                      </span>
+                    </div>
+                    <div style={{ color: gold, fontSize: 12.5, fontWeight: 600, margin: '6px 0' }}>{priceLine(b)}</div>
+                    <div style={{ color: muted, fontSize: 12.5, lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      {b.description || b.tagline || 'No description extracted.'}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {phase === 'review' && (
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+                <select style={{ ...inputStyle, width: 'auto', minWidth: 220, cursor: 'pointer' }} value={locationId} onChange={(e) => setLocationId(e.target.value)}>
+                  <option value="">Location (city) — required</option>
+                  {locations.map((l) => <option key={l.id} value={l.id}>{l.city}, {l.country}</option>)}
+                </select>
+                <select style={{ ...inputStyle, width: 'auto', cursor: 'pointer' }} value={publishStatus} onChange={(e) => setPublishStatus(e.target.value as 'draft' | 'active')}>
+                  <option value="draft">Import as drafts (review first)</option>
+                  <option value="active">Publish immediately</option>
+                </select>
+                <button style={{ ...goldBtn, opacity: boats.some((b) => b.selected) ? 1 : 0.6 }} disabled={!boats.some((b) => b.selected)} onClick={runImport}>
+                  <Check style={{ width: 15, height: 15 }} /> Import {boats.filter((b) => b.selected).length} boat{boats.filter((b) => b.selected).length === 1 ? '' : 's'}
+                </button>
+              </div>
+            )}
+
+            {phase === 'importing' && (
+              <div style={{ color: text, fontSize: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
+                <Loader2 style={{ width: 16, height: 16, color: gold, animation: 'spin 1s linear infinite' }} />
+                Importing boats and copying photos… {progress.done}/{progress.total}
+              </div>
+            )}
+
+            {(phase === 'importing' || phase === 'done') && results.length > 0 && (
+              <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {results.map((r) => (
+                  <div key={r.name} style={{ fontSize: 13, color: r.ok ? '#22c55e' : '#ef4444' }}>
+                    {r.ok
+                      ? <>✓ {r.name} {r.updated ? 'updated' : 'imported'} ({r.images ?? 0} photos)</>
+                      : <>✕ {r.name}: {r.error}</>}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {phase === 'done' && (
+              <div style={{ marginTop: 20, display: 'flex', gap: 12 }}>
+                <Link href="/host/listings" style={{ ...goldBtn, textDecoration: 'none' }}>Review your listings</Link>
+                <button style={ghostBtn} onClick={() => { setPhase('idle'); setPages([]); setBoats([]); setResults([]); setUrl('') }}>
+                  Import another website
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {error && (
+          <div style={{ padding: '12px 16px', borderRadius: 10, background: 'rgba(239,68,68,0.10)', border: '1px solid rgba(239,68,68,0.35)', color: '#fca5a5', fontSize: 13.5, marginBottom: 20 }}>
+            {error}
+          </div>
+        )}
+
+        <p style={{ color: muted, fontSize: 12.5, lineHeight: 1.6 }}>
+          Photos are copied to BoatHire24 so your listings keep working even if your site changes.
+          Only import boats and photos you own the rights to. Prefer a spreadsheet?{' '}
+          <Link href="/host/fleet/import" style={{ color: gold }}>Use Bulk Import (CSV)</Link>.
+        </p>
+      </div>
+      <style>{`@keyframes spin { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }`}</style>
+    </div>
+  )
+}
