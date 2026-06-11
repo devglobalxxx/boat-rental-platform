@@ -63,3 +63,5 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({ ok: true, tripReminders, paymentReminders })
 }
+
+// deploy: booking reminders cron (7154c3b)
