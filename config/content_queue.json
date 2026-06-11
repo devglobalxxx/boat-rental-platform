@@ -6385,147 +6385,853 @@
       "title": "Puerto Banus Boat Rental for Family Day",
       "target_words": 1100,
       "consumed_at": "2026-06-12"
-    }
-  ],
-  "queue": [
-    {
-      "kind": "landing",
-      "slug": "marbella-boat-rental-for-hen-do",
-      "primary_keyword": "Marbella boat rental for hen do",
-      "title": "Marbella Boat Rental for Hen Do Celebrations",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "cheap-boat-rental-marbella",
-      "primary_keyword": "cheap boat rental Marbella",
-      "title": "Cheap Boat Rental Marbella – Affordable Boats from €200",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "last-minute-boat-hire-marbella",
-      "primary_keyword": "last minute boat hire Marbella",
-      "title": "Last Minute Boat Hire Marbella – Book Today & Save",
-      "target_words": 1100
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-party-f1-2026",
       "primary_keyword": "Marbella boat party F1 2026",
       "title": "Marbella Boat Party for F1 2026 – The Ultimate Guide",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
     },
     {
       "kind": "blog",
       "slug": "best-time-to-see-whales-marbella",
       "primary_keyword": "best time to see whales Marbella",
       "title": "Best Time to See Whales in Marbella – Seasonal Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-charter-marbella-sunset",
-      "primary_keyword": "catamaran charter Marbella sunset",
-      "title": "Catamaran Charter Marbella Sunset – Book Your Cruise",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-trip-weather-july",
       "primary_keyword": "Marbella boat trip weather July",
       "title": "Marbella Boat Trip Weather in July – What to Expect",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "boat-rental-puerto-banus-for-stag-do",
-      "primary_keyword": "boat rental Puerto Banus for stag do",
-      "title": "Boat Rental Puerto Banus for Stag Do – Party Packages",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "cheap-catamaran-hire-puerto-banus",
-      "primary_keyword": "cheap catamaran hire Puerto Banus",
-      "title": "Cheap Catamaran Hire Puerto Banus – Budget-Friendly Options",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-boat-charter-marbella-wedding",
-      "primary_keyword": "private boat charter Marbella wedding",
-      "title": "Private Boat Charter Marbella Wedding – Romantic Packages",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "luxury-motor-yacht-charter-marbella-weekend",
-      "primary_keyword": "luxury motor yacht charter Marbella weekend",
-      "title": "Luxury Motor Yacht Charter Marbella Weekend – Top Deals",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "boat-hire-estepona-port-group",
-      "primary_keyword": "boat hire Estepona port group",
-      "title": "Boat Hire Estepona Port for Groups – Up to 12 People",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-yacht-hire-marbella-birthday",
-      "primary_keyword": "private yacht hire Marbella birthday",
-      "title": "Private Yacht Hire Marbella for Birthday – Celebrate in Style",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-trip-weather-august",
       "primary_keyword": "Marbella boat trip weather August",
       "title": "Marbella Boat Trip Weather in August – Hot & Sunny",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "fishing-charter-puerto-banus-full-day",
-      "primary_keyword": "fishing charter Puerto Banus full day",
-      "title": "Fishing Charter Puerto Banus Full Day – Best Rates",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-weather-november",
       "primary_keyword": "Marbella boat weather November",
       "title": "Marbella Boat Weather in November – Is It Worth It?",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "marbella-boat-rental-for-hen-do",
+      "primary_keyword": "Marbella boat rental for hen do",
+      "title": "Marbella Boat Rental for Hen Do Celebrations",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "cheap-boat-rental-marbella",
+      "primary_keyword": "cheap boat rental Marbella",
+      "title": "Cheap Boat Rental Marbella – Affordable Boats from €200",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "last-minute-boat-hire-marbella",
+      "primary_keyword": "last minute boat hire Marbella",
+      "title": "Last Minute Boat Hire Marbella – Book Today & Save",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-marbella-sunset",
+      "primary_keyword": "catamaran charter Marbella sunset",
+      "title": "Catamaran Charter Marbella Sunset – Book Your Cruise",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-rental-puerto-banus-for-stag-do",
+      "primary_keyword": "boat rental Puerto Banus for stag do",
+      "title": "Boat Rental Puerto Banus for Stag Do – Party Packages",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "cheap-catamaran-hire-puerto-banus",
+      "primary_keyword": "cheap catamaran hire Puerto Banus",
+      "title": "Cheap Catamaran Hire Puerto Banus – Budget-Friendly Options",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-boat-charter-marbella-wedding",
+      "primary_keyword": "private boat charter Marbella wedding",
+      "title": "Private Boat Charter Marbella Wedding – Romantic Packages",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "luxury-motor-yacht-charter-marbella-weekend",
+      "primary_keyword": "luxury motor yacht charter Marbella weekend",
+      "title": "Luxury Motor Yacht Charter Marbella Weekend – Top Deals",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-estepona-port-group",
+      "primary_keyword": "boat hire Estepona port group",
+      "title": "Boat Hire Estepona Port for Groups – Up to 12 People",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-yacht-hire-marbella-birthday",
+      "primary_keyword": "private yacht hire Marbella birthday",
+      "title": "Private Yacht Hire Marbella for Birthday – Celebrate in Style",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    },
+    {
+      "kind": "landing",
+      "slug": "fishing-charter-puerto-banus-full-day",
+      "primary_keyword": "fishing charter Puerto Banus full day",
+      "title": "Fishing Charter Puerto Banus Full Day – Best Rates",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
     },
     {
       "kind": "landing",
       "slug": "boat-hire-fuengirola-port-group",
       "primary_keyword": "boat hire Fuengirola port group",
       "title": "Boat Hire Fuengirola Port for Groups – Up to 12",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
     },
     {
       "kind": "landing",
       "slug": "fishing-charter-estepona-full-day",
       "primary_keyword": "fishing charter Estepona full day",
       "title": "Fishing Charter Estepona Full Day – Best Prices",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
     },
     {
       "kind": "landing",
       "slug": "boat-rental-puerto-banus-for-new-years-eve",
       "primary_keyword": "boat rental Puerto Banus for New Years Eve",
       "title": "Boat Rental Puerto Banus for New Year’s Eve – Book Now",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
     },
     {
       "kind": "landing",
       "slug": "boat-rental-benalmadena-marina-group",
       "primary_keyword": "boat rental Benalmadena marina group",
       "title": "Boat Rental Benalmadena Marina for Groups – Up to 12",
+      "target_words": 1100,
+      "consumed_at": "2026-06-12"
+    }
+  ],
+  "queue": [
+    {
+      "kind": "blog",
+      "slug": "best-time-for-dolphin-watching-in-estepona",
+      "primary_keyword": "best time for dolphin watching in Estepona",
+      "title": "Best Time for Dolphin Watching in Estepona: A Complete Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-vs-estepona",
+      "primary_keyword": "dolphin watching Marbella vs Estepona",
+      "title": "Dolphin Watching Marbella vs Estepona: Which Is Better?",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-puerto-banus-vs-estepona",
+      "primary_keyword": "dolphin watching Puerto Banus vs Estepona",
+      "title": "Dolphin Watching Puerto Banus vs Estepona – Comparison",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-vs-fuengirola",
+      "primary_keyword": "dolphin watching Marbella vs Fuengirola",
+      "title": "Dolphin Watching Marbella vs Fuengirola: Where to Go?",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-benalmadena-vs-fuengirola",
+      "primary_keyword": "dolphin watching Benalmadena vs Fuengirola",
+      "title": "Dolphin Watching Benalmadena vs Fuengirola – Which Tour?",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-september",
+      "primary_keyword": "dolphin watching Marbella in September",
+      "title": "Dolphin Watching Marbella in September: What to Expect",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-october",
+      "primary_keyword": "dolphin watching Marbella in October",
+      "title": "Dolphin Watching Marbella in October: Late Season Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-november",
+      "primary_keyword": "dolphin watching Marbella in November",
+      "title": "Dolphin Watching Marbella in November: Winter Sightings",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-december",
+      "primary_keyword": "dolphin watching Marbella in December",
+      "title": "Dolphin Watching Marbella in December: Holiday Magic",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-january",
+      "primary_keyword": "dolphin watching Marbella in January",
+      "title": "Dolphin Watching Marbella in January: Winter Adventure",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-february",
+      "primary_keyword": "dolphin watching Marbella in February",
+      "title": "Dolphin Watching Marbella in February: Cold Weather Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-march",
+      "primary_keyword": "dolphin watching Marbella in March",
+      "title": "Dolphin Watching Marbella in March: Spring Arrival",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-april",
+      "primary_keyword": "dolphin watching Marbella in April",
+      "title": "Dolphin Watching Marbella in April: Early Season Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-june",
+      "primary_keyword": "dolphin watching Marbella in June",
+      "title": "Dolphin Watching Marbella in June: Summer Sightings",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-july",
+      "primary_keyword": "dolphin watching Marbella in July",
+      "title": "Dolphin Watching Marbella in July: Hot Weather Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-in-august",
+      "primary_keyword": "dolphin watching Marbella in August",
+      "title": "Dolphin Watching Marbella in August: Peak Season Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-early-morning-vs-sunset",
+      "primary_keyword": "dolphin watching Marbella early morning vs sunset",
+      "title": "Dolphin Watching Marbella: Early Morning vs Sunset Tours",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-boat-types",
+      "primary_keyword": "dolphin watching Marbella boat types",
+      "title": "Dolphin Watching Marbella Boat Types: Which to Choose?",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-what-to-bring",
+      "primary_keyword": "dolphin watching Marbella what to bring",
+      "title": "Dolphin Watching Marbella: What to Bring for Success",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-best-camera",
+      "primary_keyword": "dolphin watching Marbella best camera",
+      "title": "Dolphin Watching Marbella Best Camera: Capture the Magic",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-kids",
+      "primary_keyword": "dolphin watching Marbella kids",
+      "title": "Dolphin Watching Marbella with Kids: Family-Friendly Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-group-bookings",
+      "primary_keyword": "dolphin watching Marbella group bookings",
+      "title": "Dolphin Watching Marbella Group Bookings: Save Money",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-private-tour",
+      "primary_keyword": "dolphin watching Marbella private tour",
+      "title": "Dolphin Watching Marbella Private Tour: Exclusive Experience",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-price-guide",
+      "primary_keyword": "dolphin watching Marbella price guide",
+      "title": "Dolphin Watching Marbella Price Guide: Costs Explained",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-vs-tarifa-comparison",
+      "primary_keyword": "dolphin watching Marbella vs Tarifa comparison",
+      "title": "Dolphin Watching Marbella vs Tarifa: Full Comparison",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-vs-gibraltar",
+      "primary_keyword": "dolphin watching Marbella vs Gibraltar",
+      "title": "Dolphin Watching Marbella vs Gibraltar: Which Is Best?",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-weather-conditions",
+      "primary_keyword": "dolphin watching Marbella weather conditions",
+      "title": "Dolphin Watching Marbella Weather Conditions: Best Days",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-safety-tips",
+      "primary_keyword": "dolphin watching Marbella safety tips",
+      "title": "Dolphin Watching Marbella Safety Tips: Stay Safe at Sea",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-ethical-guidelines",
+      "primary_keyword": "dolphin watching Marbella ethical guidelines",
+      "title": "Dolphin Watching Marbella Ethical Guidelines: Respect Wildlife",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-tour-operator-tips",
+      "primary_keyword": "dolphin watching Marbella tour operator tips",
+      "title": "Dolphin Watching Marbella Tour Operator Tips: Choose Wisely",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-faq",
+      "primary_keyword": "dolphin watching Marbella FAQ",
+      "title": "Dolphin Watching Marbella FAQ: Answers to Common Questions",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-rainy-day",
+      "primary_keyword": "dolphin watching Marbella rainy day",
+      "title": "Dolphin Watching Marbella on a Rainy Day: Is It Possible?",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-windy-conditions",
+      "primary_keyword": "dolphin watching Marbella windy conditions",
+      "title": "Dolphin Watching Marbella in Windy Conditions: Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-calm-sea",
+      "primary_keyword": "dolphin watching Marbella calm sea",
+      "title": "Dolphin Watching Marbella Calm Sea: Best Conditions",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-rough-sea",
+      "primary_keyword": "dolphin watching Marbella rough sea",
+      "title": "Dolphin Watching Marbella Rough Sea: What to Know",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-fog",
+      "primary_keyword": "dolphin watching Marbella fog",
+      "title": "Dolphin Watching Marbella in Fog: Visibility Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-night",
+      "primary_keyword": "dolphin watching Marbella night",
+      "title": "Dolphin Watching Marbella at Night: Is It Possible?",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-dawn",
+      "primary_keyword": "dolphin watching Marbella dawn",
+      "title": "Dolphin Watching Marbella at Dawn: Early Bird Advantage",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-dusk",
+      "primary_keyword": "dolphin watching Marbella dusk",
+      "title": "Dolphin Watching Marbella at Dusk: Sunset Magic",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-full-moon",
+      "primary_keyword": "dolphin watching Marbella full moon",
+      "title": "Dolphin Watching Marbella Full Moon: Night Experience",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-new-moon",
+      "primary_keyword": "dolphin watching Marbella new moon",
+      "title": "Dolphin Watching Marbella New Moon: Dark Sky Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-tides",
+      "primary_keyword": "dolphin watching Marbella tides",
+      "title": "Dolphin Watching Marbella Tides: How They Affect Sightings",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-currents",
+      "primary_keyword": "dolphin watching Marbella currents",
+      "title": "Dolphin Watching Marbella Currents: Ocean Conditions",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-water-temperature",
+      "primary_keyword": "dolphin watching Marbella water temperature",
+      "title": "Dolphin Watching Marbella Water Temperature: Best Months",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-sea-state",
+      "primary_keyword": "dolphin watching Marbella sea state",
+      "title": "Dolphin Watching Marbella Sea State: Beaufort Scale Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-forecast-apps",
+      "primary_keyword": "dolphin watching Marbella forecast apps",
+      "title": "Dolphin Watching Marbella Forecast Apps: Best Tools",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-weather-charts",
+      "primary_keyword": "dolphin watching Marbella weather charts",
+      "title": "Dolphin Watching Marbella Weather Charts: Read Them Right",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-watching-marbella-wind-direction",
+      "primary_keyword": "dolphin watching Marbella wind direction",
+      "title": "Dolphin Watching Marbella Wind Direction: Best Winds",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-boat-rental-marbella",
+      "primary_keyword": "dolphin watching boat rental Marbella",
+      "title": "Dolphin Watching Boat Rental Marbella – Book Your Tour",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-boat-rental-puerto-banus",
+      "primary_keyword": "dolphin watching boat rental Puerto Banus",
+      "title": "Dolphin Watching Boat Rental Puerto Banus – Rent Now",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-boat-rental-benalmadena",
+      "primary_keyword": "dolphin watching boat rental Benalmadena",
+      "title": "Dolphin Watching Boat Rental Benalmadena – Book Today",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-boat-rental-estepona",
+      "primary_keyword": "dolphin watching boat rental Estepona",
+      "title": "Dolphin Watching Boat Rental Estepona – Reserve Online",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-boat-rental-fuengirola",
+      "primary_keyword": "dolphin watching boat rental Fuengirola",
+      "title": "Dolphin Watching Boat Rental Fuengirola – Book Now",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-catamaran-hire-marbella",
+      "primary_keyword": "dolphin watching catamaran hire Marbella",
+      "title": "Dolphin Watching Catamaran Hire Marbella – Luxury Tour",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-catamaran-hire-puerto-banus",
+      "primary_keyword": "dolphin watching catamaran hire Puerto Banus",
+      "title": "Dolphin Watching Catamaran Hire Puerto Banus – Book",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-speedboat-hire-marbella",
+      "primary_keyword": "dolphin watching speedboat hire Marbella",
+      "title": "Dolphin Watching Speedboat Hire Marbella – Fast Tour",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-yacht-charter-marbella",
+      "primary_keyword": "dolphin watching yacht charter Marbella",
+      "title": "Dolphin Watching Yacht Charter Marbella – Premium Tour",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-motor-yacht-hire-marbella",
+      "primary_keyword": "dolphin watching motor yacht hire Marbella",
+      "title": "Dolphin Watching Motor Yacht Hire Marbella – Comfort",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-motor-yacht-hire-puerto-banus",
+      "primary_keyword": "dolphin watching motor yacht hire Puerto Banus",
+      "title": "Dolphin Watching Motor Yacht Hire Puerto Banus – Rent",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-private-boat-hire-marbella",
+      "primary_keyword": "dolphin watching private boat hire Marbella",
+      "title": "Dolphin Watching Private Boat Hire Marbella – Exclusive",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-group-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching group boat hire Puerto Banus",
+      "title": "Dolphin Watching Group Boat Hire Puerto Banus – Deals",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-family-boat-hire-marbella",
+      "primary_keyword": "dolphin watching family boat hire Marbella",
+      "title": "Dolphin Watching Family Boat Hire Marbella – Kid-Friendly",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-family-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching family boat hire Puerto Banus",
+      "title": "Dolphin Watching Family Boat Hire Puerto Banus – Fun",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-birthday-boat-hire-marbella",
+      "primary_keyword": "dolphin watching birthday boat hire Marbella",
+      "title": "Dolphin Watching Birthday Boat Hire Marbella – Celebrate",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-birthday-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching birthday boat hire Puerto Banus",
+      "title": "Dolphin Watching Birthday Boat Hire Puerto Banus – Party",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-hen-do-boat-hire-marbella",
+      "primary_keyword": "dolphin watching hen do boat hire Marbella",
+      "title": "Dolphin Watching Hen Do Boat Hire Marbella – Unique",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-stag-do-boat-hire-marbella",
+      "primary_keyword": "dolphin watching stag do boat hire Marbella",
+      "title": "Dolphin Watching Stag Do Boat Hire Marbella – Adventure",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-romantic-boat-hire-marbella",
+      "primary_keyword": "dolphin watching romantic boat hire Marbella",
+      "title": "Dolphin Watching Romantic Boat Hire Marbella – Couples",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-romantic-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching romantic boat hire Puerto Banus",
+      "title": "Dolphin Watching Romantic Boat Hire Puerto Banus – Love",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-sunset-boat-hire-marbella",
+      "primary_keyword": "dolphin watching sunset boat hire Marbella",
+      "title": "Dolphin Watching Sunset Boat Hire Marbella – Magic Hour",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-early-morning-boat-hire-marbella",
+      "primary_keyword": "dolphin watching early morning boat hire Marbella",
+      "title": "Dolphin Watching Early Morning Boat Hire Marbella – Dawn",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-early-morning-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching early morning boat hire Puerto Banus",
+      "title": "Dolphin Watching Early Morning Boat Hire Puerto Banus – Early",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-afternoon-boat-hire-marbella",
+      "primary_keyword": "dolphin watching afternoon boat hire Marbella",
+      "title": "Dolphin Watching Afternoon Boat Hire Marbella – Day Trip",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-full-day-boat-hire-marbella",
+      "primary_keyword": "dolphin watching full day boat hire Marbella",
+      "title": "Dolphin Watching Full Day Boat Hire Marbella – All Day",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-full-day-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching full day boat hire Puerto Banus",
+      "title": "Dolphin Watching Full Day Boat Hire Puerto Banus – Book",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-half-day-boat-hire-marbella",
+      "primary_keyword": "dolphin watching half day boat hire Marbella",
+      "title": "Dolphin Watching Half Day Boat Hire Marbella – Quick Trip",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-half-day-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching half day boat hire Puerto Banus",
+      "title": "Dolphin Watching Half Day Boat Hire Puerto Banus – Rent",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-weekend-boat-hire-marbella",
+      "primary_keyword": "dolphin watching weekend boat hire Marbella",
+      "title": "Dolphin Watching Weekend Boat Hire Marbella – Escape",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-hourly-boat-hire-marbella",
+      "primary_keyword": "dolphin watching hourly boat hire Marbella",
+      "title": "Dolphin Watching Hourly Boat Hire Marbella – Flexible",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-cheap-boat-hire-marbella",
+      "primary_keyword": "dolphin watching cheap boat hire Marbella",
+      "title": "Dolphin Watching Cheap Boat Hire Marbella – Budget Deal",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-cheap-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching cheap boat hire Puerto Banus",
+      "title": "Dolphin Watching Cheap Boat Hire Puerto Banus – Save",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-luxury-boat-hire-marbella",
+      "primary_keyword": "dolphin watching luxury boat hire Marbella",
+      "title": "Dolphin Watching Luxury Boat Hire Marbella – Premium",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-last-minute-boat-hire-marbella",
+      "primary_keyword": "dolphin watching last minute boat hire Marbella",
+      "title": "Dolphin Watching Last Minute Boat Hire Marbella – Instant",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-last-minute-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching last minute boat hire Puerto Banus",
+      "title": "Dolphin Watching Last Minute Boat Hire Puerto Banus – Now",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-catering-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with catering boat hire Marbella",
+      "title": "Dolphin Watching with Catering Boat Hire Marbella – Feast",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-catering-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching with catering boat hire Puerto Banus",
+      "title": "Dolphin Watching with Catering Boat Hire Puerto Banus – Book",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-champagne-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with champagne boat hire Marbella",
+      "title": "Dolphin Watching with Champagne Boat Hire Marbella – Toast",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-champagne-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching with champagne boat hire Puerto Banus",
+      "title": "Dolphin Watching with Champagne Boat Hire Puerto Banus – Rent",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-music-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with music boat hire Marbella",
+      "title": "Dolphin Watching with Music Boat Hire Marbella – Vibes",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-music-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching with music boat hire Puerto Banus",
+      "title": "Dolphin Watching with Music Boat Hire Puerto Banus – Party",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-photography-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with photography boat hire Marbella",
+      "title": "Dolphin Watching with Photography Boat Hire Marbella – Capture",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-snorkeling-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with snorkeling boat hire Marbella",
+      "title": "Dolphin Watching with Snorkeling Boat Hire Marbella – Combo",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-fishing-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with fishing boat hire Marbella",
+      "title": "Dolphin Watching with Fishing Boat Hire Marbella – Dual Fun",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-sunset-dinner-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with sunset dinner boat hire Marbella",
+      "title": "Dolphin Watching with Sunset Dinner Boat Hire Marbella – Dine",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-sunset-dinner-boat-hire-puerto-banus",
+      "primary_keyword": "dolphin watching with sunset dinner boat hire Puerto Banus",
+      "title": "Dolphin Watching with Sunset Dinner Boat Hire Puerto Banus – Rent",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-fireworks-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with fireworks boat hire Marbella",
+      "title": "Dolphin Watching with Fireworks Boat Hire Marbella – Special",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-no-licence-boat-hire-marbella",
+      "primary_keyword": "dolphin watching no licence boat hire Marbella",
+      "title": "Dolphin Watching No Licence Boat Hire Marbella – Easy",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "dolphin-watching-with-captain-boat-hire-marbella",
+      "primary_keyword": "dolphin watching with captain boat hire Marbella",
+      "title": "Dolphin Watching with Captain Boat Hire Marbella – Relax",
       "target_words": 1100
     }
   ]
