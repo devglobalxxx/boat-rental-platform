@@ -2990,3 +2990,14 @@ To https://github.com/mardo89/boat-rental-platform.git
 [2026-06-12 02:30:45]   ✓ generated
 [2026-06-12 02:30:45] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-12 02:31:34] refill (LLM fallback): +98 (queue now 98)
+[main 11879ce] Daily content: +20 pages (5 blog, 15 landing)
+ 5 files changed, 1685 insertions(+), 52 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   fa12a6f..11879ce  HEAD -> main
+[2026-06-12 02:31:38] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-12 02:31:40] reindex ping: 200 {"ok":true,"urls_total":1416,"indexnow":{"ok":true,"status":200,"count":1416},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-11T22:
+[2026-06-12 02:31:40] === Done: 20 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 414
+cannibalization: 124 variant pages canonicalized to a primary
+relinked: blogs=277 (homepage 277/277), landings=414 (homepage 414/414), affiliate-link pool=9
