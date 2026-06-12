@@ -3101,3 +3101,195 @@ Traceback (most recent call last):
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-06-12 03:01:26] done 2026-06-12
+[2026-06-13 00:43:07] starting daily run for 2026-06-13
+[2026-06-13 00:43:07] === Generate: 40 blog + 40 landing = 80 item(s) (backend=deepseek) ===
+[2026-06-13 00:43:08] [1/80] blog · best-time-for-dolphin-watching-in-estepona
+[2026-06-13 00:44:08]   ✓ generated
+[2026-06-13 00:44:08] [2/80] blog · dolphin-watching-marbella-vs-estepona
+[2026-06-13 00:45:17]   ✓ generated
+[2026-06-13 00:45:17] [3/80] blog · dolphin-watching-puerto-banus-vs-estepona
+[2026-06-13 00:46:24]   ✓ generated
+[2026-06-13 00:46:24] [4/80] blog · dolphin-watching-marbella-vs-fuengirola
+[2026-06-13 00:47:32]   ✓ generated
+[2026-06-13 00:47:32] [5/80] blog · dolphin-watching-benalmadena-vs-fuengirola
+[2026-06-13 00:48:38]   ✓ generated
+[2026-06-13 00:48:38] [6/80] blog · dolphin-watching-marbella-in-september
+[2026-06-13 00:49:31]   ✓ generated
+[2026-06-13 00:49:31] [7/80] blog · dolphin-watching-marbella-in-october
+[2026-06-13 00:50:45]   ✓ generated
+[2026-06-13 00:50:45] [8/80] blog · dolphin-watching-marbella-in-november
+[2026-06-13 00:51:42]   ✓ generated
+[2026-06-13 00:51:42] [9/80] blog · dolphin-watching-marbella-in-december
+[2026-06-13 00:52:42]   ✓ generated
+[2026-06-13 00:52:42] [10/80] blog · dolphin-watching-marbella-in-january
+[2026-06-13 00:53:46]   ✓ generated
+[2026-06-13 00:53:46] [11/80] blog · dolphin-watching-marbella-in-february
+[2026-06-13 00:54:45]   ✓ generated
+[2026-06-13 00:54:45] [12/80] blog · dolphin-watching-marbella-in-march
+[2026-06-13 00:55:44]   ✓ generated
+[2026-06-13 00:55:44] [13/80] blog · dolphin-watching-marbella-in-april
+[2026-06-13 00:56:40]   ✓ generated
+[2026-06-13 00:56:40] [14/80] blog · dolphin-watching-marbella-in-june
+[2026-06-13 00:57:39]   ✓ generated
+[2026-06-13 00:57:39] [15/80] blog · dolphin-watching-marbella-in-july
+[2026-06-13 00:58:51]   ✓ generated
+[2026-06-13 00:58:51] [16/80] blog · dolphin-watching-marbella-in-august
+[2026-06-13 00:59:56]   ✓ generated
+[2026-06-13 00:59:56] [17/80] blog · dolphin-watching-marbella-early-morning-vs-sunset
+[2026-06-13 01:00:40]   ✓ generated
+[2026-06-13 01:00:40] [18/80] blog · dolphin-watching-marbella-boat-types
+[2026-06-13 01:01:40]   ✓ generated
+[2026-06-13 01:01:40] [19/80] blog · dolphin-watching-marbella-what-to-bring
+[2026-06-13 01:02:40]   ✓ generated
+[2026-06-13 01:02:40] [20/80] blog · dolphin-watching-marbella-best-camera
+[2026-06-13 01:03:49]   ✓ generated
+[2026-06-13 01:03:49] [21/80] blog · dolphin-watching-marbella-kids
+[2026-06-13 01:04:59]   ✓ generated
+[2026-06-13 01:04:59] [22/80] blog · dolphin-watching-marbella-group-bookings
+[2026-06-13 01:06:11]   ✓ generated
+[2026-06-13 01:06:11] [23/80] blog · dolphin-watching-marbella-private-tour
+[2026-06-13 01:07:10]   ✓ generated
+[2026-06-13 01:07:10] [24/80] blog · dolphin-watching-marbella-price-guide
+[2026-06-13 01:08:06]   ✓ generated
+[2026-06-13 01:08:06] [25/80] blog · dolphin-watching-marbella-vs-tarifa-comparison
+[2026-06-13 01:09:05]   ✓ generated
+[2026-06-13 01:09:05] [26/80] blog · dolphin-watching-marbella-vs-gibraltar
+[2026-06-13 01:09:57]   ✓ generated
+[2026-06-13 01:09:57] [27/80] blog · dolphin-watching-marbella-weather-conditions
+[2026-06-13 01:10:50]   ✓ generated
+[2026-06-13 01:10:50] [28/80] blog · dolphin-watching-marbella-safety-tips
+[2026-06-13 01:11:39]   ✓ generated
+[2026-06-13 01:11:39] [29/80] blog · dolphin-watching-marbella-ethical-guidelines
+[2026-06-13 01:12:24]   ✓ generated
+[2026-06-13 01:12:24] [30/80] blog · dolphin-watching-marbella-tour-operator-tips
+[2026-06-13 01:13:17]   ✓ generated
+[2026-06-13 01:13:17] [31/80] blog · dolphin-watching-marbella-faq
+[2026-06-13 01:14:08]   ✓ generated
+[2026-06-13 01:14:08] [32/80] blog · dolphin-watching-marbella-rainy-day
+[2026-06-13 01:15:07]   ✓ generated
+[2026-06-13 01:15:07] [33/80] blog · dolphin-watching-marbella-windy-conditions
+[2026-06-13 01:15:59]   ✓ generated
+[2026-06-13 01:15:59] [34/80] blog · dolphin-watching-marbella-calm-sea
+[2026-06-13 01:16:41]   ✓ generated
+[2026-06-13 01:16:41] [35/80] blog · dolphin-watching-marbella-rough-sea
+[2026-06-13 01:17:27]   ✓ generated
+[2026-06-13 01:17:27] [36/80] blog · dolphin-watching-marbella-fog
+[2026-06-13 01:18:04]   ✓ generated
+[2026-06-13 01:18:04] [37/80] blog · dolphin-watching-marbella-night
+[2026-06-13 01:18:41]   ✗ FAILED: JSONDecodeError: Expecting ',' delimiter: line 6 column 7118 (char 7611)
+Traceback (most recent call last):
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 552, in main
+    rec = gen_blog(item)
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 339, in gen_blog
+    data = extract_json(call_model(system, build_blog_user(item)))
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 149, in extract_json
+    return json.loads(raw[s:e + 1])
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 7118 (char 7611)
+[2026-06-13 01:18:41] [38/80] blog · dolphin-watching-marbella-dawn
+[2026-06-13 01:19:29]   ✓ generated
+[2026-06-13 01:19:29] [39/80] blog · dolphin-watching-marbella-dusk
+[2026-06-13 01:20:30]   ✓ generated
+[2026-06-13 01:20:30] [40/80] blog · dolphin-watching-marbella-full-moon
+[2026-06-13 01:21:25]   ✓ generated
+[2026-06-13 01:21:25] [41/80] landing · dolphin-watching-boat-rental-marbella
+[2026-06-13 01:22:15]   ✓ generated
+[2026-06-13 01:22:15] [42/80] landing · dolphin-watching-boat-rental-puerto-banus
+[2026-06-13 01:23:14]   ✓ generated
+[2026-06-13 01:23:14] [43/80] landing · dolphin-watching-boat-rental-benalmadena
+[2026-06-13 01:24:08]   ✓ generated
+[2026-06-13 01:24:08] [44/80] landing · dolphin-watching-boat-rental-estepona
+[2026-06-13 01:24:51]   ✓ generated
+[2026-06-13 01:24:51] [45/80] landing · dolphin-watching-boat-rental-fuengirola
+[2026-06-13 01:25:52]   ✓ generated
+[2026-06-13 01:25:52] [46/80] landing · dolphin-watching-catamaran-hire-marbella
+[2026-06-13 01:26:43]   ✓ generated
+[2026-06-13 01:26:43] [47/80] landing · dolphin-watching-catamaran-hire-puerto-banus
+[2026-06-13 01:27:38]   ✓ generated
+[2026-06-13 01:27:38] [48/80] landing · dolphin-watching-speedboat-hire-marbella
+[2026-06-13 01:28:42]   ✓ generated
+[2026-06-13 01:28:42] [49/80] landing · dolphin-watching-yacht-charter-marbella
+[2026-06-13 01:29:36]   ✓ generated
+[2026-06-13 01:29:36] [50/80] landing · dolphin-watching-motor-yacht-hire-marbella
+[2026-06-13 01:30:31]   ✓ generated
+[2026-06-13 01:30:31] [51/80] landing · dolphin-watching-motor-yacht-hire-puerto-banus
+[2026-06-13 01:31:43]   ✓ generated
+[2026-06-13 01:31:43] [52/80] landing · dolphin-watching-private-boat-hire-marbella
+[2026-06-13 01:32:43]   ✓ generated
+[2026-06-13 01:32:43] [53/80] landing · dolphin-watching-group-boat-hire-puerto-banus
+[2026-06-13 01:33:52]   ✓ generated
+[2026-06-13 01:33:52] [54/80] landing · dolphin-watching-family-boat-hire-marbella
+[2026-06-13 01:34:56]   ✓ generated
+[2026-06-13 01:34:56] [55/80] landing · dolphin-watching-family-boat-hire-puerto-banus
+[2026-06-13 01:36:09]   ✓ generated
+[2026-06-13 01:36:09] [56/80] landing · dolphin-watching-birthday-boat-hire-marbella
+[2026-06-13 01:37:22]   ✓ generated
+[2026-06-13 01:37:22] [57/80] landing · dolphin-watching-birthday-boat-hire-puerto-banus
+[2026-06-13 01:38:39]   ✓ generated
+[2026-06-13 01:38:39] [58/80] landing · dolphin-watching-hen-do-boat-hire-marbella
+[2026-06-13 01:39:55]   ✓ generated
+[2026-06-13 01:39:55] [59/80] landing · dolphin-watching-stag-do-boat-hire-marbella
+[2026-06-13 01:41:00]   ✓ generated
+[2026-06-13 01:41:00] [60/80] landing · dolphin-watching-romantic-boat-hire-marbella
+[2026-06-13 01:42:04]   ✓ generated
+[2026-06-13 01:42:04] [61/80] landing · dolphin-watching-romantic-boat-hire-puerto-banus
+[2026-06-13 01:43:14]   ✓ generated
+[2026-06-13 01:43:14] [62/80] landing · dolphin-watching-sunset-boat-hire-marbella
+[2026-06-13 01:44:22]   ✓ generated
+[2026-06-13 01:44:22] [63/80] landing · dolphin-watching-early-morning-boat-hire-marbella
+[2026-06-13 01:45:19]   ✓ generated
+[2026-06-13 01:45:19] [64/80] landing · dolphin-watching-early-morning-boat-hire-puerto-banus
+[2026-06-13 01:46:32]   ✓ generated
+[2026-06-13 01:46:32] [65/80] landing · dolphin-watching-afternoon-boat-hire-marbella
+[2026-06-13 01:47:36]   ✓ generated
+[2026-06-13 01:47:36] [66/80] landing · dolphin-watching-full-day-boat-hire-marbella
+[2026-06-13 01:48:39]   ✓ generated
+[2026-06-13 01:48:39] [67/80] landing · dolphin-watching-full-day-boat-hire-puerto-banus
+[2026-06-13 01:49:32]   ✓ generated
+[2026-06-13 01:49:32] [68/80] landing · dolphin-watching-half-day-boat-hire-marbella
+[2026-06-13 01:50:51]   ✓ generated
+[2026-06-13 01:50:51] [69/80] landing · dolphin-watching-half-day-boat-hire-puerto-banus
+[2026-06-13 01:52:02]   ✓ generated
+[2026-06-13 01:52:02] [70/80] landing · dolphin-watching-weekend-boat-hire-marbella
+[2026-06-13 01:53:09]   ✓ generated
+[2026-06-13 01:53:09] [71/80] landing · dolphin-watching-hourly-boat-hire-marbella
+[2026-06-13 01:54:02]   ✗ FAILED: JSONDecodeError: Expecting ',' delimiter: line 5 column 7798 (char 8837)
+Traceback (most recent call last):
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 555, in main
+    rec = gen_landing(item)
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 396, in gen_landing
+    data = extract_json(call_model(system, build_landing_user(item)))
+  File "/Users/master/boat-rental-platform/scripts/generate_content.py", line 149, in extract_json
+    return json.loads(raw[s:e + 1])
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 5 column 7798 (char 8837)
+[2026-06-13 01:54:02] [72/80] landing · dolphin-watching-cheap-boat-hire-marbella
+[2026-06-13 01:55:17]   ✓ generated
+[2026-06-13 01:55:17] [73/80] landing · dolphin-watching-cheap-boat-hire-puerto-banus
+[2026-06-13 01:56:11]   ✓ generated
+[2026-06-13 01:56:11] [74/80] landing · dolphin-watching-luxury-boat-hire-marbella
+[2026-06-13 01:57:33]   ✓ generated
+[2026-06-13 01:57:33] [75/80] landing · dolphin-watching-last-minute-boat-hire-marbella
+[2026-06-13 01:58:10]   ✓ generated
+[2026-06-13 01:58:10] [76/80] landing · dolphin-watching-last-minute-boat-hire-puerto-banus
+[2026-06-13 01:58:47]   ✓ generated
+[2026-06-13 01:58:47] [77/80] landing · dolphin-watching-with-catering-boat-hire-marbella
+[2026-06-13 01:59:39]   ✓ generated
+[2026-06-13 01:59:39] [78/80] landing · dolphin-watching-with-catering-boat-hire-puerto-banus
+[2026-06-13 02:04:15]   ✓ generated
+[2026-06-13 02:04:15] [79/80] landing · dolphin-watching-with-champagne-boat-hire-marbella
+[2026-06-13 02:04:49]   ✓ generated
+[2026-06-13 02:04:49] [80/80] landing · dolphin-watching-with-champagne-boat-hire-puerto-banus
+[2026-06-13 02:05:34]   ✓ generated
+[2026-06-13 02:05:35] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-13 02:06:13] refill (LLM fallback): +9 (queue now 29)
