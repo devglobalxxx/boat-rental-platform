@@ -3293,3 +3293,74 @@ json.decoder.JSONDecodeError: Expecting ',' delimiter: line 5 column 7798 (char 
 [2026-06-13 02:05:34]   ✓ generated
 [2026-06-13 02:05:35] DataForSEO unavailable — falling back to LLM topic invention
 [2026-06-13 02:06:13] refill (LLM fallback): +9 (queue now 29)
+[main b0ff12d] Daily content: +78 pages (39 blog, 39 landing)
+ 5 files changed, 3906 insertions(+), 150 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   fa97de3..b0ff12d  HEAD -> main
+[2026-06-13 02:06:17] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-13 02:06:19] reindex ping: 200 {"ok":true,"urls_total":1531,"indexnow":{"ok":true,"status":200,"count":1531},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-12T22:
+[2026-06-13 02:06:19] === Done: 78 ok, 2 failed ===
+
+[2026-06-13 02:06:19] generation failed; will retry next wake
+[2026-06-13 03:06:15] starting daily run for 2026-06-13
+[2026-06-13 03:06:15] === Generate: 18 blog + 11 landing = 29 item(s) (backend=deepseek) ===
+[2026-06-13 03:06:16] [1/29] blog · dolphin-watching-marbella-night
+[2026-06-13 03:07:23]   ✓ generated
+[2026-06-13 03:07:23] [2/29] blog · dolphin-watching-marbella-new-moon
+[2026-06-13 03:08:35]   ✓ generated
+[2026-06-13 03:08:35] [3/29] blog · dolphin-watching-marbella-tides
+[2026-06-13 03:09:29]   ✓ generated
+[2026-06-13 03:09:29] [4/29] blog · dolphin-watching-marbella-currents
+[2026-06-13 03:10:40]   ✓ generated
+[2026-06-13 03:10:40] [5/29] blog · dolphin-watching-marbella-water-temperature
+[2026-06-13 03:11:36]   ✓ generated
+[2026-06-13 03:11:36] [6/29] blog · dolphin-watching-marbella-sea-state
+[2026-06-13 03:12:31]   ✓ generated
+[2026-06-13 03:12:31] [7/29] blog · dolphin-watching-marbella-forecast-apps
+[2026-06-13 03:13:51]   ✓ generated
+[2026-06-13 03:13:51] [8/29] blog · dolphin-watching-marbella-weather-charts
+[2026-06-13 03:14:54]   ✓ generated
+[2026-06-13 03:14:54] [9/29] blog · dolphin-watching-marbella-wind-direction
+[2026-06-13 03:15:59]   ✓ generated
+[2026-06-13 03:15:59] [10/29] blog · marbella-boat-party-safety-checklist
+[2026-06-13 03:17:17]   ✓ generated
+[2026-06-13 03:17:17] [11/29] blog · marbella-boat-weather-may
+[2026-06-13 03:18:29]   ✓ generated
+[2026-06-13 03:18:29] [12/29] blog · marbella-boat-weather-april
+[2026-06-13 03:19:29]   ✓ generated
+[2026-06-13 03:19:29] [13/29] blog · marbella-boat-weather-january
+[2026-06-13 03:20:32]   ✓ generated
+[2026-06-13 03:20:32] [14/29] blog · marbella-boat-weather-february
+[2026-06-13 03:21:24]   ✓ generated
+[2026-06-13 03:21:24] [15/29] blog · marbella-boat-weather-march
+[2026-06-13 03:22:21]   ✓ generated
+[2026-06-13 03:22:21] [16/29] blog · marbella-boat-weather-december
+[2026-06-13 03:23:22]   ✓ generated
+[2026-06-13 03:23:22] [17/29] blog · marbella-boat-weather-june
+[2026-06-13 03:24:15]   ✓ generated
+[2026-06-13 03:24:15] [18/29] blog · best-coves-for-anchoring-near-marbella
+[2026-06-13 03:25:09]   ✓ generated
+[2026-06-13 03:25:09] [19/29] landing · dolphin-watching-hourly-boat-hire-marbella
+[2026-06-13 03:26:16]   ✓ generated
+[2026-06-13 03:26:16] [20/29] landing · dolphin-watching-with-music-boat-hire-marbella
+[2026-06-13 03:27:05]   ✓ generated
+[2026-06-13 03:27:05] [21/29] landing · dolphin-watching-with-music-boat-hire-puerto-banus
+[2026-06-13 03:27:52]   ✓ generated
+[2026-06-13 03:27:52] [22/29] landing · dolphin-watching-with-photography-boat-hire-marbella
+[2026-06-13 03:28:46]   ✓ generated
+[2026-06-13 03:28:46] [23/29] landing · dolphin-watching-with-snorkeling-boat-hire-marbella
+[2026-06-13 03:29:31]   ✓ generated
+[2026-06-13 03:29:31] [24/29] landing · dolphin-watching-with-fishing-boat-hire-marbella
+[2026-06-13 03:30:13]   ✓ generated
+[2026-06-13 03:30:13] [25/29] landing · dolphin-watching-with-sunset-dinner-boat-hire-marbella
+[2026-06-13 03:30:59]   ✓ generated
+[2026-06-13 03:30:59] [26/29] landing · dolphin-watching-with-sunset-dinner-boat-hire-puerto-banus
+[2026-06-13 03:31:52]   ✓ generated
+[2026-06-13 03:31:52] [27/29] landing · dolphin-watching-with-fireworks-boat-hire-marbella
+[2026-06-13 03:32:33]   ✓ generated
+[2026-06-13 03:32:33] [28/29] landing · dolphin-watching-no-licence-boat-hire-marbella
+[2026-06-13 03:33:21]   ✓ generated
+[2026-06-13 03:33:21] [29/29] landing · dolphin-watching-with-captain-boat-hire-marbella
+[2026-06-13 03:34:25]   ✓ generated
+[2026-06-13 03:34:25] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-13 03:35:03] refill (LLM fallback): +7 (queue now 7)
