@@ -2,12 +2,13 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { createClient } from '@/lib/supabase/client'
-import { ChevronRight, ChevronLeft, Check, Sparkles } from 'lucide-react'
+import { ChevronRight, ChevronLeft, Check, Sparkles, Globe, Upload, PenLine, ArrowRight } from 'lucide-react'
 import type { Location } from '@/types/database'
 
 interface WizardProps {
@@ -185,6 +186,12 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
   )
   const [photoBusy, setPhotoBusy] = useState(false)
   const [aiBusy, setAiBusy] = useState(false)
+
+  // Brand-new listing → first offer how to add it (import vs manual). Skip the
+  // chooser when editing, when prefilled, or in admin concierge mode (import
+  // attributes boats to the logged-in user, not the target host).
+  const isNewManual = !boatId && !initialData && !targetHostId
+  const [method, setMethod] = useState<'choose' | 'manual'>(isNewManual ? 'choose' : 'manual')
 
   // "Generate with AI" — writes a tagline + description from the facts already in the form.
   async function generateDescription() {
@@ -375,6 +382,70 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       setError(err.message)
       setLoading(false)
     }
+  }
+
+  // ── Method chooser (first screen for a brand-new listing) ──
+  if (method === 'choose') {
+    const choices = [
+      {
+        href: '/host/fleet/website',
+        Icon: Globe,
+        title: 'Import from your website',
+        desc: 'Paste your company site and we pull in each boat automatically — specs, prices, descriptions and photos. Fastest if your boats are already online.',
+        badge: 'AI · fastest',
+        badgeColor: '#a855f7',
+      },
+      {
+        href: '/host/fleet/import',
+        Icon: Upload,
+        title: 'Bulk import a spreadsheet',
+        desc: 'Upload a CSV to create several listings at once. Best if you keep your fleet in a spreadsheet.',
+        badge: 'CSV',
+        badgeColor: '#3b82f6',
+      },
+    ]
+    return (
+      <div>
+        <p style={{ color: muted, fontSize: '14px', lineHeight: 1.6, margin: '0 0 22px' }}>
+          How would you like to add your boat? You can always edit everything afterwards.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '14px' }}>
+          {choices.map((c) => (
+            <Link
+              key={c.href}
+              href={c.href}
+              style={{ display: 'flex', gap: '16px', alignItems: 'center', padding: '22px', borderRadius: '16px', background: card, border: `1px solid ${goldBorder}`, textDecoration: 'none' }}
+            >
+              <div style={{ width: '48px', height: '48px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: goldFaint, border: `1px solid ${goldBorder}`, flexShrink: 0 }}>
+                <c.Icon style={{ width: 22, height: 22, color: gold }} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                  <span style={{ fontWeight: 700, fontSize: '16px', color: text }}>{c.title}</span>
+                  <span style={{ fontSize: '10.5px', fontWeight: 700, padding: '3px 9px', borderRadius: '99px', background: `${c.badgeColor}1a`, color: c.badgeColor, border: `1px solid ${c.badgeColor}40` }}>{c.badge}</span>
+                </div>
+                <p style={{ fontSize: '13px', color: muted, lineHeight: 1.55, margin: 0 }}>{c.desc}</p>
+              </div>
+              <ArrowRight style={{ width: 18, height: 18, color: gold, flexShrink: 0 }} />
+            </Link>
+          ))}
+          {/* Add manually */}
+          <button
+            onClick={() => setMethod('manual')}
+            style={{ display: 'flex', gap: '16px', alignItems: 'center', padding: '22px', borderRadius: '16px', background: card, border: `1px solid ${border}`, textAlign: 'left', cursor: 'pointer', width: '100%' }}
+          >
+            <div style={{ width: '48px', height: '48px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', border: `1px solid ${inputBorder}`, flexShrink: 0 }}>
+              <PenLine style={{ width: 22, height: 22, color: muted }} />
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 700, fontSize: '16px', color: text, marginBottom: '4px' }}>Add it manually</div>
+              <p style={{ fontSize: '13px', color: muted, lineHeight: 1.55, margin: 0 }}>Fill in the details yourself, step by step. You can write the description with AI as you go.</p>
+            </div>
+            <ArrowRight style={{ width: 18, height: 18, color: muted, flexShrink: 0 }} />
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
