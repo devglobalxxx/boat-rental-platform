@@ -7,8 +7,9 @@ export const dynamic = 'force-dynamic'
 
 const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
-// Hourly reminders cron (secured by CRON_SECRET when set):
-//   • Trip reminder    — confirmed bookings starting within the next 24h.
+// Reminders cron (daily on Hobby, can run more often on Pro; secured by CRON_SECRET when set):
+//   • Trip reminder    — confirmed bookings starting within the next 48h (wide enough
+//     that a once-a-day run still reminds every guest ~24h+ before departure).
 //   • Payment reminder — pending (unpaid) bookings 24h+ old (auto-cancelled at 48h
 //     by /api/cron/expire-requests). Each reminder fires at most once via the
 //     *_reminder_sent_at flags.
@@ -18,7 +19,7 @@ export async function GET(req: NextRequest) {
   }
 
   const now = Date.now()
-  const in24h = new Date(now + 24 * 60 * 60 * 1000).toISOString()
+  const in48h = new Date(now + 48 * 60 * 60 * 1000).toISOString()
   const nowIso = new Date(now).toISOString()
   const ago24h = new Date(now - 24 * 60 * 60 * 1000).toISOString()
   const ago48h = new Date(now - 48 * 60 * 60 * 1000).toISOString()
@@ -33,7 +34,7 @@ export async function GET(req: NextRequest) {
     .eq('status', 'confirmed')
     .is('trip_reminder_sent_at', null)
     .gt('start_datetime', nowIso)
-    .lte('start_datetime', in24h)
+    .lte('start_datetime', in48h)
   if (e1) return NextResponse.json({ error: e1.message }, { status: 500 })
 
   for (const b of upcoming ?? []) {
@@ -63,6 +64,3 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({ ok: true, tripReminders, paymentReminders })
 }
-
-// deploy: booking reminders cron (7154c3b)
-// pro deploy trigger
