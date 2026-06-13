@@ -9,6 +9,7 @@ import QuoteRequestCard from '@/components/booking/QuoteRequestCard'
 import { formatPrice } from '@/lib/utils/pricing'
 import { MapPin, Users, Ruler, Anchor, Star, Check, Waves, Zap } from 'lucide-react'
 import VerifiedBadge from '@/components/ui/VerifiedBadge'
+import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import type { BoatWithDetails } from '@/types/database'
 
 const TYPE_LABELS: Record<string, string> = {
@@ -400,6 +401,9 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
           }),
         }}
       />
+
+      {/* Pay-by-cash discount promo — Marbella fleet only */}
+      {boat.locations?.city === 'Marbella' && <CashDiscountPromo />}
     </div>
   )
 }
