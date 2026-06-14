@@ -22,7 +22,7 @@ export default function CashDiscountPromo() {
       const dismissed = localStorage.getItem(KEY)
       if (dismissed && Date.now() - parseInt(dismissed, 10) < 86400000) return
     } catch {}
-    timer.current = setTimeout(() => setVisible(true), 4000)
+    timer.current = setTimeout(() => setVisible(true), 1200)
     return () => { if (timer.current) clearTimeout(timer.current) }
   }, [])
 
