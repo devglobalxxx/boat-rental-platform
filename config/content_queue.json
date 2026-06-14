@@ -7457,43 +7457,47 @@
       "title": "Catamaran Hire Fuengirola Port – Book Online",
       "target_words": 1100,
       "consumed_at": "2026-06-14"
-    }
-  ],
-  "queue": [
-    {
-      "kind": "landing",
-      "slug": "catamaran-rental-marbella-port",
-      "primary_keyword": "catamaran rental Marbella port",
-      "title": "Catamaran Rental at Marbella Port – Book Your Day Out",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "private-boat-hire-puerto-banus-for-wedding",
-      "primary_keyword": "private boat hire Puerto Banus for wedding",
-      "title": "Private Boat Hire Puerto Banus for Wedding – Dream Ceremony",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-charter-marbella-group",
-      "primary_keyword": "catamaran charter Marbella for group",
-      "title": "Catamaran Charter Marbella for Group – Social Sailing",
-      "target_words": 1100
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-party-for-stag-do-ideas",
       "primary_keyword": "Marbella boat party for stag do ideas",
       "title": "Marbella Boat Party for Stag Do – Top Ideas",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-15"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-party-for-starlite-festival-2025",
       "primary_keyword": "Marbella boat party for Starlite Festival 2025",
       "title": "Marbella Boat Party for Starlite Festival 2025 – Plan Ahead",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-15"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-rental-marbella-port",
+      "primary_keyword": "catamaran rental Marbella port",
+      "title": "Catamaran Rental at Marbella Port – Book Your Day Out",
+      "target_words": 1100,
+      "consumed_at": "2026-06-15"
+    },
+    {
+      "kind": "landing",
+      "slug": "private-boat-hire-puerto-banus-for-wedding",
+      "primary_keyword": "private boat hire Puerto Banus for wedding",
+      "title": "Private Boat Hire Puerto Banus for Wedding – Dream Ceremony",
+      "target_words": 1100,
+      "consumed_at": "2026-06-15"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-marbella-group",
+      "primary_keyword": "catamaran charter Marbella for group",
+      "title": "Catamaran Charter Marbella for Group – Social Sailing",
+      "target_words": 1100,
+      "consumed_at": "2026-06-15"
     }
-  ]
+  ],
+  "queue": []
 }

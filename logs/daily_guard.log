@@ -3506,3 +3506,95 @@ cannibalization: 127 variant pages canonicalized to a primary
 relinked: blogs=340 (homepage 340/340), landings=465 (homepage 465/465), affiliate-link pool=9
 [main d7500b6] Daily SEO maintenance (2026-06-14): relink + canonical + affiliate
  6 files changed, 769 insertions(+), 754 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   f4e3f60..d7500b6  HEAD -> main
+[2026-06-14 11:05:10] es: translating 20 landing page(s)
+[2026-06-14 11:05:53]   [1/20] ✓ dolphin-watching-cheap-boat-hire-puerto-banus
+[2026-06-14 11:06:40]   [2/20] ✓ dolphin-watching-luxury-boat-hire-marbella
+[2026-06-14 11:07:16]   [3/20] ✓ dolphin-watching-last-minute-boat-hire-marbella
+[2026-06-14 11:07:49]   [4/20] ✓ dolphin-watching-last-minute-boat-hire-puerto-banus
+[2026-06-14 11:08:36]   [5/20] ✓ dolphin-watching-with-catering-boat-hire-marbella
+[2026-06-14 11:09:22]   [6/20] ✓ dolphin-watching-with-catering-boat-hire-puerto-banus
+[2026-06-14 11:09:57]   [7/20] ✓ dolphin-watching-with-champagne-boat-hire-marbella
+[2026-06-14 11:10:37]   [8/20] ✓ dolphin-watching-with-champagne-boat-hire-puerto-banus
+[2026-06-14 11:11:26]   [9/20] ✓ dolphin-watching-hourly-boat-hire-marbella
+[2026-06-14 11:12:00]   [10/20] ✓ dolphin-watching-with-music-boat-hire-marbella
+[2026-06-14 11:12:37]   [11/20] ✓ dolphin-watching-with-music-boat-hire-puerto-banus
+[2026-06-14 11:13:17]   [12/20] ✓ dolphin-watching-with-photography-boat-hire-marbella
+[2026-06-14 11:13:57]   [13/20] ✓ dolphin-watching-with-snorkeling-boat-hire-marbella
+[2026-06-14 11:14:31]   [14/20] ✓ dolphin-watching-with-fishing-boat-hire-marbella
+[2026-06-14 11:15:10]   [15/20] ✓ dolphin-watching-with-sunset-dinner-boat-hire-marbella
+[2026-06-14 11:15:55]   [16/20] ✓ dolphin-watching-with-sunset-dinner-boat-hire-puerto-banus
+[2026-06-14 11:16:30]   [17/20] ✓ dolphin-watching-with-fireworks-boat-hire-marbella
+[2026-06-14 11:17:07]   [18/20] ✓ dolphin-watching-no-licence-boat-hire-marbella
+[2026-06-14 11:17:50]   [19/20] ✓ dolphin-watching-with-captain-boat-hire-marbella
+[2026-06-14 11:18:33]   [20/20] ✓ catamaran-hire-fuengirola-port
+[2026-06-14 11:18:33] es: 20/20 translated (total es=465)
+[main c46852c] es: +20 Spanish landing translations
+ 1 file changed, 812 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   f40331c..c46852c  HEAD -> main
+[2026-06-14 11:18:37] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-06-14 11:18:39] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-14 11:18:43] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-14 11:18:43] Blogger: 0/80 published this run
+image pool size: 41
+  post: Hen Party Boat Marbella: Unforgettable Celebr
+  post: Fishing Charter Puerto Banus: Deep Sea Advent
+  post: Snorkeling Spots on Costa del Sol: Hidden Gem
+  post: Sunset Catamaran Marbella: Top Spots for Gold
+  post: Dolphin Watching in Puerto Banus: Best Times 
+  post: Do You Need a Licence to Rent a Boat in Spain
+  post: Photoshoot Boat Marbella: Capture Stunning Se
+  post: Marbella Feria Boat Parties: Celebrate on the
+  post: Planning a Family Boat Day in Marbella
+  post: Stag & Hen Boat Party Ideas in Marbella
+  post: The Best Anchorages and Swimming Spots near M
+  post: Catamaran vs Motor Yacht: Which to Charter in
+  post: What to Pack for a Boat Day on the Costa del 
+  post: Dolphin Watching Boat Trips from Marbella: A 
+  post: How Much Does a Yacht Charter in Marbella Cos
+  post: Marbella vs Puerto Banús: Which Departure Por
+  post: The Best Time to Charter a Boat in Marbella
+  page: Private Boat Party Marbella — Hen, Stag & Bir
+  page: Licence-Free Boat Hire Marbella — No Licence 
+  page: Yacht Charter Puerto Banús — Day & Sunset Hir
+enriched 20 item(s) with UNIQUE distributed images
+[2026-06-14 11:19:22] WP: publishing 40 post(s) + 40 page(s) to boathire24guides.wordpress.com
+Traceback (most recent call last):
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 236, in <module>
+    sys.exit(main())
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 209, in main
+    code, res = wp_post("posts", payload)
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 83, in wp_post
+    return r.status, json.loads(r.read())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-14 11:19:27] done 2026-06-14
+[2026-06-15 00:19:27] starting daily run for 2026-06-15
+[2026-06-15 00:19:27] === Generate: 2 blog + 3 landing = 5 item(s) (backend=deepseek) ===
+[2026-06-15 00:19:28] [1/5] blog · marbella-boat-party-for-stag-do-ideas
+[2026-06-15 00:20:39]   ✓ generated
+[2026-06-15 00:20:39] [2/5] blog · marbella-boat-party-for-starlite-festival-2025
+[2026-06-15 00:21:47]   ✓ generated
+[2026-06-15 00:21:47] [3/5] landing · catamaran-rental-marbella-port
+[2026-06-15 00:23:08]   ✓ generated
+[2026-06-15 00:23:08] [4/5] landing · private-boat-hire-puerto-banus-for-wedding
+[2026-06-15 00:24:25]   ✓ generated
+[2026-06-15 00:24:25] [5/5] landing · catamaran-charter-marbella-group
+[2026-06-15 00:25:25]   ✓ generated
+[2026-06-15 00:25:25] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-15 00:26:20] refill failed: RuntimeError: no JSON found in model output
