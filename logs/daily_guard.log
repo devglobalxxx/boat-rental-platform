@@ -3504,3 +3504,5 @@ To https://github.com/mardo89/boat-rental-platform.git
 quarantined 0 thin landings; kept 465
 cannibalization: 127 variant pages canonicalized to a primary
 relinked: blogs=340 (homepage 340/340), landings=465 (homepage 465/465), affiliate-link pool=9
+[main d7500b6] Daily SEO maintenance (2026-06-14): relink + canonical + affiliate
+ 6 files changed, 769 insertions(+), 754 deletions(-)
