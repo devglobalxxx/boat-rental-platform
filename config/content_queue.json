@@ -7401,56 +7401,98 @@
       "title": "Dolphin Watching with Captain Boat Hire Marbella – Relax",
       "target_words": 1100,
       "consumed_at": "2026-06-13"
-    }
-  ],
-  "queue": [
+    },
     {
       "kind": "blog",
       "slug": "best-coves-for-snorkeling-near-fuengirola",
       "primary_keyword": "snorkeling coves near Fuengirola",
       "title": "Best Snorkeling Coves Near Fuengirola by Boat",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "catamaran-hire-fuengirola-port",
-      "primary_keyword": "catamaran hire Fuengirola port",
-      "title": "Catamaran Hire Fuengirola Port – Book Online",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-14"
     },
     {
       "kind": "blog",
       "slug": "best-time-for-sunset-boat-trip-benalmadena",
       "primary_keyword": "best time for sunset boat trip Benalmadena",
       "title": "Best Time for a Sunset Boat Trip in Benalmadena",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-14"
     },
     {
       "kind": "blog",
       "slug": "what-to-pack-for-a-boat-day-in-estepona",
       "primary_keyword": "what to pack for a boat day in Estepona",
       "title": "What to Pack for a Boat Day in Estepona",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-14"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-trip-snorkel-coves-map",
       "primary_keyword": "Marbella boat trip snorkel coves map",
       "title": "Marbella Boat Trip Snorkel Coves Map Guide",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-14"
     },
     {
       "kind": "blog",
       "slug": "best-sunset-spots-near-estepona",
       "primary_keyword": "best sunset spots near Estepona",
       "title": "Best Sunset Spots Near Estepona by Boat",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-06-14"
     },
     {
       "kind": "blog",
       "slug": "hen-do-boat-marbella-vs-benalmadena",
       "primary_keyword": "hen do boat Marbella vs Benalmadena",
       "title": "Hen Do Boat: Marbella vs Benalmadena",
+      "target_words": 1100,
+      "consumed_at": "2026-06-14"
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-hire-fuengirola-port",
+      "primary_keyword": "catamaran hire Fuengirola port",
+      "title": "Catamaran Hire Fuengirola Port – Book Online",
+      "target_words": 1100,
+      "consumed_at": "2026-06-14"
+    }
+  ],
+  "queue": [
+    {
+      "kind": "landing",
+      "slug": "catamaran-rental-marbella-port",
+      "primary_keyword": "catamaran rental Marbella port",
+      "title": "Catamaran Rental at Marbella Port – Book Your Day Out",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "private-boat-hire-puerto-banus-for-wedding",
+      "primary_keyword": "private boat hire Puerto Banus for wedding",
+      "title": "Private Boat Hire Puerto Banus for Wedding – Dream Ceremony",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "catamaran-charter-marbella-group",
+      "primary_keyword": "catamaran charter Marbella for group",
+      "title": "Catamaran Charter Marbella for Group – Social Sailing",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-stag-do-ideas",
+      "primary_keyword": "Marbella boat party for stag do ideas",
+      "title": "Marbella Boat Party for Stag Do – Top Ideas",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-starlite-festival-2025",
+      "primary_keyword": "Marbella boat party for Starlite Festival 2025",
+      "title": "Marbella Boat Party for Starlite Festival 2025 – Plan Ahead",
       "target_words": 1100
     }
   ]

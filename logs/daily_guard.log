@@ -3375,3 +3375,121 @@ To https://github.com/mardo89/boat-rental-platform.git
 quarantined 0 thin landings; kept 464
 cannibalization: 127 variant pages canonicalized to a primary
 relinked: blogs=334 (homepage 334/334), landings=464 (homepage 464/464), affiliate-link pool=9
+[main 90d73eb] Daily SEO maintenance (2026-06-13): relink + canonical + affiliate
+ 5 files changed, 783 insertions(+), 765 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   101f444..90d73eb  HEAD -> main
+[2026-06-13 03:35:14] es: translating 40 landing page(s)
+[2026-06-13 03:35:48]   [1/40] ✓ private-boat-charter-marbella-wedding
+[2026-06-13 03:36:30]   [2/40] ✓ luxury-motor-yacht-charter-marbella-weekend
+[2026-06-13 03:37:10]   [3/40] ✓ boat-hire-estepona-port-group
+[2026-06-13 03:37:44]   [4/40] ✓ private-yacht-hire-marbella-birthday
+[2026-06-13 03:38:26]   [5/40] ✓ fishing-charter-puerto-banus-full-day
+[2026-06-13 03:39:06]   [6/40] ✓ boat-hire-fuengirola-port-group
+[2026-06-13 03:39:48]   [7/40] ✓ fishing-charter-estepona-full-day
+[2026-06-13 03:40:32]   [8/40] ✓ boat-rental-puerto-banus-for-new-years-eve
+[2026-06-13 03:41:10]   [9/40] ✓ boat-rental-benalmadena-marina-group
+[2026-06-13 03:41:48]   [10/40] ✓ dolphin-watching-boat-rental-marbella
+[2026-06-13 03:42:32]   [11/40] ✓ dolphin-watching-boat-rental-puerto-banus
+[2026-06-13 03:43:11]   [12/40] ✓ dolphin-watching-boat-rental-benalmadena
+[2026-06-13 03:43:44]   [13/40] ✓ dolphin-watching-boat-rental-estepona
+[2026-06-13 03:44:30]   [14/40] ✓ dolphin-watching-boat-rental-fuengirola
+[2026-06-13 03:45:10]   [15/40] ✓ dolphin-watching-catamaran-hire-marbella
+[2026-06-13 03:45:51]   [16/40] ✓ dolphin-watching-catamaran-hire-puerto-banus
+[2026-06-13 03:46:34]   [17/40] ✓ dolphin-watching-speedboat-hire-marbella
+[2026-06-13 03:47:14]   [18/40] ✓ dolphin-watching-yacht-charter-marbella
+[2026-06-13 03:47:52]   [19/40] ✓ dolphin-watching-motor-yacht-hire-marbella
+[2026-06-13 03:48:39]   [20/40] ✓ dolphin-watching-motor-yacht-hire-puerto-banus
+[2026-06-13 03:49:18]   [21/40] ✓ dolphin-watching-private-boat-hire-marbella
+[2026-06-13 03:50:06]   [22/40] ✓ dolphin-watching-group-boat-hire-puerto-banus
+[2026-06-13 03:50:52]   [23/40] ✓ dolphin-watching-family-boat-hire-marbella
+[2026-06-13 03:51:40]   [24/40] ✓ dolphin-watching-family-boat-hire-puerto-banus
+[2026-06-13 03:52:28]   [25/40] ✓ dolphin-watching-birthday-boat-hire-marbella
+[2026-06-13 03:53:15]   [26/40] ✓ dolphin-watching-birthday-boat-hire-puerto-banus
+[2026-06-13 03:53:56]   [27/40] ✓ dolphin-watching-hen-do-boat-hire-marbella
+[2026-06-13 03:54:34]   [28/40] ✓ dolphin-watching-stag-do-boat-hire-marbella
+[2026-06-13 03:55:12]   [29/40] ✓ dolphin-watching-romantic-boat-hire-marbella
+[2026-06-13 03:55:52]   [30/40] ✓ dolphin-watching-romantic-boat-hire-puerto-banus
+[2026-06-13 03:56:32]   [31/40] ✓ dolphin-watching-sunset-boat-hire-marbella
+[2026-06-13 03:57:08]   [32/40] ✓ dolphin-watching-early-morning-boat-hire-marbella
+[2026-06-13 03:57:52]   [33/40] ✓ dolphin-watching-early-morning-boat-hire-puerto-banus
+[2026-06-13 03:58:31]   [34/40] ✓ dolphin-watching-afternoon-boat-hire-marbella
+[2026-06-13 03:59:10]   [35/40] ✓ dolphin-watching-full-day-boat-hire-marbella
+[2026-06-13 03:59:43]   [36/40] ✓ dolphin-watching-full-day-boat-hire-puerto-banus
+[2026-06-13 04:00:23]   [37/40] ✓ dolphin-watching-half-day-boat-hire-marbella
+[2026-06-13 04:01:21]   [38/40] ✓ dolphin-watching-half-day-boat-hire-puerto-banus
+[2026-06-13 04:02:11]   [39/40] ✓ dolphin-watching-weekend-boat-hire-marbella
+[2026-06-13 04:03:05]   [40/40] ✓ dolphin-watching-cheap-boat-hire-marbella
+[2026-06-13 04:03:05] es: 40/40 translated (total es=445)
+[main a1e8379] es: +40 Spanish landing translations
+ 1 file changed, 1632 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   90d73eb..a1e8379  HEAD -> main
+[2026-06-13 04:03:09] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-06-13 04:03:10] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-13 04:03:18] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-13 04:03:18] Blogger: 0/80 published this run
+image pool size: 41
+  post: Hen Party Boat Marbella: Unforgettable Celebr
+  post: Fishing Charter Puerto Banus: Deep Sea Advent
+  post: Snorkeling Spots on Costa del Sol: Hidden Gem
+  post: Sunset Catamaran Marbella: Top Spots for Gold
+  post: Dolphin Watching in Puerto Banus: Best Times 
+  post: Do You Need a Licence to Rent a Boat in Spain
+  post: Photoshoot Boat Marbella: Capture Stunning Se
+  post: Marbella Feria Boat Parties: Celebrate on the
+  post: Planning a Family Boat Day in Marbella
+  post: Stag & Hen Boat Party Ideas in Marbella
+  post: The Best Anchorages and Swimming Spots near M
+  post: Catamaran vs Motor Yacht: Which to Charter in
+  post: What to Pack for a Boat Day on the Costa del 
+  post: Dolphin Watching Boat Trips from Marbella: A 
+  post: How Much Does a Yacht Charter in Marbella Cos
+  post: Marbella vs Puerto Banús: Which Departure Por
+  post: The Best Time to Charter a Boat in Marbella
+  page: Private Boat Party Marbella — Hen, Stag & Bir
+  page: Licence-Free Boat Hire Marbella — No Licence 
+  page: Yacht Charter Puerto Banús — Day & Sunset Hir
+enriched 20 item(s) with UNIQUE distributed images
+[2026-06-13 04:03:56] WP: publishing 40 post(s) + 40 page(s) to boathire24guides.wordpress.com
+Traceback (most recent call last):
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 236, in <module>
+    sys.exit(main())
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 209, in main
+    code, res = wp_post("posts", payload)
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 83, in wp_post
+    return r.status, json.loads(r.read())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-13 04:04:02] done 2026-06-13
+[2026-06-14 10:57:17] starting daily run for 2026-06-14
+[2026-06-14 10:57:18] === Generate: 6 blog + 1 landing = 7 item(s) (backend=deepseek) ===
+[2026-06-14 10:57:21] [1/7] blog · best-coves-for-snorkeling-near-fuengirola
+[2026-06-14 10:58:18]   ✓ generated
+[2026-06-14 10:58:18] [2/7] blog · best-time-for-sunset-boat-trip-benalmadena
+[2026-06-14 10:59:09]   ✓ generated
+[2026-06-14 10:59:09] [3/7] blog · what-to-pack-for-a-boat-day-in-estepona
+[2026-06-14 11:00:04]   ✓ generated
+[2026-06-14 11:00:04] [4/7] blog · marbella-boat-trip-snorkel-coves-map
+[2026-06-14 11:01:17]   ✓ generated
+[2026-06-14 11:01:17] [5/7] blog · best-sunset-spots-near-estepona
+[2026-06-14 11:02:16]   ✓ generated
+[2026-06-14 11:02:16] [6/7] blog · hen-do-boat-marbella-vs-benalmadena
+[2026-06-14 11:03:14]   ✓ generated
+[2026-06-14 11:03:14] [7/7] landing · catamaran-hire-fuengirola-port
+[2026-06-14 11:04:08]   ✓ generated
+[2026-06-14 11:04:09] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-14 11:04:53] refill (LLM fallback): +5 (queue now 5)
