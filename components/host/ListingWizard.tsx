@@ -751,7 +751,14 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         {/* ── Step 3: Photos ── */}
         {step === 3 && (
           <>
-            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>Photos</h2>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, color: text, marginBottom: '4px' }}>
+              Photos {(existingImages.length + form.images.length) > 0 && (
+                <span style={{ color: gold, fontWeight: 700 }}>· {existingImages.length + form.images.length}/10</span>
+              )}
+            </h2>
+            <p style={{ fontSize: '13px', color: muted, marginBottom: '14px' }}>
+              Add photos in as many goes as you like — each new selection is <strong style={{ color: text }}>added</strong> to the ones above, never replaced. They&apos;re saved when you publish, and you can add more anytime after approval.
+            </p>
 
             {/* Existing photos (edit mode) */}
             {existingImages.length > 0 && (
