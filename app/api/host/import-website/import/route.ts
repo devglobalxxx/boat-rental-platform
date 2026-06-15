@@ -46,6 +46,18 @@ export async function POST(req: NextRequest) {
   if (!b || !name) return NextResponse.json({ error: 'Missing boat data' }, { status: 400 })
   if (!locationId) return NextResponse.json({ error: 'Pick a location for the imported boats' }, { status: 400 })
 
+  // Admin concierge: optionally import on behalf of another host (boats land as
+  // drafts under that host's account for them to review).
+  let hostId = user.id
+  const targetHostId = String(body?.targetHostId ?? '').trim()
+  if (targetHostId && targetHostId !== user.id) {
+    const { data: me } = await admin.from('profiles').select('is_admin').eq('id', user.id).single()
+    if (!(me as { is_admin?: boolean } | null)?.is_admin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    const { data: { user: target } } = await admin.auth.admin.getUserById(targetHostId)
+    if (!target) return NextResponse.json({ error: 'Target host not found' }, { status: 404 })
+    hostId = targetHostId
+  }
+
   let sourceHost = 'website-import'
   try { sourceHost = new URL(String(b.sourceUrl ?? '')).hostname.replace(/^www\./, '') } catch { /* keep default */ }
   const externalId = `web:${slugify(name)}`
@@ -57,7 +69,7 @@ export async function POST(req: NextRequest) {
   const currency = /^[A-Z]{3}$/.test(String(b.currency ?? '').toUpperCase()) ? String(b.currency).toUpperCase() : 'EUR'
 
   const row: any = {
-    host_id: user.id,
+    host_id: hostId,
     location_id: locationId,
     external_id: externalId,
     external_source: sourceHost,
@@ -82,7 +94,7 @@ export async function POST(req: NextRequest) {
   // Re-import of the same boat from the same site updates instead of duplicating.
   const { data: existing } = await admin
     .from('boats').select('id')
-    .eq('host_id', user.id).eq('external_id', externalId).eq('external_source', sourceHost)
+    .eq('host_id', hostId).eq('external_id', externalId).eq('external_source', sourceHost)
     .maybeSingle()
 
   let boatId = (existing as { id: string } | null)?.id
