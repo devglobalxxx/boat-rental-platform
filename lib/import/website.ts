@@ -26,7 +26,7 @@ export function assertPublicUrl(raw: string): URL {
   return u
 }
 
-export async function fetchHtml(url: string, timeoutMs = 15000): Promise<string> {
+async function fetchHtmlOnce(url: string, timeoutMs: number): Promise<string> {
   const res = await fetch(url, {
     headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml,*/*' },
     redirect: 'follow',
@@ -36,6 +36,30 @@ export async function fetchHtml(url: string, timeoutMs = 15000): Promise<string>
   const ct = res.headers.get('content-type') ?? ''
   if (ct && !/html|xml|text/.test(ct)) throw new Error('That URL is not a web page')
   return (await res.text()).slice(0, 1_500_000)
+}
+
+// Toggle the leading "www." on a URL's host (add it if absent, strip it if present).
+function toggleWww(url: string): string | null {
+  try {
+    const u = new URL(url)
+    u.hostname = u.hostname.startsWith('www.') ? u.hostname.slice(4) : `www.${u.hostname}`
+    return u.toString()
+  } catch { return null }
+}
+
+export async function fetchHtml(url: string, timeoutMs = 15000): Promise<string> {
+  try {
+    return await fetchHtmlOnce(url, timeoutMs)
+  } catch (e) {
+    // Common misconfiguration: the TLS cert is valid on the apex but not on
+    // "www." (or vice-versa), so one host variant throws "fetch failed". Retry
+    // once with the www prefix toggled before giving up.
+    const alt = toggleWww(url)
+    if (alt && alt !== url) {
+      try { return await fetchHtmlOnce(alt, timeoutMs) } catch { /* fall through to original error */ }
+    }
+    throw e
+  }
 }
 
 const decodeEntities = (s: string) =>
