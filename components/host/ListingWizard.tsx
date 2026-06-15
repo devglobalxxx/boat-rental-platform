@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { createClient } from '@/lib/supabase/client'
 import { ChevronRight, ChevronLeft, Check, Sparkles, Globe, Upload, PenLine, ArrowRight } from 'lucide-react'
 import type { Location } from '@/types/database'
+import { COUNTRIES } from '@/lib/countries'
 
 interface WizardProps {
   locations: Pick<Location, 'id' | 'name' | 'city' | 'country'>[]
@@ -53,6 +54,7 @@ const inputBorder = 'rgba(255,255,255,0.14)'
 
 interface FormData {
   name: string; tagline: string; description: string; type: string; locationId: string
+  country: string; city: string
   departurePort: string; capacityPax: number; lengthM: string; cabins: number
   builder: string; modelYear: string; includesSkipper: boolean; includesFuel: boolean
   includesDrinks: boolean; instantBook: boolean; cancellationPolicy: string; cancellationCustom: string; minHours: number
@@ -61,7 +63,7 @@ interface FormData {
 }
 
 const INITIAL: FormData = {
-  name: '', tagline: '', description: '', type: 'motor_yacht', locationId: '', departurePort: '',
+  name: '', tagline: '', description: '', type: 'motor_yacht', locationId: '', country: '', city: '', departurePort: '',
   capacityPax: 8, lengthM: '', cabins: 0, builder: '', modelYear: '', includesSkipper: true,
   includesFuel: true, includesDrinks: false, instantBook: false, cancellationPolicy: 'moderate', cancellationCustom: '',
   minHours: 2, pricingType: 'hourly', selectedFeatures: [],
@@ -79,6 +81,7 @@ function formFromInitial(d?: any): FormData {
   return {
     name: d.name ?? '', tagline: d.tagline ?? '', description: d.description ?? '',
     type: d.type ?? 'motor_yacht', locationId: d.location_id ?? '',
+    country: d.locations?.country ?? '', city: d.locations?.city ?? '',
     departurePort: d.departure_port ?? '', capacityPax: d.capacity_pax ?? 8,
     lengthM: d.length_m ? String(d.length_m) : '', cabins: d.cabins ?? 0,
     builder: d.builder ?? '', modelYear: d.model_year ? String(d.model_year) : '',
@@ -176,7 +179,14 @@ function DarkSelect({ value, onChange, children }: { value: string; onChange: (v
 
 export default function ListingWizard({ locations, initialData, boatId, targetHostId }: WizardProps) {
   const [step, setStep] = useState(0)
-  const [form, setForm] = useState<FormData>(() => formFromInitial(initialData))
+  const [form, setForm] = useState<FormData>(() => {
+    const f = formFromInitial(initialData)
+    if ((!f.country || !f.city) && f.locationId) {
+      const loc = locations.find((l) => l.id === f.locationId)
+      if (loc) { f.country = loc.country; f.city = loc.city }
+    }
+    return f
+  })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
@@ -199,14 +209,13 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
     setAiBusy(true)
     setError(null)
     try {
-      const loc = locations.find((l) => l.id === form.locationId)
       const res = await fetch('/api/ai/describe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: form.name, type: form.type, lengthM: form.lengthM, capacityPax: form.capacityPax,
           cabins: form.cabins, builder: form.builder, modelYear: form.modelYear,
-          departurePort: form.departurePort, locationName: loc ? `${loc.city}, ${loc.country}` : '',
+          departurePort: form.departurePort, locationName: (form.city && form.country) ? `${form.city}, ${form.country}` : '',
           includesSkipper: form.includesSkipper, includesFuel: form.includesFuel,
           includesDrinks: form.includesDrinks, features: form.selectedFeatures,
           existingDescription: form.description,
@@ -306,8 +315,17 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('Not authenticated')
 
+      // Resolve the typed city + country into a locations row (find-or-create).
+      const locRes = await fetch('/api/locations/resolve', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ city: form.city, country: form.country }),
+      })
+      const locJson = await locRes.json()
+      if (!locRes.ok || !locJson.id) throw new Error(locJson.error || 'Could not resolve location')
+      const resolvedLocationId = locJson.id as string
+
       const boatFields = {
-        location_id: form.locationId, name: form.name, tagline: form.tagline || null,
+        location_id: resolvedLocationId, name: form.name, tagline: form.tagline || null,
         description: form.description || null, type: form.type as any,
         length_m: form.lengthM ? Number(form.lengthM) : null, capacity_pax: form.capacityPax,
         cabins: form.cabins || null, builder: form.builder || null,
@@ -509,11 +527,14 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                 {BOAT_TYPES.map((t) => <option key={t} value={t}>{t.replace('_', ' ')}</option>)}
               </DarkSelect>
             </Field>
-            <Field label="Location" required>
-              <DarkSelect value={form.locationId} onChange={(v) => update('locationId', v)}>
-                <option value="">Select a city</option>
-                {locations.map((loc) => <option key={loc.id} value={loc.id}>{loc.city}, {loc.country}</option>)}
+            <Field label="Country" required>
+              <DarkSelect value={form.country} onChange={(v) => update('country', v)}>
+                <option value="">Select a country</option>
+                {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{c.name}</option>)}
               </DarkSelect>
+            </Field>
+            <Field label="City" required>
+              <DarkInput value={form.city} onChange={(e) => update('city', e.target.value)} placeholder="e.g. Marbella, Dubai, Mykonos…" />
             </Field>
             <Field label="Departure port / marina">
               <DarkInput value={form.departurePort} onChange={(e) => update('departurePort', e.target.value)} placeholder="e.g. Puerto Banús, Marbella" />
@@ -837,12 +858,12 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         {step < STEPS.length - 1 ? (
           <button
             onClick={() => setStep(step + 1)}
-            disabled={step === 0 && (!form.name || !form.locationId)}
+            disabled={step === 0 && (!form.name || !form.country || !form.city)}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 28px', borderRadius: '99px',
-              fontSize: '14px', fontWeight: 700, cursor: step === 0 && (!form.name || !form.locationId) ? 'not-allowed' : 'pointer',
+              fontSize: '14px', fontWeight: 700, cursor: step === 0 && (!form.name || !form.country || !form.city) ? 'not-allowed' : 'pointer',
               background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
-              color: '#07101e', opacity: step === 0 && (!form.name || !form.locationId) ? 0.45 : 1,
+              color: '#07101e', opacity: step === 0 && (!form.name || !form.country || !form.city) ? 0.45 : 1,
               border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)',
             }}
           >
