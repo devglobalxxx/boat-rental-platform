@@ -2,6 +2,11 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   images: {
+    // Serve images directly from source (Supabase/Unsplash) instead of through
+    // Vercel's image optimizer. The Hobby plan's optimization quota is exhausted,
+    // which makes optimized <Image> URLs return 402 (broken photos) — bypassing
+    // optimization keeps every listing photo loading reliably.
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: '**.supabase.co' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
