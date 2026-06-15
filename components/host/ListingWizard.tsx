@@ -196,6 +196,20 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
   )
   const [photoBusy, setPhotoBusy] = useState(false)
   const [aiBusy, setAiBusy] = useState(false)
+  const [dragOver, setDragOver] = useState(false)
+
+  // Append image files (from picker or drag-and-drop), de-duped by name+size.
+  function addImages(files: FileList | File[] | null) {
+    const incoming = Array.from(files ?? []).filter((f) => f.type.startsWith('image/'))
+    if (incoming.length === 0) return
+    setForm((f) => {
+      const merged = [...f.images]
+      for (const file of incoming) {
+        if (!merged.some((m) => m.name === file.name && m.size === file.size)) merged.push(file)
+      }
+      return { ...f, images: merged }
+    })
+  }
 
   // Brand-new listing → first offer how to add it (import vs manual). Skip the
   // chooser when editing, when prefilled, or in admin concierge mode (import
@@ -769,15 +783,26 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
               </div>
             )}
 
-            {/* Upload new photos */}
-            <div style={{ border: `2px dashed ${inputBorder}`, borderRadius: '14px', padding: '40px 24px', textAlign: 'center' }}>
-              <input type="file" accept="image/*" multiple onChange={(e) => update('images', Array.from(e.target.files ?? []))} style={{ display: 'none' }} id="photo-upload" />
+            {/* Upload new photos — click to browse or drag & drop */}
+            <div
+              onDragEnter={(e) => { e.preventDefault(); setDragOver(true) }}
+              onDragOver={(e) => { e.preventDefault(); if (!dragOver) setDragOver(true) }}
+              onDragLeave={(e) => { e.preventDefault(); if (e.currentTarget === e.target) setDragOver(false) }}
+              onDrop={(e) => { e.preventDefault(); setDragOver(false); addImages(e.dataTransfer.files) }}
+              style={{
+                border: `2px dashed ${dragOver ? '#c9a84e' : inputBorder}`,
+                background: dragOver ? 'rgba(201,168,78,0.08)' : 'transparent',
+                borderRadius: '14px', padding: '40px 24px', textAlign: 'center',
+                transition: 'border-color 0.15s, background 0.15s',
+              }}
+            >
+              <input type="file" accept="image/*" multiple onChange={(e) => { addImages(e.target.files); e.target.value = '' }} style={{ display: 'none' }} id="photo-upload" />
               <label htmlFor="photo-upload" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                 <div style={{ fontSize: '36px' }}>📸</div>
                 <div style={{ fontWeight: 600, color: text, fontSize: '15px' }}>
-                  {(initialData?.boat_images ?? []).length > 0 ? 'Add more photos' : 'Upload photos'}
+                  {dragOver ? 'Drop photos here' : ((initialData?.boat_images ?? []).length > 0 ? 'Add more photos' : 'Upload photos')}
                 </div>
-                <div style={{ fontSize: '13px', color: muted }}>JPG, PNG or WebP · up to 10 photos</div>
+                <div style={{ fontSize: '13px', color: muted }}>Drag &amp; drop or click · JPG, PNG or WebP · up to 10 photos</div>
               </label>
             </div>
 
