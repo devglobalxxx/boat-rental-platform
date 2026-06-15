@@ -58,10 +58,6 @@ export async function POST(req: NextRequest) {
     hostId = targetHostId
   }
 
-  let sourceHost = 'website-import'
-  try { sourceHost = new URL(String(b.sourceUrl ?? '')).hostname.replace(/^www\./, '') } catch { /* keep default */ }
-  const externalId = `web:${slugify(name)}`
-
   const pricing = (Array.isArray(b.pricing) ? b.pricing : [])
     .map((p: any) => ({ duration_hours: Math.round(Number(p?.duration_hours)), price: Math.round(Number(p?.price)) }))
     .filter((p: any) => p.duration_hours >= 1 && p.duration_hours <= 720 && p.price > 0)
@@ -71,8 +67,6 @@ export async function POST(req: NextRequest) {
   const row: any = {
     host_id: hostId,
     location_id: locationId,
-    external_id: externalId,
-    external_source: sourceHost,
     name,
     tagline: String(b.tagline ?? '').trim().slice(0, 200) || null,
     description: String(b.description ?? '').trim().slice(0, 5000) || null,
@@ -91,10 +85,10 @@ export async function POST(req: NextRequest) {
     updated_at: new Date().toISOString(),
   }
 
-  // Re-import of the same boat from the same site updates instead of duplicating.
+  // Re-import of the same-named boat for this host updates instead of duplicating.
   const { data: existing } = await admin
     .from('boats').select('id')
-    .eq('host_id', hostId).eq('external_id', externalId).eq('external_source', sourceHost)
+    .eq('host_id', hostId).eq('name', name)
     .maybeSingle()
 
   let boatId = (existing as { id: string } | null)?.id
