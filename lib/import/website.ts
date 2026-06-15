@@ -85,6 +85,12 @@ export function extractLinks(html: string, baseUrl: string): { url: string; text
 const BOAT_HINT = /fleet|boat|yacht|charter|catamaran|sail|gulet|rib\b|jet|vessel|rental|rent\b|barco|barca|bateau|velero|flotta|flota|vloot|alquiler|noleggio|locazione|nuestra|nos-bateaux/i
 const CATALOG_HINT = /\/(fleet|boats|yachts|our-fleet|our-boats|charters?|flota|flotta|barcos|bateaux|vloot|rentals?|listings?)\/?$/i
 
+// True when a URL looks like an INDIVIDUAL boat detail page (not a homepage or
+// fleet/catalog index) — used to keep a host-pasted single-boat URL in results.
+export function looksLikeBoatPage(u: string): boolean {
+  try { const p = new URL(u).pathname; return BOAT_HINT.test(p) && !CATALOG_HINT.test(p) } catch { return false }
+}
+
 // Crawl the site (home + sitemap + obvious catalog pages, 1 level deep) and
 // return candidate boat-page links for the LLM to classify.
 export async function discoverCandidates(siteUrl: string): Promise<{ url: string; text: string }[]> {
@@ -94,9 +100,18 @@ export async function discoverCandidates(siteUrl: string): Promise<{ url: string
     if (!seen.has(l.url) || (l.text && !seen.get(l.url))) seen.set(l.url, l.text)
   }
 
+  // If the host pasted a specific boat page (not a homepage/catalog), keep it —
+  // it's usually the exact boat they want imported.
+  const startIsBoatPage = looksLikeBoatPage(start.toString())
+
   const startHtml = await fetchHtml(start.toString())
   const startLinks = extractLinks(startHtml, start.toString())
   startLinks.forEach(add)
+  if (startIsBoatPage) {
+    const startTitle = (startHtml.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '')
+      .replace(/\s+/g, ' ').trim().slice(0, 120)
+    add({ url: start.toString(), text: startTitle })
+  }
 
   // sitemap.xml often lists every boat page directly.
   try {
@@ -126,7 +141,7 @@ export async function discoverCandidates(siteUrl: string): Promise<{ url: string
   const startKey = start.toString().replace(/\/$/, '')
   return [...seen.entries()]
     .map(([url, text]) => ({ url, text }))
-    .filter((l) => l.url.replace(/\/$/, '') !== startKey)
+    .filter((l) => startIsBoatPage || l.url.replace(/\/$/, '') !== startKey)
     .filter((l) => BOAT_HINT.test(l.url) || BOAT_HINT.test(l.text))
     .slice(0, 80)
 }
