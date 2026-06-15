@@ -109,6 +109,10 @@ export function extractLinks(html: string, baseUrl: string): { url: string; text
 const BOAT_HINT = /fleet|boat|yacht|charter|catamaran|sail|gulet|rib\b|jet|vessel|rental|rent\b|barco|barca|bateau|velero|flotta|flota|vloot|alquiler|noleggio|locazione|nuestra|nos-bateaux/i
 const CATALOG_HINT = /\/(fleet|boats|yachts|our-fleet|our-boats|charters?|flota|flotta|barcos|bateaux|vloot|rentals?|listings?)\/?$/i
 
+// Pages that are clearly NOT a boat listing — dropped before classification.
+const EXCLUDE_HINT = /\/(contacto?|kontakt|about|quienes|nosotros|gallery|galer[íi]a|galerie|fotos|blog|news|noticias|press|impressum|privac|terms|terminos|condiciones|cookies?|faq|cart|checkout|basket|account|login|signin|register|sitemap)/i
+const EXCLUDE_TEXT = /^(home|inicio|accueil|startseite|contacto?|kontakt|gallery|galer[íi]a|galerie|english|deutsch|fran[cç]ais|espa[ñn]ol|italiano|nederlands)\b/i
+
 // True when a URL looks like an INDIVIDUAL boat detail page (not a homepage or
 // fleet/catalog index) — used to keep a host-pasted single-boat URL in results.
 export function looksLikeBoatPage(u: string): boolean {
@@ -166,6 +170,8 @@ export async function discoverCandidates(siteUrl: string): Promise<{ url: string
   return [...seen.entries()]
     .map(([url, text]) => ({ url, text }))
     .filter((l) => startIsBoatPage || l.url.replace(/\/$/, '') !== startKey)
+    .filter((l) => !/\.xml(\?|$)/i.test(l.url))
+    .filter((l) => !EXCLUDE_HINT.test(new URL(l.url).pathname) && !EXCLUDE_TEXT.test(l.text.trim()))
     .filter((l) => BOAT_HINT.test(l.url) || BOAT_HINT.test(l.text))
     .slice(0, 80)
 }
