@@ -7499,5 +7499,83 @@
       "consumed_at": "2026-06-15"
     }
   ],
-  "queue": []
+  "queue": [
+    {
+      "kind": "landing",
+      "slug": "luxury-yacht-charter-marbella-day-price",
+      "primary_keyword": "luxury yacht charter Marbella day price",
+      "title": "Luxury Yacht Charter Marbella Day Price – Compare Rates",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-f1-2025",
+      "primary_keyword": "Marbella boat party for F1 2025",
+      "title": "Marbella Boat Party for F1 2025 – Ultimate Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-hen-do",
+      "primary_keyword": "Marbella boat party for hen do",
+      "title": "Marbella Boat Party for Hen Do – Best Ideas",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-f1-2026",
+      "primary_keyword": "Marbella boat party for F1 2026",
+      "title": "Marbella Boat Party for F1 2026 – Early Planning",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-f1-2025-tips",
+      "primary_keyword": "Marbella boat party for F1 2025 tips",
+      "title": "Marbella Boat Party for F1 2025 – Top Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-stag-do-activities",
+      "primary_keyword": "Marbella boat party for stag do activities",
+      "title": "Marbella Boat Party for Stag Do – Best Activities",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-hen-do-activities",
+      "primary_keyword": "Marbella boat party for hen do activities",
+      "title": "Marbella Boat Party for Hen Do – Fun Activities",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-new-years-eve-tips",
+      "primary_keyword": "Marbella boat party for New Year's Eve tips",
+      "title": "Marbella Boat Party for NYE – Essential Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-starlite-festival-tips",
+      "primary_keyword": "Marbella boat party for Starlite Festival tips",
+      "title": "Marbella Boat Party for Starlite – Top Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-feria-2025",
+      "primary_keyword": "Marbella boat party for Feria 2025",
+      "title": "Marbella Boat Party for Feria 2025 – Plan Ahead",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-party-for-new-years-eve-2025",
+      "primary_keyword": "Marbella boat party for New Year's Eve 2025",
+      "title": "Marbella Boat Party for NYE 2025 – Early Booking",
+      "target_words": 1100
+    }
+  ]
 }
