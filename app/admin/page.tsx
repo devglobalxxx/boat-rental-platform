@@ -44,7 +44,7 @@ const fmtT = (d: string) => new Date(d).toLocaleTimeString('en-GB', { hour: '2-d
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ filter?: string }>
+  searchParams: Promise<{ filter?: string; sort?: string }>
 }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -71,6 +71,7 @@ export default async function AdminPage({
 
   const params = await searchParams
   const filter = params.filter ?? 'all'
+  const sort = params.sort === 'oldest' ? 'oldest' : 'newest'
 
   // Manual bank payouts waiting on us + failed Stripe transfers (cron retries those).
   // Empty until migration 007 is applied — the section hides itself.
@@ -178,7 +179,13 @@ export default async function AdminPage({
     website_url: websiteMap[p.id] ?? null,
   }))
 
-  const filtered = filter === 'all' ? all : all.filter((p) => p.verification_status === filter)
+  const filtered = (filter === 'all' ? all : all.filter((p) => p.verification_status === filter))
+    .slice()
+    .sort((a, b) => {
+      const ta = a.joined ? new Date(a.joined).getTime() : 0
+      const tb = b.joined ? new Date(b.joined).getTime() : 0
+      return sort === 'oldest' ? ta - tb : tb - ta
+    })
 
   const counts = {
     all: all.length,
@@ -346,13 +353,32 @@ export default async function AdminPage({
           ].map((tab) => (
             <a
               key={tab.key}
-              href={`/admin?filter=${tab.key}`}
+              href={`/admin?filter=${tab.key}&sort=${sort}`}
               style={{ padding: '7px 16px', borderRadius: '99px', fontSize: '12px', fontWeight: 600, textDecoration: 'none', background: filter === tab.key ? goldFaint : 'transparent', color: filter === tab.key ? gold : muted, border: `1px solid ${filter === tab.key ? goldBorder : 'rgba(255,255,255,0.10)'}` }}
             >
               {tab.label}
             </a>
           ))}
         </div>
+
+        {/* Sort by joining date */}
+        {filter !== 'deleted' && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '12px', color: muted, fontWeight: 600 }}>Joined:</span>
+            {[
+              { key: 'newest', label: 'Newest first' },
+              { key: 'oldest', label: 'Oldest first' },
+            ].map((opt) => (
+              <a
+                key={opt.key}
+                href={`/admin?filter=${filter}&sort=${opt.key}`}
+                style={{ padding: '6px 14px', borderRadius: '99px', fontSize: '12px', fontWeight: 600, textDecoration: 'none', background: sort === opt.key ? goldFaint : 'transparent', color: sort === opt.key ? gold : muted, border: `1px solid ${sort === opt.key ? goldBorder : 'rgba(255,255,255,0.10)'}` }}
+              >
+                {opt.label}
+              </a>
+            ))}
+          </div>
+        )}
 
         {/* Deleted accounts table */}
         {filter === 'deleted' && (
