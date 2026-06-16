@@ -8,6 +8,7 @@ import type { BoatWithDetails, LocationRow } from '@/types/database'
 import { getLandingPage, getLandingSlugs } from '@/lib/landing/pages'
 import { hasEs } from '@/lib/landing/pages-es'
 import LandingView from '@/components/landing/LandingView'
+import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 
 interface Props {
   params: Promise<{ location: string }>
@@ -231,6 +232,9 @@ export default async function LocationPage({ params }: Props) {
           ]),
         }}
       />
+
+      {/* Pay-by-cash discount promo — Marbella only */}
+      {loc.city === 'Marbella' && <CashDiscountPromo />}
     </div>
   )
 }

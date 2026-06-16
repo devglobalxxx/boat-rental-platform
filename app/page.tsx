@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
-import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
 import { siteJsonLd } from '@/lib/seo/structured-data'
 
@@ -513,9 +512,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Pay-by-cash discount promo (Marbella fleet) */}
-      <CashDiscountPromo />
     </div>
   )
 }
