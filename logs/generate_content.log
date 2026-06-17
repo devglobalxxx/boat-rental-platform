@@ -2327,3 +2327,28 @@
 [2026-06-16 10:10:58] refill (LLM fallback): +11 (queue now 11)
 [2026-06-16 10:10:58] === Done: 0 ok, 0 failed ===
 
+[2026-06-17 09:45:41] === Generate: 10 blog + 1 landing = 11 item(s) (backend=deepseek) ===
+[2026-06-17 09:45:42] [1/11] blog · marbella-boat-party-for-f1-2025
+[2026-06-17 09:46:42]   ✓ generated
+[2026-06-17 09:46:42] [2/11] blog · marbella-boat-party-for-hen-do
+[2026-06-17 09:47:38]   ✓ generated
+[2026-06-17 09:47:38] [3/11] blog · marbella-boat-party-for-f1-2026
+[2026-06-17 09:48:25]   ✓ generated
+[2026-06-17 09:48:25] [4/11] blog · marbella-boat-party-for-f1-2025-tips
+[2026-06-17 09:49:24]   ✓ generated
+[2026-06-17 09:49:24] [5/11] blog · marbella-boat-party-for-stag-do-activities
+[2026-06-17 09:50:17]   ✓ generated
+[2026-06-17 09:50:17] [6/11] blog · marbella-boat-party-for-hen-do-activities
+[2026-06-17 09:51:20]   ✓ generated
+[2026-06-17 09:51:20] [7/11] blog · marbella-boat-party-for-new-years-eve-tips
+[2026-06-17 09:52:23]   ✓ generated
+[2026-06-17 09:52:23] [8/11] blog · marbella-boat-party-for-starlite-festival-tips
+[2026-06-17 09:53:21]   ✓ generated
+[2026-06-17 09:53:21] [9/11] blog · marbella-boat-party-for-feria-2025
+[2026-06-17 09:54:23]   ✓ generated
+[2026-06-17 09:54:23] [10/11] blog · marbella-boat-party-for-new-years-eve-2025
+[2026-06-17 09:55:11]   ✓ generated
+[2026-06-17 09:55:11] [11/11] landing · luxury-yacht-charter-marbella-day-price
+[2026-06-17 09:56:18]   ✓ generated
+[2026-06-17 09:56:18] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-17 09:57:04] refill (LLM fallback): +19 (queue now 19)
