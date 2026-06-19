@@ -63,7 +63,8 @@ def log(msg: str):
 # ---------- generation backend ----------
 def load_env():
     wanted = ("ANTHROPIC_API_KEY", "DEEPSEEK_API_KEY", "CRON_SECRET", "REINDEX_URL",
-              "BOATHIRE24_BLOGGER_ID", "BOATHIRE24_GOOGLE_CREDENTIALS")
+              "BOATHIRE24_BLOGGER_ID", "BOATHIRE24_GOOGLE_CREDENTIALS",
+              "DATAFORSEO_LOGIN", "DATAFORSEO_PASSWORD")
     for p in [ROOT / ".env.local", ROOT / ".env",
               pathlib.Path.home() / "boat-rental-marbella" / ".env",
               pathlib.Path.home() / "aiangels-blog" / ".env"]:
