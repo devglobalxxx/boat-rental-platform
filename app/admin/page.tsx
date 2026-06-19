@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
+import ApiKeysManager from '@/components/admin/ApiKeysManager'
 import AdminVerifyButton from './AdminVerifyButton'
 import AdminDocsButton from './AdminDocsButton'
 import AdminBoatsButton from './AdminBoatsButton'
@@ -489,6 +490,13 @@ export default async function AdminPage({
           )}
         </div>
         )}
+
+        {/* ── Partner API keys ── */}
+        <h2 style={{ fontSize: '18px', fontWeight: 800, color: text, margin: '44px 0 14px' }}>🔑 Partner API keys</h2>
+        <ApiKeysManager
+          hosts={all.map((u) => ({ id: u.id, name: u.full_name ?? '', email: u.email }))}
+          defaultHostId="4eec4232-f87e-4e02-8825-b6db5ada75ef"
+        />
       </div>
     </div>
   )
