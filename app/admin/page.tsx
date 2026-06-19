@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
+import AdminApiKeyButton from '@/components/admin/AdminApiKeyButton'
 import AdminVerifyButton from './AdminVerifyButton'
 import AdminDocsButton from './AdminDocsButton'
 import AdminBoatsButton from './AdminBoatsButton'
@@ -182,6 +183,9 @@ export default async function AdminPage({
   const filtered = (filter === 'all' ? all : all.filter((p) => p.verification_status === filter))
     .slice()
     .sort((a, b) => {
+      // Admins always at the top, then by joining date.
+      const adminDiff = (b.is_admin ? 1 : 0) - (a.is_admin ? 1 : 0)
+      if (adminDiff) return adminDiff
       const ta = a.joined ? new Date(a.joined).getTime() : 0
       const tb = b.joined ? new Date(b.joined).getTime() : 0
       return sort === 'oldest' ? ta - tb : tb - ta
@@ -459,6 +463,7 @@ export default async function AdminPage({
                               + Add
                             </a>
                             <AdminLinkButton userId={u.id} currentUrl={u.website_url} />
+                            <AdminApiKeyButton userId={u.id} userName={u.full_name ?? u.email} />
                           </div>
                         </td>
                         <td style={{ padding: '14px 16px', position: 'relative' }}>
