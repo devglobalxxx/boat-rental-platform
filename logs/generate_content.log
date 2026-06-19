@@ -2356,3 +2356,44 @@
 [2026-06-17 09:57:11] reindex ping: 200 {"ok":true,"urls_total":1718,"indexnow":{"ok":true,"status":200,"count":1718},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-17T05:
 [2026-06-17 09:57:11] === Done: 11 ok, 0 failed ===
 
+[2026-06-19 07:43:40] === Generate: 15 blog + 4 landing = 19 item(s) (backend=deepseek) ===
+[2026-06-19 07:43:42] [1/19] blog · best-time-for-snorkeling-in-marbella
+[2026-06-19 07:44:36]   ✓ generated
+[2026-06-19 07:44:36] [2/19] blog · marbella-boat-photoshoot-ideas
+[2026-06-19 07:45:15]   ✓ generated
+[2026-06-19 07:45:15] [3/19] blog · hen-party-boat-marbella-vs-puerto-banus
+[2026-06-19 07:46:07]   ✓ generated
+[2026-06-19 07:46:07] [4/19] blog · what-to-pack-for-boat-day-marbella-summer
+[2026-06-19 07:47:01]   ✓ generated
+[2026-06-19 07:47:01] [5/19] blog · best-anchorages-near-marbella-for-overnight
+[2026-06-19 07:47:52]   ✓ generated
+[2026-06-19 07:47:52] [6/19] blog · stag-do-boat-marbella-vs-benalmadena
+[2026-06-19 07:48:37]   ✓ generated
+[2026-06-19 07:48:37] [7/19] blog · marbella-boat-trip-with-dolphins-in-july
+[2026-06-19 07:49:23]   ✓ generated
+[2026-06-19 07:49:23] [8/19] blog · family-boat-day-puerto-banus-guide
+[2026-06-19 07:50:15]   ✓ generated
+[2026-06-19 07:50:15] [9/19] blog · best-coves-for-anchoring-near-fuengirola
+[2026-06-19 07:51:16]   ✓ generated
+[2026-06-19 07:51:16] [10/19] blog · marbella-boat-trip-in-winter-whale-watching
+[2026-06-19 07:52:09]   ✓ generated
+[2026-06-19 07:52:09] [11/19] blog · marbella-boat-trip-starlite-festival-tips
+[2026-06-19 07:52:57]   ✓ generated
+[2026-06-19 07:52:57] [12/19] blog · dolphin-watching-marbella-with-champagne
+[2026-06-19 07:53:50]   ✓ generated
+[2026-06-19 07:53:50] [13/19] blog · best-sunset-spots-near-marbella-by-boat
+[2026-06-19 07:54:35]   ✓ generated
+[2026-06-19 07:54:35] [14/19] blog · family-fishing-marbella-guide
+[2026-06-19 07:55:30]   ✓ generated
+[2026-06-19 07:55:30] [15/19] blog · marbella-boat-weather-in-december
+[2026-06-19 07:56:23]   ✓ generated
+[2026-06-19 07:56:23] [16/19] landing · charter-motor-yacht-marbella-day
+[2026-06-19 07:57:12]   ✓ generated
+[2026-06-19 07:57:12] [17/19] landing · private-catamaran-hire-puerto-banus-birthday
+[2026-06-19 07:57:56]   ✓ generated
+[2026-06-19 07:57:56] [18/19] landing · private-yacht-charter-marbella-wedding
+[2026-06-19 07:58:44]   ✓ generated
+[2026-06-19 07:58:44] [19/19] landing · luxury-catamaran-charter-marbella-weekend
+[2026-06-19 07:59:43]   ✓ generated
+[2026-06-19 07:59:43] DataForSEO unavailable — falling back to LLM topic invention
+[2026-06-19 08:00:24] refill (LLM fallback): +58 (queue now 58)
