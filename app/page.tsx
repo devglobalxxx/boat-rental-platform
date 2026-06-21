@@ -293,7 +293,7 @@ export default function HomePage() {
                       <div className="font-bold text-lg" style={{ color: '#f4f4f2' }}>{dest.city}</div>
                       <div className="text-sm" style={{ color: 'rgba(244,244,242,0.60)' }}>{dest.country}</div>
                     </div>
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: '#74cfe8', color: '#07101e' }}>{dest.count}</span>
+                    <span className="text-sm font-bold px-4 py-2 rounded-full" style={{ background: '#74cfe8', color: '#07101e' }}>{dest.count}</span>
                   </div>
                 </div>
                 <div style={{ padding: '28px 28px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
