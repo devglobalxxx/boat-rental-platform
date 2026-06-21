@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
+import HeroSearchPill from '@/components/home/HeroSearchPill'
 import { siteJsonLd } from '@/lib/seo/structured-data'
 
 export const metadata: Metadata = {
@@ -219,6 +220,14 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ══ 1b · SEARCH ══ */}
+      <section style={{ background: 'linear-gradient(135deg,#0c1927 0%,#0e2040 50%,#0c1927 100%)', borderBottom: '1px solid rgba(201,168,78,0.18)' }}>
+        <div className="container" style={{ paddingTop: '28px', paddingBottom: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <p className="eyebrow" style={{ marginBottom: '14px', textAlign: 'center' }}>Search 1,200+ verified boats</p>
+          <HeroSearchPill />
         </div>
       </section>
 
