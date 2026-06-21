@@ -145,9 +145,9 @@ const COPY: Record<Lang, {
   },
 }
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const textMuted = 'rgba(244,244,242,0.55)'
 
 export default function ListYourBoatClient({
@@ -160,14 +160,14 @@ export default function ListYourBoatClient({
     <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
       {/* Outreach banner — only shown when arriving from cold email */}
       {isOutreach && (
-        <div style={{ background: 'linear-gradient(90deg, rgba(201,168,78,0.18), rgba(201,168,78,0.06))', borderBottom: `1px solid ${goldBorder}`, padding: '12px 16px', textAlign: 'center', fontSize: '14px', color: '#f4f4f2' }}>
+        <div style={{ background: 'linear-gradient(90deg, rgba(116,207,232,0.18), rgba(116,207,232,0.06))', borderBottom: `1px solid ${goldBorder}`, padding: '12px 16px', textAlign: 'center', fontSize: '14px', color: '#f4f4f2' }}>
           ✦ {t.outreachBanner(city)} {operatorDomain && <span style={{ color: textMuted, marginLeft: 8 }}>({operatorDomain})</span>}
         </div>
       )}
 
       {/* Hero */}
       <section style={{ position: 'relative', overflow: 'hidden', paddingTop: 100, paddingBottom: 88 }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 90% 60% at 60% 0%, rgba(201,168,78,0.12) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 90% 60% at 60% 0%, rgba(116,207,232,0.12) 0%, transparent 65%)' }} />
         <div style={{ position: 'relative', maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ maxWidth: 640 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 600, padding: '6px 16px', borderRadius: 99, marginBottom: 28, background: goldFaint, color: gold, border: `1px solid ${goldBorder}` }}>
@@ -181,7 +181,7 @@ export default function ListYourBoatClient({
               {t.sub(city)}
             </p>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              <Link href={listUrl} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 32px', borderRadius: 99, fontSize: 15, fontWeight: 700, background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', boxShadow: '0 8px 32px rgba(201,168,78,0.32)', textDecoration: 'none' }}>
+              <Link href={listUrl} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 32px', borderRadius: 99, fontSize: 15, fontWeight: 700, background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', boxShadow: '0 8px 32px rgba(116,207,232,0.32)', textDecoration: 'none' }}>
                 {t.cta1} <ArrowRight style={{ width: 16, height: 16 }} />
               </Link>
               <Link href="/how-it-works" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 32px', borderRadius: 99, fontSize: 15, fontWeight: 600, border: `1px solid ${goldBorder}`, color: 'rgba(244,244,242,0.80)', background: 'transparent', textDecoration: 'none' }}>
@@ -235,7 +235,7 @@ export default function ListYourBoatClient({
 
       {/* Final CTA */}
       <section style={{ padding: '64px 16px', borderTop: `1px solid ${goldBorder}`, textAlign: 'center' }}>
-        <Link href={listUrl} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '16px 40px', borderRadius: 99, fontSize: 16, fontWeight: 700, background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', boxShadow: '0 8px 32px rgba(201,168,78,0.32)', textDecoration: 'none' }}>
+        <Link href={listUrl} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '16px 40px', borderRadius: 99, fontSize: 16, fontWeight: 700, background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', boxShadow: '0 8px 32px rgba(116,207,232,0.32)', textDecoration: 'none' }}>
           {t.cta1} <ArrowRight style={{ width: 16, height: 16 }} />
         </Link>
         <p style={{ marginTop: 20, fontSize: 12, color: textMuted }}>

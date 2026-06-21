@@ -4,11 +4,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Building2, ChevronLeft, CheckCircle, Users, Calendar, Ship, MessageSquare, Mail, Phone, Briefcase } from 'lucide-react'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -241,7 +241,7 @@ export default function CorporatePage() {
               <button
                 type="submit"
                 disabled={submitting}
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, border: 'none', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1, boxShadow: '0 4px 18px rgba(201,168,78,0.22)' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, border: 'none', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1, boxShadow: '0 4px 18px rgba(116,207,232,0.22)' }}
               >
                 <MessageSquare style={{ width: 15, height: 15 }} />
                 {submitting ? 'Sending enquiry…' : 'Send enquiry'}

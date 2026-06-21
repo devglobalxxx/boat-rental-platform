@@ -5,9 +5,9 @@ import { formatPrice } from '@/lib/utils/pricing'
 import { Clock, CheckCircle, XCircle, Calendar, Users } from 'lucide-react'
 import CancelBookingButton from '@/components/booking/CancelBookingButton'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -16,7 +16,7 @@ const STATUS_CONFIG = {
   pending:   { label: 'Pending',   color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  bd: 'rgba(245,158,11,0.30)',  icon: Clock },
   confirmed: { label: 'Confirmed', color: '#22c55e', bg: 'rgba(34,197,94,0.12)',   bd: 'rgba(34,197,94,0.30)',   icon: CheckCircle },
   cancelled: { label: 'Cancelled', color: '#f87171', bg: 'rgba(248,113,113,0.10)', bd: 'rgba(248,113,113,0.28)', icon: XCircle },
-  completed: { label: 'Completed', color: gold,      bg: 'rgba(201,168,78,0.10)',  bd: 'rgba(201,168,78,0.28)',  icon: CheckCircle },
+  completed: { label: 'Completed', color: gold,      bg: 'rgba(116,207,232,0.10)',  bd: 'rgba(116,207,232,0.28)',  icon: CheckCircle },
 }
 
 export default async function HostBookingsPage({
@@ -140,7 +140,7 @@ export default async function HostBookingsPage({
                       {booking.status === 'pending' && (
                         (booking as { special_requests?: string | null }).special_requests?.startsWith('Price on request') ? (
                           <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#c9a84e', padding: '6px 12px', borderRadius: '99px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.28)' }}>💬 Quote request</span>
+                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#74cfe8', padding: '6px 12px', borderRadius: '99px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.28)' }}>💬 Quote request</span>
                             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                               <Link href={`/host/bookings/${booking.id}/offer`} style={{ padding: '8px 16px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '13px', fontWeight: 700, textDecoration: 'none' }}>Send offer →</Link>
                               <form action={`/api/host/bookings/${booking.id}/decline`} method="POST">

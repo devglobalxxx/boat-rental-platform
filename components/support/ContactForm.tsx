@@ -3,7 +3,7 @@
 import { useState, type CSSProperties, type FormEvent } from 'react'
 import { Send, Loader2, CheckCircle } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -78,7 +78,7 @@ export default function ContactForm({ supportEmail }: { supportEmail: string }) 
         style={{
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
           padding: '14px 24px', borderRadius: '99px', border: 'none',
-          background: (status === 'sending' || !email.trim() || !message.trim()) ? 'rgba(201,168,78,0.30)' : 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)',
+          background: (status === 'sending' || !email.trim() || !message.trim()) ? 'rgba(116,207,232,0.30)' : 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)',
           color: '#07101e', fontSize: '15px', fontWeight: 700,
           cursor: (status === 'sending' || !email.trim() || !message.trim()) ? 'default' : 'pointer',
         }}

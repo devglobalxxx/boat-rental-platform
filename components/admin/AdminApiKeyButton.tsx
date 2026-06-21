@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 interface Key { id: string; key: string; label: string | null; active: boolean; created_at: string; last_used_at: string | null }
 
-const gold = '#c9a84e', muted = 'rgba(244,244,242,0.55)', text = '#f4f4f2'
+const gold = '#74cfe8', muted = 'rgba(244,244,242,0.55)', text = '#f4f4f2'
 
 export default function AdminApiKeyButton({ userId, userName }: { userId: string; userName?: string }) {
   const [open, setOpen] = useState(false)
@@ -45,11 +45,11 @@ export default function AdminApiKeyButton({ userId, userName }: { userId: string
       <button
         onClick={toggle}
         title={`API keys for ${userName ?? 'this host'}`}
-        style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '5px 10px', borderRadius: 8, background: 'rgba(201,168,78,0.12)', border: '1px solid rgba(201,168,78,0.32)', color: gold, fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
+        style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '5px 10px', borderRadius: 8, background: 'rgba(116,207,232,0.12)', border: '1px solid rgba(116,207,232,0.32)', color: gold, fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
       >🔑 API{keys.length ? ` (${keys.filter((k) => k.active).length})` : ''}</button>
 
       {open && (
-        <div style={{ position: 'absolute', top: 'calc(100% + 6px)', left: 0, zIndex: 50, width: 320, background: '#0c1828', border: '1px solid rgba(201,168,78,0.3)', borderRadius: 12, padding: 14, boxShadow: '0 16px 40px rgba(0,0,0,0.5)' }}>
+        <div style={{ position: 'absolute', top: 'calc(100% + 6px)', left: 0, zIndex: 50, width: 320, background: '#0c1828', border: '1px solid rgba(116,207,232,0.3)', borderRadius: 12, padding: 14, boxShadow: '0 16px 40px rgba(0,0,0,0.5)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
             <span style={{ fontSize: 12, fontWeight: 700, color: text }}>Partner API keys</span>
             <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: muted, cursor: 'pointer', fontSize: 16 }}>×</button>

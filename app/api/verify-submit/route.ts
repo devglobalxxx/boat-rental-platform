@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
       <p><strong>Documents submitted:</strong></p>
       <ul>${docLines}</ul>
       <p>
-        <a href="https://boathire24.com/admin" style="background:#c9a84e;color:#07101e;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:700;">
+        <a href="https://boathire24.com/admin" style="background:#74cfe8;color:#07101e;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:700;">
           Open Admin Panel →
         </a>
       </p>

@@ -101,8 +101,8 @@ function approvedEmailHtml({ firstName, boatName, slug, boatId }: {
 <body style="margin:0;padding:0;background:#07101e;font-family:-apple-system,sans-serif;color:#f4f4f2;">
 <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 16px;"><tr><td align="center">
 <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;">
-<tr><td style="padding-bottom:24px;text-align:center;"><span style="font-size:24px;font-weight:800;">Boat<span style="color:#c9a84e;">Hire24</span></span></td></tr>
-<tr><td style="background:#0c1828;border:1px solid rgba(201,168,78,0.20);border-radius:16px;overflow:hidden;">
+<tr><td style="padding-bottom:24px;text-align:center;"><span style="font-size:24px;font-weight:800;">Boat<span style="color:#74cfe8;">Hire24</span></span></td></tr>
+<tr><td style="background:#0c1828;border:1px solid rgba(116,207,232,0.20);border-radius:16px;overflow:hidden;">
 <div style="height:3px;background:linear-gradient(90deg,transparent,#22c55e,#4ade80,#22c55e,transparent);"></div>
 <div style="padding:36px 40px;">
 <div style="text-align:center;font-size:52px;margin-bottom:14px;">🎉</div>
@@ -115,10 +115,10 @@ ${['Your listing appears in search and on its own page','Guests can request to b
 <tr><td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#22c55e;margin-right:10px;">✓</span><span style="font-size:14px;color:rgba(244,244,242,0.78);">${item}</span></td></tr>`).join('')}
 </table>
 <div style="text-align:center;">
-  <a href="https://boathire24.com/boats/${slug}" style="display:inline-block;padding:14px 30px;border-radius:99px;background:linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e);color:#07101e;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 18px rgba(201,168,78,0.30);">View your live listing →</a>
+  <a href="https://boathire24.com/boats/${slug}" style="display:inline-block;padding:14px 30px;border-radius:99px;background:linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6);color:#07101e;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 18px rgba(116,207,232,0.30);">View your live listing →</a>
 </div>
 <p style="font-size:13px;color:rgba(244,244,242,0.40);text-align:center;margin-top:20px;margin-bottom:0;">
-  Manage it anytime in your <a href="https://boathire24.com/host/listings/${boatId}" style="color:#c9a84e;text-decoration:none;">host dashboard</a> · Questions? Reply to this email.
+  Manage it anytime in your <a href="https://boathire24.com/host/listings/${boatId}" style="color:#74cfe8;text-decoration:none;">host dashboard</a> · Questions? Reply to this email.
 </p>
 </div></td></tr>
 <tr><td style="padding-top:20px;text-align:center;"><p style="font-size:11px;color:rgba(244,244,242,0.30);margin:0;">© BoatHire24 — host notification</p></td></tr>
@@ -135,8 +135,8 @@ function revisionEmailHtml({ firstName, boatName, boatId, status, note }: {
 <body style="margin:0;padding:0;background:#07101e;font-family:-apple-system,sans-serif;color:#f4f4f2;">
 <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 16px;"><tr><td align="center">
 <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;">
-<tr><td style="padding-bottom:24px;text-align:center;"><span style="font-size:24px;font-weight:800;">Boat<span style="color:#c9a84e;">Hire24</span></span></td></tr>
-<tr><td style="background:#0c1828;border:1px solid rgba(201,168,78,0.20);border-radius:16px;overflow:hidden;">
+<tr><td style="padding-bottom:24px;text-align:center;"><span style="font-size:24px;font-weight:800;">Boat<span style="color:#74cfe8;">Hire24</span></span></td></tr>
+<tr><td style="background:#0c1828;border:1px solid rgba(116,207,232,0.20);border-radius:16px;overflow:hidden;">
 <div style="height:3px;background:linear-gradient(90deg,transparent,#f59e0b,#fbbf24,#f59e0b,transparent);"></div>
 <div style="padding:36px 40px;">
 <div style="text-align:center;font-size:48px;margin-bottom:14px;">${note ? '⚠️' : '🔔'}</div>
@@ -154,7 +154,7 @@ ${note ? `<div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245
   Open the listing editor, make the changes above, then save. Once everything looks good we'll re-activate the listing — usually within a few hours.
 </p>
 <div style="text-align:center;">
-  <a href="https://boathire24.com/host/listings/${boatId}" style="display:inline-block;padding:13px 28px;border-radius:99px;background:linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e);color:#07101e;font-size:14px;font-weight:700;text-decoration:none;">Open listing editor →</a>
+  <a href="https://boathire24.com/host/listings/${boatId}" style="display:inline-block;padding:13px 28px;border-radius:99px;background:linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6);color:#07101e;font-size:14px;font-weight:700;text-decoration:none;">Open listing editor →</a>
 </div>
 <p style="font-size:12px;color:rgba(244,244,242,0.35);text-align:center;margin-top:22px;margin-bottom:0;">Reply to this email for help — info@boathire24.com</p>
 </div></td></tr>

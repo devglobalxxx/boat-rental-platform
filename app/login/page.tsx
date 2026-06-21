@@ -6,8 +6,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Logo from '@/components/ui/Logo'
 import { createClient } from '@/lib/supabase/client'
 
-const gold = '#c9a84e'
-const goldBorder = 'rgba(201,168,78,0.28)'
+const gold = '#74cfe8'
+const goldBorder = 'rgba(116,207,232,0.28)'
 const inputBg = 'rgba(255,255,255,0.05)'
 const inputBorder = 'rgba(255,255,255,0.14)'
 const text = '#f4f4f2'
@@ -53,7 +53,7 @@ function LoginForm() {
   }
 
   return (
-    <div style={{ background: '#0c1828', border: '1px solid rgba(201,168,78,0.18)', borderRadius: '20px', padding: '36px 32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div style={{ background: '#0c1828', border: '1px solid rgba(116,207,232,0.18)', borderRadius: '20px', padding: '36px 32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
       {/* Google */}
       <button
@@ -107,7 +107,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          style={{ width: '100%', padding: '14px', borderRadius: '10px', fontSize: '15px', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)', opacity: loading ? 0.6 : 1, transition: 'opacity 0.15s' }}
+          style={{ width: '100%', padding: '14px', borderRadius: '10px', fontSize: '15px', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.25)', opacity: loading ? 0.6 : 1, transition: 'opacity 0.15s' }}
         >
           {loading ? 'Signing in…' : 'Sign in'}
         </button>
@@ -134,7 +134,7 @@ export default function LoginPage() {
           <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#f4f4f2', marginBottom: '8px' }}>Welcome back</h1>
           <p style={{ fontSize: '15px', color: muted }}>Sign in to your BoatHire24 account</p>
         </div>
-        <Suspense fallback={<div style={{ height: '340px', borderRadius: '20px', background: '#0c1828', border: '1px solid rgba(201,168,78,0.12)', animation: 'pulse 1.5s ease-in-out infinite' }} />}>
+        <Suspense fallback={<div style={{ height: '340px', borderRadius: '20px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.12)', animation: 'pulse 1.5s ease-in-out infinite' }} />}>
           <LoginForm />
         </Suspense>
       </div>

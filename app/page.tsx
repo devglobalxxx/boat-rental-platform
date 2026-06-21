@@ -29,16 +29,16 @@ export const metadata: Metadata = {
 
 /* ── helpers ── */
 const Gold = ({ children }: { children: React.ReactNode }) => (
-  <span style={{ color: '#c9a84e' }}>{children}</span>
+  <span style={{ color: '#74cfe8' }}>{children}</span>
 )
 const GoldBtn = ({ href, children, large }: { href: string; children: React.ReactNode; large?: boolean }) => (
   <Link
     href={href}
     className={`inline-flex items-center gap-2 font-bold whitespace-nowrap rounded-full transition-all hover:scale-[1.03] active:scale-[0.97] ${large ? 'text-base' : 'text-sm'}`}
     style={{
-      background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+      background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)',
       color: '#07101e',
-      boxShadow: '0 6px 28px rgba(201,168,78,0.30)',
+      boxShadow: '0 6px 28px rgba(116,207,232,0.30)',
       paddingTop: large ? '18px' : '14px',
       paddingBottom: large ? '18px' : '14px',
       paddingLeft: large ? '56px' : '32px',
@@ -51,9 +51,9 @@ const GoldBtn = ({ href, children, large }: { href: string; children: React.Reac
 const GhostBtn = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <Link
     href={href}
-    className="inline-flex items-center gap-2 text-base font-semibold whitespace-nowrap rounded-full transition-all hover:text-[#c9a84e] hover:border-[rgba(201,168,78,0.55)]"
+    className="inline-flex items-center gap-2 text-base font-semibold whitespace-nowrap rounded-full transition-all hover:text-[#74cfe8] hover:border-[rgba(116,207,232,0.55)]"
     style={{
-      border: '1px solid rgba(201,168,78,0.35)',
+      border: '1px solid rgba(116,207,232,0.35)',
       color: 'rgba(244,244,242,0.82)',
       paddingTop: '17px',
       paddingBottom: '17px',
@@ -72,8 +72,8 @@ const SectionHeader = ({ eyebrow, title, sub }: { eyebrow?: string; title: React
           display: 'inline-flex', alignItems: 'center',
           fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em',
           textTransform: 'uppercase', padding: '5px 14px',
-          borderRadius: '99px', background: 'rgba(201,168,78,0.12)',
-          color: '#c9a84e', border: '1px solid rgba(201,168,78,0.22)',
+          borderRadius: '99px', background: 'rgba(116,207,232,0.12)',
+          color: '#74cfe8', border: '1px solid rgba(116,207,232,0.22)',
           marginBottom: '20px',
         }}>
           {eyebrow}
@@ -209,12 +209,12 @@ export default function HomePage() {
           </div>
         </div>
         {/* Stats bar */}
-        <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: 'rgba(7,16,30,0.82)', borderTop: '1px solid rgba(201,168,78,0.12)', backdropFilter: 'blur(8px)' }}>
+        <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: 'rgba(7,16,30,0.82)', borderTop: '1px solid rgba(116,207,232,0.12)', backdropFilter: 'blur(8px)' }}>
           <div className="container">
             <div className="grid grid-cols-2 md:grid-cols-4 py-5 gap-4">
               {[{ n: '1,200+', l: 'Verified boats' }, { n: '48', l: 'Destinations' }, { n: '4.9 / 5', l: 'Average rating' }, { n: '15,000+', l: 'Happy guests' }].map((s) => (
                 <div key={s.l} className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: '#c9a84e' }}>{s.n}</div>
+                  <div className="text-2xl font-bold" style={{ color: '#74cfe8' }}>{s.n}</div>
                   <div className="text-xs mt-0.5" style={{ color: 'rgba(244,244,242,0.50)' }}>{s.l}</div>
                 </div>
               ))}
@@ -224,7 +224,7 @@ export default function HomePage() {
       </section>
 
       {/* ══ 1b · SEARCH ══ */}
-      <section style={{ background: 'linear-gradient(135deg,#0c1927 0%,#0e2040 50%,#0c1927 100%)', borderBottom: '1px solid rgba(201,168,78,0.18)' }}>
+      <section style={{ background: 'linear-gradient(135deg,#0c1927 0%,#0e2040 50%,#0c1927 100%)', borderBottom: '1px solid rgba(116,207,232,0.18)' }}>
         <div className="container" style={{ paddingTop: '28px', paddingBottom: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <p className="eyebrow" style={{ marginBottom: '14px', textAlign: 'center' }}>Search 1,200+ verified boats</p>
           <HeroSearchPill />
@@ -241,7 +241,7 @@ export default function HomePage() {
                 <div className="text-3xl">{t.icon}</div>
                 <h3 className="font-bold" style={{ color: '#f4f4f2' }}>{t.label}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.55)' }}>{t.desc}</p>
-                <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: 'rgba(201,168,78,0.70)', marginTop: '4px' }}>
+                <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#74cfe8] transition-colors" style={{ color: 'rgba(116,207,232,0.70)', marginTop: '4px' }}>
                   Browse {t.label}s <ChevronRight className="w-3.5 h-3.5" />
                 </div>
               </Link>
@@ -264,8 +264,8 @@ export default function HomePage() {
             ].map((step) => (
               <div key={step.n} className="glass-card" style={{ padding: '28px 28px 36px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div className="flex items-center gap-3">
-                  <span className="text-4xl font-bold" style={{ color: 'rgba(201,168,78,0.18)' }}>{step.n}</span>
-                  <step.icon className="w-6 h-6" style={{ color: '#c9a84e' }} />
+                  <span className="text-4xl font-bold" style={{ color: 'rgba(116,207,232,0.18)' }}>{step.n}</span>
+                  <step.icon className="w-6 h-6" style={{ color: '#74cfe8' }} />
                 </div>
                 <h3 className="text-xl font-bold" style={{ color: '#f4f4f2' }}>{step.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.60)' }}>{step.body}</p>
@@ -293,12 +293,12 @@ export default function HomePage() {
                       <div className="font-bold text-lg" style={{ color: '#f4f4f2' }}>{dest.city}</div>
                       <div className="text-sm" style={{ color: 'rgba(244,244,242,0.60)' }}>{dest.country}</div>
                     </div>
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: '#c9a84e', color: '#07101e' }}>{dest.count}</span>
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: '#74cfe8', color: '#07101e' }}>{dest.count}</span>
                   </div>
                 </div>
                 <div style={{ padding: '28px 28px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)' }}>{dest.desc}</p>
-                  <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: 'rgba(201,168,78,0.65)' }}>
+                  <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#74cfe8] transition-colors" style={{ color: 'rgba(116,207,232,0.65)' }}>
                     View fleet in {dest.city} <ChevronRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
@@ -309,13 +309,13 @@ export default function HomePage() {
       </section>
 
       {/* ══ 5 · WHY BOATAWAY ══ */}
-      <section className="section" style={{ background: 'linear-gradient(135deg,#0c1927 0%,#0e2040 50%,#0c1927 100%)', borderTop: '1px solid rgba(201,168,78,0.18)', borderBottom: '1px solid rgba(201,168,78,0.18)' }}>
+      <section className="section" style={{ background: 'linear-gradient(135deg,#0c1927 0%,#0e2040 50%,#0c1927 100%)', borderTop: '1px solid rgba(116,207,232,0.18)', borderBottom: '1px solid rgba(116,207,232,0.18)' }}>
         <div className="container">
           <SectionHeader eyebrow="Our commitment" title={<>Why Charter with <Gold>BoatHire24?</Gold></>} sub="The charter market has a transparency problem — prices hidden behind enquiry forms, stock-photo listings, and invented availability. We built BoatHire24 to fix every one of those problems from the ground up." />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TRUST_ITEMS.map((item) => (
               <div key={item.title} className="glass-card" style={{ padding: '32px' }}>
-                <item.icon className="w-6 h-6 mb-4" style={{ color: '#c9a84e' }} />
+                <item.icon className="w-6 h-6 mb-4" style={{ color: '#74cfe8' }} />
                 <h3 className="font-bold mb-2" style={{ color: '#f4f4f2' }}>{item.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.58)' }}>{item.body}</p>
               </div>
@@ -331,7 +331,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-6">
             {TESTIMONIALS.map((t) => (
               <div key={t.name} className="glass-card p-7 flex flex-col gap-5">
-                <div className="flex gap-0.5">{Array.from({ length: t.rating }).map((_, i) => <Star key={i} className="w-4 h-4 fill-[#c9a84e] text-[#c9a84e]" />)}</div>
+                <div className="flex gap-0.5">{Array.from({ length: t.rating }).map((_, i) => <Star key={i} className="w-4 h-4 fill-[#74cfe8] text-[#74cfe8]" />)}</div>
                 <p className="text-sm leading-relaxed flex-1" style={{ color: 'rgba(244,244,242,0.72)' }}>&ldquo;{t.text}&rdquo;</p>
                 <div>
                   <div className="font-semibold text-sm" style={{ color: '#f4f4f2' }}>{t.name}</div>
@@ -354,8 +354,8 @@ export default function HomePage() {
                 display: 'inline-flex', alignItems: 'center',
                 fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em',
                 textTransform: 'uppercase', padding: '5px 14px',
-                borderRadius: '99px', background: 'rgba(201,168,78,0.12)',
-                color: '#c9a84e', border: '1px solid rgba(201,168,78,0.22)',
+                borderRadius: '99px', background: 'rgba(116,207,232,0.12)',
+                color: '#74cfe8', border: '1px solid rgba(116,207,232,0.22)',
                 marginBottom: '20px',
               }}>
                 Editorial
@@ -368,7 +368,7 @@ export default function HomePage() {
               </p>
             </div>
             <div style={{ marginTop: '20px' }}>
-              <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 600, color: '#c9a84e', textDecoration: 'none' }}>
+              <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 600, color: '#74cfe8', textDecoration: 'none' }}>
                 All articles <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
@@ -391,7 +391,7 @@ export default function HomePage() {
                   </div>
                   <h3 className="font-bold leading-snug" style={{ color: '#f4f4f2' }}>{post.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.55)' }}>{post.excerpt}</p>
-                  <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#f4f4f2] transition-colors" style={{ color: '#c9a84e' }}>Read article <ChevronRight className="w-3.5 h-3.5" /></div>
+                  <div className="text-xs font-semibold flex items-center gap-1 group-hover:text-[#f4f4f2] transition-colors" style={{ color: '#74cfe8' }}>Read article <ChevronRight className="w-3.5 h-3.5" /></div>
                 </div>
               </Link>
             ))}
@@ -400,15 +400,15 @@ export default function HomePage() {
       </section>
 
       {/* ══ 8 · HOST CTA ══ */}
-      <section className="section" style={{ background: 'linear-gradient(135deg,#0c1927 0%,#091322 100%)', borderTop: '1px solid rgba(201,168,78,0.15)', borderBottom: '1px solid rgba(201,168,78,0.15)' }}>
+      <section className="section" style={{ background: 'linear-gradient(135deg,#0c1927 0%,#091322 100%)', borderTop: '1px solid rgba(116,207,232,0.15)', borderBottom: '1px solid rgba(116,207,232,0.15)' }}>
         <div className="container">
           <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center', padding: '0 16px' }}>
             <span style={{
               display: 'inline-flex', alignItems: 'center',
               fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em',
               textTransform: 'uppercase', padding: '5px 14px',
-              borderRadius: '99px', background: 'rgba(201,168,78,0.12)',
-              color: '#c9a84e', border: '1px solid rgba(201,168,78,0.22)',
+              borderRadius: '99px', background: 'rgba(116,207,232,0.12)',
+              color: '#74cfe8', border: '1px solid rgba(116,207,232,0.22)',
               marginBottom: '20px',
             }}>
               For boat owners
@@ -426,7 +426,7 @@ export default function HomePage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
               {[{ n: '€0', l: 'To list your boat' }, { n: '15%', l: 'Commission only on bookings' }, { n: '24/7', l: 'Host support line' }].map((s) => (
                 <div key={s.l}>
-                  <div style={{ fontSize: '24px', fontWeight: 700, color: '#c9a84e' }}>{s.n}</div>
+                  <div style={{ fontSize: '24px', fontWeight: 700, color: '#74cfe8' }}>{s.n}</div>
                   <div style={{ fontSize: '12px', marginTop: '4px', color: 'rgba(244,244,242,0.45)' }}>{s.l}</div>
                 </div>
               ))}
@@ -489,7 +489,7 @@ export default function HomePage() {
       <div className="gold-line" />
 
       {/* ══ 10 · FAQ ══ */}
-      <section className="section" style={{ background: 'rgba(201,168,78,0.025)' }}>
+      <section className="section" style={{ background: 'rgba(116,207,232,0.025)' }}>
         <div className="container" style={{ maxWidth: '760px', marginLeft: 'auto', marginRight: 'auto' }}>
           <SectionHeader eyebrow="Questions answered" title={<>Common <Gold>Questions</Gold></>} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -497,12 +497,12 @@ export default function HomePage() {
               <details key={faq.q} className="glass-card group" style={{ borderRadius: '16px', overflow: 'hidden' }}>
                 <summary style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 28px', cursor: 'pointer', listStyle: 'none', gap: '16px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '34px', height: '34px', borderRadius: '50%', background: 'rgba(201,168,78,0.13)', color: '#c9a84e', fontSize: '12px', fontWeight: 700, flexShrink: 0, letterSpacing: '0.03em' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '34px', height: '34px', borderRadius: '50%', background: 'rgba(116,207,232,0.13)', color: '#74cfe8', fontSize: '12px', fontWeight: 700, flexShrink: 0, letterSpacing: '0.03em' }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span style={{ fontWeight: 600, fontSize: '15px', color: '#f4f4f2', lineHeight: 1.4 }}>{faq.q}</span>
                   </div>
-                  <ChevronRight className="w-5 h-5 shrink-0 transition-transform group-open:rotate-90" style={{ color: '#c9a84e' }} />
+                  <ChevronRight className="w-5 h-5 shrink-0 transition-transform group-open:rotate-90" style={{ color: '#74cfe8' }} />
                 </summary>
                 <div style={{ padding: '4px 28px 26px 78px' }}>
                   <p style={{ fontSize: '14px', lineHeight: '1.75', color: 'rgba(244,244,242,0.62)' }}>{faq.a}</p>
@@ -512,7 +512,7 @@ export default function HomePage() {
           </div>
 
           {/* Still have questions card */}
-          <div style={{ marginTop: '44px', background: 'rgba(201,168,78,0.07)', border: '1px solid rgba(201,168,78,0.20)', borderRadius: '20px', padding: '36px 32px', textAlign: 'center' }}>
+          <div style={{ marginTop: '44px', background: 'rgba(116,207,232,0.07)', border: '1px solid rgba(116,207,232,0.20)', borderRadius: '20px', padding: '36px 32px', textAlign: 'center' }}>
             <div style={{ fontSize: '30px', marginBottom: '14px', lineHeight: 1 }}>💬</div>
             <h3 style={{ fontWeight: 700, fontSize: '18px', color: '#f4f4f2', marginBottom: '10px' }}>Still have questions?</h3>
             <p style={{ fontSize: '14px', color: 'rgba(244,244,242,0.55)', lineHeight: '1.65', maxWidth: '420px', marginLeft: 'auto', marginRight: 'auto', marginBottom: '22px' }}>

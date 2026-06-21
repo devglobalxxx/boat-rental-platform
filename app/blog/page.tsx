@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
 }
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const textMuted = 'rgba(244,244,242,0.55)'
 
 export default function BlogPage() {
@@ -41,8 +41,8 @@ export default function BlogPage() {
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
 
       {/* ── Hero ── */}
-      <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '104px', paddingBottom: '88px', borderBottom: '1px solid rgba(201,168,78,0.12)' }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,78,0.09) 0%, transparent 70%)' }} />
+      <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '104px', paddingBottom: '88px', borderBottom: '1px solid rgba(116,207,232,0.12)' }}>
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(116,207,232,0.09) 0%, transparent 70%)' }} />
         <div style={{ position: 'relative', maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
           <span style={{ display: 'inline-flex', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '20px' }}>
             Editorial
@@ -102,7 +102,7 @@ export default function BlogPage() {
 
       {/* Divider */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
       </div>
 
       {/* ── 3 editorial cards ── */}
@@ -114,7 +114,7 @@ export default function BlogPage() {
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 className="group"
-                style={{ display: 'block', overflow: 'hidden', borderRadius: '18px', background: '#0c1828', border: '1px solid rgba(201,168,78,0.15)', textDecoration: 'none' }}
+                style={{ display: 'block', overflow: 'hidden', borderRadius: '18px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.15)', textDecoration: 'none' }}
               >
                 <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden', background: '#0a1420' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -134,9 +134,9 @@ export default function BlogPage() {
                   </div>
                   <h3 style={{ fontWeight: 700, lineHeight: 1.35, color: '#f4f4f2' }}>{post.title}</h3>
                   <p style={{ fontSize: '14px', lineHeight: 1.65, color: textMuted }}>{post.excerpt}</p>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', borderTop: '1px solid rgba(201,168,78,0.10)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', borderTop: '1px solid rgba(116,207,232,0.10)' }}>
                     <div style={{ fontSize: '12px', color: 'rgba(244,244,242,0.40)' }}>{post.author} · {post.date}</div>
-                    <ChevronRight style={{ width: '16px', height: '16px', color: 'rgba(201,168,78,0.50)' }} />
+                    <ChevronRight style={{ width: '16px', height: '16px', color: 'rgba(116,207,232,0.50)' }} />
                   </div>
                 </div>
               </Link>
@@ -150,7 +150,7 @@ export default function BlogPage() {
         <>
           {/* Divider */}
           <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
-            <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
+            <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
           </div>
 
           <section style={{ padding: '88px 0' }}>
@@ -173,7 +173,7 @@ export default function BlogPage() {
                     key={post.slug}
                     href={`/blog/${post.slug}`}
                     className="group"
-                    style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', background: '#0c1828', border: '1px solid rgba(201,168,78,0.15)', textDecoration: 'none' }}
+                    style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.15)', textDecoration: 'none' }}
                   >
                     <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', background: '#0a1420' }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -208,7 +208,7 @@ export default function BlogPage() {
 
       {/* Divider */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
       </div>
 
       {/* ── CTA ── */}
@@ -223,8 +223,8 @@ export default function BlogPage() {
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               padding: '14px 36px',
               fontSize: '15px', fontWeight: 700, borderRadius: '99px',
-              background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e',
-              boxShadow: '0 8px 24px rgba(201,168,78,0.28)',
+              background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e',
+              boxShadow: '0 8px 24px rgba(116,207,232,0.28)',
               textDecoration: 'none',
             }}
           >

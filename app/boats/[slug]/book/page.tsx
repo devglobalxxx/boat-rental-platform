@@ -9,9 +9,9 @@ import { Shield, ArrowLeft, Calendar, Users } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { PhoneInput } from '@/components/ui/PhoneInput'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -110,7 +110,7 @@ function CheckoutForm({ meta, onSuccess }: { meta: BookingMeta; onSuccess: (id: 
       <button
         type="submit"
         disabled={loading || !stripe}
-        style={{ width: '100%', padding: '14px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, cursor: loading || !stripe ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)', opacity: loading || !stripe ? 0.6 : 1, transition: 'opacity 0.15s' }}
+        style={{ width: '100%', padding: '14px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, cursor: loading || !stripe ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.25)', opacity: loading || !stripe ? 0.6 : 1, transition: 'opacity 0.15s' }}
       >
         {loading
           ? (meta.requestToBook ? 'Submitting request…' : 'Processing…')
@@ -243,7 +243,7 @@ function BookPageInner() {
             appearance: {
               theme: 'night',
               variables: {
-                colorPrimary: '#c9a84e',
+                colorPrimary: '#74cfe8',
                 borderRadius: '8px',
                 colorBackground: '#0c1828',
                 colorText: '#f4f4f2',

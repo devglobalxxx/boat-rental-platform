@@ -117,9 +117,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="relative z-10 container h-full flex flex-col justify-end pb-12">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs mb-5" aria-label="Breadcrumb" style={{ color: 'rgba(244,244,242,0.45)' }}>
-            <Link href="/" className="hover:text-[#c9a84e] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#74cfe8] transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3 opacity-40" />
-            <Link href="/blog" className="hover:text-[#c9a84e] transition-colors">Charter Guide</Link>
+            <Link href="/blog" className="hover:text-[#74cfe8] transition-colors">Charter Guide</Link>
             <ChevronRight className="w-3 h-3 opacity-40" />
             <span style={{ color: 'rgba(244,244,242,0.65)' }}>{post.tag}</span>
           </nav>
@@ -141,7 +141,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         className="sticky top-[68px] z-40"
         style={{
           background: 'rgba(7,16,30,0.92)',
-          borderBottom: '1px solid rgba(201,168,78,0.10)',
+          borderBottom: '1px solid rgba(116,207,232,0.10)',
           backdropFilter: 'blur(14px)',
         }}
       >
@@ -153,9 +153,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             href="/search"
             className="ml-auto text-xs font-bold px-5 py-2 rounded-full transition-all hover:scale-[1.03]"
             style={{
-              background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+              background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)',
               color: '#07101e',
-              boxShadow: '0 4px 14px rgba(201,168,78,0.28)',
+              boxShadow: '0 4px 14px rgba(116,207,232,0.28)',
             }}
           >
             Book a charter →
@@ -170,7 +170,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {/* Excerpt lead */}
           <p
             className="text-xl leading-relaxed mb-10 pb-10"
-            style={{ color: 'rgba(244,244,242,0.72)', borderBottom: '1px solid rgba(201,168,78,0.15)' }}
+            style={{ color: 'rgba(244,244,242,0.72)', borderBottom: '1px solid rgba(116,207,232,0.15)' }}
           >
             {post.excerpt}
           </p>
@@ -188,7 +188,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               className="my-10 p-6 rounded-2xl flex items-center justify-between gap-6"
               style={{
                 background: 'linear-gradient(135deg, #0e1e35 0%, #0c1828 100%)',
-                border: '1px solid rgba(201,168,78,0.30)',
+                border: '1px solid rgba(116,207,232,0.30)',
               }}
             >
               <div>
@@ -198,7 +198,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <Link
                 href={`/boats/${post.boatSlug}`}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap"
-                style={{ background: '#c9a84e', color: '#07101e' }}
+                style={{ background: '#74cfe8', color: '#07101e' }}
               >
                 View boat &amp; book →
               </Link>
@@ -214,14 +214,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   <details
                     key={i}
                     className="group rounded-xl p-5"
-                    style={{ background: '#0c1828', border: '1px solid rgba(201,168,78,0.15)' }}
+                    style={{ background: '#0c1828', border: '1px solid rgba(116,207,232,0.15)' }}
                   >
                     <summary
                       className="font-semibold cursor-pointer list-none flex justify-between items-center"
                       style={{ color: '#f4f4f2' }}
                     >
                       {faq.q}
-                      <span className="ml-4 text-[#c9a84e] group-open:rotate-180 transition-transform">▾</span>
+                      <span className="ml-4 text-[#74cfe8] group-open:rotate-180 transition-transform">▾</span>
                     </summary>
                     <p className="mt-3 text-sm leading-relaxed" style={{ color: 'rgba(244,244,242,0.65)' }}>{faq.a}</p>
                   </details>
@@ -235,13 +235,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             className="mt-14 p-6 flex items-center gap-5"
             style={{
               background: '#0c1828',
-              border: '1px solid rgba(201,168,78,0.18)',
+              border: '1px solid rgba(116,207,232,0.18)',
               borderRadius: '14px',
             }}
           >
             <div
               className="w-14 h-14 rounded-full shrink-0 flex items-center justify-center text-xl font-bold"
-              style={{ background: 'rgba(201,168,78,0.15)', color: '#c9a84e' }}
+              style={{ background: 'rgba(116,207,232,0.15)', color: '#74cfe8' }}
             >
               {post.author[0]}
             </div>
@@ -257,7 +257,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {related.length > 0 && (
         <section
           className="section-sm"
-          style={{ borderTop: '1px solid rgba(201,168,78,0.12)' }}
+          style={{ borderTop: '1px solid rgba(116,207,232,0.12)' }}
         >
           <div className="container">
             <h2 className="text-2xl font-bold mb-8" style={{ color: '#f4f4f2' }}>Related articles</h2>
@@ -269,7 +269,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   className="group flex gap-4 p-5 transition-all"
                   style={{
                     background: '#0c1828',
-                    border: '1px solid rgba(201,168,78,0.18)',
+                    border: '1px solid rgba(116,207,232,0.18)',
                     borderRadius: '14px',
                   }}
                 >
@@ -278,9 +278,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <img src={p.heroImage} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#c9a84e' }}>{p.tag}</span>
-                    <h3 className="font-bold text-sm leading-snug mt-1 group-hover:text-[#c9a84e] transition-colors" style={{ color: '#f4f4f2' }}>{p.title}</h3>
-                    <div className="text-xs mt-2 flex items-center gap-1 group-hover:text-[#f4f4f2] transition-colors" style={{ color: 'rgba(201,168,78,0.60)' }}>
+                    <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#74cfe8' }}>{p.tag}</span>
+                    <h3 className="font-bold text-sm leading-snug mt-1 group-hover:text-[#74cfe8] transition-colors" style={{ color: '#f4f4f2' }}>{p.title}</h3>
+                    <div className="text-xs mt-2 flex items-center gap-1 group-hover:text-[#f4f4f2] transition-colors" style={{ color: 'rgba(116,207,232,0.60)' }}>
                       Read <ChevronRight className="w-3.5 h-3.5" />
                     </div>
                   </div>

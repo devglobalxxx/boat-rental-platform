@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation'
 import { Search, MapPin, Calendar, Users } from 'lucide-react'
 import LocationInput from '@/components/search/LocationInput'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const inputBg = 'rgba(255,255,255,0.05)'
 const inputBorder = 'rgba(255,255,255,0.12)'
-const goldBorder = 'rgba(201,168,78,0.28)'
+const goldBorder = 'rgba(116,207,232,0.28)'
 
 interface SearchBarProps {
   defaultLocation?: string
@@ -42,7 +42,7 @@ export default function SearchBar({
   /* ── Compact (used on /search page) ── */
   if (compact) {
     return (
-      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.06)', borderRadius: '99px', border: '1px solid rgba(201,168,78,0.22)', padding: '8px 8px 8px 18px', backdropFilter: 'blur(8px)' }}>
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.06)', borderRadius: '99px', border: '1px solid rgba(116,207,232,0.22)', padding: '8px 8px 8px 18px', backdropFilter: 'blur(8px)' }}>
         <MapPin style={{ width: 15, height: 15, color: gold, flexShrink: 0 }} />
         <LocationInput
           value={location}
@@ -53,7 +53,7 @@ export default function SearchBar({
         />
         <button
           onClick={() => handleSearch()}
-          style={{ width: '36px', height: '36px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 10px rgba(201,168,78,0.30)' }}
+          style={{ width: '36px', height: '36px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 10px rgba(116,207,232,0.30)' }}
         >
           <Search style={{ width: 14, height: 14, color: '#07101e' }} />
         </button>
@@ -63,7 +63,7 @@ export default function SearchBar({
 
   /* ── Full (used on homepage) ── */
   return (
-    <div style={{ background: '#0c1828', borderRadius: '20px', border: '1px solid rgba(201,168,78,0.20)', padding: '8px', display: 'flex', flexDirection: 'column', gap: '4px', boxShadow: '0 8px 40px rgba(0,0,0,0.45)' }}>
+    <div style={{ background: '#0c1828', borderRadius: '20px', border: '1px solid rgba(116,207,232,0.20)', padding: '8px', display: 'flex', flexDirection: 'column', gap: '4px', boxShadow: '0 8px 40px rgba(0,0,0,0.45)' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
         {/* Location */}
         <div style={{ flex: '1 1 180px', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '12px', background: inputBg, border: `1px solid ${inputBorder}` }}>
@@ -117,7 +117,7 @@ export default function SearchBar({
         {/* Search button */}
         <button
           onClick={() => handleSearch()}
-          style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '12px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 4px 18px rgba(201,168,78,0.30)', whiteSpace: 'nowrap' }}
+          style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '12px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 4px 18px rgba(116,207,232,0.30)', whiteSpace: 'nowrap' }}
         >
           <Search style={{ width: 16, height: 16 }} />
           Search

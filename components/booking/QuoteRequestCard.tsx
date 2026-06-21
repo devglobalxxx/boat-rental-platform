@@ -8,7 +8,7 @@ const card = '#0c1828'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
-const gold = 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)'
+const gold = 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)'
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '10px 12px', borderRadius: '10px',
@@ -64,7 +64,7 @@ export default function QuoteRequestCard({ boatId, boatName }: { boatId: string;
   }
 
   return (
-    <div style={{ background: card, border: '1px solid rgba(201,168,78,0.18)', borderRadius: '20px', padding: '24px' }}>
+    <div style={{ background: card, border: '1px solid rgba(116,207,232,0.18)', borderRadius: '20px', padding: '24px' }}>
       <div style={{ fontSize: '20px', fontWeight: 800, color: text, marginBottom: '4px' }}>Price on request</div>
       <p style={{ fontSize: '13px', color: muted, lineHeight: 1.55, marginBottom: '16px' }}>Tell the owner your plans and they&apos;ll send you a quote — no payment now.</p>
 

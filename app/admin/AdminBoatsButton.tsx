@@ -4,9 +4,9 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Ship, ChevronDown, ChevronUp, ExternalLink, Loader2, X } from 'lucide-react'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
 const muted = 'rgba(244,244,242,0.55)'
 const text = '#f4f4f2'
@@ -293,7 +293,7 @@ function BoatDetailModal({ boat, onClose }: { boat: Boat; onClose: () => void })
               <ApproveButton boat={boat} />
             )}
             {boat.status === 'active' && (
-              <Link href={`/boats/${boat.slug}`} target="_blank" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 22px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '13px', fontWeight: 700, textDecoration: 'none' }}>
+              <Link href={`/boats/${boat.slug}`} target="_blank" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 22px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '13px', fontWeight: 700, textDecoration: 'none' }}>
                 View live page <ExternalLink style={{ width: 13, height: 13 }} />
               </Link>
             )}
@@ -514,7 +514,7 @@ function AdminStatusControl({ boat }: { boat: Boat }) {
         <button
           onClick={save}
           disabled={saving || !dirty}
-          style={{ padding: '10px 22px', borderRadius: '50px', background: dirty ? 'linear-gradient(135deg,#fbbf24,#c9a84e,#b8942e)' : 'rgba(255,255,255,0.06)', color: dirty ? '#07101e' : muted, fontSize: '13px', fontWeight: 700, border: 'none', cursor: dirty && !saving ? 'pointer' : 'not-allowed', opacity: saving ? 0.6 : 1 }}
+          style={{ padding: '10px 22px', borderRadius: '50px', background: dirty ? 'linear-gradient(135deg,#fbbf24,#74cfe8,#4fb8d6)' : 'rgba(255,255,255,0.06)', color: dirty ? '#07101e' : muted, fontSize: '13px', fontWeight: 700, border: 'none', cursor: dirty && !saving ? 'pointer' : 'not-allowed', opacity: saving ? 0.6 : 1 }}
         >
           {saving ? 'Saving…' : 'Save status & notify host'}
         </button>

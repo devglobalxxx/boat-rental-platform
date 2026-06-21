@@ -30,17 +30,17 @@ export default function MediaCard({
         className="overflow-hidden transition-all duration-300"
         style={{
           background: '#0c1828',
-          border: '1px solid rgba(201,168,78,0.18)',
+          border: '1px solid rgba(116,207,232,0.18)',
           borderRadius: '14px',
         }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLDivElement
-          el.style.borderColor = 'rgba(201,168,78,0.55)'
-          el.style.boxShadow = '0 0 0 1px rgba(201,168,78,0.30), 0 20px 48px rgba(0,0,0,0.55)'
+          el.style.borderColor = 'rgba(116,207,232,0.55)'
+          el.style.boxShadow = '0 0 0 1px rgba(116,207,232,0.30), 0 20px 48px rgba(0,0,0,0.55)'
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLDivElement
-          el.style.borderColor = 'rgba(201,168,78,0.18)'
+          el.style.borderColor = 'rgba(116,207,232,0.18)'
           el.style.boxShadow = 'none'
         }}
       >
@@ -78,8 +78,8 @@ export default function MediaCard({
                     className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
                     style={{
                       background: 'rgba(7,16,30,0.75)',
-                      border: '1px solid rgba(201,168,78,0.35)',
-                      color: '#c9a84e',
+                      border: '1px solid rgba(116,207,232,0.35)',
+                      color: '#74cfe8',
                       backdropFilter: 'blur(4px)',
                     }}
                   >

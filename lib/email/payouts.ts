@@ -12,8 +12,8 @@ const money = (amount: number, currency: string) =>
 
 const shell = (heading: string, inner: string) => `
   <div style="background:#07101e;padding:32px 16px;font-family:-apple-system,Segoe UI,sans-serif">
-    <div style="max-width:480px;margin:0 auto;background:#0c1828;border:1px solid rgba(201,168,78,0.25);border-radius:16px;overflow:hidden">
-      <div style="padding:22px 26px;border-bottom:1px solid rgba(201,168,78,0.15)"><span style="color:#c9a84e;font-weight:800;font-size:18px">${heading}</span></div>
+    <div style="max-width:480px;margin:0 auto;background:#0c1828;border:1px solid rgba(116,207,232,0.25);border-radius:16px;overflow:hidden">
+      <div style="padding:22px 26px;border-bottom:1px solid rgba(116,207,232,0.15)"><span style="color:#74cfe8;font-weight:800;font-size:18px">${heading}</span></div>
       <div style="padding:24px 26px;color:#cfd6df;font-size:14px;line-height:1.65">${inner}</div>
     </div>
   </div>`
@@ -39,8 +39,8 @@ export async function sendHostPayoutSent(opts: {
     subject: `Payout ${money(opts.amount, opts.currency)} — ${opts.boatName}`,
     html: shell('Your payout is on its way 💸', `
       <p>The trip on <strong style="color:#f4f4f2">${opts.boatName}</strong> is complete.</p>
-      <p>Your earnings of <strong style="color:#c9a84e;font-size:16px">${money(opts.amount, opts.currency)}</strong> (your 85% share) ${how}.</p>
-      <p style="margin-top:14px">See details any time in your <a href="https://boathire24.com/host/earnings" style="color:#c9a84e">earnings dashboard</a>.</p>`),
+      <p>Your earnings of <strong style="color:#74cfe8;font-size:16px">${money(opts.amount, opts.currency)}</strong> (your 85% share) ${how}.</p>
+      <p style="margin-top:14px">See details any time in your <a href="https://boathire24.com/host/earnings" style="color:#74cfe8">earnings dashboard</a>.</p>`),
   }).catch((e) => console.error('payout email failed:', e))
 }
 
@@ -54,7 +54,7 @@ export async function sendOpsPayoutDigest(opts: {
     <tr>
       <td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.08)">${d.hostName}<br><span style="color:#8b94a3;font-size:12px">${d.hostEmail ?? ''}</span></td>
       <td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.08)">${d.boatName}</td>
-      <td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.08);color:#c9a84e;font-weight:700">${money(d.amount, d.currency)}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.08);color:#74cfe8;font-weight:700">${money(d.amount, d.currency)}</td>
       <td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:12px">${d.iban ?? d.bankNote ?? 'No bank details on file'}</td>
     </tr>`).join('')
   const failedRows = opts.failed.map((f) => `

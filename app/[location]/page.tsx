@@ -102,9 +102,9 @@ export default async function LocationPage({ params }: Props) {
   const fleetPrices = boats.flatMap((b) => ((b as any).boat_pricing ?? []).map((p: any) => p.price as number)).filter((p) => p > 0)
   const fromPrice = fleetPrices.length ? Math.min(...fleetPrices) : null
 
-  const gold = '#c9a84e'
-  const goldFaint = 'rgba(201,168,78,0.12)'
-  const goldBorder = 'rgba(201,168,78,0.22)'
+  const gold = '#74cfe8'
+  const goldFaint = 'rgba(116,207,232,0.12)'
+  const goldBorder = 'rgba(116,207,232,0.22)'
 
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
@@ -119,7 +119,7 @@ export default async function LocationPage({ params }: Props) {
         {/* Gradient overlay */}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(7,16,30,0.3) 0%, rgba(7,16,30,0.75) 100%)' }} />
         {/* Gold radial glow */}
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 100%, rgba(201,168,78,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 100%, rgba(116,207,232,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
         <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 24px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(244,244,242,0.65)', marginBottom: '14px' }}>
@@ -135,7 +135,7 @@ export default async function LocationPage({ params }: Props) {
       </section>
 
       {/* ── Stats bar ── */}
-      <div style={{ borderBottom: '1px solid rgba(201,168,78,0.10)', background: 'rgba(201,168,78,0.04)' }}>
+      <div style={{ borderBottom: '1px solid rgba(116,207,232,0.10)', background: 'rgba(116,207,232,0.04)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px 24px', display: 'flex', gap: '36px', flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
             { value: `${boats.length}`, label: 'boats available' },
@@ -187,7 +187,7 @@ export default async function LocationPage({ params }: Props) {
             <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.45)', maxWidth: '360px', margin: '0 auto 28px', lineHeight: 1.6 }}>
               We&apos;re onboarding boats in this destination. Check back soon — or explore another location.
             </p>
-            <a href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none' }}>
+            <a href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none' }}>
               Browse all destinations
             </a>
           </div>

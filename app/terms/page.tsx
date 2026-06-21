@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://boathire24.com/terms' },
 }
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const textMuted = 'rgba(244,244,242,0.60)'
 const textBody = 'rgba(244,244,242,0.78)'
 
@@ -43,8 +43,8 @@ export default function TermsPage() {
     <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
 
       {/* ── Hero ── */}
-      <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '104px', paddingBottom: '64px', borderBottom: '1px solid rgba(201,168,78,0.12)' }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,168,78,0.08) 0%, transparent 70%)' }} />
+      <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '104px', paddingBottom: '64px', borderBottom: '1px solid rgba(116,207,232,0.12)' }}>
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(116,207,232,0.08) 0%, transparent 70%)' }} />
         <div style={{ position: 'relative', maxWidth: '760px', margin: '0 auto', padding: '0 24px' }}>
           <span style={{ display: 'inline-flex', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '20px' }}>
             Legal
@@ -162,7 +162,7 @@ export default function TermsPage() {
               { name: 'Moderate', rule: 'Full refund if cancelled more than 7 days before the charter start time. 50% refund if cancelled 3–7 days before.' },
               { name: 'Strict', rule: 'Full refund if cancelled within 48 hours of booking and at least 14 days before the charter. No refund within 14 days of the charter.' },
             ].map((t) => (
-              <div key={t.name} style={{ padding: '16px 20px', borderRadius: '12px', background: '#0c1828', border: `1px solid rgba(201,168,78,0.15)` }}>
+              <div key={t.name} style={{ padding: '16px 20px', borderRadius: '12px', background: '#0c1828', border: `1px solid rgba(116,207,232,0.15)` }}>
                 <p style={{ fontWeight: 700, color: '#f4f4f2', marginBottom: '4px', fontSize: '14px' }}>{t.name}</p>
                 <p style={{ color: textBody, fontSize: '14px', margin: 0, lineHeight: 1.6 }}>{t.rule}</p>
               </div>

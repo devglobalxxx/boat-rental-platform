@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Banknote, Check, Loader2, Pencil, Lock, Globe2, Building2, User } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const faint = 'rgba(244,244,242,0.35)'
@@ -140,7 +140,7 @@ export default function BankDetailsForm({ initial }: { initial: PayoutMethod }) 
             <div style={{ fontWeight: 700, color: text, fontSize: '15px' }}>Bank account on file</div>
             <div style={{ fontSize: '12px', color: muted }}>We&apos;ll send your payouts here after each charter.</div>
           </div>
-          <button onClick={() => setEditing(true)} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 14px', borderRadius: '10px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.30)', color: gold, fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
+          <button onClick={() => setEditing(true)} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 14px', borderRadius: '10px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.30)', color: gold, fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
             <Pencil style={{ width: 13, height: 13 }} /> Update
           </button>
         </div>
@@ -162,9 +162,9 @@ export default function BankDetailsForm({ initial }: { initial: PayoutMethod }) 
 
   /* ───────────────── Edit / add form ───────────────── */
   return (
-    <div style={{ background: '#0c1828', border: '1px solid rgba(201,168,78,0.22)', borderRadius: '20px', padding: '24px' }}>
+    <div style={{ background: '#0c1828', border: '1px solid rgba(116,207,232,0.22)', borderRadius: '20px', padding: '24px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-        <span style={{ width: 34, height: 34, borderRadius: '10px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.24)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <span style={{ width: 34, height: 34, borderRadius: '10px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.24)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Banknote style={{ width: 17, height: 17, color: gold }} />
         </span>
         <div>
@@ -189,7 +189,7 @@ export default function BankDetailsForm({ initial }: { initial: PayoutMethod }) 
               const on = form.account_holder_type === v
               return (
                 <button key={v} type="button" onClick={() => set('account_holder_type', v)}
-                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', padding: '11px', borderRadius: '10px', cursor: 'pointer', fontSize: '13px', fontWeight: 700, background: on ? 'rgba(201,168,78,0.12)' : inputBg, border: `1px solid ${on ? 'rgba(201,168,78,0.45)' : inputBorder}`, color: on ? gold : muted }}>
+                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', padding: '11px', borderRadius: '10px', cursor: 'pointer', fontSize: '13px', fontWeight: 700, background: on ? 'rgba(116,207,232,0.12)' : inputBg, border: `1px solid ${on ? 'rgba(116,207,232,0.45)' : inputBorder}`, color: on ? gold : muted }}>
                   <Icon style={{ width: 15, height: 15 }} /> {label}
                 </button>
               )
@@ -283,7 +283,7 @@ export default function BankDetailsForm({ initial }: { initial: PayoutMethod }) 
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           <button onClick={save} disabled={saving}
-            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px', borderRadius: '12px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 800, border: 'none', cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.7 : 1, boxShadow: '0 4px 18px rgba(201,168,78,0.25)' }}>
+            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px', borderRadius: '12px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '14px', fontWeight: 800, border: 'none', cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.7 : 1, boxShadow: '0 4px 18px rgba(116,207,232,0.25)' }}>
             {saving ? <><Loader2 style={{ width: 15, height: 15, animation: 'spin 1s linear infinite' }} /> Saving…</> : <>Save bank details</>}
           </button>
           {saved && (

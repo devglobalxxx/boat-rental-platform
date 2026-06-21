@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ChevronLeft, Rss, Loader2, CheckCircle, AlertCircle, Code2 } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const card = '#0c1828'
@@ -83,7 +83,7 @@ export default function FeedConnectClient({ locations }: { locations: Loc[] }) {
         </Link>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '10px' }}>
-          <div style={{ width: 48, height: 48, borderRadius: '14px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.24)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: 48, height: 48, borderRadius: '14px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.24)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Rss style={{ width: 22, height: 22, color: gold }} />
           </div>
           <div>
@@ -98,7 +98,7 @@ export default function FeedConnectClient({ locations }: { locations: Loc[] }) {
           </div>
         )}
 
-        <div style={{ background: card, border: '1px solid rgba(201,168,78,0.18)', borderRadius: '18px', padding: '24px', marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ background: card, border: '1px solid rgba(116,207,232,0.18)', borderRadius: '18px', padding: '24px', marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
             <label style={label}>Your feed URL *</label>
             <input value={feedUrl} onChange={(e) => setFeedUrl(e.target.value)} placeholder="https://yoursite.com/api/boats.json" style={input} />
@@ -139,7 +139,7 @@ export default function FeedConnectClient({ locations }: { locations: Loc[] }) {
           )}
 
           <button onClick={importNow} disabled={busy || !feedUrl}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px', borderRadius: '12px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 800, border: 'none', cursor: busy || !feedUrl ? 'default' : 'pointer', opacity: busy || !feedUrl ? 0.7 : 1 }}>
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px', borderRadius: '12px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '15px', fontWeight: 800, border: 'none', cursor: busy || !feedUrl ? 'default' : 'pointer', opacity: busy || !feedUrl ? 0.7 : 1 }}>
             {busy ? <><Loader2 style={{ width: 16, height: 16, animation: 'spin 1s linear infinite' }} /> Importing…</> : <>Import my fleet now</>}
           </button>
         </div>

@@ -7,9 +7,9 @@ import 'react-day-picker/style.css'
 import { createClient } from '@/lib/supabase/client'
 import { ChevronDown, Lock, Unlock, Loader2 } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -135,7 +135,7 @@ export default function HostCalendarClient({
             {/* Calendar */}
             <div style={{ flex: '1 1 400px', minWidth: 0, background: card, border, borderRadius: '16px', padding: '16px' }}>
               <style>{`
-                .rdp { --rdp-accent-color: ${gold}; --rdp-background-color: rgba(201,168,78,0.12); color: ${text}; }
+                .rdp { --rdp-accent-color: ${gold}; --rdp-background-color: rgba(116,207,232,0.12); color: ${text}; }
                 .rdp-day { color: ${text}; }
                 .rdp-day_disabled { color: ${dim} !important; }
                 .rdp-day-blocked button { background: rgba(245,158,11,0.20) !important; color: #f59e0b !important; border-radius: 50%; }
@@ -196,7 +196,7 @@ export default function HostCalendarClient({
                   <button
                     onClick={blockDates}
                     disabled={selected.length === 0 || saving}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 16px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '13px', fontWeight: 700, cursor: selected.length === 0 || saving ? 'not-allowed' : 'pointer', border: 'none', opacity: selected.length === 0 || saving ? 0.5 : 1 }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 16px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '13px', fontWeight: 700, cursor: selected.length === 0 || saving ? 'not-allowed' : 'pointer', border: 'none', opacity: selected.length === 0 || saving ? 0.5 : 1 }}
                   >
                     {saving ? <Loader2 style={{ width: 14, height: 14 }} /> : <Lock style={{ width: 14, height: 14 }} />}
                     Block dates

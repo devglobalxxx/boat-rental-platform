@@ -6,9 +6,9 @@ import { CheckCircle, Clock, XCircle, Calendar, Users, MessageSquare, Star } fro
 import CancelBookingButton from '@/components/booking/CancelBookingButton'
 import ModifyBookingForm from '@/components/booking/ModifyBookingForm'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -17,7 +17,7 @@ const STATUS_CONFIG = {
   pending:   { label: 'Awaiting host approval', Icon: Clock, color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  bd: 'rgba(245,158,11,0.30)' },
   confirmed: { label: 'Confirmed',       Icon: CheckCircle,  color: '#22c55e', bg: 'rgba(34,197,94,0.12)',   bd: 'rgba(34,197,94,0.30)' },
   cancelled: { label: 'Cancelled',       Icon: XCircle,      color: '#f87171', bg: 'rgba(248,113,113,0.10)', bd: 'rgba(248,113,113,0.28)' },
-  completed: { label: 'Completed',       Icon: CheckCircle,  color: gold,      bg: 'rgba(201,168,78,0.10)',  bd: 'rgba(201,168,78,0.28)' },
+  completed: { label: 'Completed',       Icon: CheckCircle,  color: gold,      bg: 'rgba(116,207,232,0.10)',  bd: 'rgba(116,207,232,0.28)' },
 }
 
 interface Props {
@@ -155,7 +155,7 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
         {/* Actions */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {canReview && (
-            <Link href={`/bookings/${id}/review`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+            <Link href={`/bookings/${id}/review`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
               <Star style={{ width: 16, height: 16 }} /> Leave a review
             </Link>
           )}
@@ -164,7 +164,7 @@ export default async function BookingDetailPage({ params, searchParams }: Props)
           </Link>
           {booking.status === 'pending' && !sp.paid && (
             (booking as { stripe_payment_intent_id?: string | null }).stripe_payment_intent_id?.startsWith('cs_') ? (
-              <a href={`/api/bookings/${id}/pay`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, textDecoration: 'none' }}>
+              <a href={`/api/bookings/${id}/pay`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, textDecoration: 'none' }}>
                 {(booking as { special_requests?: string | null }).special_requests?.startsWith('Offer sent') ? '💬 The owner sent an offer —' : '✅ Owner accepted —'} Pay {formatPrice(booking.total, booking.currency)} to confirm
               </a>
             ) : (

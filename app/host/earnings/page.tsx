@@ -5,9 +5,9 @@ import { formatPrice } from '@/lib/utils/pricing'
 import { getPayoutSummary } from '@/lib/stripe'
 import { TrendingUp, DollarSign, Calendar, Ship, Wallet, ArrowRight } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -99,7 +99,7 @@ export default async function HostEarningsPage() {
               <p style={{ fontSize: '14px', color: muted, marginBottom: '16px', lineHeight: 1.6 }}>
                 Add your bank account to receive your booking payments. Setup is handled securely by Stripe — your bank details are stored with Stripe, never on BoatHire24.
               </p>
-              <Link href="/host/onboarding" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+              <Link href="/host/onboarding" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
                 Set up payouts <ArrowRight style={{ width: 15, height: 15 }} />
               </Link>
             </>
@@ -108,7 +108,7 @@ export default async function HostEarningsPage() {
               <p style={{ fontSize: '14px', color: muted, marginBottom: '16px', lineHeight: 1.6 }}>
                 Your payout setup isn&apos;t finished yet. Add your bank details with Stripe to start receiving payouts.
               </p>
-              <Link href="/host/onboarding" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+              <Link href="/host/onboarding" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
                 Finish payout setup <ArrowRight style={{ width: 15, height: 15 }} />
               </Link>
             </>
@@ -127,7 +127,7 @@ export default async function HostEarningsPage() {
               <p style={{ fontSize: '13px', color: dim, marginBottom: '18px', lineHeight: 1.6 }}>
                 Stripe pays your available balance to your bank automatically on a rolling schedule — no need to request it. Use the button below to see payouts or change your bank account.
               </p>
-              <a href="/api/host/payouts" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+              <a href="/api/host/payouts" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
                 Manage payouts &amp; bank <ArrowRight style={{ width: 15, height: 15 }} />
               </a>
             </>

@@ -4,9 +4,9 @@ import { createClient } from '@/lib/supabase/server'
 import ChatThread from '@/components/messaging/ChatThread'
 import { MessageSquare } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -73,7 +73,7 @@ export default async function MessagesPage({
 
         {!(conversations ?? []).length ? (
           <div style={{ textAlign: 'center', padding: '80px 24px' }}>
-            <MessageSquare style={{ width: 48, height: 48, color: 'rgba(201,168,78,0.25)', margin: '0 auto 16px' }} />
+            <MessageSquare style={{ width: 48, height: 48, color: 'rgba(116,207,232,0.25)', margin: '0 auto 16px' }} />
             <h2 style={{ fontSize: '20px', fontWeight: 700, color: text, marginBottom: '10px' }}>No messages yet</h2>
             <p style={{ fontSize: '15px', color: muted }}>Contact a host from any boat listing to start a conversation.</p>
           </div>
@@ -95,7 +95,7 @@ export default async function MessagesPage({
                       display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 16px',
                       borderBottom: '1px solid rgba(255,255,255,0.05)',
                       textDecoration: 'none', transition: 'background 0.15s',
-                      background: isActive ? 'rgba(201,168,78,0.08)' : 'transparent',
+                      background: isActive ? 'rgba(116,207,232,0.08)' : 'transparent',
                       borderLeft: isActive ? `3px solid ${gold}` : '3px solid transparent',
                     }}
                   >

@@ -204,9 +204,9 @@ export default async function GalleryPage({
           className="absolute top-4 left-4 text-sm flex items-center gap-1.5"
           style={{ color: 'rgba(244,244,242,0.70)' }}
         >
-          <Link href="/" className="hover:text-[#c9a84e] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-[#74cfe8] transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/gallery" className="hover:text-[#c9a84e] transition-colors">Gallery</Link>
+          <Link href="/gallery" className="hover:text-[#74cfe8] transition-colors">Gallery</Link>
           <span>/</span>
           <span style={{ color: '#f4f4f2' }}>{image.title ?? boat.name}</span>
         </nav>
@@ -240,9 +240,9 @@ export default async function GalleryPage({
                     href={`/tags/${encodeURIComponent(tag)}`}
                     className="text-sm font-semibold px-3 py-1.5 rounded-full transition-all duration-200 hover:scale-105"
                     style={{
-                      background: 'rgba(201,168,78,0.12)',
-                      border: '1px solid rgba(201,168,78,0.30)',
-                      color: '#c9a84e',
+                      background: 'rgba(116,207,232,0.12)',
+                      border: '1px solid rgba(116,207,232,0.30)',
+                      color: '#74cfe8',
                     }}
                   >
                     #{tag}
@@ -258,7 +258,7 @@ export default async function GalleryPage({
               className="rounded-2xl p-6 space-y-4"
               style={{
                 background: '#0c1828',
-                border: '1px solid rgba(201,168,78,0.18)',
+                border: '1px solid rgba(116,207,232,0.18)',
               }}
             >
               <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'rgba(244,244,242,0.45)' }}>
@@ -266,25 +266,25 @@ export default async function GalleryPage({
               </h2>
               <Link
                 href={`/boats/${boat.slug}`}
-                className="block text-lg font-bold hover:text-[#c9a84e] transition-colors"
+                className="block text-lg font-bold hover:text-[#74cfe8] transition-colors"
                 style={{ color: '#f4f4f2' }}
               >
                 {boat.name}
               </Link>
 
               <div className="flex items-center gap-1.5 text-sm" style={{ color: 'rgba(244,244,242,0.55)' }}>
-                <MapPin className="w-4 h-4 shrink-0" style={{ color: '#c9a84e' }} />
+                <MapPin className="w-4 h-4 shrink-0" style={{ color: '#74cfe8' }} />
                 {boat.locations.city}, {boat.locations.country}
               </div>
 
               <div className="flex items-center gap-1.5 text-sm" style={{ color: 'rgba(244,244,242,0.55)' }}>
-                <Users className="w-4 h-4 shrink-0" style={{ color: '#c9a84e' }} />
+                <Users className="w-4 h-4 shrink-0" style={{ color: '#74cfe8' }} />
                 Up to {boat.capacity_pax} guests
               </div>
 
               {boat.length_m && (
                 <div className="flex items-center gap-1.5 text-sm" style={{ color: 'rgba(244,244,242,0.55)' }}>
-                  <Anchor className="w-4 h-4 shrink-0" style={{ color: '#c9a84e' }} />
+                  <Anchor className="w-4 h-4 shrink-0" style={{ color: '#74cfe8' }} />
                   {boat.length_m}m
                 </div>
               )}
@@ -292,26 +292,26 @@ export default async function GalleryPage({
               {/* Inclusions */}
               <div
                 className="pt-4 space-y-2"
-                style={{ borderTop: '1px solid rgba(201,168,78,0.12)' }}
+                style={{ borderTop: '1px solid rgba(116,207,232,0.12)' }}
               >
                 {boat.includes_skipper && (
                   <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(244,244,242,0.70)' }}>
-                    <Check className="w-4 h-4 shrink-0" style={{ color: '#c9a84e' }} /> Skipper included
+                    <Check className="w-4 h-4 shrink-0" style={{ color: '#74cfe8' }} /> Skipper included
                   </div>
                 )}
                 {boat.includes_fuel && (
                   <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(244,244,242,0.70)' }}>
-                    <Check className="w-4 h-4 shrink-0" style={{ color: '#c9a84e' }} /> Fuel included
+                    <Check className="w-4 h-4 shrink-0" style={{ color: '#74cfe8' }} /> Fuel included
                   </div>
                 )}
                 {boat.includes_drinks && (
                   <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(244,244,242,0.70)' }}>
-                    <Check className="w-4 h-4 shrink-0" style={{ color: '#c9a84e' }} /> Drinks & snacks
+                    <Check className="w-4 h-4 shrink-0" style={{ color: '#74cfe8' }} /> Drinks & snacks
                   </div>
                 )}
                 {boat.boat_features.slice(0, 4).map((f) => (
                   <div key={f.feature} className="flex items-center gap-2 text-sm" style={{ color: 'rgba(244,244,242,0.70)' }}>
-                    <Check className="w-4 h-4 shrink-0" style={{ color: '#c9a84e' }} /> {f.feature}
+                    <Check className="w-4 h-4 shrink-0" style={{ color: '#74cfe8' }} /> {f.feature}
                   </div>
                 ))}
               </div>
@@ -319,7 +319,7 @@ export default async function GalleryPage({
               <Link
                 href={`/boats/${boat.slug}`}
                 className="block w-full text-center py-3 rounded-xl font-semibold text-sm mt-2 transition-all duration-200 hover:brightness-110"
-                style={{ background: '#c9a84e', color: '#07101e' }}
+                style={{ background: '#74cfe8', color: '#07101e' }}
               >
                 View boat & prices
               </Link>

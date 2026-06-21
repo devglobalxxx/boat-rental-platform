@@ -4,9 +4,9 @@ import BoatCard from '@/components/search/BoatCard'
 import { MapPin, ShieldCheck, Zap, Anchor, Waves } from 'lucide-react'
 import type { BoatWithDetails } from '@/types/database'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
 
 export const metadata: Metadata = {
@@ -53,7 +53,7 @@ export default async function JetSkiMarbellaPage() {
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#0a1a32,#071122)' }} />
         )}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(7,16,30,0.35) 0%, rgba(7,16,30,0.82) 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 100%, rgba(201,168,78,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 100%, rgba(116,207,232,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
         <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 24px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, letterSpacing: '0.10em', textTransform: 'uppercase', color: gold, background: goldFaint, border: `1px solid ${goldBorder}`, borderRadius: '99px', padding: '6px 14px', marginBottom: '18px' }}>
@@ -65,14 +65,14 @@ export default async function JetSkiMarbellaPage() {
           <p style={{ fontSize: '17px', color: 'rgba(244,244,242,0.72)', maxWidth: '610px', lineHeight: 1.6, marginBottom: '28px' }}>
             Ride a Sea-Doo GTX or GTI along the Golden Mile — self-drive, no licence needed. From <strong style={{ color: '#f4f4f2' }}>€250/hour</strong>, life jackets &amp; fuel included.
           </p>
-          <a href="#jet-skis" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 30px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontWeight: 800, fontSize: '15px', textDecoration: 'none', boxShadow: '0 6px 22px rgba(201,168,78,0.30)' }}>
+          <a href="#jet-skis" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 30px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontWeight: 800, fontSize: '15px', textDecoration: 'none', boxShadow: '0 6px 22px rgba(116,207,232,0.30)' }}>
             See the jet skis ↓
           </a>
         </div>
       </section>
 
       {/* ── Stats bar ── */}
-      <div style={{ borderBottom: '1px solid rgba(201,168,78,0.10)', background: 'rgba(201,168,78,0.04)' }}>
+      <div style={{ borderBottom: '1px solid rgba(116,207,232,0.10)', background: 'rgba(116,207,232,0.04)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '22px 24px', display: 'flex', gap: '40px', flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
             { value: 'From €250', label: 'per hour' },

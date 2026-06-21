@@ -11,7 +11,7 @@ import HeroSearchPill from '@/components/home/HeroSearchPill'
 import { LOCALES, translations, type Locale } from '@/lib/i18n/translations'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.60)'
 
@@ -83,7 +83,7 @@ export default function SiteNav() {
         background: scrolled ? 'rgba(7,16,30,0.97)' : 'rgba(7,16,30,0.92)',
         backdropFilter: 'blur(16px) saturate(160%)',
         WebkitBackdropFilter: 'blur(16px) saturate(160%)',
-        borderBottom: '1px solid rgba(201,168,78,0.15)',
+        borderBottom: '1px solid rgba(116,207,232,0.15)',
         boxShadow: scrolled ? '0 8px 28px rgba(0,0,0,0.45)' : 'none',
         transition: 'background 0.3s, box-shadow 0.3s',
       }}
@@ -95,7 +95,7 @@ export default function SiteNav() {
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
             <Logo size={52} />
             <span style={{ fontWeight: 800, fontSize: '22px', letterSpacing: '-0.01em', color: '#f4f4f2', whiteSpace: 'nowrap' }}>
-              BoatHire<span style={{ color: '#c9a84e' }}>24</span>
+              BoatHire<span style={{ color: '#74cfe8' }}>24</span>
             </span>
           </Link>
 
@@ -166,21 +166,21 @@ export default function SiteNav() {
                     display: 'flex', alignItems: 'center', gap: '10px',
                     padding: '6px 6px 6px 14px',
                     borderRadius: '99px',
-                    border: dropdownOpen ? '1px solid rgba(201,168,78,0.50)' : '1px solid rgba(201,168,78,0.25)',
-                    background: dropdownOpen ? 'rgba(201,168,78,0.08)' : 'rgba(255,255,255,0.04)',
+                    border: dropdownOpen ? '1px solid rgba(116,207,232,0.50)' : '1px solid rgba(116,207,232,0.25)',
+                    background: dropdownOpen ? 'rgba(116,207,232,0.08)' : 'rgba(255,255,255,0.04)',
                     cursor: 'pointer',
                     transition: 'all 0.15s',
-                    boxShadow: dropdownOpen ? '0 0 0 3px rgba(201,168,78,0.10)' : 'none',
+                    boxShadow: dropdownOpen ? '0 0 0 3px rgba(116,207,232,0.10)' : 'none',
                   }}
                   onMouseEnter={(e) => {
                     if (!dropdownOpen) {
-                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,78,0.45)'
-                      ;(e.currentTarget as HTMLElement).style.background = 'rgba(201,168,78,0.06)'
+                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.45)'
+                      ;(e.currentTarget as HTMLElement).style.background = 'rgba(116,207,232,0.06)'
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!dropdownOpen) {
-                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,78,0.25)'
+                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.25)'
                       ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'
                     }
                   }}
@@ -194,10 +194,10 @@ export default function SiteNav() {
                   {/* Avatar */}
                   <div style={{
                     width: '32px', height: '32px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+                    background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)',
                     color: '#07101e', fontSize: '13px', fontWeight: 800,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    boxShadow: '0 2px 8px rgba(201,168,78,0.35)',
+                    boxShadow: '0 2px 8px rgba(116,207,232,0.35)',
                     flexShrink: 0,
                   }}>
                     {initial}
@@ -210,7 +210,7 @@ export default function SiteNav() {
                     position: 'absolute', right: 0, top: 'calc(100% + 10px)',
                     width: '230px', borderRadius: '16px', padding: '8px 0', zIndex: 50,
                     background: '#0c1828',
-                    border: '1px solid rgba(201,168,78,0.20)',
+                    border: '1px solid rgba(116,207,232,0.20)',
                     boxShadow: '0 20px 60px rgba(0,0,0,0.65)',
                   }}>
                     {/* User email header */}
@@ -235,7 +235,7 @@ export default function SiteNav() {
                         href={item.href}
                         style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 16px', fontSize: '14px', color: 'rgba(244,244,242,0.75)', textDecoration: 'none', transition: 'background 0.12s, color 0.12s' }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.background = 'rgba(201,168,78,0.07)'
+                          (e.currentTarget as HTMLElement).style.background = 'rgba(116,207,232,0.07)'
                           ;(e.currentTarget as HTMLElement).style.color = gold
                         }}
                         onMouseLeave={(e) => {
@@ -284,18 +284,18 @@ export default function SiteNav() {
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: '6px',
                     padding: '10px 22px', borderRadius: '99px',
-                    background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+                    background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)',
                     color: '#07101e', fontSize: '14px', fontWeight: 700,
                     textDecoration: 'none', whiteSpace: 'nowrap',
-                    boxShadow: '0 2px 14px rgba(201,168,78,0.28)',
+                    boxShadow: '0 2px 14px rgba(116,207,232,0.28)',
                     transition: 'box-shadow 0.2s, transform 0.2s',
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 22px rgba(201,168,78,0.45)'
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 22px rgba(116,207,232,0.45)'
                     ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 14px rgba(201,168,78,0.28)'
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 14px rgba(116,207,232,0.28)'
                     ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
                   }}
                 >
@@ -339,7 +339,7 @@ export default function SiteNav() {
 
         {/* ── Airbnb-style centered search band (homepage only) ── */}
         {pathname === '/' && (
-          <div style={{ borderTop: '1px solid rgba(201,168,78,0.10)', paddingTop: '16px', paddingBottom: '18px', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ borderTop: '1px solid rgba(116,207,232,0.10)', paddingTop: '16px', paddingBottom: '18px', display: 'flex', justifyContent: 'center' }}>
             <HeroSearchPill compact />
           </div>
         )}
@@ -347,7 +347,7 @@ export default function SiteNav() {
 
       {/* Mobile menu */}
       {open && (
-        <div style={{ background: 'rgba(7,16,30,0.98)', borderTop: '1px solid rgba(201,168,78,0.10)' }}>
+        <div style={{ background: 'rgba(7,16,30,0.98)', borderTop: '1px solid rgba(116,207,232,0.10)' }}>
           <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '16px 20px 24px' }}>
             {[
               { href: '/about',         label: translations[locale].nav.about },
@@ -400,7 +400,7 @@ export default function SiteNav() {
             <div style={{ display: 'flex', gap: '10px', paddingTop: '16px' }}>
               {user ? (
                 <>
-                  <span style={{ flex: 1, padding: '11px 16px', borderRadius: '10px', background: 'rgba(201,168,78,0.08)', border: '1px solid rgba(201,168,78,0.20)', color: gold, fontSize: '14px', fontWeight: 600, textAlign: 'center' }}>
+                  <span style={{ flex: 1, padding: '11px 16px', borderRadius: '10px', background: 'rgba(116,207,232,0.08)', border: '1px solid rgba(116,207,232,0.20)', color: gold, fontSize: '14px', fontWeight: 600, textAlign: 'center' }}>
                     {user.user_metadata?.full_name ?? user.email?.split('@')[0]}
                   </span>
                   <button
@@ -412,10 +412,10 @@ export default function SiteNav() {
                 </>
               ) : (
                 <>
-                  <Link href="/login" style={{ flex: 1, display: 'block', textAlign: 'center', padding: '11px 16px', borderRadius: '10px', border: '1px solid rgba(201,168,78,0.25)', color: 'rgba(244,244,242,0.75)', fontSize: '14px', fontWeight: 500, textDecoration: 'none' }} onClick={() => setOpen(false)}>
+                  <Link href="/login" style={{ flex: 1, display: 'block', textAlign: 'center', padding: '11px 16px', borderRadius: '10px', border: '1px solid rgba(116,207,232,0.25)', color: 'rgba(244,244,242,0.75)', fontSize: '14px', fontWeight: 500, textDecoration: 'none' }} onClick={() => setOpen(false)}>
                     Log in
                   </Link>
-                  <Link href="/signup" style={{ flex: 1, display: 'block', textAlign: 'center', padding: '11px 16px', borderRadius: '10px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }} onClick={() => setOpen(false)}>
+                  <Link href="/signup" style={{ flex: 1, display: 'block', textAlign: 'center', padding: '11px 16px', borderRadius: '10px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }} onClick={() => setOpen(false)}>
                     Get started
                   </Link>
                 </>

@@ -36,20 +36,20 @@ export default function BoatCard({ boat }: BoatCardProps) {
       <div
         style={{
           background: '#0c1828',
-          border: '1px solid rgba(201,168,78,0.18)',
+          border: '1px solid rgba(116,207,232,0.18)',
           borderRadius: '16px',
           overflow: 'hidden',
           transition: 'border-color 0.20s, box-shadow 0.20s, transform 0.20s',
         }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLDivElement
-          el.style.borderColor = 'rgba(201,168,78,0.50)'
+          el.style.borderColor = 'rgba(116,207,232,0.50)'
           el.style.boxShadow   = '0 20px 50px rgba(0,0,0,0.55)'
           el.style.transform   = 'translateY(-2px)'
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLDivElement
-          el.style.borderColor = 'rgba(201,168,78,0.18)'
+          el.style.borderColor = 'rgba(116,207,232,0.18)'
           el.style.boxShadow   = 'none'
           el.style.transform   = 'translateY(0)'
         }}
@@ -66,7 +66,7 @@ export default function BoatCard({ boat }: BoatCardProps) {
             />
           ) : (
             <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Anchor style={{ width: 48, height: 48, color: 'rgba(201,168,78,0.20)' }} />
+              <Anchor style={{ width: 48, height: 48, color: 'rgba(116,207,232,0.20)' }} />
             </div>
           )}
 
@@ -75,7 +75,7 @@ export default function BoatCard({ boat }: BoatCardProps) {
 
           {/* Type badge — top left */}
           <div style={{ position: 'absolute', top: '12px', left: '12px' }}>
-            <span style={{ display: 'inline-block', fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '99px', background: '#c9a84e', color: '#07101e' }}>
+            <span style={{ display: 'inline-block', fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '99px', background: '#74cfe8', color: '#07101e' }}>
               {TYPE_LABELS[boat.type] ?? boat.type}
             </span>
           </div>
@@ -83,7 +83,7 @@ export default function BoatCard({ boat }: BoatCardProps) {
           {/* Instant book — top right */}
           {boat.instant_book && (
             <div style={{ position: 'absolute', top: '12px', right: '12px' }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '99px', background: 'rgba(7,16,30,0.80)', border: '1px solid rgba(201,168,78,0.40)', color: '#c9a84e', backdropFilter: 'blur(6px)' }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '99px', background: 'rgba(7,16,30,0.80)', border: '1px solid rgba(116,207,232,0.40)', color: '#74cfe8', backdropFilter: 'blur(6px)' }}>
                 <Zap style={{ width: 11, height: 11 }} /> Instant
               </span>
             </div>
@@ -92,7 +92,7 @@ export default function BoatCard({ boat }: BoatCardProps) {
           {/* Rating — bottom left over gradient */}
           {reviewCount > 0 && (
             <div style={{ position: 'absolute', bottom: '12px', left: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Star style={{ width: 12, height: 12, fill: '#c9a84e', color: '#c9a84e' }} />
+              <Star style={{ width: 12, height: 12, fill: '#74cfe8', color: '#74cfe8' }} />
               <span style={{ fontSize: '12px', fontWeight: 700, color: '#f4f4f2' }}>{avgRating.toFixed(1)}</span>
               <span style={{ fontSize: '11px', color: 'rgba(244,244,242,0.60)' }}>({reviewCount})</span>
             </div>
@@ -127,7 +127,7 @@ export default function BoatCard({ boat }: BoatCardProps) {
               </span>
             )}
             {boat.includes_skipper && (
-              <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#c9a84e' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#74cfe8' }}>
                 <Anchor style={{ width: 12, height: 12 }} />Skipper incl.
               </span>
             )}
@@ -135,8 +135,8 @@ export default function BoatCard({ boat }: BoatCardProps) {
 
           {/* Price */}
           {lowestPrice && (
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginTop: '14px', paddingTop: '12px', borderTop: '1px solid rgba(201,168,78,0.12)' }}>
-              <span style={{ fontWeight: 800, fontSize: '20px', color: '#c9a84e' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginTop: '14px', paddingTop: '12px', borderTop: '1px solid rgba(116,207,232,0.12)' }}>
+              <span style={{ fontWeight: 800, fontSize: '20px', color: '#74cfe8' }}>
                 {formatPrice(lowestPrice.price, lowestPrice.currency)}
               </span>
               <span style={{ fontSize: '12px', color: 'rgba(244,244,242,0.40)' }}>

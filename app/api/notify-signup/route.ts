@@ -45,10 +45,10 @@ export async function POST() {
     <tr><td align="center">
       <table width="540" cellpadding="0" cellspacing="0" style="max-width:540px;">
         <tr><td style="padding-bottom:24px;text-align:center;">
-          <span style="font-size:22px;font-weight:800;color:#f4f4f2;">Boat<span style="color:#c9a84e;">Hire24</span></span>
+          <span style="font-size:22px;font-weight:800;color:#f4f4f2;">Boat<span style="color:#74cfe8;">Hire24</span></span>
         </td></tr>
-        <tr><td style="background:#0c1828;border:1px solid rgba(201,168,78,0.20);border-radius:14px;overflow:hidden;">
-          <div style="height:3px;background:linear-gradient(90deg,transparent,#c9a84e,#d4b05e,#c9a84e,transparent);"></div>
+        <tr><td style="background:#0c1828;border:1px solid rgba(116,207,232,0.20);border-radius:14px;overflow:hidden;">
+          <div style="height:3px;background:linear-gradient(90deg,transparent,#74cfe8,#8fdcf0,#74cfe8,transparent);"></div>
           <div style="padding:32px;">
             <div style="text-align:center;font-size:36px;margin-bottom:12px;">🎉</div>
             <h1 style="font-size:22px;font-weight:800;color:#f4f4f2;text-align:center;margin:0 0 8px;">New user signed up</h1>
@@ -64,7 +64,7 @@ export async function POST() {
               ].map(([label, value]) => `
                 <tr>
                   <td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.05);">
-                    <span style="font-size:11px;color:#c9a84e;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">${label}</span>
+                    <span style="font-size:11px;color:#74cfe8;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">${label}</span>
                   </td>
                   <td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.05);text-align:right;">
                     <span style="font-size:13px;color:#f4f4f2;font-weight:600;">${value}</span>
@@ -75,7 +75,7 @@ export async function POST() {
 
             <div style="text-align:center;">
               <a href="https://boathire24.com/admin"
-                 style="display:inline-block;padding:12px 28px;border-radius:99px;background:linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e);color:#07101e;font-size:14px;font-weight:700;text-decoration:none;">
+                 style="display:inline-block;padding:12px 28px;border-radius:99px;background:linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6);color:#07101e;font-size:14px;font-weight:700;text-decoration:none;">
                 Open Admin Panel →
               </a>
             </div>

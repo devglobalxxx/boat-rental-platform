@@ -44,8 +44,8 @@ export default async function NewListingPage({
     <div style={{ background: '#07101e', minHeight: '100vh', padding: '40px 20px 80px' }}>
       <div style={{ maxWidth: '720px', margin: '0 auto' }}>
         {targetHost && (
-          <div style={{ marginBottom: '20px', padding: '14px 18px', borderRadius: '12px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.30)' }}>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#c9a84e', textTransform: 'uppercase', letterSpacing: '0.10em', marginBottom: '4px' }}>
+          <div style={{ marginBottom: '20px', padding: '14px 18px', borderRadius: '12px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.30)' }}>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: '#74cfe8', textTransform: 'uppercase', letterSpacing: '0.10em', marginBottom: '4px' }}>
               🛡️ Admin · Concierge Listing Mode
             </div>
             <p style={{ fontSize: '13px', color: 'rgba(244,244,242,0.75)', margin: 0 }}>

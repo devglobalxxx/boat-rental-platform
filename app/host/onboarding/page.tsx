@@ -46,7 +46,7 @@ export default async function HostOnboardingPage({ searchParams }: Props) {
           <CheckCircle style={{ width: 64, height: 64, color: '#22c55e', margin: '0 auto 20px' }} />
           <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, marginBottom: '10px' }}>You&apos;re all set!</h1>
           <p style={{ fontSize: '15px', color: muted, marginBottom: '32px', lineHeight: 1.6 }}>Your Stripe account is connected. You can now receive payouts from bookings.</p>
-          <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+          <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
             Create your first listing <ArrowRight style={{ width: 16, height: 16 }} />
           </Link>
         </div>

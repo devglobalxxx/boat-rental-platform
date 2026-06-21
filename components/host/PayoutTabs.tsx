@@ -4,9 +4,9 @@ import { useState } from 'react'
 import BankDetailsForm, { type PayoutMethod } from './BankDetailsForm'
 import { CreditCard, Banknote, Shield, ArrowRight, Landmark, Zap, Check } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -30,9 +30,9 @@ export default function PayoutTabs({ payoutMethod, stripeUrl }: { payoutMethod: 
             flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
             padding: '11px 10px', borderRadius: '10px', cursor: 'pointer', fontSize: '13.5px', fontWeight: 700,
             border: 'none', whiteSpace: 'nowrap',
-            background: tab === 'bank' ? 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)' : 'transparent',
+            background: tab === 'bank' ? 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)' : 'transparent',
             color: tab === 'bank' ? '#07101e' : muted,
-            boxShadow: tab === 'bank' ? '0 2px 12px rgba(201,168,78,0.30)' : 'none',
+            boxShadow: tab === 'bank' ? '0 2px 12px rgba(116,207,232,0.30)' : 'none',
           }}
         >
           <Landmark style={{ width: 15, height: 15 }} />
@@ -49,9 +49,9 @@ export default function PayoutTabs({ payoutMethod, stripeUrl }: { payoutMethod: 
             flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
             padding: '11px 10px', borderRadius: '10px', cursor: 'pointer', fontSize: '13.5px', fontWeight: 700,
             border: 'none', whiteSpace: 'nowrap',
-            background: tab === 'stripe' ? 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)' : 'transparent',
+            background: tab === 'stripe' ? 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)' : 'transparent',
             color: tab === 'stripe' ? '#07101e' : muted,
-            boxShadow: tab === 'stripe' ? '0 2px 12px rgba(201,168,78,0.30)' : 'none',
+            boxShadow: tab === 'stripe' ? '0 2px 12px rgba(116,207,232,0.30)' : 'none',
           }}
         >
           <Zap style={{ width: 15, height: 15 }} />
@@ -73,7 +73,7 @@ export default function PayoutTabs({ payoutMethod, stripeUrl }: { payoutMethod: 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginBottom: '24px' }}>
             {FEATURES.map((item) => (
               <div key={item.title} style={{ display: 'flex', gap: '14px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <item.Icon style={{ width: 18, height: 18, color: gold }} />
                 </div>
                 <div>
@@ -87,7 +87,7 @@ export default function PayoutTabs({ payoutMethod, stripeUrl }: { payoutMethod: 
           {stripeUrl ? (
             <a
               href={stripeUrl}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '14px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)' }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '14px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '15px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.25)' }}
             >
               Set up with Stripe <ArrowRight style={{ width: 16, height: 16 }} />
             </a>
@@ -103,7 +103,7 @@ export default function PayoutTabs({ payoutMethod, stripeUrl }: { payoutMethod: 
               </p>
               <button
                 onClick={() => setTab('bank')}
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 16px', borderRadius: '99px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.30)', color: gold, fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 16px', borderRadius: '99px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.30)', color: gold, fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}
               >
                 <Landmark style={{ width: 14, height: 14 }} /> Add bank account instead
               </button>

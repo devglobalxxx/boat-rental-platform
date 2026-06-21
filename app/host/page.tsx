@@ -7,11 +7,11 @@ import PayoutBadge from '@/components/ui/PayoutBadge'
 import DeleteListingButton from '@/components/host/DeleteListingButton'
 import AutoReplyToggle from '@/components/host/AutoReplyToggle'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -20,7 +20,7 @@ const STATUS_CONFIG = {
   pending:   { label: 'Pending',   color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  border: 'rgba(245,158,11,0.30)' },
   confirmed: { label: 'Confirmed', color: '#22c55e', bg: 'rgba(34,197,94,0.12)',   border: 'rgba(34,197,94,0.30)' },
   cancelled: { label: 'Cancelled', color: '#f87171', bg: 'rgba(248,113,113,0.10)', border: 'rgba(248,113,113,0.28)' },
-  completed: { label: 'Completed', color: gold,      bg: 'rgba(201,168,78,0.10)',  border: 'rgba(201,168,78,0.28)' },
+  completed: { label: 'Completed', color: gold,      bg: 'rgba(116,207,232,0.10)',  border: 'rgba(116,207,232,0.28)' },
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -64,10 +64,10 @@ export default async function HostDashboard() {
             <p style={{ fontSize: '15px', color: muted }}>Manage your fleet and bookings</p>
           </div>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            <Link href="/dashboard/messages" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 22px', borderRadius: '99px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.30)', color: gold, fontSize: '14px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+            <Link href="/dashboard/messages" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 22px', borderRadius: '99px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.30)', color: gold, fontSize: '14px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
               <MessageSquare style={{ width: 16, height: 16 }} /> Messages
             </Link>
-            <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.22)', whiteSpace: 'nowrap' }}>
+            <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.22)', whiteSpace: 'nowrap' }}>
               <Plus style={{ width: 16, height: 16 }} /> Add listing
             </Link>
           </div>
@@ -116,9 +116,9 @@ export default async function HostDashboard() {
         {(boats ?? []).filter((b) => b.status === 'draft').length > 0 && (() => {
           const draftCount = (boats ?? []).filter((b) => b.status === 'draft').length
           return (
-            <div style={{ marginBottom: '16px', padding: '20px 24px', background: 'linear-gradient(135deg, rgba(201,168,78,0.10) 0%, rgba(251,191,36,0.06) 100%)', border: `1px solid ${goldBorder}`, borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', boxShadow: '0 8px 24px rgba(201,168,78,0.12)' }}>
+            <div style={{ marginBottom: '16px', padding: '20px 24px', background: 'linear-gradient(135deg, rgba(116,207,232,0.10) 0%, rgba(251,191,36,0.06) 100%)', border: `1px solid ${goldBorder}`, borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', boxShadow: '0 8px 24px rgba(116,207,232,0.12)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ width: 44, height: 44, borderRadius: '12px', background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 14px rgba(251,191,36,0.30)' }}>
+                <div style={{ width: 44, height: 44, borderRadius: '12px', background: 'linear-gradient(135deg,#fbbf24,#74cfe8)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 14px rgba(251,191,36,0.30)' }}>
                   <span style={{ fontSize: '22px' }}>📋</span>
                 </div>
                 <div>
@@ -130,7 +130,7 @@ export default async function HostDashboard() {
                   </div>
                 </div>
               </div>
-              <Link href="/host/listings" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 22px', borderRadius: '99px', background: 'linear-gradient(135deg,#fbbf24,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap', boxShadow: '0 4px 14px rgba(201,168,78,0.30)' }}>
+              <Link href="/host/listings" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 22px', borderRadius: '99px', background: 'linear-gradient(135deg,#fbbf24,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap', boxShadow: '0 4px 14px rgba(116,207,232,0.30)' }}>
                 Review drafts →
               </Link>
             </div>
@@ -182,7 +182,7 @@ export default async function HostDashboard() {
 
         {/* ── Payouts ── */}
         {!profile?.stripe_account_id ? (
-          <div style={{ marginBottom: '28px', padding: '18px 20px', background: 'rgba(201,168,78,0.08)', border: '1px solid rgba(201,168,78,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+          <div style={{ marginBottom: '28px', padding: '18px 20px', background: 'rgba(116,207,232,0.08)', border: '1px solid rgba(116,207,232,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
             <div>
               <div style={{ fontWeight: 700, color: gold, fontSize: '14px', marginBottom: '4px' }}>Set up payouts</div>
               <div style={{ fontSize: '13px', color: muted }}>Connect your bank account via Stripe to receive booking payments.</div>
@@ -225,7 +225,7 @@ export default async function HostDashboard() {
         </div>
 
         {/* ── Fleet Manager promo ── */}
-        <div style={{ marginBottom: '36px', padding: '20px 24px', borderRadius: '16px', background: 'rgba(201,168,78,0.05)', border: `1px solid ${border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+        <div style={{ marginBottom: '36px', padding: '20px 24px', borderRadius: '16px', background: 'rgba(116,207,232,0.05)', border: `1px solid ${border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <Layers style={{ width: 20, height: 20, color: gold, flexShrink: 0 }} />
             <div>
@@ -258,7 +258,7 @@ export default async function HostDashboard() {
 
           {!boats?.length ? (
             <div style={{ textAlign: 'center', padding: '48px 24px', background: card, borderRadius: '16px', border: `2px dashed ${border}` }}>
-              <Ship style={{ width: 40, height: 40, color: 'rgba(201,168,78,0.20)', margin: '0 auto 14px' }} />
+              <Ship style={{ width: 40, height: 40, color: 'rgba(116,207,232,0.20)', margin: '0 auto 14px' }} />
               <p style={{ color: muted, fontSize: '15px', marginBottom: '20px' }}>No listings yet</p>
               <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
                 <Plus style={{ width: 16, height: 16 }} /> Create your first listing

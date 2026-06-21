@@ -11,9 +11,9 @@ interface AvailabilityCalendarProps {
   mode?: 'view' | 'select'
 }
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.30)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.30)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const card = '#0c1828'
@@ -63,7 +63,7 @@ export default function AvailabilityCalendar({
     let bd = 'rgba(255,255,255,0.06)'
     let col = text
     let deco: 'none' | 'line-through' = 'none'
-    if (isSelected) { bg = 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)'; col = '#07101e'; bd = gold }
+    if (isSelected) { bg = 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)'; col = '#07101e'; bd = gold }
     else if (isPast) { bg = 'transparent'; bd = 'transparent'; col = 'rgba(244,244,242,0.18)' }
     else if (isUnavail) { bg = 'rgba(248,113,113,0.07)'; bd = 'rgba(248,113,113,0.20)'; col = 'rgba(248,113,113,0.6)'; deco = 'line-through' }
     else if (isToday) { bg = goldFaint; bd = goldBorder; col = gold }
@@ -131,7 +131,7 @@ export default function AvailabilityCalendar({
         </span>
         {mode === 'select' && (
           <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: text, fontWeight: 600 }}>
-            <span style={{ width: 16, height: 16, borderRadius: '5px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)' }} /> Selected
+            <span style={{ width: 16, height: 16, borderRadius: '5px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)' }} /> Selected
           </span>
         )}
       </div>

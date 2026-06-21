@@ -29,7 +29,7 @@ export default async function Image() {
             transform: 'translateX(-50%)',
             width: '900px',
             height: '600px',
-            background: 'radial-gradient(ellipse, rgba(201,168,78,0.18) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(116,207,232,0.18) 0%, transparent 70%)',
             pointerEvents: 'none',
             display: 'flex',
           }}
@@ -41,7 +41,7 @@ export default async function Image() {
             left: '0',
             right: '0',
             height: '4px',
-            background: 'linear-gradient(90deg, transparent, #c9a84e, #d4b05e, #c9a84e, transparent)',
+            background: 'linear-gradient(90deg, transparent, #74cfe8, #8fdcf0, #74cfe8, transparent)',
             display: 'flex',
           }}
         />
@@ -49,12 +49,12 @@ export default async function Image() {
           <div
             style={{
               width: '64px', height: '64px', borderRadius: '16px',
-              background: 'rgba(201,168,78,0.15)', border: '2px solid rgba(201,168,78,0.40)',
+              background: 'rgba(116,207,232,0.15)', border: '2px solid rgba(116,207,232,0.40)',
               display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px',
             }}
           >⚓</div>
           <span style={{ fontSize: '42px', fontWeight: 800, color: '#f4f4f2', letterSpacing: '-0.02em' }}>
-            Boat<span style={{ color: '#c9a84e' }}>Hire24</span>
+            Boat<span style={{ color: '#74cfe8' }}>Hire24</span>
           </span>
         </div>
         <div
@@ -65,7 +65,7 @@ export default async function Image() {
           }}
         >
           Rent Boats & Yachts{' '}
-          <span style={{ color: '#c9a84e' }}>Worldwide</span>
+          <span style={{ color: '#74cfe8' }}>Worldwide</span>
         </div>
         <div
           style={{
@@ -87,8 +87,8 @@ export default async function Image() {
               style={{
                 display: 'flex', alignItems: 'center', gap: '8px',
                 padding: '10px 20px', borderRadius: '99px',
-                background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.28)',
-                fontSize: '18px', color: '#c9a84e', fontWeight: 600,
+                background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.28)',
+                fontSize: '18px', color: '#74cfe8', fontWeight: 600,
               }}
             >
               <span style={{ fontSize: '20px' }}>{item.icon}</span>

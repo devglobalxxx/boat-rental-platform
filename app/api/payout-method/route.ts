@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
         <p><strong>${isSepa ? 'IBAN' : 'Account'}:</strong> ${mask(isSepa ? iban : accountNumber)}${swift ? ` &middot; <strong>SWIFT:</strong> ${swift}` : ''}</p>
         <p><strong>Currency:</strong> ${row.currency}</p>
         <p>Full details are in the Admin Panel → Payout column.</p>
-        <p><a href="https://boathire24.com/admin" style="background:#c9a84e;color:#07101e;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:700;">Open Admin Panel →</a></p>
+        <p><a href="https://boathire24.com/admin" style="background:#74cfe8;color:#07101e;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:700;">Open Admin Panel →</a></p>
       `,
     })
   } catch {}

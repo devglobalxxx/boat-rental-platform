@@ -31,9 +31,9 @@ const MILESTONES = [
   { year: '2025', label: 'Today', desc: '48 destinations, 15,000+ guests served, and still growing.' },
 ]
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const textMuted = 'rgba(244,244,242,0.55)'
 
 export default function AboutPage() {
@@ -42,7 +42,7 @@ export default function AboutPage() {
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '104px', paddingBottom: '88px' }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,78,0.10) 0%, transparent 70%)' }} />
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(116,207,232,0.10) 0%, transparent 70%)' }} />
         <div style={{ position: 'relative', maxWidth: '720px', margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 600, padding: '6px 18px', borderRadius: '99px', marginBottom: '28px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}` }}>
             Our story
@@ -58,7 +58,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Stats bar ── */}
-      <div style={{ borderTop: `1px solid rgba(201,168,78,0.10)`, borderBottom: `1px solid rgba(201,168,78,0.10)`, background: 'rgba(201,168,78,0.04)' }}>
+      <div style={{ borderTop: `1px solid rgba(116,207,232,0.10)`, borderBottom: `1px solid rgba(116,207,232,0.10)`, background: 'rgba(116,207,232,0.04)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', padding: '28px 24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
           {[
             { value: '2020',   label: 'Founded' },
@@ -164,7 +164,7 @@ export default function AboutPage() {
 
       {/* ── Divider ── */}
       <div style={{ maxWidth: '900px', margin: '88px auto 0', padding: '0 24px' }}>
-        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
       </div>
 
       {/* ── Our story / timeline ── */}
@@ -180,9 +180,9 @@ export default function AboutPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '16px' }}>
           {MILESTONES.map((m, i) => (
-            <div key={m.year} style={{ padding: '28px', borderRadius: '18px', background: '#0c1828', border: `1px solid ${i === MILESTONES.length - 1 ? goldBorder : 'rgba(201,168,78,0.10)'}`, position: 'relative', overflow: 'hidden' }}>
+            <div key={m.year} style={{ padding: '28px', borderRadius: '18px', background: '#0c1828', border: `1px solid ${i === MILESTONES.length - 1 ? goldBorder : 'rgba(116,207,232,0.10)'}`, position: 'relative', overflow: 'hidden' }}>
               {i === MILESTONES.length - 1 && (
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(201,168,78,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(116,207,232,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
               )}
               <p style={{ fontSize: '28px', fontWeight: 900, color: gold, lineHeight: 1, marginBottom: '6px', opacity: 0.85 }}>{m.year}</p>
               <p style={{ fontSize: '14px', fontWeight: 700, color: '#f4f4f2', marginBottom: '8px' }}>{m.label}</p>
@@ -194,7 +194,7 @@ export default function AboutPage() {
 
       {/* ── Divider ── */}
       <div style={{ maxWidth: '900px', margin: '88px auto 0', padding: '0 24px' }}>
-        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
       </div>
 
       {/* ── Values ── */}
@@ -237,7 +237,7 @@ export default function AboutPage() {
             Instant booking, licensed skippers, no hidden fees.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontWeight: 700, fontSize: '15px', textDecoration: 'none', boxShadow: '0 6px 24px rgba(201,168,78,0.28)' }}>
+            <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontWeight: 700, fontSize: '15px', textDecoration: 'none', boxShadow: '0 6px 24px rgba(116,207,232,0.28)' }}>
               Browse all boats <ArrowRight style={{ width: '16px', height: '16px' }} />
             </Link>
             <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', border: `1px solid ${goldBorder}`, color: 'rgba(244,244,242,0.75)', fontWeight: 600, fontSize: '15px', textDecoration: 'none', background: 'transparent' }}>

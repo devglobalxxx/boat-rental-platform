@@ -6,10 +6,10 @@ import { Globe, Sparkles, Check, ArrowLeft, Ship, ImageIcon, Loader2 } from 'luc
 
 /* ── tokens (match the rest of /host) ── */
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.18)'
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.28)'
+const border = 'rgba(116,207,232,0.18)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.28)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const inputBg = 'rgba(255,255,255,0.05)'
@@ -33,7 +33,7 @@ const inputStyle: React.CSSProperties = {
 }
 const goldBtn: React.CSSProperties = {
   display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px',
-  background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e',
+  background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e',
   fontSize: '14px', fontWeight: 700, border: 'none', cursor: 'pointer',
 }
 const ghostBtn: React.CSSProperties = {

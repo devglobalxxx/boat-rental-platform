@@ -36,9 +36,9 @@ const CONCIERGE_STEPS = [
   { Icon: CheckCircle2,  title: 'Review &amp; activate',     desc: 'You log in, check everything looks right, click activate. Listings go live immediately.' },
 ]
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const textMuted = 'rgba(244,244,242,0.55)'
 
 export default function BecomeAHostClient() {
@@ -47,8 +47,8 @@ export default function BecomeAHostClient() {
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '100px', paddingBottom: '88px' }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 90% 60% at 60% 0%, rgba(201,168,78,0.12) 0%, transparent 65%)' }} />
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0.025, backgroundImage: 'linear-gradient(rgba(201,168,78,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,78,1) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 90% 60% at 60% 0%, rgba(116,207,232,0.12) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0.025, backgroundImage: 'linear-gradient(rgba(116,207,232,1) 1px, transparent 1px), linear-gradient(90deg, rgba(116,207,232,1) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
 
         <div style={{ position: 'relative', maxWidth: '1000px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ maxWidth: '600px' }}>
@@ -71,7 +71,7 @@ export default function BecomeAHostClient() {
             </p>
 
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', boxShadow: '0 8px 32px rgba(201,168,78,0.32)', textDecoration: 'none' }}>
+              <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', boxShadow: '0 8px 32px rgba(116,207,232,0.32)', textDecoration: 'none' }}>
                 List my boat — it&apos;s free <ArrowRight style={{ width: '16px', height: '16px' }} />
               </Link>
               <Link href="/how-it-works" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', fontSize: '15px', fontWeight: 600, border: `1px solid ${goldBorder}`, color: 'rgba(244,244,242,0.80)', background: 'transparent', textDecoration: 'none' }}>
@@ -88,7 +88,7 @@ export default function BecomeAHostClient() {
       </div>
 
       {/* ── Stats bar ── */}
-      <div style={{ borderTop: `1px solid rgba(201,168,78,0.10)`, borderBottom: `1px solid rgba(201,168,78,0.10)`, background: 'rgba(201,168,78,0.04)' }}>
+      <div style={{ borderTop: `1px solid rgba(116,207,232,0.10)`, borderBottom: `1px solid rgba(116,207,232,0.10)`, background: 'rgba(116,207,232,0.04)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '28px 24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
           {[
             { value: '17',      label: 'Boats listed' },
@@ -144,7 +144,7 @@ export default function BecomeAHostClient() {
           padding: '52px 44px',
           background: 'linear-gradient(135deg, #1a1208 0%, #0e1828 100%)',
           border: '2px solid',
-          borderImage: 'linear-gradient(135deg,#fde68a,#fbbf24,#c9a84e,#92400e) 1',
+          borderImage: 'linear-gradient(135deg,#fde68a,#fbbf24,#74cfe8,#92400e) 1',
           overflow: 'hidden',
         }}>
           {/* Glow */}
@@ -154,13 +154,13 @@ export default function BecomeAHostClient() {
 
             {/* Left: pitch */}
             <div style={{ flex: '1 1 320px', minWidth: 0 }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' as const, letterSpacing: '0.14em', padding: '6px 14px', borderRadius: '99px', background: 'linear-gradient(135deg, #fbbf24, #c9a84e)', color: '#1a1208', marginBottom: '20px', boxShadow: '0 4px 14px rgba(251,191,36,0.32)' }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' as const, letterSpacing: '0.14em', padding: '6px 14px', borderRadius: '99px', background: 'linear-gradient(135deg, #fbbf24, #74cfe8)', color: '#1a1208', marginBottom: '20px', boxShadow: '0 4px 14px rgba(251,191,36,0.32)' }}>
                 <Sparkles style={{ width: 13, height: 13 }} /> 100% Free Setup
               </span>
 
               <h2 style={{ fontSize: 'clamp(1.7rem, 3.5vw, 2.4rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: '16px' }}>
                 Too busy to list your boats?<br/>
-                <span style={{ background: 'linear-gradient(135deg,#fde68a 0%, #fbbf24 50%, #c9a84e 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                <span style={{ background: 'linear-gradient(135deg,#fde68a 0%, #fbbf24 50%, #74cfe8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   We&apos;ll do it for you.
                 </span>
               </h2>
@@ -176,7 +176,7 @@ export default function BecomeAHostClient() {
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
                 <Link
                   href="/signup?next=/become-a-host"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, background: 'linear-gradient(135deg, #fbbf24, #c9a84e, #92400e)', color: '#1a1208', textDecoration: 'none', boxShadow: '0 8px 24px rgba(201,168,78,0.30)' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, background: 'linear-gradient(135deg, #fbbf24, #74cfe8, #92400e)', color: '#1a1208', textDecoration: 'none', boxShadow: '0 8px 24px rgba(116,207,232,0.30)' }}
                 >
                   Sign up &amp; we&apos;ll list for you <ArrowRight style={{ width: 15, height: 15 }} />
                 </Link>
@@ -198,8 +198,8 @@ export default function BecomeAHostClient() {
             {/* Right: 3 steps */}
             <div style={{ flex: '1 1 280px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {CONCIERGE_STEPS.map((step, i) => (
-                <div key={i} style={{ display: 'flex', gap: '14px', padding: '18px', borderRadius: '14px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(201,168,78,0.18)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 12px rgba(251,191,36,0.30)' }}>
+                <div key={i} style={{ display: 'flex', gap: '14px', padding: '18px', borderRadius: '14px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(116,207,232,0.18)' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'linear-gradient(135deg,#fbbf24,#74cfe8)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 12px rgba(251,191,36,0.30)' }}>
                     <step.Icon style={{ width: 18, height: 18, color: '#1a1208' }} />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
@@ -218,7 +218,7 @@ export default function BecomeAHostClient() {
       </section>
 
       {/* ── 4-step process ── */}
-      <section style={{ padding: '88px 24px', background: 'rgba(201,168,78,0.03)', borderTop: `1px solid rgba(201,168,78,0.10)`, borderBottom: `1px solid rgba(201,168,78,0.10)`, marginTop: '88px' }}>
+      <section style={{ padding: '88px 24px', background: 'rgba(116,207,232,0.03)', borderTop: `1px solid rgba(116,207,232,0.10)`, borderBottom: `1px solid rgba(116,207,232,0.10)`, marginTop: '88px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '52px' }}>
             <span style={{ display: 'inline-flex', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '16px' }}>
@@ -233,7 +233,7 @@ export default function BecomeAHostClient() {
             {STEPS.map((step, i) => (
               <div key={step.num} style={{ position: 'relative' }}>
                 {i < STEPS.length - 1 && (
-                  <div style={{ display: 'none', position: 'absolute', top: '20px', left: '100%', width: '100%', height: '1px', background: 'rgba(201,168,78,0.18)', zIndex: 0 }} className="connector-line" />
+                  <div style={{ display: 'none', position: 'absolute', top: '20px', left: '100%', width: '100%', height: '1px', background: 'rgba(116,207,232,0.18)', zIndex: 0 }} className="connector-line" />
                 )}
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   <div style={{ width: '44px', height: '44px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', fontWeight: 700, background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '18px' }}>
@@ -289,13 +289,13 @@ export default function BecomeAHostClient() {
           </div>
 
           {/* Verified Operators */}
-          <div style={{ position: 'relative', borderRadius: '18px', padding: '32px 28px', background: 'linear-gradient(135deg, #1a1208 0%, #0e1828 100%)', border: '2px solid', borderImage: 'linear-gradient(135deg,#fde68a,#fbbf24,#c9a84e,#92400e) 1', overflow: 'hidden' }}>
+          <div style={{ position: 'relative', borderRadius: '18px', padding: '32px 28px', background: 'linear-gradient(135deg, #1a1208 0%, #0e1828 100%)', border: '2px solid', borderImage: 'linear-gradient(135deg,#fde68a,#fbbf24,#74cfe8,#92400e) 1', overflow: 'hidden' }}>
             <div aria-hidden style={{ position: 'absolute', top: '-40px', right: '-40px', width: '180px', height: '180px', background: 'radial-gradient(circle, rgba(251,191,36,0.14) 0%, transparent 70%)', pointerEvents: 'none' }} />
             <div style={{ position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap' }}>
                 <span style={{ fontSize: '20px' }}>🛡️</span>
                 <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f4f4f2', margin: 0 }}>Verified Operators</h3>
-                <span style={{ fontSize: '10px', fontWeight: 800, padding: '3px 9px', borderRadius: '99px', background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', color: '#1a1208', textTransform: 'uppercase' as const, letterSpacing: '0.06em' }}>Trusted</span>
+                <span style={{ fontSize: '10px', fontWeight: 800, padding: '3px 9px', borderRadius: '99px', background: 'linear-gradient(135deg,#fbbf24,#74cfe8)', color: '#1a1208', textTransform: 'uppercase' as const, letterSpacing: '0.06em' }}>Trusted</span>
               </div>
               <p style={{ fontSize: '13px', color: '#fbbf24', margin: '0 0 22px', fontWeight: 600 }}>Unlocked after your first completed booking</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -305,7 +305,7 @@ export default function BecomeAHostClient() {
                   { t: 'Reserved for trusted partners', s: 'For operators with a proven booking track record.' },
                 ].map((row, i) => (
                   <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                    <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', color: '#1a1208', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', fontWeight: 800, marginTop: '1px' }}>✓</span>
+                    <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'linear-gradient(135deg,#fbbf24,#74cfe8)', color: '#1a1208', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', fontWeight: 800, marginTop: '1px' }}>✓</span>
                     <div>
                       <div style={{ fontSize: '14px', fontWeight: 700, color: '#f4f4f2' }}>{row.t}</div>
                       <div style={{ fontSize: '13px', color: 'rgba(244,244,242,0.65)', lineHeight: 1.55, marginTop: '2px' }}>{row.s}</div>
@@ -346,7 +346,7 @@ export default function BecomeAHostClient() {
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
               <p style={{ fontWeight: 700, fontSize: '18px', color: '#f4f4f2', marginBottom: '8px' }}>Ready to start earning?</p>
               <p style={{ fontSize: '14px', color: textMuted, marginBottom: '24px' }}>Create your listing in under 10 minutes.</p>
-              <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', boxShadow: '0 6px 24px rgba(201,168,78,0.28)', textDecoration: 'none' }}>
+              <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', boxShadow: '0 6px 24px rgba(116,207,232,0.28)', textDecoration: 'none' }}>
                 List my boat <ArrowRight style={{ width: '15px', height: '15px' }} />
               </Link>
               <p style={{ fontSize: '12px', color: 'rgba(244,244,242,0.30)', marginTop: '10px' }}>Free to list · No commitment</p>

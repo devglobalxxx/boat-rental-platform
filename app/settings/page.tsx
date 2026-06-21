@@ -8,11 +8,11 @@ import { User, Lock, Trash2, ChevronLeft, CheckCircle, Eye, EyeOff, AlertTriangl
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 import { PhoneInput } from '@/components/ui/PhoneInput'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -194,7 +194,7 @@ export default function SettingsPage() {
             <div>
               <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '10px' }}>Profile picture</label>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(201,168,78,0.30)' }}>
+                <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(116,207,232,0.30)' }}>
                   {avatarUrl
                     ? <img src={avatarUrl} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     : <span style={{ fontSize: '28px', fontWeight: 800, color: '#07101e' }}>{(name?.[0] ?? user?.email?.[0] ?? 'U').toUpperCase()}</span>
@@ -231,7 +231,7 @@ export default function SettingsPage() {
               <p style={{ fontSize: '11px', color: 'rgba(244,244,242,0.30)', marginTop: '6px' }}>Email cannot be changed here. Contact support.</p>
             </div>
             <div>
-              <button type="submit" disabled={savingName || !name.trim()} style={{ padding: '11px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '13px', fontWeight: 700, border: 'none', cursor: savingName ? 'not-allowed' : 'pointer', opacity: savingName ? 0.7 : 1 }}>
+              <button type="submit" disabled={savingName || !name.trim()} style={{ padding: '11px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '13px', fontWeight: 700, border: 'none', cursor: savingName ? 'not-allowed' : 'pointer', opacity: savingName ? 0.7 : 1 }}>
                 {savingName ? 'Saving…' : 'Save profile'}
               </button>
             </div>
@@ -280,7 +280,7 @@ export default function SettingsPage() {
             )}
 
             <div>
-              <button type="submit" disabled={savingPw || !newPw} style={{ padding: '11px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '13px', fontWeight: 700, border: 'none', cursor: savingPw || !newPw ? 'not-allowed' : 'pointer', opacity: savingPw || !newPw ? 0.6 : 1 }}>
+              <button type="submit" disabled={savingPw || !newPw} style={{ padding: '11px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '13px', fontWeight: 700, border: 'none', cursor: savingPw || !newPw ? 'not-allowed' : 'pointer', opacity: savingPw || !newPw ? 0.6 : 1 }}>
                 {savingPw ? 'Saving…' : hasPassword ? 'Change password' : 'Set password'}
               </button>
             </div>

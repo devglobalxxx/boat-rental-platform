@@ -46,8 +46,8 @@ function fmt(b: B, boatName: string) {
 
 const shell = (heading: string, accent: string, inner: string) => `
   <div style="background:#07101e;padding:32px 16px;font-family:-apple-system,Segoe UI,sans-serif">
-    <div style="max-width:480px;margin:0 auto;background:#0c1828;border:1px solid rgba(201,168,78,0.25);border-radius:16px;overflow:hidden">
-      <div style="padding:22px 26px;border-bottom:1px solid rgba(201,168,78,0.15)"><span style="color:${accent};font-weight:800;font-size:18px">${heading}</span></div>
+    <div style="max-width:480px;margin:0 auto;background:#0c1828;border:1px solid rgba(116,207,232,0.25);border-radius:16px;overflow:hidden">
+      <div style="padding:22px 26px;border-bottom:1px solid rgba(116,207,232,0.15)"><span style="color:${accent};font-weight:800;font-size:18px">${heading}</span></div>
       <div style="padding:24px 26px;color:#cfd6df;font-size:14px;line-height:1.65">${inner}</div>
     </div>
   </div>`
@@ -57,11 +57,11 @@ const detailRows = (f: ReturnType<typeof fmt>) => `
     <tr><td style="padding:6px 0;color:#8b94a3">Boat</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.boatName}</td></tr>
     <tr><td style="padding:6px 0;color:#8b94a3">Date</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.date}</td></tr>
     <tr><td style="padding:6px 0;color:#8b94a3">Time</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.time}${f.dur ? ` · ${f.dur}` : ''}</td></tr>
-    <tr><td style="padding:6px 0;color:#8b94a3">Total</td><td style="padding:6px 0;color:#c9a84e;text-align:right;font-weight:800">${f.money}</td></tr>
+    <tr><td style="padding:6px 0;color:#8b94a3">Total</td><td style="padding:6px 0;color:#74cfe8;text-align:right;font-weight:800">${f.money}</td></tr>
   </table>`
 
 const btn = (href: string, label: string) =>
-  `<a href="${href}" style="display:inline-block;background:linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e);color:#07101e;font-weight:800;text-decoration:none;padding:12px 26px;border-radius:99px;font-size:14px">${label}</a>`
+  `<a href="${href}" style="display:inline-block;background:linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6);color:#07101e;font-weight:800;text-decoration:none;padding:12px 26px;border-radius:99px;font-size:14px">${label}</a>`
 
 /** Booker authorized a hold → ask the host to approve. */
 export async function sendHostNewRequest(bookingId: string) {
@@ -82,7 +82,7 @@ export async function sendHostNewRequest(bookingId: string) {
   const to = await emailOf(ctx.boat.host_id)
   await resend.emails.send({
     from: FROM, to: [to, OPS_INBOX].filter(Boolean) as string[], subject: `New booking request — ${f.boatName} · ${f.date}`,
-    html: shell('📅 New booking request', '#c9a84e', `
+    html: shell('📅 New booking request', '#74cfe8', `
       <p>You have a new booking request. The guest's card is <strong style="color:#f4f4f2">held (not charged)</strong> — approve within <strong>24h</strong> and they're charged; decline and the hold is released automatically.</p>
       ${detailRows(f)}
       <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'Review & approve →')}</p>
@@ -177,7 +177,7 @@ export async function sendBookingModified(bookingId: string) {
 
   await resend.emails.send({
     from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `Updated request — ${f.boatName} · ${f.date}`,
-    html: shell('📅 Booking updated by guest', '#c9a84e', `
+    html: shell('📅 Booking updated by guest', '#74cfe8', `
       <p>The guest changed their requested date, time, or duration. Please review the new details and approve if the slot works.</p>
       ${detailRows(f)}
       <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'Review →')}</p>`),
@@ -208,7 +208,7 @@ export async function sendHostQuoteRequest(opts: {
   const hostEmail = await emailOf(boat.host_id)
   await resend.emails.send({
     from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `💬 New booking request — ${boat.name}`,
-    html: shell('💬 New booking request', '#c9a84e', `
+    html: shell('💬 New booking request', '#74cfe8', `
       <p>Someone wants a price for your <strong style="color:#f4f4f2">${boat.name}</strong>:</p>
       <table style="width:100%;border-collapse:collapse;margin:14px 0">
         <tr><td style="padding:6px 0;color:#8b94a3">From</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.name || '—'}</td></tr>
@@ -235,7 +235,7 @@ export async function sendBookerQuoteReceived(bookingId: string) {
       <tr><td style="padding:6px 0;color:#8b94a3">Boat</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.boatName}</td></tr>
       <tr><td style="padding:6px 0;color:#8b94a3">Date</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.date}</td></tr>
       <tr><td style="padding:6px 0;color:#8b94a3">Guests</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${ctx.b.guests_count}</td></tr>
-      <tr><td style="padding:6px 0;color:#8b94a3">Price</td><td style="padding:6px 0;color:#c9a84e;text-align:right;font-weight:800">On request</td></tr>
+      <tr><td style="padding:6px 0;color:#8b94a3">Price</td><td style="padding:6px 0;color:#74cfe8;text-align:right;font-weight:800">On request</td></tr>
     </table>`
   if (to) await resend.emails.send({
     from: FROM, to, subject: `✅ Request received — ${f.boatName}`,
@@ -266,13 +266,13 @@ export async function sendHostBookingRequest(opts: {
   const hostEmail = await emailOf(boat.host_id)
   await resend.emails.send({
     from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `📅 Booking request — ${boat.name} · ${dateStr}`,
-    html: shell('📅 New booking request', '#c9a84e', `
+    html: shell('📅 New booking request', '#74cfe8', `
       <p>New booking request for <strong style="color:#f4f4f2">${boat.name}</strong> — confirm availability with the guest and send a payment link.</p>
       <table style="width:100%;border-collapse:collapse;margin:14px 0">
         <tr><td style="padding:6px 0;color:#8b94a3">Date</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${dateStr}${opts.time ? ` · ${opts.time}` : ''}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Duration</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${dur || '—'}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Guests</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.guests ?? '—'}</td></tr>
-        <tr><td style="padding:6px 0;color:#8b94a3">Price</td><td style="padding:6px 0;color:#c9a84e;text-align:right;font-weight:800">${money}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Price</td><td style="padding:6px 0;color:#74cfe8;text-align:right;font-weight:800">${money}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Guest</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.guestName || '—'}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Contact</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${contact}</td></tr>
       </table>
@@ -319,7 +319,7 @@ export async function sendBookerOffer(bookingId: string, url: string, message?: 
   const to = await emailOf(ctx.b.renter_id)
   if (to) await resend.emails.send({
     from: FROM, to, subject: `💬 You have an offer for ${f.boatName} — ${f.money}`,
-    html: shell('💬 You have an offer', '#c9a84e', `
+    html: shell('💬 You have an offer', '#74cfe8', `
       <p>Good news — the owner priced your request for <strong style="color:#f4f4f2">${f.boatName}</strong>. Review it and pay to lock in the date:</p>
       ${detailRows(f)}
       ${message ? `<p style="color:#cfd6df;font-style:italic">&ldquo;${message}&rdquo;</p>` : ''}
@@ -330,8 +330,8 @@ export async function sendBookerOffer(bookingId: string, url: string, message?: 
   await resend.emails.send({
     from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[],
     subject: `💬 You sent an offer for ${f.boatName} — ${f.money}`,
-    html: shell('💬 Offer sent', '#c9a84e', `
-      <p>You priced the request for <strong style="color:#f4f4f2">${f.boatName}</strong> at <strong style="color:#c9a84e">${f.money}</strong> and sent it to the guest. You&rsquo;ll get a confirmation when they pay.</p>
+    html: shell('💬 Offer sent', '#74cfe8', `
+      <p>You priced the request for <strong style="color:#f4f4f2">${f.boatName}</strong> at <strong style="color:#74cfe8">${f.money}</strong> and sent it to the guest. You&rsquo;ll get a confirmation when they pay.</p>
       ${detailRows(f)}
       <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'View in dashboard →')}</p>`),
   }).catch(() => {})
@@ -362,7 +362,7 @@ export async function sendHostBookingConfirmed(bookingId: string) {
         <tr><td style="padding:6px 0;color:#8b94a3">Time</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${f.time}${f.dur ? ` · ${f.dur}` : ''}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Guests</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${ctx.b.guests_count}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Guest</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${renterName}</td></tr>
-        <tr><td style="padding:6px 0;color:#8b94a3">Total paid</td><td style="padding:6px 0;color:#c9a84e;text-align:right;font-weight:800">${f.money}</td></tr>
+        <tr><td style="padding:6px 0;color:#8b94a3">Total paid</td><td style="padding:6px 0;color:#74cfe8;text-align:right;font-weight:800">${f.money}</td></tr>
       </table>
       <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'View in dashboard →')}</p>
       <p style="color:#8b94a3;font-size:12px;margin-top:14px">The guest has paid — get the boat ready for ${f.date}.</p>`),
@@ -388,7 +388,7 @@ export async function sendNewMessageAlert(conversationId: string, senderId: stri
     await resend.emails.send({
       from: FROM, to,
       subject: self ? `💬 Your message — ${boatName}` : `💬 New message from ${senderName} — ${boatName}`,
-      html: shell(self ? '💬 Message sent' : '💬 New message', '#c9a84e', `
+      html: shell(self ? '💬 Message sent' : '💬 New message', '#74cfe8', `
         <p>${self ? 'Your message in the' : `<strong style="color:#f4f4f2">${senderName}</strong> sent a message in your`} <strong style="color:#f4f4f2">${boatName}</strong> conversation:</p>
         <p style="color:#cfd6df;font-style:italic;padding:12px 14px;background:#07101e;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0">&ldquo;${body.slice(0, 400)}&rdquo;</p>
         <p style="margin:18px 0 6px">${btn(url, 'Open the conversation →')}</p>`),
@@ -424,7 +424,7 @@ export async function sendTripReminder(bookingId: string) {
   const to = await emailOf(ctx.b.renter_id)
   if (to) await resend.emails.send({
     from: FROM, to, subject: `⏰ Reminder: your ${f.boatName} trip is tomorrow — ${f.date}`,
-    html: shell('⏰ Your trip is coming up', '#c9a84e', `
+    html: shell('⏰ Your trip is coming up', '#74cfe8', `
       <p>Just a friendly reminder — your booking on <strong style="color:#f4f4f2">${f.boatName}</strong> starts in about <strong>24 hours</strong>. Here are your details:</p>
       ${detailRows(f)}
       <p>Please arrive 15 minutes early at the meeting point, bring a valid ID, and check the weather forecast. Reply to this email if anything's changed.</p>

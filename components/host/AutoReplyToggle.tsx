@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { Bot } from 'lucide-react'
 
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.18)'
-const gold = '#c9a84e'
+const border = 'rgba(116,207,232,0.18)'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 

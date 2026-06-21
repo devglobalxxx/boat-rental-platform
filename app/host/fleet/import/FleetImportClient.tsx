@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Upload, ChevronLeft, CheckCircle, AlertCircle, FileText, X } from 'lucide-react'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -174,7 +174,7 @@ export default function FleetImportClient({ userId, locations }: Props) {
           </p>
           <p style={{ fontSize: '13px', color: muted, marginBottom: '32px' }}>Review each listing to add photos and activate.</p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/host/listings" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+            <Link href="/host/listings" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
               View all listings
             </Link>
             <button onClick={() => { setBoats([]); setResult(null); setFileName('') }} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', border: `1px solid ${goldBorder}`, color: gold, fontSize: '14px', fontWeight: 600, cursor: 'pointer', background: goldFaint }}>
@@ -272,7 +272,7 @@ export default function FleetImportClient({ userId, locations }: Props) {
             onClick={() => fileRef.current?.click()}
             style={{ border: `2px dashed ${dragging ? gold : goldBorder}`, borderRadius: '18px', padding: '56px 24px', textAlign: 'center', cursor: 'pointer', background: dragging ? goldFaint : 'transparent', transition: 'all 0.15s' }}
           >
-            <Upload style={{ width: 40, height: 40, color: dragging ? gold : 'rgba(201,168,78,0.35)', margin: '0 auto 16px' }} />
+            <Upload style={{ width: 40, height: 40, color: dragging ? gold : 'rgba(116,207,232,0.35)', margin: '0 auto 16px' }} />
             <p style={{ fontWeight: 700, fontSize: '15px', color: text, marginBottom: '6px' }}>Drop your CSV file here</p>
             <p style={{ fontSize: '13px', color: muted, marginBottom: '20px' }}>or click to browse</p>
             <span style={{ fontSize: '12px', padding: '6px 16px', borderRadius: '99px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold }}>Choose CSV file</span>
@@ -365,7 +365,7 @@ export default function FleetImportClient({ userId, locations }: Props) {
               <button
                 onClick={handleImport}
                 disabled={importing || validBoats.length === 0 || !locationId}
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, cursor: importing || validBoats.length === 0 ? 'not-allowed' : 'pointer', opacity: validBoats.length === 0 ? 0.5 : 1, border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.22)' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, cursor: importing || validBoats.length === 0 ? 'not-allowed' : 'pointer', opacity: validBoats.length === 0 ? 0.5 : 1, border: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.22)' }}
               >
                 {importing ? 'Creating drafts…' : `Create ${validBoats.length} draft listing${validBoats.length !== 1 ? 's' : ''}`}
               </button>

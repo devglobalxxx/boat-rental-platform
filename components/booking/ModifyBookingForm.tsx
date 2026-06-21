@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CalendarClock, X } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const inputBg = 'rgba(255,255,255,0.05)'
@@ -36,7 +36,7 @@ export default function ModifyBookingForm({ bookingId, currentDate, currentTime,
     return (
       <button
         onClick={() => setOpen(true)}
-        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'transparent', border: '1px solid rgba(201,168,78,0.30)', color: gold, fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}
+        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '13px 24px', borderRadius: '99px', background: 'transparent', border: '1px solid rgba(116,207,232,0.30)', color: gold, fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}
       >
         <CalendarClock style={{ width: 16, height: 16 }} /> Modify booking
       </button>
@@ -60,7 +60,7 @@ export default function ModifyBookingForm({ bookingId, currentDate, currentTime,
   }
 
   return (
-    <div style={{ background: '#0c1828', border: '1px solid rgba(201,168,78,0.25)', borderRadius: '16px', padding: '18px' }}>
+    <div style={{ background: '#0c1828', border: '1px solid rgba(116,207,232,0.25)', borderRadius: '16px', padding: '18px' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
         <div style={{ fontSize: '15px', fontWeight: 700, color: text }}>Modify booking</div>
         <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: muted, cursor: 'pointer', padding: 0, display: 'flex' }} aria-label="Close">
@@ -86,7 +86,7 @@ export default function ModifyBookingForm({ bookingId, currentDate, currentTime,
         <button
           onClick={save}
           disabled={saving || !date}
-          style={{ width: '100%', padding: '12px', borderRadius: '99px', border: 'none', background: (saving || !date) ? 'rgba(201,168,78,0.30)' : 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, cursor: (saving || !date) ? 'default' : 'pointer', marginTop: '4px' }}
+          style={{ width: '100%', padding: '12px', borderRadius: '99px', border: 'none', background: (saving || !date) ? 'rgba(116,207,232,0.30)' : 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, cursor: (saving || !date) ? 'default' : 'pointer', marginTop: '4px' }}
         >
           {saving ? 'Saving…' : 'Save changes'}
         </button>

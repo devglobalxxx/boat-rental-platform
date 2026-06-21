@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { ChevronLeft, ChevronRight, Ship, RefreshCw } from 'lucide-react'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -20,7 +20,7 @@ type CellStatus = 'available' | 'blocked' | 'booked' | 'loading'
 const STATUS_STYLE: Record<CellStatus, { bg: string; border: string; label: string }> = {
   available: { bg: 'rgba(34,197,94,0.12)',   border: 'rgba(34,197,94,0.25)',   label: '' },
   blocked:   { bg: 'rgba(248,113,113,0.14)',  border: 'rgba(248,113,113,0.28)', label: '✕' },
-  booked:    { bg: 'rgba(201,168,78,0.15)',   border: 'rgba(201,168,78,0.30)',  label: '●' },
+  booked:    { bg: 'rgba(116,207,232,0.15)',   border: 'rgba(116,207,232,0.30)',  label: '●' },
   loading:   { bg: 'rgba(255,255,255,0.04)',  border: 'rgba(255,255,255,0.08)', label: '' },
 }
 
@@ -114,7 +114,7 @@ export default function FleetCalendarClient({ boats }: Props) {
     return (
       <div style={{ background: '#07101e', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', color: text }}>
         <div style={{ textAlign: 'center' }}>
-          <Ship style={{ width: 48, height: 48, color: 'rgba(201,168,78,0.18)', margin: '0 auto 16px' }} />
+          <Ship style={{ width: 48, height: 48, color: 'rgba(116,207,232,0.18)', margin: '0 auto 16px' }} />
           <p style={{ fontWeight: 700, fontSize: '16px', color: text, marginBottom: '8px' }}>No boats yet</p>
           <p style={{ fontSize: '14px', color: muted, marginBottom: '24px' }}>Add listings first to manage their availability here.</p>
           <Link href="/host/fleet" style={{ color: gold, textDecoration: 'none', fontWeight: 600, fontSize: '14px' }}>← Fleet Manager</Link>

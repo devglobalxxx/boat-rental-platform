@@ -100,7 +100,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         {/* ── Result meta ── */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
           {params.location && (
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: 'rgba(244,244,242,0.50)', background: 'rgba(201,168,78,0.08)', border: '1px solid rgba(201,168,78,0.18)', borderRadius: '99px', padding: '4px 12px' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '13px', color: 'rgba(244,244,242,0.50)', background: 'rgba(116,207,232,0.08)', border: '1px solid rgba(116,207,232,0.18)', borderRadius: '99px', padding: '4px 12px' }}>
               <MapPin style={{ width: '12px', height: '12px' }} />
               {params.location}
             </span>
@@ -110,7 +110,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               {new Date(params.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
             </span>
           )}
-          <span style={{ fontSize: '14px', fontWeight: 600, color: '#c9a84e', marginLeft: 'auto' }}>
+          <span style={{ fontSize: '14px', fontWeight: 600, color: '#74cfe8', marginLeft: 'auto' }}>
             {boats.length} boat{boats.length !== 1 ? 's' : ''} available
           </span>
         </div>
@@ -118,15 +118,15 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         {/* ── Results ── */}
         {boats.length === 0 ? (
           <div style={{ textAlign: 'center', paddingTop: '96px', paddingBottom: '96px' }}>
-            <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
-              <Ship style={{ width: '32px', height: '32px', color: '#c9a84e' }} />
+            <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+              <Ship style={{ width: '32px', height: '32px', color: '#74cfe8' }} />
             </div>
             <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f4f4f2', marginBottom: '12px' }}>No boats found</h2>
             <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.45)', maxWidth: '360px', margin: '0 auto 32px', lineHeight: 1.65 }}>
               Try adjusting your filters or searching a different location.
             </p>
             {hasFilters && (
-              <a href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '99px', background: 'rgba(201,168,78,0.12)', border: '1px solid rgba(201,168,78,0.25)', color: '#c9a84e', fontWeight: 600, fontSize: '14px', textDecoration: 'none' }}>
+              <a href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '99px', background: 'rgba(116,207,232,0.12)', border: '1px solid rgba(116,207,232,0.25)', color: '#74cfe8', fontWeight: 600, fontSize: '14px', textDecoration: 'none' }}>
                 Clear all filters
               </a>
             )}

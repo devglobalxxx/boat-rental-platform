@@ -93,14 +93,14 @@ function emailWrapper(content: string) {
         <!-- Logo -->
         <tr><td style="padding-bottom:32px;text-align:center;">
           <a href="https://boathire24.com" style="text-decoration:none;">
-            <span style="font-size:24px;font-weight:800;color:#f4f4f2;">Boat<span style="color:#c9a84e;">Hire24</span></span>
+            <span style="font-size:24px;font-weight:800;color:#f4f4f2;">Boat<span style="color:#74cfe8;">Hire24</span></span>
           </a>
         </td></tr>
 
         <!-- Card -->
-        <tr><td style="background:#0c1828;border-radius:16px;border:1px solid rgba(201,168,78,0.20);overflow:hidden;">
+        <tr><td style="background:#0c1828;border-radius:16px;border:1px solid rgba(116,207,232,0.20);overflow:hidden;">
           <!-- Gold top bar -->
-          <div style="height:3px;background:linear-gradient(90deg,transparent,#c9a84e,#d4b05e,#c9a84e,transparent);"></div>
+          <div style="height:3px;background:linear-gradient(90deg,transparent,#74cfe8,#8fdcf0,#74cfe8,transparent);"></div>
           <div style="padding:36px 40px;">
             ${content}
           </div>
@@ -109,7 +109,7 @@ function emailWrapper(content: string) {
         <!-- Footer -->
         <tr><td style="padding-top:28px;text-align:center;">
           <p style="font-size:12px;color:rgba(244,244,242,0.30);margin:0;">
-            © 2026 BoatHire24 Ltd · <a href="https://boathire24.com" style="color:rgba(201,168,78,0.60);text-decoration:none;">boathire24.com</a>
+            © 2026 BoatHire24 Ltd · <a href="https://boathire24.com" style="color:rgba(116,207,232,0.60);text-decoration:none;">boathire24.com</a>
           </p>
         </td></tr>
 
@@ -140,13 +140,13 @@ function verifiedEmailHtml(firstName: string) {
 
     <div style="text-align:center;">
       <a href="https://boathire24.com/host"
-         style="display:inline-block;padding:14px 32px;border-radius:99px;background:linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e);color:#07101e;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 18px rgba(201,168,78,0.30);">
+         style="display:inline-block;padding:14px 32px;border-radius:99px;background:linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6);color:#07101e;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 18px rgba(116,207,232,0.30);">
         Go to Host Dashboard →
       </a>
     </div>
 
     <p style="font-size:13px;color:rgba(244,244,242,0.35);text-align:center;margin-top:24px;margin-bottom:0;">
-      Questions? Reply to this email or contact <a href="mailto:info@boathire24.com" style="color:#c9a84e;text-decoration:none;">info@boathire24.com</a>
+      Questions? Reply to this email or contact <a href="mailto:info@boathire24.com" style="color:#74cfe8;text-decoration:none;">info@boathire24.com</a>
     </p>
   `)
 }
@@ -173,13 +173,13 @@ function rejectedEmailHtml(firstName: string, notes?: string) {
 
     <div style="text-align:center;">
       <a href="https://boathire24.com/host/verify"
-         style="display:inline-block;padding:14px 32px;border-radius:99px;background:linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e);color:#07101e;font-size:15px;font-weight:700;text-decoration:none;">
+         style="display:inline-block;padding:14px 32px;border-radius:99px;background:linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6);color:#07101e;font-size:15px;font-weight:700;text-decoration:none;">
         Re-submit Documents →
       </a>
     </div>
 
     <p style="font-size:13px;color:rgba(244,244,242,0.35);text-align:center;margin-top:24px;margin-bottom:0;">
-      Reply to this email or contact <a href="mailto:info@boathire24.com" style="color:#c9a84e;text-decoration:none;">info@boathire24.com</a>
+      Reply to this email or contact <a href="mailto:info@boathire24.com" style="color:#74cfe8;text-decoration:none;">info@boathire24.com</a>
     </p>
   `)
 }

@@ -32,9 +32,9 @@ const SORT_OPTIONS = [
   { value: 'rating',      label: 'Top rated' },
 ]
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.28)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.28)'
 
 function Pill({
   active,

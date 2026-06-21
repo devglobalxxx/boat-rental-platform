@@ -5,14 +5,14 @@ import { useParams, useRouter } from 'next/navigation'
 import { Star } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const inputBg = 'rgba(255,255,255,0.05)'
 const inputBorder = 'rgba(255,255,255,0.14)'
-const goldBorder = 'rgba(201,168,78,0.28)'
+const goldBorder = 'rgba(116,207,232,0.28)'
 
 export default function ReviewPage() {
   const { id } = useParams<{ id: string }>()
@@ -130,7 +130,7 @@ export default function ReviewPage() {
           <button
             type="submit"
             disabled={loading || !rating}
-            style={{ width: '100%', padding: '14px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, cursor: loading || !rating ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)', opacity: loading || !rating ? 0.5 : 1, transition: 'opacity 0.15s' }}
+            style={{ width: '100%', padding: '14px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, cursor: loading || !rating ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.25)', opacity: loading || !rating ? 0.5 : 1, transition: 'opacity 0.15s' }}
           >
             {loading ? 'Submitting…' : 'Submit review'}
           </button>

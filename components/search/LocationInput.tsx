@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { MapPin } from 'lucide-react'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -99,15 +99,15 @@ export default function LocationInput({ value, onChange, onSelect, onEnter, plac
       />
 
       {open && matches.length > 0 && (
-        <div style={{ position: 'absolute', top: 'calc(100% + 12px)', left: '-12px', right: '-12px', background: '#0c1828', border: '1px solid rgba(201,168,78,0.25)', borderRadius: '14px', padding: '6px', zIndex: 100, boxShadow: '0 16px 48px rgba(0,0,0,0.55)', maxHeight: '320px', overflowY: 'auto' }}>
+        <div style={{ position: 'absolute', top: 'calc(100% + 12px)', left: '-12px', right: '-12px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.25)', borderRadius: '14px', padding: '6px', zIndex: 100, boxShadow: '0 16px 48px rgba(0,0,0,0.55)', maxHeight: '320px', overflowY: 'auto' }}>
           {matches.map((loc, i) => (
             <button
               key={`${loc.city}-${loc.country}`}
               onMouseDown={(e) => { e.preventDefault(); choose(loc) }}
               onMouseEnter={() => setActive(i)}
-              style={{ display: 'flex', alignItems: 'center', gap: '11px', width: '100%', padding: '10px 12px', borderRadius: '9px', border: 'none', cursor: 'pointer', background: i === active ? 'rgba(201,168,78,0.12)' : 'transparent', textAlign: 'left' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '11px', width: '100%', padding: '10px 12px', borderRadius: '9px', border: 'none', cursor: 'pointer', background: i === active ? 'rgba(116,207,232,0.12)' : 'transparent', textAlign: 'left' }}
             >
-              <span style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(201,168,78,0.10)', border: '1px solid rgba(201,168,78,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <span style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <MapPin style={{ width: 14, height: 14, color: gold }} />
               </span>
               <span style={{ minWidth: 0 }}>

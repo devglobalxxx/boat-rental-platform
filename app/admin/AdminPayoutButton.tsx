@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { Banknote, ChevronDown, ChevronUp, Loader2, Copy, Check } from 'lucide-react'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const muted = 'rgba(244,244,242,0.55)'
 const text = '#f4f4f2'
 

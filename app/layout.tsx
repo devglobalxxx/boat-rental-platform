@@ -128,21 +128,21 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
         <main className="flex-1">{children}</main>
 
         {/* ── Footer ── */}
-        <footer style={{ background: 'linear-gradient(180deg, #070f1c 0%, #040c16 100%)', borderTop: '1px solid rgba(201,168,78,0.15)' }}>
+        <footer style={{ background: 'linear-gradient(180deg, #070f1c 0%, #040c16 100%)', borderTop: '1px solid rgba(116,207,232,0.15)' }}>
 
           {/* ── CTA strip ── */}
           <div style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
             <div className="container" style={{ paddingTop: '52px', paddingBottom: '52px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', textAlign: 'center' }}>
-                <p style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#c9a84e' }}>{tr.footer.ctaEyebrow}</p>
+                <p style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#74cfe8' }}>{tr.footer.ctaEyebrow}</p>
                 <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.15, maxWidth: '560px' }}>
-                  {tr.footer.ctaTitle}&nbsp;<span style={{ color: '#c9a84e' }}>{tr.footer.ctaTitleHighlight}</span>
+                  {tr.footer.ctaTitle}&nbsp;<span style={{ color: '#74cfe8' }}>{tr.footer.ctaTitleHighlight}</span>
                 </h2>
                 <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.50)', maxWidth: '420px', lineHeight: 1.6 }}>
                   {tr.footer.ctaSub}
                 </p>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                  <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#c9a84e', color: '#07101c', fontWeight: 700, fontSize: '14px', padding: '13px 26px', borderRadius: '50px', textDecoration: 'none' }}>
+                  <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#74cfe8', color: '#07101c', fontWeight: 700, fontSize: '14px', padding: '13px 26px', borderRadius: '50px', textDecoration: 'none' }}>
                     {tr.footer.ctaBtn}
                   </Link>
                   <Link href="/become-a-host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'transparent', color: 'rgba(244,244,242,0.75)', fontWeight: 600, fontSize: '14px', padding: '13px 26px', borderRadius: '50px', border: '1px solid rgba(255,255,255,0.18)', textDecoration: 'none' }}>
@@ -174,7 +174,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
                     </svg>
                     {tr.footer.whatsapp}
                   </a>
-                  <a href="mailto:info@boathire24.com" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '13px', fontWeight: 600, padding: '10px 16px', borderRadius: '50px', background: 'rgba(201,168,78,0.08)', color: '#c9a84e', border: '1px solid rgba(201,168,78,0.22)', textDecoration: 'none', width: 'fit-content' }}>
+                  <a href="mailto:info@boathire24.com" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '13px', fontWeight: 600, padding: '10px 16px', borderRadius: '50px', background: 'rgba(116,207,232,0.08)', color: '#74cfe8', border: '1px solid rgba(116,207,232,0.22)', textDecoration: 'none', width: 'fit-content' }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                     </svg>
@@ -257,7 +257,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
 
               {/* Explore */}
               <div>
-                <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#c9a84e', marginBottom: '20px' }}>{tr.footer.explore}</h3>
+                <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#74cfe8', marginBottom: '20px' }}>{tr.footer.explore}</h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '13px' }}>
                   {[
                     { href: '/search', label: tr.footer.links.allBoats },
@@ -267,7 +267,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
                     { href: '/search?type=luxury', label: tr.footer.links.luxuryYachts },
                   ].map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} style={{ fontSize: '13px', color: 'rgba(244,244,242,0.50)', textDecoration: 'none', transition: 'color 0.15s' }} className="hover:text-[#c9a84e]">
+                      <Link href={l.href} style={{ fontSize: '13px', color: 'rgba(244,244,242,0.50)', textDecoration: 'none', transition: 'color 0.15s' }} className="hover:text-[#74cfe8]">
                         {l.label}
                       </Link>
                     </li>
@@ -277,7 +277,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
 
               {/* Host */}
               <div>
-                <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#c9a84e', marginBottom: '20px' }}>{tr.footer.forHosts}</h3>
+                <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#74cfe8', marginBottom: '20px' }}>{tr.footer.forHosts}</h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '13px' }}>
                   {[
                     { href: '/become-a-host', label: tr.footer.hostLinks.listYourBoat },
@@ -287,7 +287,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
                     { href: '/host/onboarding', label: tr.footer.hostLinks.stripeSetup },
                   ].map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} style={{ fontSize: '13px', color: 'rgba(244,244,242,0.50)', textDecoration: 'none', transition: 'color 0.15s' }} className="hover:text-[#c9a84e]">
+                      <Link href={l.href} style={{ fontSize: '13px', color: 'rgba(244,244,242,0.50)', textDecoration: 'none', transition: 'color 0.15s' }} className="hover:text-[#74cfe8]">
                         {l.label}
                       </Link>
                     </li>
@@ -297,7 +297,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
 
               {/* Company */}
               <div>
-                <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#c9a84e', marginBottom: '20px' }}>{tr.footer.company}</h3>
+                <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#74cfe8', marginBottom: '20px' }}>{tr.footer.company}</h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '13px' }}>
                   {[
                     { href: '/about', label: tr.footer.companyLinks.about },
@@ -307,7 +307,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
                     { href: '/terms', label: tr.footer.companyLinks.terms },
                   ].map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} style={{ fontSize: '13px', color: 'rgba(244,244,242,0.50)', textDecoration: 'none', transition: 'color 0.15s' }} className="hover:text-[#c9a84e]">
+                      <Link href={l.href} style={{ fontSize: '13px', color: 'rgba(244,244,242,0.50)', textDecoration: 'none', transition: 'color 0.15s' }} className="hover:text-[#74cfe8]">
                         {l.label}
                       </Link>
                     </li>
@@ -327,7 +327,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
                   { href: '/cookies', label: 'Cookies' },
                   { href: '/contact', label: 'Support' },
                 ].map((l) => (
-                  <Link key={l.href} href={l.href} style={{ fontSize: '11px', color: 'rgba(244,244,242,0.30)', textDecoration: 'none' }} className="hover:text-[#c9a84e]">
+                  <Link key={l.href} href={l.href} style={{ fontSize: '11px', color: 'rgba(244,244,242,0.30)', textDecoration: 'none' }} className="hover:text-[#74cfe8]">
                     {l.label}
                   </Link>
                 ))}
@@ -338,7 +338,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
 
               {/* ── Company registration details ── */}
               <div style={{ marginTop: '4px', padding: '12px 18px', borderRadius: '10px', background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)', maxWidth: '560px' }}>
-                <p style={{ fontSize: '10px', fontWeight: 700, color: 'rgba(201,168,78,0.65)', textTransform: 'uppercase', letterSpacing: '0.10em', textAlign: 'center', margin: '0 0 6px' }}>
+                <p style={{ fontSize: '10px', fontWeight: 700, color: 'rgba(116,207,232,0.65)', textTransform: 'uppercase', letterSpacing: '0.10em', textAlign: 'center', margin: '0 0 6px' }}>
                   Operated by
                 </p>
                 <p style={{ fontSize: '11px', color: 'rgba(244,244,242,0.45)', textAlign: 'center', lineHeight: 1.6, margin: 0 }}>

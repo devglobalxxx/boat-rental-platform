@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import { createClient } from '@/lib/supabase/server'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -76,7 +76,7 @@ export default async function SendOfferPage({
           <label style={{ fontSize: '13px', color: muted, fontWeight: 600 }}>Message to guest (optional)
             <textarea name="message" rows={3} placeholder="e.g. Price includes skipper and fuel. Looking forward to hosting you!" style={{ ...field, resize: 'vertical', fontFamily: 'inherit' }} />
           </label>
-          <button type="submit" style={{ marginTop: '6px', padding: '15px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontWeight: 800, fontSize: '15px', border: 'none', cursor: 'pointer' }}>
+          <button type="submit" style={{ marginTop: '6px', padding: '15px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontWeight: 800, fontSize: '15px', border: 'none', cursor: 'pointer' }}>
             Send offer to guest →
           </button>
           <p style={{ color: muted, fontSize: '12px', textAlign: 'center', margin: 0 }}>

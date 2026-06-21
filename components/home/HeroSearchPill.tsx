@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { MapPin, Calendar, Users, Search, Plus, Minus } from 'lucide-react'
 import LocationInput from '@/components/search/LocationInput'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.45)'
 
@@ -49,7 +49,7 @@ export default function HeroSearchPill({ compact = false }: { compact?: boolean 
       <div className="hero-search-pill" style={{
         display: 'flex', alignItems: 'center',
         background: 'rgba(255,255,255,0.06)',
-        border: '1px solid rgba(201,168,78,0.28)',
+        border: '1px solid rgba(116,207,232,0.28)',
         borderRadius: '99px', padding: '6px 6px 6px 8px', gap: '2px',
         backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
         boxShadow: '0 16px 48px rgba(0,0,0,0.40)',
@@ -102,13 +102,13 @@ export default function HeroSearchPill({ compact = false }: { compact?: boolean 
           </div>
 
           {guestsOpen && (
-            <div onClick={(e) => e.stopPropagation()} style={{ position: 'absolute', top: 'calc(100% + 10px)', left: 0, background: '#0c1828', border: '1px solid rgba(201,168,78,0.25)', borderRadius: '14px', padding: '14px 16px', zIndex: 60, boxShadow: '0 16px 48px rgba(0,0,0,0.55)', display: 'flex', alignItems: 'center', gap: '16px', minWidth: '180px' }}>
+            <div onClick={(e) => e.stopPropagation()} style={{ position: 'absolute', top: 'calc(100% + 10px)', left: 0, background: '#0c1828', border: '1px solid rgba(116,207,232,0.25)', borderRadius: '14px', padding: '14px 16px', zIndex: 60, boxShadow: '0 16px 48px rgba(0,0,0,0.55)', display: 'flex', alignItems: 'center', gap: '16px', minWidth: '180px' }}>
               <span style={{ fontSize: '13px', color: text, fontWeight: 600, flex: 1 }}>Guests</span>
-              <button onClick={() => setGuests((g) => Math.max(1, g - 1))} style={{ width: 30, height: 30, borderRadius: '50%', border: `1px solid rgba(201,168,78,0.30)`, background: 'transparent', color: gold, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <button onClick={() => setGuests((g) => Math.max(1, g - 1))} style={{ width: 30, height: 30, borderRadius: '50%', border: `1px solid rgba(116,207,232,0.30)`, background: 'transparent', color: gold, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Minus style={{ width: 14, height: 14 }} />
               </button>
               <span style={{ fontSize: '15px', fontWeight: 700, color: text, minWidth: '20px', textAlign: 'center' }}>{guests}</span>
-              <button onClick={() => setGuests((g) => Math.min(50, g + 1))} style={{ width: 30, height: 30, borderRadius: '50%', border: `1px solid rgba(201,168,78,0.30)`, background: 'transparent', color: gold, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <button onClick={() => setGuests((g) => Math.min(50, g + 1))} style={{ width: 30, height: 30, borderRadius: '50%', border: `1px solid rgba(116,207,232,0.30)`, background: 'transparent', color: gold, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Plus style={{ width: 14, height: 14 }} />
               </button>
             </div>
@@ -120,7 +120,7 @@ export default function HeroSearchPill({ compact = false }: { compact?: boolean 
           onClick={search}
           aria-label="Search boats"
           className="hsp-btn"
-          style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', height: '50px', padding: '0 14px', minWidth: '50px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, boxShadow: '0 4px 16px rgba(201,168,78,0.32)' }}
+          style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', height: '50px', padding: '0 14px', minWidth: '50px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, boxShadow: '0 4px 16px rgba(116,207,232,0.32)' }}
         >
           <Search style={{ width: 20, height: 20 }} />
           <span className="hsp-btn-text" style={{ display: 'none' }}>Search</span>
@@ -135,7 +135,7 @@ export default function HeroSearchPill({ compact = false }: { compact?: boolean 
             key={p}
             onClick={() => router.push(`/search?location=${encodeURIComponent(p)}`)}
             style={{ fontSize: '12px', fontWeight: 500, padding: '7px 14px', borderRadius: '99px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)', color: 'rgba(244,244,242,0.70)', cursor: 'pointer', transition: 'all 0.15s' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,78,0.40)'; (e.currentTarget as HTMLElement).style.color = gold }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.40)'; (e.currentTarget as HTMLElement).style.color = gold }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.10)'; (e.currentTarget as HTMLElement).style.color = 'rgba(244,244,242,0.70)' }}
           >
             {p}

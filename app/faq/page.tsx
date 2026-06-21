@@ -33,7 +33,7 @@ function collectFaqs(): QA[] {
   return out
 }
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 
 export default function FaqHubPage() {
   const faqs = collectFaqs().slice(0, 80)
@@ -77,7 +77,7 @@ export default function FaqHubPage() {
 
       <section style={{ maxWidth: '820px', margin: '0 auto', padding: '0 24px 96px' }}>
         {faqs.map((f, i) => (
-          <details key={i} style={{ borderBottom: '1px solid rgba(201,168,78,0.12)', padding: '16px 0' }}>
+          <details key={i} style={{ borderBottom: '1px solid rgba(116,207,232,0.12)', padding: '16px 0' }}>
             <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '16px', color: '#f4f4f2' }}>{f.q}</summary>
             <p style={{ marginTop: '10px', color: 'rgba(244,244,242,0.72)', lineHeight: 1.7, fontSize: '15px' }}>{f.a}</p>
             <Link href={f.href} style={{ display: 'inline-block', marginTop: '8px', fontSize: '13px', color: gold }}>

@@ -130,15 +130,15 @@ export default async function TagPage({
         {/* Hero area */}
         <div className="mb-10">
           <nav className="text-sm flex items-center gap-1.5 mb-4" style={{ color: 'rgba(244,244,242,0.45)' }}>
-            <Link href="/" className="hover:text-[#c9a84e] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#74cfe8] transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/tags" className="hover:text-[#c9a84e] transition-colors">Tags</Link>
+            <Link href="/tags" className="hover:text-[#74cfe8] transition-colors">Tags</Link>
             <span>/</span>
             <span style={{ color: '#f4f4f2' }}>#{label}</span>
           </nav>
 
           <h1 className="text-4xl font-bold" style={{ color: '#f4f4f2' }}>
-            <span style={{ color: '#c9a84e' }}>#</span>
+            <span style={{ color: '#74cfe8' }}>#</span>
             {label}
           </h1>
           {totalResults > 0 && (
@@ -180,7 +180,7 @@ export default async function TagPage({
             <Link
               href={`/tags/${tag}?page=${page - 1}`}
               className="px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:brightness-110"
-              style={{ background: '#0c1828', border: '1px solid rgba(201,168,78,0.25)', color: '#c9a84e' }}
+              style={{ background: '#0c1828', border: '1px solid rgba(116,207,232,0.25)', color: '#74cfe8' }}
             >
               Previous
             </Link>
@@ -192,7 +192,7 @@ export default async function TagPage({
             <Link
               href={`/tags/${tag}?page=${page + 1}`}
               className="px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:brightness-110"
-              style={{ background: '#c9a84e', color: '#07101e' }}
+              style={{ background: '#74cfe8', color: '#07101e' }}
             >
               Load more
             </Link>

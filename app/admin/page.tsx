@@ -17,11 +17,11 @@ const supabaseAdmin = createAdmin(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -35,7 +35,7 @@ const STATUS_STYLE: Record<string, { color: string; bg: string; bd: string; labe
 const BOOKING_STATUS: Record<string, { color: string; bg: string; bd: string; label: string }> = {
   pending:   { color: '#f59e0b', bg: 'rgba(245,158,11,0.10)',  bd: 'rgba(245,158,11,0.28)', label: 'Pending' },
   confirmed: { color: '#22c55e', bg: 'rgba(34,197,94,0.10)',   bd: 'rgba(34,197,94,0.28)', label: 'Confirmed' },
-  completed: { color: '#c9a84e', bg: 'rgba(201,168,78,0.10)',  bd: 'rgba(201,168,78,0.28)', label: 'Completed' },
+  completed: { color: '#74cfe8', bg: 'rgba(116,207,232,0.10)',  bd: 'rgba(116,207,232,0.28)', label: 'Completed' },
   cancelled: { color: '#f87171', bg: 'rgba(248,113,113,0.10)', bd: 'rgba(248,113,113,0.28)', label: 'Cancelled' },
 }
 

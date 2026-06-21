@@ -73,7 +73,7 @@ export default function HeroSlideshow() {
       <button
         onClick={prev}
         className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all"
-        style={{ background: 'rgba(7,16,30,0.55)', border: '1px solid rgba(201,168,78,0.25)', color: '#f4f4f2', zIndex: 2 }}
+        style={{ background: 'rgba(7,16,30,0.55)', border: '1px solid rgba(116,207,232,0.25)', color: '#f4f4f2', zIndex: 2 }}
         aria-label="Previous"
       >
         <ChevronLeft className="w-5 h-5" />
@@ -81,7 +81,7 @@ export default function HeroSlideshow() {
       <button
         onClick={next}
         className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all"
-        style={{ background: 'rgba(7,16,30,0.55)', border: '1px solid rgba(201,168,78,0.25)', color: '#f4f4f2', zIndex: 2 }}
+        style={{ background: 'rgba(7,16,30,0.55)', border: '1px solid rgba(116,207,232,0.25)', color: '#f4f4f2', zIndex: 2 }}
         aria-label="Next"
       >
         <ChevronRight className="w-5 h-5" />
@@ -97,7 +97,7 @@ export default function HeroSlideshow() {
             style={{
               width: i === current ? '24px' : '6px',
               height: '6px',
-              background: i === current ? '#c9a84e' : 'rgba(244,244,242,0.35)',
+              background: i === current ? '#74cfe8' : 'rgba(244,244,242,0.35)',
             }}
             aria-label={`Slide ${i + 1}`}
           />

@@ -7,7 +7,7 @@
  *   - 'inline': small inline check + text (for lists/rows)
  */
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 
 export default function VerifiedBadge({
   variant = 'pill',
@@ -37,7 +37,7 @@ export default function VerifiedBadge({
           <path
             d="M16 1.5l3.1 2.2 3.8-.4 1.7 3.4 3.4 1.7-.4 3.8 2.2 3.1-2.2 3.1.4 3.8-3.4 1.7-1.7 3.4-3.8-.4L16 30.5l-3.1-2.2-3.8.4-1.7-3.4-3.4-1.7.4-3.8L2.2 16l2.2-3.1-.4-3.8 3.4-1.7 1.7-3.4 3.8.4L16 1.5z"
             fill="url(#vgrad)"
-            stroke="#b8942e"
+            stroke="#4fb8d6"
             strokeWidth="0.5"
           />
           {/* Checkmark */}
@@ -52,7 +52,7 @@ export default function VerifiedBadge({
           <defs>
             <linearGradient id="vgrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
               <stop stopColor="#e7cd7f" />
-              <stop offset="0.5" stopColor="#c9a84e" />
+              <stop offset="0.5" stopColor="#74cfe8" />
               <stop offset="1" stopColor="#a8842c" />
             </linearGradient>
           </defs>
@@ -96,14 +96,14 @@ export default function VerifiedBadge({
         gap: '6px',
         padding: pad,
         borderRadius: '99px',
-        background: 'linear-gradient(135deg, rgba(201,168,78,0.16), rgba(201,168,78,0.08))',
-        border: '1px solid rgba(201,168,78,0.38)',
+        background: 'linear-gradient(135deg, rgba(116,207,232,0.16), rgba(116,207,232,0.08))',
+        border: '1px solid rgba(116,207,232,0.38)',
         color: gold,
         fontSize: fs,
         fontWeight: 700,
         whiteSpace: 'nowrap' as const,
         letterSpacing: '0.01em',
-        boxShadow: '0 1px 6px rgba(201,168,78,0.14)',
+        boxShadow: '0 1px 6px rgba(116,207,232,0.14)',
       }}
     >
       {/* Shield with check */}
@@ -111,14 +111,14 @@ export default function VerifiedBadge({
         <path
           d="M12 2l7 3v6c0 4.5-3 8.3-7 9.5C8 19.3 5 15.5 5 11V5l7-3z"
           fill="url(#shgrad)"
-          stroke="#b8942e"
+          stroke="#4fb8d6"
           strokeWidth="0.5"
         />
         <path d="M8.5 12l2.3 2.3L15.5 9.5" stroke="#07101e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
         <defs>
           <linearGradient id="shgrad" x1="5" y1="2" x2="19" y2="20" gradientUnits="userSpaceOnUse">
             <stop stopColor="#e7cd7f" />
-            <stop offset="0.6" stopColor="#c9a84e" />
+            <stop offset="0.6" stopColor="#74cfe8" />
             <stop offset="1" stopColor="#a8842c" />
           </linearGradient>
         </defs>

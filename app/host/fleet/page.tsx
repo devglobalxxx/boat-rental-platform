@@ -6,11 +6,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Fleet Manager' }
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -47,7 +47,7 @@ export default async function FleetManagerPage() {
             </div>
             <Link
               href="/host/listings/new"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.22)', whiteSpace: 'nowrap' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.22)', whiteSpace: 'nowrap' }}
             >
               + Add listing
             </Link>
@@ -174,11 +174,11 @@ export default async function FleetManagerPage() {
           </div>
         ) : (
           <div style={{ textAlign: 'center', padding: '64px 24px', background: card, borderRadius: '20px', border: `2px dashed ${border}` }}>
-            <Ship style={{ width: 48, height: 48, color: 'rgba(201,168,78,0.18)', margin: '0 auto 16px' }} />
+            <Ship style={{ width: 48, height: 48, color: 'rgba(116,207,232,0.18)', margin: '0 auto 16px' }} />
             <p style={{ fontWeight: 700, fontSize: '16px', color: text, marginBottom: '8px' }}>No boats yet</p>
             <p style={{ fontSize: '14px', color: muted, marginBottom: '28px' }}>Add your first listing or use Bulk Import to add multiple boats at once.</p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link href="/host/fleet/import" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+              <Link href="/host/fleet/import" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
                 <Upload style={{ width: 15, height: 15 }} /> Bulk import CSV
               </Link>
               <Link href="/host/listings/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', border: `1px solid ${goldBorder}`, color: gold, fontSize: '14px', fontWeight: 600, textDecoration: 'none', background: goldFaint }}>

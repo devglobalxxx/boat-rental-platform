@@ -108,7 +108,7 @@ export default async function TagsIndexPage() {
 
   const sections: Array<{ key: string; label: string; color: string }> = [
     { key: 'location', label: 'Locations', color: '#4fa8d5' },
-    { key: 'type', label: 'Boat types', color: '#c9a84e' },
+    { key: 'type', label: 'Boat types', color: '#74cfe8' },
     { key: 'experience', label: 'Experiences', color: '#7eb88a' },
     { key: 'other', label: 'More tags', color: 'rgba(244,244,242,0.55)' },
   ]
@@ -136,7 +136,7 @@ export default async function TagsIndexPage() {
         {/* Header */}
         <div className="mb-12">
           <nav className="text-sm flex items-center gap-1.5 mb-4" style={{ color: 'rgba(244,244,242,0.45)' }}>
-            <Link href="/" className="hover:text-[#c9a84e] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#74cfe8] transition-colors">Home</Link>
             <span>/</span>
             <span style={{ color: '#f4f4f2' }}>Browse by tag</span>
           </nav>

@@ -48,9 +48,9 @@ export default function CashDiscountPromo() {
       <div style={{
         position: 'relative',
         background: 'linear-gradient(135deg,#1a1208 0%,#0c1828 100%)',
-        border: '2px solid', borderImage: 'linear-gradient(135deg,#fde68a,#fbbf24,#c9a84e,#92400e) 1',
+        border: '2px solid', borderImage: 'linear-gradient(135deg,#fde68a,#fbbf24,#74cfe8,#92400e) 1',
         borderRadius: 18, padding: '22px 22px 20px',
-        boxShadow: '0 24px 60px rgba(201,168,78,0.32),0 8px 24px rgba(0,0,0,0.50)', overflow: 'hidden',
+        boxShadow: '0 24px 60px rgba(116,207,232,0.32),0 8px 24px rgba(0,0,0,0.50)', overflow: 'hidden',
       }}>
         <div aria-hidden style={{ position: 'absolute', top: -30, right: -30, width: 140, height: 140, background: 'radial-gradient(circle,rgba(251,191,36,0.25) 0%,transparent 70%)', pointerEvents: 'none' }} />
 
@@ -63,7 +63,7 @@ export default function CashDiscountPromo() {
 
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 50,
-          background: 'linear-gradient(135deg,#fbbf24,#c9a84e)', color: '#1a1208', fontSize: 10,
+          background: 'linear-gradient(135deg,#fbbf24,#74cfe8)', color: '#1a1208', fontSize: 10,
           fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.10em', marginBottom: 12,
           boxShadow: '0 2px 8px rgba(251,191,36,0.30)',
         }}>
@@ -72,7 +72,7 @@ export default function CashDiscountPromo() {
 
         <h3 style={{ fontSize: 22, fontWeight: 800, color: '#f4f4f2', margin: '0 0 6px', lineHeight: 1.15, letterSpacing: '-0.02em' }}>
           Pay by Cash,<br />
-          <span style={{ background: 'linear-gradient(135deg,#fde68a 0%,#fbbf24 40%,#c9a84e 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Get a Discount!</span>
+          <span style={{ background: 'linear-gradient(135deg,#fde68a 0%,#fbbf24 40%,#74cfe8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Get a Discount!</span>
         </h3>
 
         <p style={{ fontSize: 13, color: 'rgba(244,244,242,0.62)', margin: '0 0 16px', lineHeight: 1.5 }}>

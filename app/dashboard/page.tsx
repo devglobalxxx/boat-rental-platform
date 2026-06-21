@@ -7,9 +7,9 @@ import { Calendar, Clock, CheckCircle, XCircle, Ship, MessageSquare, Search } fr
 // Always render fresh so a brand-new request shows the instant the guest lands here.
 export const dynamic = 'force-dynamic'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -18,7 +18,7 @@ const STATUS_CONFIG = {
   pending:   { label: 'Requested', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',   border: 'rgba(245,158,11,0.30)' },
   confirmed: { label: 'Confirmed', color: '#22c55e', bg: 'rgba(34,197,94,0.12)',    border: 'rgba(34,197,94,0.30)' },
   cancelled: { label: 'Cancelled', color: '#f87171', bg: 'rgba(248,113,113,0.10)',  border: 'rgba(248,113,113,0.28)' },
-  completed: { label: 'Completed', color: gold,      bg: 'rgba(201,168,78,0.10)',   border: 'rgba(201,168,78,0.28)' },
+  completed: { label: 'Completed', color: gold,      bg: 'rgba(116,207,232,0.10)',   border: 'rgba(116,207,232,0.28)' },
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -64,7 +64,7 @@ export default async function DashboardPage() {
             </h1>
             <p style={{ fontSize: '15px', color: muted }}>Manage your trips and messages</p>
           </div>
-          <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.22)', whiteSpace: 'nowrap' }}>
+          <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.22)', whiteSpace: 'nowrap' }}>
             <Search style={{ width: 15, height: 15 }} /> Find a boat
           </Link>
         </div>
@@ -205,10 +205,10 @@ export default async function DashboardPage() {
         {/* ── Empty state ── */}
         {!bookings?.length && (
           <div style={{ textAlign: 'center', padding: '64px 24px' }}>
-            <Ship style={{ width: 48, height: 48, color: 'rgba(201,168,78,0.25)', margin: '0 auto 20px' }} />
+            <Ship style={{ width: 48, height: 48, color: 'rgba(116,207,232,0.25)', margin: '0 auto 20px' }} />
             <h2 style={{ fontSize: '20px', fontWeight: 700, color: text, marginBottom: '10px' }}>No trips yet</h2>
             <p style={{ fontSize: '15px', color: muted, marginBottom: '28px' }}>Find the perfect boat for your next adventure.</p>
-            <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 32px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+            <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 32px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
               Explore boats
             </Link>
           </div>

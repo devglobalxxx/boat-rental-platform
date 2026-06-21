@@ -68,17 +68,17 @@ function RailCard({ item, compact }: { item: RecommendationItem; compact?: boole
         className="overflow-hidden transition-all duration-300"
         style={{
           background: '#0c1828',
-          border: '1px solid rgba(201,168,78,0.18)',
+          border: '1px solid rgba(116,207,232,0.18)',
           borderRadius: '12px',
         }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLDivElement
-          el.style.borderColor = 'rgba(201,168,78,0.45)'
+          el.style.borderColor = 'rgba(116,207,232,0.45)'
           el.style.boxShadow = '0 16px 40px rgba(0,0,0,0.50)'
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLDivElement
-          el.style.borderColor = 'rgba(201,168,78,0.18)'
+          el.style.borderColor = 'rgba(116,207,232,0.18)'
           el.style.boxShadow = 'none'
         }}
       >
@@ -103,7 +103,7 @@ function RailCard({ item, compact }: { item: RecommendationItem; compact?: boole
           <div className="absolute top-2 left-2">
             <span
               className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-              style={{ background: '#c9a84e', color: '#07101e' }}
+              style={{ background: '#74cfe8', color: '#07101e' }}
             >
               {item.type === 'boat' ? 'Boat' : 'Photo'}
             </span>
@@ -118,7 +118,7 @@ function RailCard({ item, compact }: { item: RecommendationItem; compact?: boole
               {item.name}
             </p>
             {item.type === 'boat' && item.price != null && (
-              <p className="text-[10px] mt-0.5" style={{ color: '#c9a84e' }}>
+              <p className="text-[10px] mt-0.5" style={{ color: '#74cfe8' }}>
                 From {formatCompactPrice(item.price, item.currency)}
               </p>
             )}
@@ -138,9 +138,9 @@ function RailCard({ item, compact }: { item: RecommendationItem; compact?: boole
                 key={tag}
                 className="text-[10px] px-1.5 py-0.5 rounded-full"
                 style={{
-                  background: 'rgba(201,168,78,0.10)',
-                  border: '1px solid rgba(201,168,78,0.25)',
-                  color: '#c9a84e',
+                  background: 'rgba(116,207,232,0.10)',
+                  border: '1px solid rgba(116,207,232,0.25)',
+                  color: '#74cfe8',
                 }}
               >
                 {tag}

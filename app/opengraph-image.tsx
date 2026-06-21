@@ -30,7 +30,7 @@ export default async function Image() {
             transform: 'translateX(-50%)',
             width: '900px',
             height: '600px',
-            background: 'radial-gradient(ellipse, rgba(201,168,78,0.18) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(116,207,232,0.18) 0%, transparent 70%)',
             pointerEvents: 'none',
             display: 'flex',
           }}
@@ -44,7 +44,7 @@ export default async function Image() {
             left: '0',
             right: '0',
             height: '120px',
-            background: 'linear-gradient(180deg, transparent, rgba(201,168,78,0.05))',
+            background: 'linear-gradient(180deg, transparent, rgba(116,207,232,0.05))',
             display: 'flex',
           }}
         />
@@ -57,7 +57,7 @@ export default async function Image() {
             left: '0',
             right: '0',
             height: '4px',
-            background: 'linear-gradient(90deg, transparent, #c9a84e, #d4b05e, #c9a84e, transparent)',
+            background: 'linear-gradient(90deg, transparent, #74cfe8, #8fdcf0, #74cfe8, transparent)',
             display: 'flex',
           }}
         />
@@ -77,8 +77,8 @@ export default async function Image() {
               width: '64px',
               height: '64px',
               borderRadius: '16px',
-              background: 'rgba(201,168,78,0.15)',
-              border: '2px solid rgba(201,168,78,0.40)',
+              background: 'rgba(116,207,232,0.15)',
+              border: '2px solid rgba(116,207,232,0.40)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -95,7 +95,7 @@ export default async function Image() {
               letterSpacing: '-0.02em',
             }}
           >
-            Boat<span style={{ color: '#c9a84e' }}>Hire24</span>
+            Boat<span style={{ color: '#74cfe8' }}>Hire24</span>
           </span>
         </div>
 
@@ -113,7 +113,7 @@ export default async function Image() {
           }}
         >
           Rent Boats & Yachts{' '}
-          <span style={{ color: '#c9a84e' }}>Worldwide</span>
+          <span style={{ color: '#74cfe8' }}>Worldwide</span>
         </div>
 
         {/* Subtitle */}
@@ -151,10 +151,10 @@ export default async function Image() {
                 gap: '8px',
                 padding: '10px 20px',
                 borderRadius: '99px',
-                background: 'rgba(201,168,78,0.10)',
-                border: '1px solid rgba(201,168,78,0.28)',
+                background: 'rgba(116,207,232,0.10)',
+                border: '1px solid rgba(116,207,232,0.28)',
                 fontSize: '18px',
-                color: '#c9a84e',
+                color: '#74cfe8',
                 fontWeight: 600,
               }}
             >

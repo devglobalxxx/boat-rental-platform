@@ -6,11 +6,11 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { ChevronLeft, ShieldCheck, Upload, CheckCircle, AlertCircle, User, Building2 } from 'lucide-react'
 
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
+const border = 'rgba(116,207,232,0.15)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 
@@ -177,7 +177,7 @@ export default function VerifyPage() {
               </div>
             ))}
           </div>
-          <Link href="/host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+          <Link href="/host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
             Back to dashboard
           </Link>
         </div>
@@ -205,7 +205,7 @@ export default function VerifyPage() {
         </div>
 
         {/* Why required */}
-        <div style={{ padding: '16px 20px', borderRadius: '12px', background: 'rgba(201,168,78,0.06)', border: `1px solid ${goldBorder}`, marginBottom: '28px' }}>
+        <div style={{ padding: '16px 20px', borderRadius: '12px', background: 'rgba(116,207,232,0.06)', border: `1px solid ${goldBorder}`, marginBottom: '28px' }}>
           <p style={{ fontSize: '13px', color: muted, lineHeight: 1.65, margin: 0 }}>
             BoatHire24 verifies all hosts to ensure guests can book with confidence. Documents are reviewed by our team and are <strong style={{ color: text }}>never shared publicly</strong>. Verification typically takes 1–2 business days.
           </p>
@@ -294,7 +294,7 @@ export default function VerifyPage() {
           <button
             type="submit"
             disabled={submitting}
-            style={{ width: '100%', padding: '14px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontSize: '15px', fontWeight: 700, border: 'none', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1, boxShadow: '0 4px 18px rgba(201,168,78,0.25)' }}
+            style={{ width: '100%', padding: '14px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontSize: '15px', fontWeight: 700, border: 'none', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1, boxShadow: '0 4px 18px rgba(116,207,232,0.25)' }}
           >
             {submitting ? 'Uploading & sending…' : 'Submit for verification'}
           </button>

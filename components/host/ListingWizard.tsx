@@ -42,10 +42,10 @@ const COMMON_FEATURES = [
 
 /* ── tokens ── */
 const card    = '#0c1828'
-const border  = 'rgba(201,168,78,0.18)'
-const gold    = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.10)'
-const goldBorder = 'rgba(201,168,78,0.28)'
+const border  = 'rgba(116,207,232,0.18)'
+const gold    = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.10)'
+const goldBorder = 'rgba(116,207,232,0.28)'
 const text    = '#f4f4f2'
 const muted   = 'rgba(244,244,242,0.55)'
 const dim     = 'rgba(244,244,242,0.35)'
@@ -774,11 +774,11 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                         <div style={{ aspectRatio: '16/9', position: 'relative' }}>
                           <img src={img.storage_url} alt={img.alt ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                           {isHero && (
-                            <span style={{ position: 'absolute', top: '6px', left: '6px', fontSize: '10px', background: 'rgba(201,168,78,0.92)', color: '#07101e', fontWeight: 800, padding: '2px 8px', borderRadius: '99px' }}>★ Cover</span>
+                            <span style={{ position: 'absolute', top: '6px', left: '6px', fontSize: '10px', background: 'rgba(116,207,232,0.92)', color: '#07101e', fontWeight: 800, padding: '2px 8px', borderRadius: '99px' }}>★ Cover</span>
                           )}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '6px', background: '#0c1828' }}>
-                          <button type="button" disabled={photoBusy || isHero} onClick={() => setCover(img.id)} title="Set as cover" style={{ flex: 1, fontSize: '10px', fontWeight: 700, padding: '6px 4px', borderRadius: '7px', cursor: isHero ? 'default' : 'pointer', background: isHero ? 'transparent' : 'rgba(201,168,78,0.14)', color: isHero ? dim : gold, border: 'none' }}>{isHero ? 'Cover' : 'Set cover'}</button>
+                          <button type="button" disabled={photoBusy || isHero} onClick={() => setCover(img.id)} title="Set as cover" style={{ flex: 1, fontSize: '10px', fontWeight: 700, padding: '6px 4px', borderRadius: '7px', cursor: isHero ? 'default' : 'pointer', background: isHero ? 'transparent' : 'rgba(116,207,232,0.14)', color: isHero ? dim : gold, border: 'none' }}>{isHero ? 'Cover' : 'Set cover'}</button>
                           <button type="button" disabled={photoBusy || i === 0} onClick={() => movePhoto(img.id, -1)} title="Move left" style={{ fontSize: '13px', padding: '6px 8px', borderRadius: '7px', cursor: i === 0 ? 'default' : 'pointer', background: 'rgba(255,255,255,0.06)', color: i === 0 ? dim : text, border: 'none' }}>←</button>
                           <button type="button" disabled={photoBusy || i === existingImages.length - 1} onClick={() => movePhoto(img.id, 1)} title="Move right" style={{ fontSize: '13px', padding: '6px 8px', borderRadius: '7px', cursor: i === existingImages.length - 1 ? 'default' : 'pointer', background: 'rgba(255,255,255,0.06)', color: i === existingImages.length - 1 ? dim : text, border: 'none' }}>→</button>
                           <button type="button" disabled={photoBusy} onClick={() => deletePhoto(img.id)} title="Delete photo" style={{ fontSize: '12px', padding: '6px 8px', borderRadius: '7px', cursor: 'pointer', background: 'rgba(248,113,113,0.12)', color: '#f87171', border: 'none' }}>✕</button>
@@ -797,8 +797,8 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
               onDragLeave={(e) => { e.preventDefault(); if (e.currentTarget === e.target) setDragOver(false) }}
               onDrop={(e) => { e.preventDefault(); setDragOver(false); addImages(e.dataTransfer.files) }}
               style={{
-                border: `2px dashed ${dragOver ? '#c9a84e' : inputBorder}`,
-                background: dragOver ? 'rgba(201,168,78,0.08)' : 'transparent',
+                border: `2px dashed ${dragOver ? '#74cfe8' : inputBorder}`,
+                background: dragOver ? 'rgba(116,207,232,0.08)' : 'transparent',
                 borderRadius: '14px', padding: '40px 24px', textAlign: 'center',
                 transition: 'border-color 0.15s, background 0.15s',
               }}
@@ -825,12 +825,12 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                         <div style={{ aspectRatio: '16/9', position: 'relative' }}>
                           <img src={URL.createObjectURL(f)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                           {isHero && (
-                            <span style={{ position: 'absolute', top: '6px', left: '6px', fontSize: '10px', background: 'rgba(201,168,78,0.92)', color: '#07101e', fontWeight: 800, padding: '2px 8px', borderRadius: '99px' }}>★ Cover</span>
+                            <span style={{ position: 'absolute', top: '6px', left: '6px', fontSize: '10px', background: 'rgba(116,207,232,0.92)', color: '#07101e', fontWeight: 800, padding: '2px 8px', borderRadius: '99px' }}>★ Cover</span>
                           )}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '6px', background: '#0c1828' }}>
                           {existingImages.length === 0 && (
-                            <button type="button" disabled={isHero} onClick={() => coverNew(i)} title="Make this the cover" style={{ flex: 1, fontSize: '10px', fontWeight: 700, padding: '6px 4px', borderRadius: '7px', cursor: isHero ? 'default' : 'pointer', background: isHero ? 'transparent' : 'rgba(201,168,78,0.14)', color: isHero ? dim : gold, border: 'none' }}>{isHero ? 'Cover' : 'Set cover'}</button>
+                            <button type="button" disabled={isHero} onClick={() => coverNew(i)} title="Make this the cover" style={{ flex: 1, fontSize: '10px', fontWeight: 700, padding: '6px 4px', borderRadius: '7px', cursor: isHero ? 'default' : 'pointer', background: isHero ? 'transparent' : 'rgba(116,207,232,0.14)', color: isHero ? dim : gold, border: 'none' }}>{isHero ? 'Cover' : 'Set cover'}</button>
                           )}
                           <button type="button" disabled={i === 0} onClick={() => moveNew(i, -1)} title="Move left" style={{ fontSize: '13px', padding: '6px 8px', borderRadius: '7px', cursor: i === 0 ? 'default' : 'pointer', background: 'rgba(255,255,255,0.06)', color: i === 0 ? dim : text, border: 'none' }}>←</button>
                           <button type="button" disabled={i === form.images.length - 1} onClick={() => moveNew(i, 1)} title="Move right" style={{ fontSize: '13px', padding: '6px 8px', borderRadius: '7px', cursor: i === form.images.length - 1 ? 'default' : 'pointer', background: 'rgba(255,255,255,0.06)', color: i === form.images.length - 1 ? dim : text, border: 'none' }}>→</button>
@@ -894,9 +894,9 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 28px', borderRadius: '99px',
               fontSize: '14px', fontWeight: 700, cursor: step === 0 && (!form.name || !form.country || !form.city) ? 'not-allowed' : 'pointer',
-              background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+              background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)',
               color: '#07101e', opacity: step === 0 && (!form.name || !form.country || !form.city) ? 0.45 : 1,
-              border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)',
+              border: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.25)',
             }}
           >
             Continue <ChevronRight style={{ width: 16, height: 16 }} />
@@ -908,9 +908,9 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '12px 28px', borderRadius: '99px',
               fontSize: '14px', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer',
-              background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)',
+              background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)',
               color: '#07101e', opacity: loading ? 0.6 : 1, border: 'none',
-              boxShadow: '0 4px 18px rgba(201,168,78,0.25)',
+              boxShadow: '0 4px 18px rgba(116,207,232,0.25)',
             }}
           >
             {loading ? (boatId ? 'Saving…' : 'Publishing…') : (boatId ? 'Save changes' : 'Publish listing')}

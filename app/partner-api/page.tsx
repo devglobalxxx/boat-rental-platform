@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.62)'
 const dim = 'rgba(244,244,242,0.40)'
 const card = 'rgba(255,255,255,0.04)'
-const border = 'rgba(201,168,78,0.18)'
+const border = 'rgba(116,207,232,0.18)'
 
 function Code({ children }: { children: string }) {
   return (
@@ -46,7 +46,7 @@ export default function PartnerApiDocs() {
   return (
     <div style={{ background: '#07101e', minHeight: '100vh', color: text, fontFamily: '-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif' }}>
       <div style={{ maxWidth: 820, margin: '0 auto', padding: '56px 22px 96px' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', padding: '5px 14px', borderRadius: 99, background: 'rgba(201,168,78,0.10)', color: gold, border: `1px solid ${border}`, marginBottom: 18 }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', padding: '5px 14px', borderRadius: 99, background: 'rgba(116,207,232,0.10)', color: gold, border: `1px solid ${border}`, marginBottom: 18 }}>
           🔌 Developer docs
         </div>
         <h1 style={{ fontSize: 38, fontWeight: 800, margin: '0 0 12px', letterSpacing: '-0.02em' }}>BoatHire24 Partner API</h1>

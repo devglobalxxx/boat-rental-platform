@@ -12,7 +12,7 @@ interface Message {
   read_at: string | null
 }
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const text = '#f4f4f2'
 const dim = 'rgba(244,244,242,0.40)'
 
@@ -83,9 +83,9 @@ export default function ChatThread({
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#0c1828' }}>
         {otherPartyAvatar ? (
-          <img src={otherPartyAvatar} alt={otherPartyName} style={{ width: 42, height: 42, borderRadius: '50%', objectFit: 'cover', flexShrink: 0, border: '1px solid rgba(201,168,78,0.30)' }} />
+          <img src={otherPartyAvatar} alt={otherPartyName} style={{ width: 42, height: 42, borderRadius: '50%', objectFit: 'cover', flexShrink: 0, border: '1px solid rgba(116,207,232,0.30)' }} />
         ) : (
-          <div style={{ width: 42, height: 42, borderRadius: '50%', flexShrink: 0, background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '17px' }}>
+          <div style={{ width: 42, height: 42, borderRadius: '50%', flexShrink: 0, background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '17px' }}>
             {(otherPartyName || '?').charAt(0).toUpperCase()}
           </div>
         )}
@@ -109,9 +109,9 @@ export default function ChatThread({
                 borderRadius: '16px',
                 borderBottomRightRadius: isMe ? '4px' : '16px',
                 borderBottomLeftRadius: isMe ? '16px' : '4px',
-                background: isMe ? 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)' : '#0c1828',
+                background: isMe ? 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)' : '#0c1828',
                 color: isMe ? '#07101e' : text,
-                border: isMe ? 'none' : '1px solid rgba(201,168,78,0.18)',
+                border: isMe ? 'none' : '1px solid rgba(116,207,232,0.18)',
                 whiteSpace: 'pre-wrap', wordBreak: 'break-word',
               }}>
                 <div>{msg.body}</div>
@@ -144,7 +144,7 @@ export default function ChatThread({
             disabled={!body.trim() || sending}
             style={{
               padding: '12px', borderRadius: '12px', border: 'none',
-              background: (!body.trim() || sending) ? 'rgba(201,168,78,0.30)' : 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)',
+              background: (!body.trim() || sending) ? 'rgba(116,207,232,0.30)' : 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)',
               color: '#07101e', cursor: (!body.trim() || sending) ? 'default' : 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
             }}

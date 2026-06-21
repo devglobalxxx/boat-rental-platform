@@ -41,9 +41,9 @@ const RENTER_INCLUDES = [
 ]
 
 /* ── shared tokens ── */
-const gold = '#c9a84e'
-const goldFaint = 'rgba(201,168,78,0.12)'
-const goldBorder = 'rgba(201,168,78,0.22)'
+const gold = '#74cfe8'
+const goldFaint = 'rgba(116,207,232,0.12)'
+const goldBorder = 'rgba(116,207,232,0.22)'
 const textMuted = 'rgba(244,244,242,0.55)'
 const card = { background: '#0c1828', border: `1px solid ${goldBorder}`, borderRadius: '18px' }
 
@@ -53,7 +53,7 @@ export default function HowItWorksPage() {
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '100px', paddingBottom: '80px' }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,78,0.10) 0%, transparent 70%)' }} />
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(116,207,232,0.10) 0%, transparent 70%)' }} />
         <div style={{ position: 'relative', maxWidth: '680px', margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 600, padding: '6px 18px', borderRadius: '99px', marginBottom: '28px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}` }}>
             Simple · Secure · Trusted
@@ -65,7 +65,7 @@ export default function HowItWorksPage() {
             The simplest way to book a verified boat charter — or earn money listing yours.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 30px', borderRadius: '99px', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none', boxShadow: '0 6px 24px rgba(201,168,78,0.28)' }}>
+            <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 30px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none', boxShadow: '0 6px 24px rgba(116,207,232,0.28)' }}>
               Find a boat <ArrowRight style={{ width: '15px', height: '15px' }} />
             </Link>
             <Link href="/become-a-host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 30px', borderRadius: '99px', border: `1px solid ${goldBorder}`, color: 'rgba(244,244,242,0.80)', fontWeight: 600, fontSize: '14px', textDecoration: 'none', background: 'transparent' }}>
@@ -77,7 +77,7 @@ export default function HowItWorksPage() {
 
       {/* ── Gold divider ── */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
       </div>
 
       {/* ── For Renters ── */}
@@ -97,7 +97,7 @@ export default function HowItWorksPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '32px' }}>
           {RENTER_STEPS.map((step) => (
             <div key={step.num} style={{ ...card, position: 'relative', padding: '28px 24px 30px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <span style={{ position: 'absolute', top: '14px', right: '18px', fontSize: '2.8rem', fontWeight: 900, lineHeight: 1, userSelect: 'none', color: 'rgba(201,168,78,0.07)' }}>
+              <span style={{ position: 'absolute', top: '14px', right: '18px', fontSize: '2.8rem', fontWeight: 900, lineHeight: 1, userSelect: 'none', color: 'rgba(116,207,232,0.07)' }}>
                 {step.num}
               </span>
               <div style={{ width: '44px', height: '44px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: goldFaint, flexShrink: 0 }}>
@@ -110,7 +110,7 @@ export default function HowItWorksPage() {
         </div>
 
         {/* Always included */}
-        <div style={{ borderRadius: '18px', padding: '28px 32px', marginBottom: '44px', background: 'rgba(201,168,78,0.06)', border: `1px solid ${goldBorder}` }}>
+        <div style={{ borderRadius: '18px', padding: '28px 32px', marginBottom: '44px', background: 'rgba(116,207,232,0.06)', border: `1px solid ${goldBorder}` }}>
           <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '18px', color: gold }}>
             Always included — every charter
           </p>
@@ -127,7 +127,7 @@ export default function HowItWorksPage() {
 
       {/* ── Gold divider ── */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,168,78,0.25), transparent)' }} />
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
       </div>
 
       {/* ── For Hosts ── */}
@@ -169,7 +169,7 @@ export default function HowItWorksPage() {
             <p style={{ fontWeight: 700, fontSize: '18px', color: '#f4f4f2', marginBottom: '6px' }}>Start earning from your boat</p>
             <p style={{ fontSize: '14px', color: textMuted, margin: 0 }}>Free to list · You keep 85% · Payout in 7 days</p>
           </div>
-          <Link href="/become-a-host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, whiteSpace: 'nowrap', background: 'linear-gradient(135deg,#d4b05e,#c9a84e,#b8942e)', color: '#07101e', boxShadow: '0 6px 24px rgba(201,168,78,0.28)', textDecoration: 'none' }}>
+          <Link href="/become-a-host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, whiteSpace: 'nowrap', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', boxShadow: '0 6px 24px rgba(116,207,232,0.28)', textDecoration: 'none' }}>
             Start hosting <ArrowRight style={{ width: '16px', height: '16px' }} />
           </Link>
         </div>

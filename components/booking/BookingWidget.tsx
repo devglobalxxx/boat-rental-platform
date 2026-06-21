@@ -7,11 +7,11 @@ import { formatPrice, calcFees } from '@/lib/utils/pricing'
 import type { BoatWithDetails } from '@/types/database'
 import { createClient } from '@/lib/supabase/client'
 
-const gold = '#c9a84e'
+const gold = '#74cfe8'
 const card = '#0c1828'
-const border = 'rgba(201,168,78,0.15)'
-const goldBorder = 'rgba(201,168,78,0.22)'
-const goldFaint = 'rgba(201,168,78,0.10)'
+const border = 'rgba(116,207,232,0.15)'
+const goldBorder = 'rgba(116,207,232,0.22)'
+const goldFaint = 'rgba(116,207,232,0.10)'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.55)'
 const dim = 'rgba(244,244,242,0.35)'
@@ -106,7 +106,7 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
         <div style={{ fontSize: '40px', marginBottom: '8px' }}>✅</div>
         <div style={{ fontSize: '18px', fontWeight: 800, color: '#22c55e', marginBottom: '6px' }}>Request sent!</div>
         <p style={{ fontSize: '14px', color: muted, lineHeight: 1.6, marginBottom: '18px' }}>The owner has been notified of your {selectedPricing?.duration_hours ? `${selectedPricing.duration_hours}h ` : ''}request{date ? ` for ${date}` : ''}. They&apos;ll confirm availability and send you a payment link.</p>
-        <a href="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
+        <a href="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 24px', borderRadius: '99px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '14px', fontWeight: 700, textDecoration: 'none' }}>
           View it in My Trips →
         </a>
       </div>
@@ -307,7 +307,7 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
       <button
         onClick={handleBook}
         disabled={loading || !date}
-        style={{ width: '100%', padding: '14px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, cursor: loading || !date ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #d4b05e 0%, #c9a84e 60%, #b8942e 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(201,168,78,0.25)', opacity: loading || !date ? 0.6 : 1, transition: 'opacity 0.15s' }}
+        style={{ width: '100%', padding: '14px', borderRadius: '99px', fontSize: '15px', fontWeight: 700, cursor: loading || !date ? 'not-allowed' : 'pointer', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', border: 'none', boxShadow: '0 4px 18px rgba(116,207,232,0.25)', opacity: loading || !date ? 0.6 : 1, transition: 'opacity 0.15s' }}
       >
         {loading ? 'Loading...' : boat.instant_book ? 'Book now' : 'Request to book'}
       </button>

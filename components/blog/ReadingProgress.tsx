@@ -28,8 +28,8 @@ export default function ReadingProgress() {
         className="h-full transition-all duration-75"
         style={{
           width: `${progress}%`,
-          background: 'linear-gradient(90deg, #c9a84e 0%, #d4b05e 60%, #e8c870 100%)',
-          boxShadow: '0 0 8px rgba(201,168,78,0.6)',
+          background: 'linear-gradient(90deg, #74cfe8 0%, #8fdcf0 60%, #e8c870 100%)',
+          boxShadow: '0 0 8px rgba(116,207,232,0.6)',
         }}
       />
     </div>
