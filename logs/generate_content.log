@@ -2401,3 +2401,131 @@
 [2026-06-19 08:00:31] reindex ping: 200 {"ok":true,"urls_total":1731,"indexnow":{"ok":true,"status":200,"count":1731},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-19T04:
 [2026-06-19 08:00:31] === Done: 19 ok, 0 failed ===
 
+[2026-06-21 11:03:46] === Generate: 31 blog + 27 landing = 58 item(s) (backend=deepseek) ===
+[2026-06-21 11:03:47] [1/58] blog · best-time-for-fishing-in-estepona
+[2026-06-21 11:04:51]   ✓ generated
+[2026-06-21 11:04:51] [2/58] blog · best-time-for-fishing-in-fuengirola
+[2026-06-21 11:05:52]   ✓ generated
+[2026-06-21 11:05:52] [3/58] blog · fishing-species-costa-del-sol-by-month
+[2026-06-21 11:07:04]   ✓ generated
+[2026-06-21 11:07:04] [4/58] blog · deep-sea-fishing-charter-marbella
+[2026-06-21 11:07:59]   ✓ generated
+[2026-06-21 11:07:59] [5/58] blog · fishing-licence-requirements-spain
+[2026-06-21 11:09:03]   ✓ generated
+[2026-06-21 11:09:03] [6/58] blog · snorkeling-gear-rental-marbella
+[2026-06-21 11:10:18]   ✓ generated
+[2026-06-21 11:10:18] [7/58] blog · snorkeling-tips-for-beginners-costa-del-sol
+[2026-06-21 11:11:25]   ✓ generated
+[2026-06-21 11:11:25] [8/58] blog · best-snorkeling-spots-near-fuengirola
+[2026-06-21 11:12:07]   ✓ generated
+[2026-06-21 11:12:07] [9/58] blog · whale-watching-marbella-winter
+[2026-06-21 11:13:03]   ✓ generated
+[2026-06-21 11:13:03] [10/58] blog · best-time-for-whale-watching-marbella
+[2026-06-21 11:13:44]   ✓ generated
+[2026-06-21 11:13:44] [11/58] blog · sunset-boat-trip-benalmadena
+[2026-06-21 11:14:50]   ✓ generated
+[2026-06-21 11:14:50] [12/58] blog · sunset-boat-trip-estepona
+[2026-06-21 11:15:40]   ✓ generated
+[2026-06-21 11:15:40] [13/58] blog · sunset-boat-trip-fuengirola
+[2026-06-21 11:16:29]   ✓ generated
+[2026-06-21 11:16:29] [14/58] blog · sunset-boat-trip-puerto-banus
+[2026-06-21 11:17:13]   ✓ generated
+[2026-06-21 11:17:13] [15/58] blog · family-boat-trip-marbella-activities
+[2026-06-21 11:18:03]   ✓ generated
+[2026-06-21 11:18:03] [16/58] blog · family-boat-trip-benalmadena
+[2026-06-21 11:19:00]   ✓ generated
+[2026-06-21 11:19:00] [17/58] blog · family-boat-trip-fuengirola
+[2026-06-21 11:19:49]   ✓ generated
+[2026-06-21 11:19:49] [18/58] blog · boat-photoshoot-poses-marbella
+[2026-06-21 11:20:42]   ✓ generated
+[2026-06-21 11:20:42] [19/58] blog · engagement-proposal-boat-marbella
+[2026-06-21 11:21:41]   ✓ generated
+[2026-06-21 11:21:41] [20/58] blog · wedding-reception-boat-marbella
+[2026-06-21 11:22:36]   ✓ generated
+[2026-06-21 11:22:36] [21/58] blog · birthday-party-boat-marbella-ideas
+[2026-06-21 11:23:30]   ✓ generated
+[2026-06-21 11:23:30] [22/58] blog · hen-do-boat-benalmadena
+[2026-06-21 11:24:17]   ✓ generated
+[2026-06-21 11:24:17] [23/58] blog · stag-do-boat-benalmadena
+[2026-06-21 11:25:15]   ✓ generated
+[2026-06-21 11:25:15] [24/58] blog · hen-do-boat-fuengirola
+[2026-06-21 11:26:08]   ✓ generated
+[2026-06-21 11:26:08] [25/58] blog · stag-do-boat-fuengirola
+[2026-06-21 11:27:12]   ✓ generated
+[2026-06-21 11:27:12] [26/58] blog · hen-do-boat-estepona
+[2026-06-21 11:28:00]   ✓ generated
+[2026-06-21 11:28:00] [27/58] blog · stag-do-boat-estepona
+[2026-06-21 11:28:51]   ✓ generated
+[2026-06-21 11:28:51] [28/58] blog · new-years-eve-boat-party-marbella
+[2026-06-21 11:29:45]   ✓ generated
+[2026-06-21 11:29:45] [29/58] blog · new-years-eve-boat-party-puerto-banus
+[2026-06-21 11:30:34]   ✓ generated
+[2026-06-21 11:30:34] [30/58] blog · starlite-festival-boat-transfer-marbella
+[2026-06-21 11:31:28]   ✓ generated
+[2026-06-21 11:31:28] [31/58] blog · feria-boat-party-marbella
+[2026-06-21 11:32:12]   ✓ generated
+[2026-06-21 11:32:12] [32/58] landing · catamaran-hire-benalmadena
+[2026-06-21 11:32:56]   ✓ generated
+[2026-06-21 11:32:56] [33/58] landing · motor-yacht-charter-benalmadena
+[2026-06-21 11:33:55]   ✓ generated
+[2026-06-21 11:33:55] [34/58] landing · motor-yacht-hire-benalmadena
+[2026-06-21 11:34:47]   ✓ generated
+[2026-06-21 11:34:47] [35/58] landing · speedboat-rental-benalmadena
+[2026-06-21 11:35:40]   ✓ generated
+[2026-06-21 11:35:40] [36/58] landing · private-yacht-charter-benalmadena
+[2026-06-21 11:36:30]   ✓ generated
+[2026-06-21 11:36:30] [37/58] landing · boat-rental-fuengirola
+[2026-06-21 11:37:33]   ✓ generated
+[2026-06-21 11:37:33] [38/58] landing · catamaran-hire-fuengirola
+[2026-06-21 11:38:35]   ✓ generated
+[2026-06-21 11:38:35] [39/58] landing · motor-yacht-charter-fuengirola
+[2026-06-21 11:39:32]   ✓ generated
+[2026-06-21 11:39:32] [40/58] landing · motor-yacht-hire-fuengirola
+[2026-06-21 11:40:36]   ✓ generated
+[2026-06-21 11:40:36] [41/58] landing · private-yacht-charter-fuengirola
+[2026-06-21 11:41:40]   ✓ generated
+[2026-06-21 11:41:40] [42/58] landing · catamaran-hire-estepona
+[2026-06-21 11:42:49]   ✓ generated
+[2026-06-21 11:42:49] [43/58] landing · motor-yacht-charter-estepona
+[2026-06-21 11:43:50]   ✓ generated
+[2026-06-21 11:43:50] [44/58] landing · motor-yacht-hire-estepona
+[2026-06-21 11:44:48]   ✓ generated
+[2026-06-21 11:44:48] [45/58] landing · private-yacht-charter-estepona
+[2026-06-21 11:45:42]   ✓ generated
+[2026-06-21 11:45:42] [46/58] landing · motor-yacht-charter-marbella-day
+[2026-06-21 11:46:39]   ✓ generated
+[2026-06-21 11:46:39] [47/58] landing · private-boat-charter-marbella-day
+[2026-06-21 11:47:55]   ✓ generated
+[2026-06-21 11:47:55] [48/58] landing · sunset-boat-rental-marbella
+[2026-06-21 11:49:04]   ✓ generated
+[2026-06-21 11:49:04] [49/58] landing · sunset-boat-rental-puerto-banus
+[2026-06-21 11:50:01]   ✓ generated
+[2026-06-21 11:50:01] [50/58] landing · sunset-catamaran-charter-marbella
+[2026-06-21 11:50:54]   ✓ generated
+[2026-06-21 11:50:54] [51/58] landing · snorkeling-boat-trip-marbella
+[2026-06-21 11:52:00]   ✓ generated
+[2026-06-21 11:52:00] [52/58] landing · snorkeling-boat-trip-puerto-banus
+[2026-06-21 11:52:51]   ✓ generated
+[2026-06-21 11:52:51] [53/58] landing · family-boat-rental-marbella
+[2026-06-21 11:54:42]   ✓ generated
+[2026-06-21 11:54:42] [54/58] landing · family-boat-rental-puerto-banus
+[2026-06-21 11:56:00]   ✓ generated
+[2026-06-21 11:56:00] [55/58] landing · photoshoot-boat-rental-marbella
+[2026-06-21 11:57:07]   ✓ generated
+[2026-06-21 11:57:07] [56/58] landing · photoshoot-yacht-charter-marbella
+[2026-06-21 11:58:10]   ✓ generated
+[2026-06-21 11:58:10] [57/58] landing · hen-do-boat-rental-marbella
+[2026-06-21 11:59:25]   ✓ generated
+[2026-06-21 11:59:25] [58/58] landing · starlite-boat-rental-marbella
+[2026-06-21 12:00:53]   ✓ generated
+[2026-06-21 12:00:53] queue under threshold — fetching real keywords from DataForSEO…
+[2026-06-21 12:01:03] 
+    "time": "0 sec.",
+    "cost"
+[2026-06-21 12:01:03]   seed 'sunset boat trip': HTTP 402 {
+    "version": "0.1.20260610",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-06-21 12:01:03] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
