@@ -2529,3 +2529,7 @@
     "time": "0 sec.",
     "cost"
 [2026-06-21 12:01:03] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-06-21 12:01:08] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-21 12:01:10] reindex ping: 200 {"ok":true,"urls_total":1760,"indexnow":{"ok":true,"status":200,"count":1760},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-06-21T08:
+[2026-06-21 12:01:10] === Done: 58 ok, 0 failed ===
+
