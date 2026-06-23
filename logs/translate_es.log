@@ -531,3 +531,33 @@
 [2026-06-19 08:03:09]   [4/4] ✓ luxury-catamaran-charter-marbella-weekend
 [2026-06-19 08:03:09] es: 4/4 translated (total es=473)
 [2026-06-19 08:03:13] es: pushed
+[2026-06-21 12:01:16] es: translating 27 landing page(s)
+[2026-06-21 12:02:01]   [1/27] ✓ catamaran-hire-benalmadena
+[2026-06-21 12:02:55]   [2/27] ✓ motor-yacht-charter-benalmadena
+[2026-06-21 12:03:42]   [3/27] ✓ motor-yacht-hire-benalmadena
+[2026-06-21 12:04:32]   [4/27] ✓ speedboat-rental-benalmadena
+[2026-06-21 12:05:21]   [5/27] ✓ private-yacht-charter-benalmadena
+[2026-06-21 12:06:17]   [6/27] ✓ boat-rental-fuengirola
+[2026-06-21 12:07:10]   [7/27] ✓ catamaran-hire-fuengirola
+[2026-06-21 12:07:59]   [8/27] ✓ motor-yacht-charter-fuengirola
+[2026-06-21 12:08:51]   [9/27] ✓ motor-yacht-hire-fuengirola
+[2026-06-21 12:09:37]   [10/27] ✓ private-yacht-charter-fuengirola
+[2026-06-21 12:10:28]   [11/27] ✓ catamaran-hire-estepona
+[2026-06-21 12:11:12]   [12/27] ✓ motor-yacht-charter-estepona
+[2026-06-21 12:11:56]   [13/27] ✓ motor-yacht-hire-estepona
+[2026-06-21 17:15:01]   [14/27] ✗ private-yacht-charter-estepona: timeout: The read operation timed out
+[2026-06-22 23:47:29]   [15/27] ✗ motor-yacht-charter-marbella-day: timeout: The read operation timed out
+[2026-06-22 23:47:29]   [16/27] ✗ private-boat-charter-marbella-day: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [17/27] ✗ sunset-boat-rental-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [18/27] ✗ sunset-boat-rental-puerto-banus: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [19/27] ✗ sunset-catamaran-charter-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [20/27] ✗ snorkeling-boat-trip-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [21/27] ✗ snorkeling-boat-trip-puerto-banus: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [22/27] ✗ family-boat-rental-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [23/27] ✗ family-boat-rental-puerto-banus: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [24/27] ✗ photoshoot-boat-rental-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [25/27] ✗ photoshoot-yacht-charter-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [26/27] ✗ hen-do-boat-rental-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29]   [27/27] ✗ starlite-boat-rental-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-06-22 23:47:29] es: 13/27 translated (total es=486)
+[2026-06-22 23:47:30] es: git push failed: Command '['git', 'push', 'origin', 'HEAD']' returned non-zero exit status 128.
