@@ -376,3 +376,6 @@
     "time": "0 sec.",
     "cost"
 [2026-06-24 17:23:11] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-06-25 00:09:59] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-06-25 00:10:03] DataForSEO: expanding ideas from 14 base seeds
+[2026-06-25 00:10:19] DataForSEO: added 8 queue items (8 landing, 0 blog). Queue now 8.

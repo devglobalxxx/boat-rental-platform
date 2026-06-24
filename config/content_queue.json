@@ -8203,5 +8203,70 @@
       "consumed_at": "2026-06-21"
     }
   ],
-  "queue": []
+  "queue": [
+    {
+      "kind": "landing",
+      "slug": "jet-ski-rental-near-me",
+      "primary_keyword": "jet ski rental near me",
+      "title": "Jet Ski Rental Near Me | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 60500
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-charter",
+      "primary_keyword": "boat charter",
+      "title": "Boat Charter | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 8100
+    },
+    {
+      "kind": "landing",
+      "slug": "lake-of-the-ozarks-boat-rentals",
+      "primary_keyword": "lake of the ozarks boat rentals",
+      "title": "Lake Of The Ozarks Boat Rentals | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 8100
+    },
+    {
+      "kind": "landing",
+      "slug": "austin-rental-boats",
+      "primary_keyword": "austin rental boats",
+      "title": "Austin Rental Boats | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 8100
+    },
+    {
+      "kind": "landing",
+      "slug": "motor-boat-hire-crete",
+      "primary_keyword": "motor boat hire crete",
+      "title": "Motor Boat Hire Crete | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-in-crete",
+      "primary_keyword": "boat hire in crete",
+      "title": "Boat Hire In Crete | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "boat-hire-crete-greece",
+      "primary_keyword": "boat hire crete greece",
+      "title": "Boat Hire Crete Greece | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    },
+    {
+      "kind": "landing",
+      "slug": "crete-boat-hire",
+      "primary_keyword": "crete boat hire",
+      "title": "Crete Boat Hire | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    }
+  ]
 }

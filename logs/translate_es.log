@@ -578,3 +578,6 @@
 [2026-06-23 11:39:38]   [14/14] ✓ starlite-boat-rental-marbella
 [2026-06-23 11:39:38] es: 13/14 translated (total es=499)
 [2026-06-23 11:39:42] es: pushed
+[2026-06-24 17:23:13] es: translating 1 landing page(s)
+[2026-06-24 17:24:03]   [1/1] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-24 17:24:03] es: 0/1 translated (total es=499)
