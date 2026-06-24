@@ -561,3 +561,20 @@
 [2026-06-22 23:47:29]   [27/27] ✗ starlite-boat-rental-marbella: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
 [2026-06-22 23:47:29] es: 13/27 translated (total es=486)
 [2026-06-22 23:47:30] es: git push failed: Command '['git', 'push', 'origin', 'HEAD']' returned non-zero exit status 128.
+[2026-06-23 11:29:52] es: translating 14 landing page(s)
+[2026-06-23 11:30:31]   [1/14] ✓ private-yacht-charter-estepona
+[2026-06-23 11:31:10]   [2/14] ✓ motor-yacht-charter-marbella-day
+[2026-06-23 11:32:01]   [3/14] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-23 11:32:46]   [4/14] ✓ sunset-boat-rental-marbella
+[2026-06-23 11:33:27]   [5/14] ✓ sunset-boat-rental-puerto-banus
+[2026-06-23 11:34:05]   [6/14] ✓ sunset-catamaran-charter-marbella
+[2026-06-23 11:34:50]   [7/14] ✓ snorkeling-boat-trip-marbella
+[2026-06-23 11:35:23]   [8/14] ✓ snorkeling-boat-trip-puerto-banus
+[2026-06-23 11:36:07]   [9/14] ✓ family-boat-rental-marbella
+[2026-06-23 11:36:51]   [10/14] ✓ family-boat-rental-puerto-banus
+[2026-06-23 11:37:31]   [11/14] ✓ photoshoot-boat-rental-marbella
+[2026-06-23 11:38:08]   [12/14] ✓ photoshoot-yacht-charter-marbella
+[2026-06-23 11:38:52]   [13/14] ✓ hen-do-boat-rental-marbella
+[2026-06-23 11:39:38]   [14/14] ✓ starlite-boat-rental-marbella
+[2026-06-23 11:39:38] es: 13/14 translated (total es=499)
+[2026-06-23 11:39:42] es: pushed

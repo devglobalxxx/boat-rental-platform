@@ -2547,3 +2547,17 @@
 [2026-06-23 11:29:47] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
 [2026-06-23 11:29:47] === Done: 0 ok, 0 failed ===
 
+[2026-06-24 17:23:06] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-06-24 17:23:07] queue under threshold — fetching real keywords from DataForSEO…
+[2026-06-24 17:23:11] 
+    "time": "0 sec.",
+    "cost"
+[2026-06-24 17:23:11]   seed 'sunset boat trip': HTTP 402 {
+    "version": "0.1.20260610",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-06-24 17:23:11] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-06-24 17:23:11] === Done: 0 ok, 0 failed ===
+

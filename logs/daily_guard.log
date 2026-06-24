@@ -4326,3 +4326,95 @@ urllib.error.URLError: <urlopen error [Errno 8] nodename nor servname provided, 
 quarantined 0 thin landings; kept 500
 cannibalization: 147 variant pages canonicalized to a primary
 relinked: blogs=398 (homepage 398/398), landings=500 (homepage 500/500), affiliate-link pool=9
+[main 01df421] Daily SEO maintenance (2026-06-23): relink + canonical + affiliate
+ 6 files changed, 376 insertions(+), 1 deletion(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   3233fc0..01df421  HEAD -> main
+[2026-06-23 11:29:52] es: translating 14 landing page(s)
+[2026-06-23 11:30:31]   [1/14] ✓ private-yacht-charter-estepona
+[2026-06-23 11:31:10]   [2/14] ✓ motor-yacht-charter-marbella-day
+[2026-06-23 11:32:01]   [3/14] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-23 11:32:46]   [4/14] ✓ sunset-boat-rental-marbella
+[2026-06-23 11:33:27]   [5/14] ✓ sunset-boat-rental-puerto-banus
+[2026-06-23 11:34:05]   [6/14] ✓ sunset-catamaran-charter-marbella
+[2026-06-23 11:34:50]   [7/14] ✓ snorkeling-boat-trip-marbella
+[2026-06-23 11:35:23]   [8/14] ✓ snorkeling-boat-trip-puerto-banus
+[2026-06-23 11:36:07]   [9/14] ✓ family-boat-rental-marbella
+[2026-06-23 11:36:51]   [10/14] ✓ family-boat-rental-puerto-banus
+[2026-06-23 11:37:31]   [11/14] ✓ photoshoot-boat-rental-marbella
+[2026-06-23 11:38:08]   [12/14] ✓ photoshoot-yacht-charter-marbella
+[2026-06-23 11:38:52]   [13/14] ✓ hen-do-boat-rental-marbella
+[2026-06-23 11:39:38]   [14/14] ✓ starlite-boat-rental-marbella
+[2026-06-23 11:39:38] es: 13/14 translated (total es=499)
+[main 21ccf70] es: +13 Spanish landing translations
+ 1 file changed, 533 insertions(+)
+To https://github.com/mardo89/boat-rental-platform.git
+   01df421..21ccf70  HEAD -> main
+[2026-06-23 11:39:42] es: pushed
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-06-23 11:39:43] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-06-23 11:39:46] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-06-23 11:39:46] Blogger: 0/80 published this run
+image pool size: 41
+  post: Hen Party Boat Marbella: Unforgettable Celebr
+  post: Fishing Charter Puerto Banus: Deep Sea Advent
+  post: Snorkeling Spots on Costa del Sol: Hidden Gem
+  post: Sunset Catamaran Marbella: Top Spots for Gold
+  post: Dolphin Watching in Puerto Banus: Best Times 
+  post: Do You Need a Licence to Rent a Boat in Spain
+  post: Photoshoot Boat Marbella: Capture Stunning Se
+  post: Marbella Feria Boat Parties: Celebrate on the
+  post: Planning a Family Boat Day in Marbella
+  post: Stag & Hen Boat Party Ideas in Marbella
+  post: The Best Anchorages and Swimming Spots near M
+  post: Catamaran vs Motor Yacht: Which to Charter in
+  post: What to Pack for a Boat Day on the Costa del 
+  post: Dolphin Watching Boat Trips from Marbella: A 
+  post: How Much Does a Yacht Charter in Marbella Cos
+  post: Marbella vs Puerto Banús: Which Departure Por
+  post: The Best Time to Charter a Boat in Marbella
+  page: Private Boat Party Marbella — Hen, Stag & Bir
+  page: Licence-Free Boat Hire Marbella — No Licence 
+  page: Yacht Charter Puerto Banús — Day & Sunset Hir
+enriched 20 item(s) with UNIQUE distributed images
+[2026-06-23 11:40:24] WP: publishing 40 post(s) + 40 page(s) to boathire24guides.wordpress.com
+Traceback (most recent call last):
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 236, in <module>
+    sys.exit(main())
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 209, in main
+    code, res = wp_post("posts", payload)
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 83, in wp_post
+    return r.status, json.loads(r.read())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-23 11:40:29] done 2026-06-23
+[2026-06-24 17:23:06] starting daily run for 2026-06-24
+[2026-06-24 17:23:06] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-06-24 17:23:07] queue under threshold — fetching real keywords from DataForSEO…
+[2026-06-24 17:23:11] 
+    "time": "0 sec.",
+    "cost"
+[2026-06-24 17:23:11]   seed 'sunset boat trip': HTTP 402 {
+    "version": "0.1.20260610",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-06-24 17:23:11] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-06-24 17:23:11] === Done: 0 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 500
+cannibalization: 147 variant pages canonicalized to a primary
+relinked: blogs=398 (homepage 398/398), landings=500 (homepage 500/500), affiliate-link pool=9
