@@ -71,12 +71,12 @@ export default function CashDiscountPromo() {
         </div>
 
         <h3 style={{ fontSize: 22, fontWeight: 800, color: '#f4f4f2', margin: '0 0 6px', lineHeight: 1.15, letterSpacing: '-0.02em' }}>
-          Pay by Cash,<br />
-          <span style={{ background: 'linear-gradient(135deg,#fde68a 0%,#fbbf24 40%,#74cfe8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Get a Discount!</span>
+          Renting a Boat in Marbella?<br />
+          <span style={{ background: 'linear-gradient(135deg,#fde68a 0%,#fbbf24 40%,#74cfe8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Pay Cash, Get 5% Off!</span>
         </h3>
 
         <p style={{ fontSize: 13, color: 'rgba(244,244,242,0.62)', margin: '0 0 16px', lineHeight: 1.5 }}>
-          Skip the card fees — pay your skipper directly in cash and we&apos;ll knock <strong style={{ color: '#fbbf24' }}>5% off</strong> your charter.
+          Booking a boat in <strong style={{ color: '#74cfe8' }}>Marbella</strong>? Skip the card fees — pay your skipper directly in cash and we&apos;ll knock <strong style={{ color: '#fbbf24' }}>5% off</strong> your charter.
         </p>
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -89,7 +89,7 @@ export default function CashDiscountPromo() {
         </div>
 
         <p style={{ fontSize: 10, color: 'rgba(244,244,242,0.35)', margin: '10px 0 0', lineHeight: 1.4 }}>
-          * 5% off charters paid in EUR cash at marina. Mention &quot;cash discount&quot; when booking.
+          * 5% off Marbella charters paid in EUR cash at the marina. Mention &quot;cash discount&quot; when booking.
         </p>
       </div>
     </div>
