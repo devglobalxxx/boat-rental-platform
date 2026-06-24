@@ -210,7 +210,7 @@ export default function HomePage() {
         {/* Stats bar */}
         <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: 'rgba(7,16,30,0.82)', borderTop: '1px solid rgba(116,207,232,0.12)', backdropFilter: 'blur(8px)' }}>
           <div className="container">
-            <div className="grid grid-cols-3 py-5 gap-4">
+            <div className="grid grid-cols-3 pt-8 pb-6 gap-4">
               {[{ n: '50', l: 'Boats listed' }, { n: '48', l: 'Destinations' }, { n: '4.9 / 5', l: 'Average rating' }].map((s) => (
                 <div key={s.l} className="text-center">
                   <div className="text-2xl font-bold" style={{ color: '#74cfe8' }}>{s.n}</div>
