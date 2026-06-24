@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
-import HeroSearchPill from '@/components/home/HeroSearchPill'
 import { siteJsonLd } from '@/lib/seo/structured-data'
 
 export const metadata: Metadata = {
@@ -211,8 +210,8 @@ export default function HomePage() {
         {/* Stats bar */}
         <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: 'rgba(7,16,30,0.82)', borderTop: '1px solid rgba(116,207,232,0.12)', backdropFilter: 'blur(8px)' }}>
           <div className="container">
-            <div className="grid grid-cols-2 md:grid-cols-4 py-5 gap-4">
-              {[{ n: '1,200+', l: 'Verified boats' }, { n: '48', l: 'Destinations' }, { n: '4.9 / 5', l: 'Average rating' }, { n: '15,000+', l: 'Happy guests' }].map((s) => (
+            <div className="grid grid-cols-3 py-5 gap-4">
+              {[{ n: '50', l: 'Boats listed' }, { n: '48', l: 'Destinations' }, { n: '4.9 / 5', l: 'Average rating' }].map((s) => (
                 <div key={s.l} className="text-center">
                   <div className="text-2xl font-bold" style={{ color: '#74cfe8' }}>{s.n}</div>
                   <div className="text-xs mt-0.5" style={{ color: 'rgba(244,244,242,0.50)' }}>{s.l}</div>
@@ -220,14 +219,6 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ══ 1b · SEARCH ══ */}
-      <section style={{ background: 'linear-gradient(135deg,#0c1927 0%,#0e2040 50%,#0c1927 100%)', borderBottom: '1px solid rgba(116,207,232,0.18)' }}>
-        <div className="container" style={{ paddingTop: '28px', paddingBottom: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <p className="eyebrow" style={{ marginBottom: '14px', textAlign: 'center' }}>Search 1,200+ verified boats</p>
-          <HeroSearchPill />
         </div>
       </section>
 
