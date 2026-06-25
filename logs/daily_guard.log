@@ -4556,3 +4556,14 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-06-26 00:16:25] [2026-06-26 00:16:01] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
 [2026-06-26 00:16:05] DataForSEO: expanding ideas from 14 base seeds
 [2026-06-26 00:16:25] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[main 57478d2] Daily content: +8 pages (0 blog, 8 landing)
+ 5 files changed, 229 insertions(+), 12 deletions(-)
+To https://github.com/mardo89/boat-rental-platform.git
+   9a3b3be..57478d2  HEAD -> main
+[2026-06-26 00:16:29] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-06-26 00:16:32] reindex ping: 200 {"ok":true,"urls_total":1874,"indexnow":{"ok":true,"status":200,"count":1874},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.google.com":404,"www.bing.com":410},"timestamp":"2026-06-25T21:
+[2026-06-26 00:16:32] === Done: 8 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 504
+cannibalization: 147 variant pages canonicalized to a primary
+relinked: blogs=398 (homepage 398/398), landings=504 (homepage 504/504), affiliate-link pool=9
