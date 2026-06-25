@@ -216,8 +216,11 @@ export default async function AdminPage({
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '16px' }}>
             🔒 Admin Panel
           </div>
-          <h1 style={{ fontSize: '28px', fontWeight: 800, color: text, marginBottom: '6px' }}>Admin Panel</h1>
-          <p style={{ fontSize: '14px', color: muted }}>Bookings, hosts, verification &amp; payouts — all in one place.</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+            <h1 style={{ fontSize: '28px', fontWeight: 800, color: text, margin: 0 }}>Admin Panel</h1>
+            <a href="/admin/boathire24" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 18px', borderRadius: '99px', background: gold, color: '#07101e', fontSize: '13px', fontWeight: 800, textDecoration: 'none', boxShadow: '0 4px 16px rgba(116,207,232,0.28)' }}>🚤 BoatHire24</a>
+          </div>
+          <p style={{ fontSize: '14px', color: muted, marginTop: '6px' }}>Bookings, hosts, verification &amp; payouts — all in one place.</p>
         </div>
 
         {/* ── Bookings ── */}
