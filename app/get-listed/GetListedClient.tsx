@@ -188,7 +188,7 @@ export default function GetListedClient({ source }: { source?: string }) {
               <label style={label}>WhatsApp{req}</label>
               <div style={{ display: 'flex', gap: 8 }}>
                 <select value={dial} onChange={(e) => setDial(e.target.value)} aria-label="Country code" style={{ ...inp, width: 116, flexShrink: 0, padding: '13px 6px 13px 10px', appearance: 'auto', colorScheme: 'dark' }}>
-                  {DIAL_CODES.map(([flag, name, code], i) => <option key={i} value={code}>{flag} {name} {code}</option>)}
+                  {DIAL_CODES.map(([flag, name, code], i) => <option key={i} value={code}>{name} {flag} {code}</option>)}
                 </select>
                 <input style={{ ...inp, flex: 1 }} value={waNumber} onChange={(e) => setWaNumber(e.target.value)} placeholder="600 000 000" />
               </div>
