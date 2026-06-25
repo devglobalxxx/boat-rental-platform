@@ -2568,3 +2568,24 @@
 [2026-06-25 00:10:19] DataForSEO: added 8 queue items (8 landing, 0 blog). Queue now 8.
 [2026-06-25 00:10:19] === Done: 0 ok, 0 failed ===
 
+[2026-06-26 00:11:53] === Generate: 0 blog + 8 landing = 8 item(s) (backend=deepseek) ===
+[2026-06-26 00:11:54] [1/8] landing · jet-ski-rental-near-me
+[2026-06-26 00:11:54]   (near-duplicate topic, skipping: jet ski rental near me)
+[2026-06-26 00:11:54] [2/8] landing · boat-charter
+[2026-06-26 00:11:54]   (near-duplicate topic, skipping: boat charter)
+[2026-06-26 00:11:54] [3/8] landing · lake-of-the-ozarks-boat-rentals
+[2026-06-26 00:11:54]   (near-duplicate topic, skipping: lake of the ozarks boat rentals)
+[2026-06-26 00:11:54] [4/8] landing · austin-rental-boats
+[2026-06-26 00:12:48]   ✓ generated
+[2026-06-26 00:12:48] [5/8] landing · motor-boat-hire-crete
+[2026-06-26 00:13:52]   ✓ generated
+[2026-06-26 00:13:52] [6/8] landing · boat-hire-in-crete
+[2026-06-26 00:15:02]   ✓ generated
+[2026-06-26 00:15:02] [7/8] landing · boat-hire-crete-greece
+[2026-06-26 00:16:01]   ✓ generated
+[2026-06-26 00:16:01] [8/8] landing · crete-boat-hire
+[2026-06-26 00:16:01]   (near-duplicate topic, skipping: crete boat hire)
+[2026-06-26 00:16:01] queue under threshold — fetching real keywords from DataForSEO…
+[2026-06-26 00:16:25] [2026-06-26 00:16:01] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-06-26 00:16:05] DataForSEO: expanding ideas from 14 base seeds
+[2026-06-26 00:16:25] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
