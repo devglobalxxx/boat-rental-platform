@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
 import AdminApiKeyButton from '@/components/admin/AdminApiKeyButton'
+import ManagedListings from '@/components/admin/ManagedListings'
 import AdminVerifyButton from './AdminVerifyButton'
 import AdminDocsButton from './AdminDocsButton'
 import AdminBoatsButton from './AdminBoatsButton'
@@ -100,8 +101,10 @@ export default async function AdminPage({
   // Fetch all profiles with boat counts
   const { data: profiles } = await supabaseAdmin
     .from('profiles')
-    .select('id, full_name, verification_status, is_admin, host_since, verification_notes, verified_at')
+    .select('id, full_name, verification_status, is_admin, is_managed_account, host_since, verification_notes, verified_at')
     .order('host_since', { ascending: false })
+
+  const managedHostId = (profiles ?? []).find((p) => (p as { is_managed_account?: boolean }).is_managed_account)?.id ?? null
 
   // Fetch all auth users for emails
   const { data: { users: authUsers } } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
@@ -170,7 +173,9 @@ export default async function AdminPage({
     revenue: bookings.filter((b) => b.status !== 'cancelled').reduce((s, b) => s + (b.total ?? 0), 0),
   }
 
-  const all = (profiles ?? []).map((p) => ({
+  const all = (profiles ?? [])
+    .filter((p) => !(p as { is_managed_account?: boolean }).is_managed_account)
+    .map((p) => ({
     ...p,
     email: emailMap[p.id]?.email ?? '',
     joined: emailMap[p.id]?.created_at ?? '',
@@ -179,6 +184,8 @@ export default async function AdminPage({
     hasPayout: payoutSet.has(p.id),
     website_url: websiteMap[p.id] ?? null,
   }))
+
+  const managedCount = managedHostId ? (boatMap[managedHostId] ?? 0) : 0
 
   const filtered = (filter === 'all' ? all : all.filter((p) => p.verification_status === filter))
     .slice()
@@ -354,6 +361,7 @@ export default async function AdminPage({
             { key: 'unverified', label: `Unverified (${counts.unverified})` },
             { key: 'rejected',   label: `Rejected (${counts.rejected})` },
             { key: 'deleted',    label: `🗑 Deleted (${counts.deleted})` },
+            { key: 'managed',    label: `🛥 BoatHire24 managed (${managedCount})` },
           ].map((tab) => (
             <a
               key={tab.key}
@@ -366,7 +374,7 @@ export default async function AdminPage({
         </div>
 
         {/* Sort by joining date */}
-        {filter !== 'deleted' && (
+        {filter !== 'deleted' && filter !== 'managed' && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '12px', color: muted, fontWeight: 600 }}>Joined:</span>
             {[
@@ -423,8 +431,13 @@ export default async function AdminPage({
           </div>
         )}
 
+        {/* BoatHire24 managed listings */}
+        {filter === 'managed' && (
+          <ManagedListings hostId={managedHostId} />
+        )}
+
         {/* Users table */}
-        {filter !== 'deleted' && (
+        {filter !== 'deleted' && filter !== 'managed' && (
         <div style={{ background: card, borderRadius: '16px', border: `1px solid ${border}`, overflow: 'hidden' }}>
           {filtered.length === 0 ? (
             <div style={{ padding: '48px', textAlign: 'center', color: muted, fontSize: '14px' }}>No users in this filter.</div>

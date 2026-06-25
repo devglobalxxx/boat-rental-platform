@@ -20,6 +20,32 @@ async function phoneOf(userId: string): Promise<string | null> {
   try { const { data } = await admin.auth.admin.getUserById(userId); return ((data.user?.user_metadata as any)?.phone as string | undefined)?.trim() || null } catch { return null }
 }
 
+// For BoatHire24-managed boats: render the private owner-contact block so the
+// ops team can chase availability with the real owner. Returns '' for normal
+// (host-owned) boats, which have no managed_owner_contacts row.
+async function managedOwnerHtml(boatId: string): Promise<string> {
+  try {
+    const { data } = await admin.from('managed_owner_contacts')
+      .select('owner_name, owner_email, owner_phone, owner_website, notes')
+      .eq('boat_id', boatId).maybeSingle()
+    const o = data as { owner_name?: string; owner_email?: string; owner_phone?: string; owner_website?: string; notes?: string } | null
+    if (!o) return ''
+    const row = (label: string, val?: string) => val
+      ? `<tr><td style="padding:5px 0;color:#8b94a3">${label}</td><td style="padding:5px 0;color:#f4f4f2;text-align:right;font-weight:600">${val}</td></tr>` : ''
+    return `
+      <div style="margin-top:16px;padding:14px 16px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.30);border-radius:12px">
+        <p style="margin:0 0 6px;color:#f59e0b;font-weight:800;font-size:13px">🛥 Managed listing — contact the owner to confirm availability</p>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          ${row('Owner', o.owner_name)}
+          ${row('Phone', o.owner_phone)}
+          ${row('Email', o.owner_email)}
+          ${row('Website', o.owner_website)}
+          ${row('Notes', o.notes)}
+        </table>
+      </div>`
+  } catch { return '' }
+}
+
 type B = {
   id: string; renter_id: string; boat_id: string; start_datetime: string; end_datetime: string
   guests_count: number; total: number; currency: string; duration_hours: number | null
@@ -80,11 +106,13 @@ export async function sendHostNewRequest(bookingId: string) {
   }
   const f = fmt(ctx.b, ctx.boat.name)
   const to = await emailOf(ctx.boat.host_id)
+  const ownerBlock = await managedOwnerHtml(ctx.b.boat_id)
   await resend.emails.send({
     from: FROM, to: [to, OPS_INBOX].filter(Boolean) as string[], subject: `New booking request — ${f.boatName} · ${f.date}`,
     html: shell('📅 New booking request', '#74cfe8', `
       <p>You have a new booking request. The guest's card is <strong style="color:#f4f4f2">held (not charged)</strong> — approve within <strong>24h</strong> and they're charged; decline and the hold is released automatically.</p>
       ${detailRows(f)}
+      ${ownerBlock}
       <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'Review & approve →')}</p>
       <p style="color:#8b94a3;font-size:12px;margin-top:14px">Open your host dashboard to approve or decline.</p>`),
   }).catch(() => {})
@@ -264,6 +292,7 @@ export async function sendHostBookingRequest(opts: {
   const contact = [opts.guestEmail, opts.guestPhone].filter(Boolean).join(' · ') || '—'
 
   const hostEmail = await emailOf(boat.host_id)
+  const ownerBlock = await managedOwnerHtml(opts.boatId)
   await resend.emails.send({
     from: FROM, to: [hostEmail, OPS_INBOX].filter(Boolean) as string[], subject: `📅 Booking request — ${boat.name} · ${dateStr}`,
     html: shell('📅 New booking request', '#74cfe8', `
@@ -276,6 +305,7 @@ export async function sendHostBookingRequest(opts: {
         <tr><td style="padding:6px 0;color:#8b94a3">Guest</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${opts.guestName || '—'}</td></tr>
         <tr><td style="padding:6px 0;color:#8b94a3">Contact</td><td style="padding:6px 0;color:#f4f4f2;text-align:right;font-weight:600">${contact}</td></tr>
       </table>
+      ${ownerBlock}
       <p style="margin:18px 0 6px">${btn(`${SITE}/host/bookings`, 'Manage in your dashboard →')}</p>
       <p style="color:#8b94a3;font-size:12px;margin-top:14px">Confirm availability and send the guest a payment link from your dashboard.</p>`),
   }).catch(() => {})
