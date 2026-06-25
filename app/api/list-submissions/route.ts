@@ -8,7 +8,8 @@ const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SU
 const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM = process.env.RESEND_FROM_EMAIL || 'BoatHire24 <info@boathire24.com>'
 
-type BoatIn = { name?: string; url?: string; price?: string; prices?: Record<string, string> }
+type BoatIn = { name?: string; url?: string; price?: string; prices?: Record<string, string>; cancellation?: string; cancellationCustom?: string }
+const POLICY_OK = new Set(['flexible', 'moderate', 'strict', 'custom'])
 
 function cleanPrices(p: unknown): Record<string, string> {
   if (!p || typeof p !== 'object') return {}
@@ -39,12 +40,15 @@ export async function POST(req: NextRequest) {
   const boats = (Array.isArray(body?.boats) ? body.boats : [])
     .map((b: BoatIn) => {
       const prices = cleanPrices(b?.prices)
+      const cancellation = POLICY_OK.has(String(b?.cancellation)) ? String(b?.cancellation) : 'moderate'
       return {
         name: String(b?.name ?? '').trim().slice(0, 160),
         url: String(b?.url ?? '').trim().slice(0, 400),
         prices,
         // keep a flat label too, for the notification email + legacy display
         price: String(b?.price ?? '').trim().slice(0, 80) || priceSummary(prices),
+        cancellation,
+        cancellationCustom: cancellation === 'custom' ? String(b?.cancellationCustom ?? '').trim().slice(0, 600) : '',
       }
     })
     .filter((b: { name: string; url: string }) => b.name || b.url)

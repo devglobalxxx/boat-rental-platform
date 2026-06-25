@@ -9,8 +9,9 @@ export const dynamic = 'force-dynamic'
 const text = '#f4f4f2', muted = 'rgba(244,244,242,0.55)', gold = '#74cfe8'
 const card = 'rgba(255,255,255,0.03)', border = 'rgba(116,207,232,0.18)'
 
-type Boat = { name?: string; url?: string; price?: string; prices?: Record<string, string> }
+type Boat = { name?: string; url?: string; price?: string; prices?: Record<string, string>; cancellation?: string; cancellationCustom?: string }
 const DUR_ORDER = ['2h', '4h', '6h', 'day']
+const POLICY_LABEL: Record<string, string> = { flexible: 'Flexible (24h)', moderate: 'Moderate (5 days)', strict: 'Strict (14 days)', custom: 'Custom' }
 function num(s: string): number | null {
   const m = s.replace(/[ ,.](?=\d{3}\b)/g, '').match(/\d+(?:[.,]\d+)?/)
   return m ? Math.round(parseFloat(m[0].replace(',', '.'))) : null
@@ -82,6 +83,11 @@ export default async function LeadsPage() {
                               })}
                             </div>
                           ) : b.price ? <div style={{ fontSize: 12, color: muted, marginTop: 2 }}>{b.price}</div> : null}
+                          {b.cancellation && (
+                            <div style={{ fontSize: 11.5, color: muted, marginTop: 3 }}>
+                              ↩ {POLICY_LABEL[b.cancellation] || b.cancellation}{b.cancellation === 'custom' && b.cancellationCustom ? `: ${b.cancellationCustom}` : ''}
+                            </div>
+                          )}
                         </div>
                       )
                     })}

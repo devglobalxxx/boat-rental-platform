@@ -64,7 +64,14 @@ const DIAL_CODES: [string, string, string][] = [
   ['🇻🇳', 'Vietnam', '+84'], ['🇾🇪', 'Yemen', '+967'], ['🇿🇲', 'Zambia', '+260'], ['🇿🇼', 'Zimbabwe', '+263'],
 ]
 
-interface BoatRow { name: string; url: string; prices: Record<string, string> }
+interface BoatRow { name: string; url: string; prices: Record<string, string>; cancellation: string; cancellationCustom: string }
+
+const POLICIES: [string, string, string][] = [
+  ['flexible', 'Flexible', 'Full refund up to 24h before departure.'],
+  ['moderate', 'Moderate', 'Full refund up to 5 days before.'],
+  ['strict', 'Strict', '50% refund up to 14 days before.'],
+  ['custom', '✍️ Custom', 'Define your own refund terms.'],
+]
 
 const inp: React.CSSProperties = {
   width: '100%', padding: '13px 15px', borderRadius: 12, background: 'rgba(255,255,255,0.04)',
@@ -78,6 +85,7 @@ function num(s: string): number | null {
   return m ? Math.round(parseFloat(m[0].replace(',', '.'))) : null
 }
 function emptyPrices(): Record<string, string> { return { '2h': '', '4h': '', '6h': '', day: '' } }
+function newBoat(): BoatRow { return { name: '', url: '', prices: emptyPrices(), cancellation: 'moderate', cancellationCustom: '' } }
 
 export default function GetListedClient({ source }: { source?: string }) {
   const [contact_name, setName] = useState('')
@@ -87,7 +95,8 @@ export default function GetListedClient({ source }: { source?: string }) {
   const [dial, setDial] = useState('+34')
   const [waNumber, setWaNumber] = useState('')
   const [note, setNote] = useState('')
-  const [boats, setBoats] = useState<BoatRow[]>([{ name: '', url: '', prices: emptyPrices() }])
+  const [boats, setBoats] = useState<BoatRow[]>([newBoat()])
+  const [samePolicy, setSamePolicy] = useState(true)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const [done, setDone] = useState(false)
@@ -96,7 +105,7 @@ export default function GetListedClient({ source }: { source?: string }) {
   function setBoatPrice(i: number, key: string, val: string) {
     setBoats((b) => b.map((x, j) => (j === i ? { ...x, prices: { ...x.prices, [key]: val } } : x)))
   }
-  function addBoat() { setBoats((b) => [...b, { name: '', url: '', prices: emptyPrices() }]) }
+  function addBoat() { setBoats((b) => [...b, newBoat()]) }
   function removeBoat(i: number) { setBoats((b) => b.filter((_, j) => j !== i)) }
 
   async function submit() {
@@ -106,10 +115,14 @@ export default function GetListedClient({ source }: { source?: string }) {
     if (!website.trim()) return setErr('Please add your website.')
     if (!waNumber.trim()) return setErr('Please add your WhatsApp number.')
     setBusy(true)
+    // When "same policy for all" is on, copy boat 1's policy onto every boat.
+    const outBoats = samePolicy && boats.length > 1
+      ? boats.map((b) => ({ ...b, cancellation: boats[0].cancellation, cancellationCustom: boats[0].cancellationCustom }))
+      : boats
     try {
       const r = await fetch('/api/list-submissions', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contact_name, company, website, email, phone: `${dial} ${waNumber.trim()}`, note, source, boats }),
+        body: JSON.stringify({ contact_name, company, website, email, phone: `${dial} ${waNumber.trim()}`, note, source, boats: outBoats }),
       })
       const j = await r.json()
       if (!r.ok) throw new Error(j.error || 'Something went wrong')
@@ -205,6 +218,39 @@ export default function GetListedClient({ source }: { source?: string }) {
                     )
                   })}
                 </div>
+
+                {/* Cancellation / refund policy — boat 1 always; others only when not "same for all" */}
+                {(i === 0 || !samePolicy) && (
+                  <div style={{ marginTop: 14, borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 12 }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: muted, marginBottom: 8 }}>Cancellation &amp; refund policy</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+                      {POLICIES.map(([v, plabel, desc]) => {
+                        const on = b.cancellation === v
+                        return (
+                          <button key={v} type="button" onClick={() => setBoat(i, { cancellation: v })}
+                            style={{ textAlign: 'left', padding: '10px 12px', borderRadius: 10, cursor: 'pointer',
+                              background: on ? 'rgba(116,207,232,0.12)' : 'rgba(255,255,255,0.03)',
+                              border: `1px solid ${on ? border : 'rgba(255,255,255,0.10)'}` }}>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: on ? gold : text }}>{plabel}</div>
+                            <div style={{ fontSize: 11, color: muted, lineHeight: 1.35, marginTop: 2 }}>{desc}</div>
+                          </button>
+                        )
+                      })}
+                    </div>
+                    {b.cancellation === 'custom' && (
+                      <textarea style={{ ...inp, marginTop: 8, minHeight: 60, resize: 'vertical', fontSize: 14 }} value={b.cancellationCustom}
+                        onChange={(e) => setBoat(i, { cancellationCustom: e.target.value })} placeholder="Describe your refund terms (e.g. 100% up to 7 days, 50% up to 48h, no refund after)…" />
+                    )}
+                  </div>
+                )}
+
+                {/* After boat 1, when there are several boats, offer "same for all" */}
+                {i === 0 && boats.length > 1 && (
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 9, marginTop: 12, cursor: 'pointer', fontSize: 13, color: text }}>
+                    <input type="checkbox" checked={samePolicy} onChange={(e) => setSamePolicy(e.target.checked)} style={{ width: 17, height: 17, accentColor: gold, cursor: 'pointer' }} />
+                    All boats use this same cancellation policy
+                  </label>
+                )}
               </div>
             ))}
           </div>
