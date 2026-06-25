@@ -8,7 +8,22 @@ const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SU
 const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM = process.env.RESEND_FROM_EMAIL || 'BoatHire24 <info@boathire24.com>'
 
-type BoatIn = { name?: string; url?: string; price?: string }
+type BoatIn = { name?: string; url?: string; price?: string; prices?: Record<string, string> }
+
+function cleanPrices(p: unknown): Record<string, string> {
+  if (!p || typeof p !== 'object') return {}
+  const out: Record<string, string> = {}
+  for (const [k, v] of Object.entries(p as Record<string, unknown>)) {
+    const val = String(v ?? '').trim().slice(0, 40)
+    if (val) out[String(k).slice(0, 12)] = val
+  }
+  return out
+}
+function priceSummary(p: Record<string, string>): string {
+  const order = ['2h', '4h', '6h', 'day']
+  return Object.entries(p).sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]))
+    .map(([k, v]) => `${k === 'day' ? 'Full day' : k} ${v}`).join(' · ')
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}))
@@ -22,12 +37,17 @@ export async function POST(req: NextRequest) {
   const source = String(body?.source ?? '').trim().slice(0, 120) || null
 
   const boats = (Array.isArray(body?.boats) ? body.boats : [])
-    .map((b: BoatIn) => ({
-      name: String(b?.name ?? '').trim().slice(0, 160),
-      url: String(b?.url ?? '').trim().slice(0, 400),
-      price: String(b?.price ?? '').trim().slice(0, 80),
-    }))
-    .filter((b: BoatIn) => b.name || b.url)
+    .map((b: BoatIn) => {
+      const prices = cleanPrices(b?.prices)
+      return {
+        name: String(b?.name ?? '').trim().slice(0, 160),
+        url: String(b?.url ?? '').trim().slice(0, 400),
+        prices,
+        // keep a flat label too, for the notification email + legacy display
+        price: String(b?.price ?? '').trim().slice(0, 80) || priceSummary(prices),
+      }
+    })
+    .filter((b: { name: string; url: string }) => b.name || b.url)
     .slice(0, 60)
 
   // Need at least a way to reach them + something to work with.

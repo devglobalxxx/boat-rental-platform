@@ -9,7 +9,12 @@ export const dynamic = 'force-dynamic'
 const text = '#f4f4f2', muted = 'rgba(244,244,242,0.55)', gold = '#74cfe8'
 const card = 'rgba(255,255,255,0.03)', border = 'rgba(116,207,232,0.18)'
 
-type Boat = { name?: string; url?: string; price?: string }
+type Boat = { name?: string; url?: string; price?: string; prices?: Record<string, string> }
+const DUR_ORDER = ['2h', '4h', '6h', 'day']
+function num(s: string): number | null {
+  const m = s.replace(/[ ,.](?=\d{3}\b)/g, '').match(/\d+(?:[.,]\d+)?/)
+  return m ? Math.round(parseFloat(m[0].replace(',', '.'))) : null
+}
 type Sub = {
   id: string; contact_name: string | null; company: string | null; website: string | null
   email: string | null; phone: string | null; boats: Boat[]; note: string | null
@@ -63,12 +68,20 @@ export default async function LeadsPage() {
                 {Array.isArray(s.boats) && s.boats.length > 0 && (
                   <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 10 }}>
                     {s.boats.map((b, i) => {
-                      const m = b.price ? b.price.replace(/[ ,.](?=\d{3}\b)/g, '').match(/\d+(?:[.,]\d+)?/) : null
-                      const p = m ? Math.round(parseFloat(m[0].replace(',', '.'))) : NaN
+                      const pr = b.prices && Object.keys(b.prices).length
+                        ? Object.entries(b.prices).sort((a, c) => DUR_ORDER.indexOf(a[0]) - DUR_ORDER.indexOf(c[0]))
+                        : []
                       return (
-                        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 13, padding: '3px 0' }}>
-                          <span style={{ color: text }}>{b.name || '—'} {b.url && <a href={b.url.startsWith('http') ? b.url : `https://${b.url}`} target="_blank" rel="noopener" style={{ color: gold, fontSize: 12 }}>↗</a>}</span>
-                          <span style={{ color: muted, whiteSpace: 'nowrap' }}>{b.price || ''}{!isNaN(p) && p > 0 ? ` → renter €${Math.round(p * 1.15).toLocaleString()}` : ''}</span>
+                        <div key={i} style={{ padding: '5px 0', borderTop: i > 0 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+                          <span style={{ color: text, fontSize: 13 }}>{b.name || '—'} {b.url && <a href={b.url.startsWith('http') ? b.url : `https://${b.url}`} target="_blank" rel="noopener" style={{ color: gold, fontSize: 12 }}>↗</a>}</span>
+                          {pr.length > 0 ? (
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px', marginTop: 3 }}>
+                              {pr.map(([k, v]) => {
+                                const p = num(v)
+                                return <span key={k} style={{ fontSize: 12, color: muted }}>{k === 'day' ? 'Full day' : k}: {v}{p ? <span style={{ color: gold }}> → €{Math.round(p * 1.15).toLocaleString()}</span> : null}</span>
+                              })}
+                            </div>
+                          ) : b.price ? <div style={{ fontSize: 12, color: muted, marginTop: 2 }}>{b.price}</div> : null}
                         </div>
                       )
                     })}
