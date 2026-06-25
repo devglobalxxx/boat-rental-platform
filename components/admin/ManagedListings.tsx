@@ -106,7 +106,10 @@ export default function ManagedListings({ hostId }: { hostId: string | null }) {
         <p style={{ color: muted, fontSize: 13, margin: 0, maxWidth: 560, lineHeight: 1.5 }}>
           Boats we list & manage on owners&apos; behalf under the <strong style={{ color: text }}>BoatHire24</strong> account. Owner contacts stay private — used to chase availability when a booking comes in.
         </p>
-        <a href={`/host/listings/new?host=${hostId}`} target="_blank" rel="noopener" style={{ padding: '9px 18px', borderRadius: 99, background: gold, color: '#07101e', fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>+ Add managed listing</a>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <a href={`/host/fleet/website?host=${hostId}`} target="_blank" rel="noopener" style={{ padding: '9px 18px', borderRadius: 99, background: gold, color: '#07101e', fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>🔗 Import from website link</a>
+          <a href={`/host/listings/new?host=${hostId}`} target="_blank" rel="noopener" style={{ padding: '9px 18px', borderRadius: 99, background: 'transparent', border: `1px solid ${border}`, color: gold, fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>+ Add manually</a>
+        </div>
       </div>
 
       {err && <p style={{ color: '#f87171', fontSize: 13 }}>{err}</p>}

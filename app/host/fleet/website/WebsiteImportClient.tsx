@@ -41,7 +41,7 @@ const ghostBtn: React.CSSProperties = {
   background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, cursor: 'pointer',
 }
 
-export default function WebsiteImportClient({ locations }: { locations: LocationOpt[] }) {
+export default function WebsiteImportClient({ locations, targetHostId, targetLabel }: { locations: LocationOpt[]; targetHostId?: string; targetLabel?: string }) {
   const [url, setUrl] = useState('')
   const [phase, setPhase] = useState<'idle' | 'scanning' | 'pages' | 'extracting' | 'review' | 'importing' | 'done'>('idle')
   const [error, setError] = useState<string | null>(null)
@@ -112,7 +112,7 @@ export default function WebsiteImportClient({ locations }: { locations: Location
       try {
         const res = await fetch('/api/host/import-website/import', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ boat: picked[i], locationId, status: publishStatus }),
+          body: JSON.stringify({ boat: picked[i], locationId, status: publishStatus, targetHostId }),
         })
         const json = await res.json()
         out.push(res.ok
@@ -145,6 +145,12 @@ export default function WebsiteImportClient({ locations }: { locations: Location
           </div>
           <h1 style={{ fontSize: '26px', fontWeight: 800, color: text, margin: 0 }}>Import from your website</h1>
         </div>
+
+        {targetLabel && (
+          <div style={{ background: 'rgba(116,207,232,0.10)', border: `1px solid ${goldBorder}`, borderRadius: 12, padding: '12px 16px', margin: '0 0 18px', color: text, fontSize: 13 }}>
+            🛥 <strong>Managed import</strong> — these boats will be created under the <strong style={{ color: gold }}>{targetLabel}</strong> account as drafts. Review photos and details, then activate each one manually.
+          </div>
+        )}
         <p style={{ color: muted, fontSize: '14px', lineHeight: 1.65, margin: '0 0 28px' }}>
           Paste your company website and we read your boat pages automatically — names, specs, prices,
           descriptions and photos — and turn them into BoatHire24 listings. You review everything before it goes live.
