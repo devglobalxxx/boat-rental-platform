@@ -63,7 +63,8 @@ export default async function LeadsPage() {
                 {Array.isArray(s.boats) && s.boats.length > 0 && (
                   <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 10 }}>
                     {s.boats.map((b, i) => {
-                      const p = b.price ? parseInt(b.price.replace(/[^\d]/g, ''), 10) : NaN
+                      const m = b.price ? b.price.replace(/[ ,.](?=\d{3}\b)/g, '').match(/\d+(?:[.,]\d+)?/) : null
+                      const p = m ? Math.round(parseFloat(m[0].replace(',', '.'))) : NaN
                       return (
                         <div key={i} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 13, padding: '3px 0' }}>
                           <span style={{ color: text }}>{b.name || '—'} {b.url && <a href={b.url.startsWith('http') ? b.url : `https://${b.url}`} target="_blank" rel="noopener" style={{ color: gold, fontSize: 12 }}>↗</a>}</span>
