@@ -584,3 +584,11 @@
 [2026-06-25 00:10:22] es: translating 1 landing page(s)
 [2026-06-25 00:11:05]   [1/1] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-06-25 00:11:05] es: 0/1 translated (total es=499)
+[2026-06-26 00:16:38] es: translating 5 landing page(s)
+[2026-06-26 00:17:33]   [1/5] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-26 00:18:09]   [2/5] ✓ austin-rental-boats
+[2026-06-26 00:18:57]   [3/5] ✓ motor-boat-hire-crete
+[2026-06-26 00:19:47]   [4/5] ✓ boat-hire-in-crete
+[2026-06-26 00:20:37]   [5/5] ✓ boat-hire-crete-greece
+[2026-06-26 00:20:37] es: 4/5 translated (total es=503)
+[2026-06-26 00:20:40] es: pushed

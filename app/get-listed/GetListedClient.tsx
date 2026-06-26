@@ -10,6 +10,16 @@ const OPS_WHATSAPP = '37258155779' // contact button — Marbella ops line
 
 const DURATIONS: [string, string][] = [['2h', '2 hours'], ['4h', '4 hours'], ['6h', '6 hours'], ['day', 'Full day']]
 
+// [code, symbol, label]
+const CURRENCIES: [string, string, string][] = [
+  ['EUR', '€', 'Euro'], ['GBP', '£', 'British Pound'], ['USD', '$', 'US Dollar'], ['CHF', 'CHF', 'Swiss Franc'],
+  ['AED', 'AED', 'UAE Dirham'], ['AUD', 'A$', 'Australian Dollar'], ['CAD', 'C$', 'Canadian Dollar'],
+  ['SEK', 'kr', 'Swedish Krona'], ['NOK', 'kr', 'Norwegian Krone'], ['DKK', 'kr', 'Danish Krone'],
+  ['PLN', 'zł', 'Polish Złoty'], ['TRY', '₺', 'Turkish Lira'], ['ZAR', 'R', 'South African Rand'],
+  ['SAR', 'SAR', 'Saudi Riyal'], ['QAR', 'QAR', 'Qatari Riyal'], ['HRK', 'kn', 'Croatian Kuna'],
+]
+function symbolOf(code: string): string { return CURRENCIES.find((c) => c[0] === code)?.[1] ?? code }
+
 // All world dial codes — [flag, country, code]. Alphabetical; Spain is the default.
 const DIAL_CODES: [string, string, string][] = [
   ['🇦🇫', 'Afghanistan', '+93'], ['🇦🇱', 'Albania', '+355'], ['🇩🇿', 'Algeria', '+213'], ['🇦🇩', 'Andorra', '+376'],
@@ -95,6 +105,8 @@ export default function GetListedClient({ source }: { source?: string }) {
   const [dial, setDial] = useState('+34')
   const [waNumber, setWaNumber] = useState('')
   const [note, setNote] = useState('')
+  const [currency, setCurrency] = useState('EUR')
+  const sym = symbolOf(currency)
   const [boats, setBoats] = useState<BoatRow[]>([newBoat()])
   const [samePolicy, setSamePolicy] = useState(true)
   const [busy, setBusy] = useState(false)
@@ -116,13 +128,14 @@ export default function GetListedClient({ source }: { source?: string }) {
     if (!waNumber.trim()) return setErr('Please add your WhatsApp number.')
     setBusy(true)
     // When "same policy for all" is on, copy boat 1's policy onto every boat.
-    const outBoats = samePolicy && boats.length > 1
+    const policed = samePolicy && boats.length > 1
       ? boats.map((b) => ({ ...b, cancellation: boats[0].cancellation, cancellationCustom: boats[0].cancellationCustom }))
       : boats
+    const outBoats = policed.map((b) => ({ ...b, currency }))
     try {
       const r = await fetch('/api/list-submissions', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contact_name, company, website, email, phone: `${dial} ${waNumber.trim()}`, note, source, boats: outBoats }),
+        body: JSON.stringify({ contact_name, company, website, email, phone: `${dial} ${waNumber.trim()}`, note, source, currency, boats: outBoats }),
       })
       const j = await r.json()
       if (!r.ok) throw new Error(j.error || 'Something went wrong')
@@ -195,8 +208,16 @@ export default function GetListedClient({ source }: { source?: string }) {
             </div>
           </div>
 
-          <label style={label}>Your boats</label>
-          <p style={{ color: muted, fontSize: 12.5, margin: '0 0 12px', lineHeight: 1.5 }}>Add each boat with a link to its page on your site and your prices per duration. We&apos;ll pull the full specs &amp; photos from there.</p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', marginBottom: 6 }}>
+            <label style={{ ...label, marginBottom: 0 }}>Your boats</label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: muted }}>
+              Currency
+              <select value={currency} onChange={(e) => setCurrency(e.target.value)} aria-label="Currency" style={{ ...inp, width: 'auto', padding: '8px 8px', fontSize: 13, appearance: 'auto', colorScheme: 'dark' }}>
+                {CURRENCIES.map(([code, s, name]) => <option key={code} value={code}>{code} ({s}) — {name}</option>)}
+              </select>
+            </label>
+          </div>
+          <p style={{ color: muted, fontSize: 12.5, margin: '0 0 12px', lineHeight: 1.5 }}>Add each boat with a link to its page on your site and your prices per duration (in {currency}). We&apos;ll pull the full specs &amp; photos from there.</p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {boats.map((b, i) => (
@@ -212,8 +233,8 @@ export default function GetListedClient({ source }: { source?: string }) {
                     return (
                       <div key={key}>
                         <div style={{ fontSize: 10.5, fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>{lbl}</div>
-                        <input style={{ ...inp, padding: '10px 10px', fontSize: 14 }} value={b.prices[key] || ''} onChange={(e) => setBoatPrice(i, key, e.target.value)} placeholder="€" />
-                        {p != null && <div style={{ fontSize: 10.5, color: gold, marginTop: 3 }}>renter €{Math.round(p * 1.15).toLocaleString()}</div>}
+                        <input style={{ ...inp, padding: '10px 10px', fontSize: 14 }} value={b.prices[key] || ''} onChange={(e) => setBoatPrice(i, key, e.target.value)} placeholder={sym} />
+                        {p != null && <div style={{ fontSize: 10.5, color: gold, marginTop: 3 }}>renter {sym}{Math.round(p * 1.15).toLocaleString()}</div>}
                       </div>
                     )
                   })}

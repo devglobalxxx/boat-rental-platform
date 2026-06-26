@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 const text = '#f4f4f2', muted = 'rgba(244,244,242,0.55)', gold = '#74cfe8'
 const card = 'rgba(255,255,255,0.03)', border = 'rgba(116,207,232,0.18)'
 
-type Boat = { name?: string; url?: string; price?: string; prices?: Record<string, string>; cancellation?: string; cancellationCustom?: string }
+type Boat = { name?: string; url?: string; price?: string; prices?: Record<string, string>; cancellation?: string; cancellationCustom?: string; currency?: string }
 type Sub = {
   id: string; contact_name: string | null; company: string | null; website: string | null
   email: string | null; phone: string | null; boats: Boat[]; note: string | null
@@ -18,6 +18,8 @@ type Sub = {
 }
 const DUR_ORDER = ['2h', '4h', '6h', 'day']
 const POLICY_LABEL: Record<string, string> = { flexible: 'Flexible (24h)', moderate: 'Moderate (5 days)', strict: 'Strict (14 days)', custom: 'Custom' }
+const CUR_SYM: Record<string, string> = { EUR: '€', GBP: '£', USD: '$', CHF: 'CHF', AED: 'AED', AUD: 'A$', CAD: 'C$', SEK: 'kr', NOK: 'kr', DKK: 'kr', PLN: 'zł', TRY: '₺', ZAR: 'R', SAR: 'SAR', QAR: 'QAR', HRK: 'kn' }
+const symOf = (c?: string) => CUR_SYM[c || 'EUR'] || c || '€'
 function num(s: string): number | null {
   const m = s.replace(/[ ,.](?=\d{3}\b)/g, '').match(/\d+(?:[.,]\d+)?/)
   return m ? Math.round(parseFloat(m[0].replace(',', '.'))) : null
@@ -107,7 +109,7 @@ export default async function BoatHire24HubPage() {
                           <span style={{ color: text, fontSize: 13 }}>{b.name || '—'} {b.url && <a href={b.url.startsWith('http') ? b.url : `https://${b.url}`} target="_blank" rel="noopener" style={{ color: gold, fontSize: 12 }}>↗</a>}</span>
                           {pr.length > 0 ? (
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px', marginTop: 3 }}>
-                              {pr.map(([k, v]) => { const p = num(v); return <span key={k} style={{ fontSize: 12, color: muted }}>{k === 'day' ? 'Full day' : k}: {v}{p ? <span style={{ color: gold }}> → €{Math.round(p * 1.15).toLocaleString()}</span> : null}</span> })}
+                              {pr.map(([k, v]) => { const p = num(v); return <span key={k} style={{ fontSize: 12, color: muted }}>{k === 'day' ? 'Full day' : k}: {v}{p ? <span style={{ color: gold }}> → {symOf(b.currency)}{Math.round(p * 1.15).toLocaleString()}</span> : null}</span> })}
                             </div>
                           ) : b.price ? <div style={{ fontSize: 12, color: muted, marginTop: 2 }}>{b.price}</div> : null}
                           {b.cancellation && <div style={{ fontSize: 11.5, color: muted, marginTop: 3 }}>↩ {POLICY_LABEL[b.cancellation] || b.cancellation}{b.cancellation === 'custom' && b.cancellationCustom ? `: ${b.cancellationCustom}` : ''}</div>}

@@ -8,7 +8,7 @@ const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SU
 const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM = process.env.RESEND_FROM_EMAIL || 'BoatHire24 <info@boathire24.com>'
 
-type BoatIn = { name?: string; url?: string; price?: string; prices?: Record<string, string>; cancellation?: string; cancellationCustom?: string }
+type BoatIn = { name?: string; url?: string; price?: string; prices?: Record<string, string>; cancellation?: string; cancellationCustom?: string; currency?: string }
 const POLICY_OK = new Set(['flexible', 'moderate', 'strict', 'custom'])
 
 function cleanPrices(p: unknown): Record<string, string> {
@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
         prices,
         // keep a flat label too, for the notification email + legacy display
         price: String(b?.price ?? '').trim().slice(0, 80) || priceSummary(prices),
+        currency: String(b?.currency ?? 'EUR').trim().slice(0, 8) || 'EUR',
         cancellation,
         cancellationCustom: cancellation === 'custom' ? String(b?.cancellationCustom ?? '').trim().slice(0, 600) : '',
       }
