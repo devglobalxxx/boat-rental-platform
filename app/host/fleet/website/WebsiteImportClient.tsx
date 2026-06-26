@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Globe, Sparkles, Check, ArrowLeft, Ship, ImageIcon, Loader2 } from 'lucide-react'
 
@@ -41,8 +41,9 @@ const ghostBtn: React.CSSProperties = {
   background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, cursor: 'pointer',
 }
 
-export default function WebsiteImportClient({ locations, targetHostId, targetLabel }: { locations: LocationOpt[]; targetHostId?: string; targetLabel?: string }) {
-  const [url, setUrl] = useState('')
+export default function WebsiteImportClient({ locations, targetHostId, targetLabel, initialUrl }: { locations: LocationOpt[]; targetHostId?: string; targetLabel?: string; initialUrl?: string }) {
+  const [url, setUrl] = useState(initialUrl ?? '')
+  const autoRan = useRef(false)
   const [phase, setPhase] = useState<'idle' | 'scanning' | 'pages' | 'extracting' | 'review' | 'importing' | 'done'>('idle')
   const [error, setError] = useState<string | null>(null)
   const [pages, setPages] = useState<FoundPage[]>([])
@@ -69,6 +70,15 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
       setPhase('idle')
     }
   }
+
+  // Concierge: when opened with a lead's website (?url=), auto-start the scan.
+  useEffect(() => {
+    if (initialUrl && initialUrl.trim() && !autoRan.current) {
+      autoRan.current = true
+      scan()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   async function extract() {
     setError(null)

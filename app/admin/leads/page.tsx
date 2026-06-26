@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
+import LeadContactEdit from '@/components/admin/LeadContactEdit'
 
 export const metadata: Metadata = { title: 'Listing leads | BoatHire24' }
 export const dynamic = 'force-dynamic'
@@ -62,12 +63,7 @@ export default async function LeadsPage() {
                   </div>
                   <span style={{ fontSize: 11, color: muted }}>{new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}{s.source ? ` · ${s.source}` : ''}</span>
                 </div>
-                <div style={{ fontSize: 13, color: muted, marginBottom: 10, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                  {s.website && <a href={s.website.startsWith('http') ? s.website : `https://${s.website}`} target="_blank" rel="noopener" style={{ color: gold }}>🌐 {s.website}</a>}
-                  {s.email && <a href={`mailto:${s.email}`} style={{ color: gold }}>✉ {s.email}</a>}
-                  {s.phone && <span>📞 {s.phone}</span>}
-                  {(s.port || s.country) && <span>📍 {[s.port, s.country].filter(Boolean).join(', ')}</span>}
-                </div>
+                <LeadContactEdit id={s.id} website={s.website} email={s.email} phone={s.phone} location={[s.port, s.country].filter(Boolean).join(', ')} />
                 {s.note && <p style={{ fontSize: 13, color: muted, margin: '0 0 10px', fontStyle: 'italic' }}>{s.note}</p>}
                 {Array.isArray(s.boats) && s.boats.length > 0 && (
                   <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 10 }}>
@@ -97,7 +93,7 @@ export default async function LeadsPage() {
                   </div>
                 )}
                 <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
-                  <a href={importHref} target="_blank" rel="noopener" style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '6px 12px' }}>Import their site →</a>
+                  <a href={`${importHref}${s.website ? `${importHref.includes('?') ? '&' : '?'}url=${encodeURIComponent(s.website)}` : ''}`} target="_blank" rel="noopener" style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '6px 12px' }}>Import their site →</a>
                 </div>
               </div>
             ))}
