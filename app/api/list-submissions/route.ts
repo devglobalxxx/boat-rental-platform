@@ -36,6 +36,8 @@ export async function POST(req: NextRequest) {
   const phone = String(body?.phone ?? '').trim().slice(0, 60) || null
   const note = String(body?.note ?? '').trim().slice(0, 2000) || null
   const source = String(body?.source ?? '').trim().slice(0, 120) || null
+  const country = String(body?.country ?? '').trim().slice(0, 80) || null
+  const port = String(body?.port ?? '').trim().slice(0, 120) || null
 
   const boats = (Array.isArray(body?.boats) ? body.boats : [])
     .map((b: BoatIn) => {
@@ -61,7 +63,7 @@ export async function POST(req: NextRequest) {
 
   const { data, error } = await admin
     .from('listing_submissions')
-    .insert({ contact_name, company, website: website || null, email: email || null, phone, boats, note, source })
+    .insert({ contact_name, company, website: website || null, email: email || null, phone, boats, note, source, country, port })
     .select('id').single()
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
@@ -75,7 +77,7 @@ export async function POST(req: NextRequest) {
     html: `<div style="font-family:-apple-system,Segoe UI,sans-serif;background:#07101e;color:#cfd6df;padding:24px">
       <h2 style="color:#74cfe8;margin:0 0 12px">New boats-to-list submission</h2>
       <p><strong style="color:#f4f4f2">${esc(contact_name || '—')}</strong>${company ? ` · ${esc(company)}` : ''}</p>
-      <p>🌐 ${esc(website || '—')}<br>✉ ${esc(email || '—')}${phone ? `<br>📞 ${esc(phone)}` : ''}</p>
+      <p>🌐 ${esc(website || '—')}<br>✉ ${esc(email || '—')}${phone ? `<br>📞 ${esc(phone)}` : ''}${(country || port) ? `<br>📍 ${esc([port, country].filter(Boolean).join(', '))}` : ''}</p>
       ${note ? `<p style="color:#8b94a3">${esc(note)}</p>` : ''}
       <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:13px">${boatRows}</table>
       <p style="color:#8b94a3;font-size:12px;margin-top:16px">Review in the admin → BoatHire24 managed leads. Add 15% on top of their price when listing.</p>

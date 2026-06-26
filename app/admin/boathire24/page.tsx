@@ -14,7 +14,7 @@ type Boat = { name?: string; url?: string; price?: string; prices?: Record<strin
 type Sub = {
   id: string; contact_name: string | null; company: string | null; website: string | null
   email: string | null; phone: string | null; boats: Boat[]; note: string | null
-  source: string | null; status: string; created_at: string
+  source: string | null; status: string; created_at: string; country: string | null; port: string | null
 }
 const DUR_ORDER = ['2h', '4h', '6h', 'day']
 const POLICY_LABEL: Record<string, string> = { flexible: 'Flexible (24h)', moderate: 'Moderate (5 days)', strict: 'Strict (14 days)', custom: 'Custom' }
@@ -97,6 +97,7 @@ export default async function BoatHire24HubPage() {
                   {s.website && <a href={s.website.startsWith('http') ? s.website : `https://${s.website}`} target="_blank" rel="noopener" style={{ color: gold }}>🌐 {s.website}</a>}
                   {s.email && <a href={`mailto:${s.email}`} style={{ color: gold }}>✉ {s.email}</a>}
                   {s.phone && <span>📞 {s.phone}</span>}
+                  {(s.port || s.country) && <span>📍 {[s.port, s.country].filter(Boolean).join(', ')}</span>}
                 </div>
                 {s.note && <p style={{ fontSize: 13, color: muted, margin: '0 0 10px', fontStyle: 'italic' }}>{s.note}</p>}
                 {Array.isArray(s.boats) && s.boats.length > 0 && (

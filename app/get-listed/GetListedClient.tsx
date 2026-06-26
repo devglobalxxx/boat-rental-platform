@@ -74,6 +74,9 @@ const DIAL_CODES: [string, string, string][] = [
   ['🇻🇳', 'Vietnam', '+84'], ['🇾🇪', 'Yemen', '+967'], ['🇿🇲', 'Zambia', '+260'], ['🇿🇼', 'Zimbabwe', '+263'],
 ]
 
+// Country options (flag + name) for the boats' location, reused from the dial-code data.
+const COUNTRIES = DIAL_CODES.map(([flag, name]) => [flag, name] as [string, string])
+
 interface BoatRow { name: string; url: string; prices: Record<string, string>; cancellation: string; cancellationCustom: string }
 
 const POLICIES: [string, string, string][] = [
@@ -105,6 +108,8 @@ export default function GetListedClient({ source }: { source?: string }) {
   const [dial, setDial] = useState('+34')
   const [waNumber, setWaNumber] = useState('')
   const [note, setNote] = useState('')
+  const [country, setCountry] = useState('Spain')
+  const [port, setPort] = useState('')
   const [currency, setCurrency] = useState('EUR')
   const sym = symbolOf(currency)
   const [boats, setBoats] = useState<BoatRow[]>([newBoat()])
@@ -135,7 +140,7 @@ export default function GetListedClient({ source }: { source?: string }) {
     try {
       const r = await fetch('/api/list-submissions', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contact_name, company, website, email, phone: `${dial} ${waNumber.trim()}`, note, source, currency, boats: outBoats }),
+        body: JSON.stringify({ contact_name, company, website, email, phone: `${dial} ${waNumber.trim()}`, note, source, currency, country, port, boats: outBoats }),
       })
       const j = await r.json()
       if (!r.ok) throw new Error(j.error || 'Something went wrong')
@@ -195,6 +200,15 @@ export default function GetListedClient({ source }: { source?: string }) {
             <div><label style={label}>Company (optional)</label><input style={inp} value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Marbella Charters SL" /></div>
           </div>
           <div style={{ marginBottom: 14 }}><label style={label}>Your website{req}</label><input style={inp} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://yourcharters.com" /></div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
+            <div>
+              <label style={label}>Country</label>
+              <select value={country} onChange={(e) => setCountry(e.target.value)} aria-label="Country" style={{ ...inp, appearance: 'auto', colorScheme: 'dark' }}>
+                {COUNTRIES.map(([flag, name]) => <option key={name} value={name}>{name} {flag}</option>)}
+              </select>
+            </div>
+            <div><label style={label}>Port / marina</label><input style={inp} value={port} onChange={(e) => setPort(e.target.value)} placeholder="e.g. Puerto Banús" /></div>
+          </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 22 }}>
             <div><label style={label}>Email{req}</label><input style={inp} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" /></div>
             <div>
