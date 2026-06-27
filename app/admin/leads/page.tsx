@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdmin } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 import LeadContactEdit from '@/components/admin/LeadContactEdit'
+import AddCustomerButton from '@/components/admin/AddCustomerButton'
 
 export const metadata: Metadata = { title: 'Listing leads | BoatHire24' }
 export const dynamic = 'force-dynamic'
@@ -42,13 +43,17 @@ export default async function LeadsPage() {
 
   const { data: managed } = await admin.from('profiles').select('id').eq('is_managed_account', true).maybeSingle()
   const importHref = managed?.id ? `/host/fleet/website?host=${managed.id}` : '/host/fleet/website'
+  const manualHref = managed?.id ? `/host/listings/new?host=${managed.id}` : '/host/listings/new'
 
   return (
     <div style={{ background: '#07101e', minHeight: '100vh', color: text, fontFamily: '-apple-system,Segoe UI,sans-serif' }}>
       <div style={{ maxWidth: 920, margin: '0 auto', padding: '48px 20px 80px' }}>
         <a href="/admin" style={{ color: muted, fontSize: 13, textDecoration: 'none' }}>← Admin</a>
-        <h1 style={{ fontSize: 28, fontWeight: 800, margin: '12px 0 4px' }}>🚤 Listing leads <span style={{ color: gold }}>({subs.length})</span></h1>
-        <p style={{ color: muted, fontSize: 14, margin: '0 0 26px' }}>Operators who submitted their fleet via <a href="/get-listed" style={{ color: gold }}>/get-listed</a>. Import their boats under the BoatHire24 managed account and add 15% on top of each price.</p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', margin: '12px 0 4px' }}>
+          <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0 }}>🚤 Listing leads <span style={{ color: gold }}>({subs.length})</span></h1>
+          <AddCustomerButton />
+        </div>
+        <p style={{ color: muted, fontSize: 14, margin: '0 0 26px' }}>Operators who submitted their fleet via <a href="/get-listed" style={{ color: gold }}>/get-listed</a>, or added manually. Import their boats under the BoatHire24 managed account and add 15% on top of each price.</p>
 
         {subs.length === 0 ? (
           <div style={{ background: card, border: `1px solid ${border}`, borderRadius: 14, padding: 40, textAlign: 'center', color: muted }}>No submissions yet.</div>
@@ -92,8 +97,9 @@ export default async function LeadsPage() {
                     })}
                   </div>
                 )}
-                <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
-                  <a href={`${importHref}${s.website ? `${importHref.includes('?') ? '&' : '?'}url=${encodeURIComponent(s.website)}` : ''}`} target="_blank" rel="noopener" style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '6px 12px' }}>Import their site →</a>
+                <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <a href={`${importHref}${s.website ? `${importHref.includes('?') ? '&' : '?'}url=${encodeURIComponent(s.website)}` : ''}`} style={{ fontSize: 12, fontWeight: 700, color: '#07101e', background: gold, textDecoration: 'none', borderRadius: 8, padding: '7px 14px' }}>🔗 Import their site →</a>
+                  <a href={manualHref} style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '7px 14px' }}>+ Add listing manually</a>
                 </div>
               </div>
             ))}

@@ -4,6 +4,7 @@ import { createClient as createAdmin } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 import ManagedListings from '@/components/admin/ManagedListings'
 import LeadContactEdit from '@/components/admin/LeadContactEdit'
+import AddCustomerButton from '@/components/admin/AddCustomerButton'
 
 export const metadata: Metadata = { title: 'BoatHire24 managed | Admin' }
 export const dynamic = 'force-dynamic'
@@ -82,8 +83,11 @@ export default async function BoatHire24HubPage() {
         <div style={{ marginTop: 14 }}><ManagedListings hostId={managedHostId} /></div>
 
         {/* ── Listing leads ── */}
-        <h2 style={H2}>Listing leads <span style={{ color: gold }}>({subs.length})</span></h2>
-        <p style={{ color: muted, fontSize: 13, margin: '0 0 14px' }}>Operators who submitted their fleet via the get-listed form. Import their boats and add 15% on top.</p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', ...H2 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 800, margin: 0 }}>Listing leads <span style={{ color: gold }}>({subs.length})</span></h2>
+          <AddCustomerButton />
+        </div>
+        <p style={{ color: muted, fontSize: 13, margin: '0 0 14px' }}>Operators who submitted their fleet via the get-listed form, or added manually. Import their boats and add 15% on top.</p>
         {subs.length === 0 ? (
           <div style={{ background: card, border: `1px solid ${border}`, borderRadius: 14, padding: 32, textAlign: 'center', color: muted }}>No submissions yet.</div>
         ) : (
@@ -115,8 +119,9 @@ export default async function BoatHire24HubPage() {
                     })}
                   </div>
                 )}
-                <div style={{ marginTop: 12 }}>
-                  <a href={`${managedHostId ? `/host/fleet/website?host=${managedHostId}` : '/host/fleet/website'}${s.website ? `${managedHostId ? '&' : '?'}url=${encodeURIComponent(s.website)}` : ''}`} target="_blank" rel="noopener" style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '6px 12px' }}>Import their site →</a>
+                <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <a href={`${managedHostId ? `/host/fleet/website?host=${managedHostId}` : '/host/fleet/website'}${s.website ? `${managedHostId ? '&' : '?'}url=${encodeURIComponent(s.website)}` : ''}`} style={{ fontSize: 12, fontWeight: 700, color: '#07101e', background: gold, textDecoration: 'none', borderRadius: 8, padding: '7px 14px' }}>🔗 Import their site →</a>
+                  <a href={managedHostId ? `/host/listings/new?host=${managedHostId}` : '/host/listings/new'} style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '7px 14px' }}>+ Add listing manually</a>
                 </div>
               </div>
             ))}

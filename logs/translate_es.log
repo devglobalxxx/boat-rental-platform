@@ -592,3 +592,6 @@
 [2026-06-26 00:20:37]   [5/5] ✓ boat-hire-crete-greece
 [2026-06-26 00:20:37] es: 4/5 translated (total es=503)
 [2026-06-26 00:20:40] es: pushed
+[2026-06-27 00:22:06] es: translating 1 landing page(s)
+[2026-06-27 00:22:53]   [1/1] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-06-27 00:22:53] es: 0/1 translated (total es=503)
