@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { DURATIONS, CURRENCIES, symbolOf, DIAL_CODES, COUNTRIES, POLICIES, num, newBoat, type BoatRow } from '@/lib/listing-options'
+import { DURATIONS, CURRENCIES, symbolOf, COUNTRIES, POLICIES, num, newBoat, type BoatRow } from '@/lib/listing-options'
 
 const gold = '#74cfe8', text = '#f4f4f2', muted = 'rgba(244,244,242,0.6)'
 const border = 'rgba(116,207,232,0.22)'
@@ -17,7 +17,6 @@ export default function AddCustomerButton() {
   const [country, setCountry] = useState('Spain')
   const [port, setPort] = useState('')
   const [email, setEmail] = useState('')
-  const [dial, setDial] = useState('+34')
   const [waNumber, setWaNumber] = useState('')
   const [currency, setCurrency] = useState('EUR')
   const [note, setNote] = useState('')
@@ -42,7 +41,7 @@ export default function AddCustomerButton() {
     try {
       const r = await fetch('/api/list-submissions', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contact_name, company, website, email, phone: waNumber.trim() ? `${dial} ${waNumber.trim()}` : '', note, currency, country, port, source: 'admin-manual', boats: outBoats }),
+        body: JSON.stringify({ contact_name, company, website, email, phone: waNumber.trim(), note, currency, country, port, source: 'admin-manual', boats: outBoats }),
       })
       const j = await r.json()
       if (!r.ok) throw new Error(j.error || 'Failed to add')
@@ -79,12 +78,7 @@ export default function AddCustomerButton() {
         <div><label style={label}>Email</label><input style={inp} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="owner@company.com" /></div>
         <div>
           <label style={label}>WhatsApp / phone</label>
-          <div style={{ display: 'flex', gap: 6 }}>
-            <select value={dial} onChange={(e) => setDial(e.target.value)} style={{ ...inp, width: 100, flexShrink: 0, padding: '11px 4px 11px 8px', appearance: 'auto', colorScheme: 'dark' }}>
-              {DIAL_CODES.map(([flag, name, code], i) => <option key={i} value={code}>{name} {flag} {code}</option>)}
-            </select>
-            <input style={{ ...inp, flex: 1 }} value={waNumber} onChange={(e) => setWaNumber(e.target.value)} placeholder="600 000 000" />
-          </div>
+          <input style={inp} value={waNumber} onChange={(e) => setWaNumber(e.target.value)} placeholder="+34 600 000 000" />
         </div>
       </div>
 

@@ -110,6 +110,7 @@ export default function ManagedListings({ hostId }: { hostId: string | null }) {
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'flex-start' }}>
           <AddCustomerButton />
           <a href="/admin/leads" style={{ padding: '9px 18px', borderRadius: 99, background: 'transparent', border: `1px solid ${border}`, color: gold, fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>🚤 Listing leads</a>
+          <a href={`/host/fleet/website?host=${hostId}`} style={{ padding: '9px 18px', borderRadius: 99, background: 'transparent', border: `1px solid ${border}`, color: gold, fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>🔗 Import from website link</a>
         </div>
       </div>
 
