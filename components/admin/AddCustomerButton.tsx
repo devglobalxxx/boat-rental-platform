@@ -55,7 +55,7 @@ export default function AddCustomerButton() {
   }
 
   return (
-    <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${border}`, borderRadius: 16, padding: 20, margin: '0 0 24px' }}>
+    <div style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: `1px solid ${border}`, borderRadius: 16, padding: 20, margin: '0 0 24px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <h2 style={{ fontSize: 18, fontWeight: 800, margin: 0 }}>Add a customer manually</h2>
         <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: muted, fontSize: 20, cursor: 'pointer' }}>×</button>

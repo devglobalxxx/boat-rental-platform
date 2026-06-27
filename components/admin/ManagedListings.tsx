@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import AddCustomerButton from '@/components/admin/AddCustomerButton'
 
 const gold = '#74cfe8', muted = 'rgba(244,244,242,0.55)', text = '#f4f4f2'
 const card = 'rgba(255,255,255,0.03)', border = 'rgba(116,207,232,0.18)'
@@ -106,10 +107,9 @@ export default function ManagedListings({ hostId }: { hostId: string | null }) {
         <p style={{ color: muted, fontSize: 13, margin: 0, maxWidth: 560, lineHeight: 1.5 }}>
           Boats we list & manage on owners&apos; behalf under the <strong style={{ color: text }}>BoatHire24</strong> account. Owner contacts stay private — used to chase availability when a booking comes in.
         </p>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+          <AddCustomerButton />
           <a href="/admin/leads" style={{ padding: '9px 18px', borderRadius: 99, background: 'transparent', border: `1px solid ${border}`, color: gold, fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>🚤 Listing leads</a>
-          <a href={`/host/fleet/website?host=${hostId}`} target="_blank" rel="noopener" style={{ padding: '9px 18px', borderRadius: 99, background: gold, color: '#07101e', fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>🔗 Import from website link</a>
-          <a href={`/host/listings/new?host=${hostId}`} target="_blank" rel="noopener" style={{ padding: '9px 18px', borderRadius: 99, background: 'transparent', border: `1px solid ${border}`, color: gold, fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>+ Add manually</a>
         </div>
       </div>
 
@@ -119,7 +119,7 @@ export default function ManagedListings({ hostId }: { hostId: string | null }) {
         {boats === null ? (
           <div style={{ padding: 40, textAlign: 'center', color: muted, fontSize: 14 }}>Loading…</div>
         ) : boats.length === 0 ? (
-          <div style={{ padding: 40, textAlign: 'center', color: muted, fontSize: 14 }}>No managed boats yet. Click “Add managed listing” to create the first one.</div>
+          <div style={{ padding: 40, textAlign: 'center', color: muted, fontSize: 14 }}>No managed boats yet. Add a customer, then import or add their listings from the leads section.</div>
         ) : (
           boats.map((b, i) => {
             const s = STATUS[b.status] ?? STATUS.draft
