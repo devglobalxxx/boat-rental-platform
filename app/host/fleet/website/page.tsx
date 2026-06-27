@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Import from your website' }
 
-export default async function WebsiteImportPage({ searchParams }: { searchParams: Promise<{ host?: string; url?: string }> }) {
+export default async function WebsiteImportPage({ searchParams }: { searchParams: Promise<{ host?: string; url?: string; submission?: string }> }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login?next=/host/fleet/website')
@@ -18,7 +18,7 @@ export default async function WebsiteImportPage({ searchParams }: { searchParams
 
   // Admin concierge: import on behalf of another host (e.g. the BoatHire24
   // managed account). Only admins may target a host other than themselves.
-  const { host, url } = await searchParams
+  const { host, url, submission } = await searchParams
   let targetHostId: string | undefined
   let targetLabel: string | undefined
   if (host && host !== user.id) {
@@ -30,5 +30,5 @@ export default async function WebsiteImportPage({ searchParams }: { searchParams
     }
   }
 
-  return <WebsiteImportClient locations={locations ?? []} targetHostId={targetHostId} targetLabel={targetLabel} initialUrl={url} />
+  return <WebsiteImportClient locations={locations ?? []} targetHostId={targetHostId} targetLabel={targetLabel} initialUrl={url} submissionId={submission} />
 }

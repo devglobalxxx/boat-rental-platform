@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import ManagedListings from '@/components/admin/ManagedListings'
 import LeadContactEdit from '@/components/admin/LeadContactEdit'
 import AddCustomerButton from '@/components/admin/AddCustomerButton'
+import LeadBoats from '@/components/admin/LeadBoats'
 
 export const metadata: Metadata = { title: 'BoatHire24 managed | Admin' }
 export const dynamic = 'force-dynamic'
@@ -42,6 +43,18 @@ export default async function BoatHire24HubPage() {
   // Listing leads (from /get-listed)
   const { data: subData } = await admin.from('listing_submissions').select('*').order('created_at', { ascending: false }).limit(300)
   const subs = (subData ?? []) as Sub[]
+
+  // Boats grouped per lead (submission_id).
+  const byLead = new Map<string, { id: string; name: string; status: string; slug: string }[]>()
+  const subIds = subs.map((s) => s.id)
+  if (subIds.length) {
+    const { data: leadBoats } = await admin.from('boats').select('id, name, status, slug, submission_id').in('submission_id', subIds)
+    for (const bt of (leadBoats ?? []) as { id: string; name: string; status: string; slug: string; submission_id: string }[]) {
+      const arr = byLead.get(bt.submission_id) ?? []
+      arr.push({ id: bt.id, name: bt.name, status: bt.status, slug: bt.slug })
+      byLead.set(bt.submission_id, arr)
+    }
+  }
 
   // Inquiries / bookings on managed boats
   let inquiries: { id: string; boatName: string; renter: string; when: string; total: number; currency: string; status: string }[] = []
@@ -119,8 +132,9 @@ export default async function BoatHire24HubPage() {
                     })}
                   </div>
                 )}
+                <LeadBoats boats={byLead.get(s.id) ?? []} />
                 <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  <a href={`${managedHostId ? `/host/fleet/website?host=${managedHostId}` : '/host/fleet/website'}${s.website ? `${managedHostId ? '&' : '?'}url=${encodeURIComponent(s.website)}` : ''}`} style={{ fontSize: 12, fontWeight: 700, color: '#07101e', background: gold, textDecoration: 'none', borderRadius: 8, padding: '7px 14px' }}>🔗 Import their site →</a>
+                  <a href={`${managedHostId ? `/host/fleet/website?host=${managedHostId}` : '/host/fleet/website'}${managedHostId ? '&' : '?'}submission=${s.id}${s.website ? `&url=${encodeURIComponent(s.website)}` : ''}`} style={{ fontSize: 12, fontWeight: 700, color: '#07101e', background: gold, textDecoration: 'none', borderRadius: 8, padding: '7px 14px' }}>🔗 Import their site →</a>
                   <a href={managedHostId ? `/host/listings/new?host=${managedHostId}` : '/host/listings/new'} style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '7px 14px' }}>+ Add listing manually</a>
                 </div>
               </div>

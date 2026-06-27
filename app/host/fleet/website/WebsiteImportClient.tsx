@@ -51,7 +51,7 @@ const ghostBtn: React.CSSProperties = {
   background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, cursor: 'pointer',
 }
 
-export default function WebsiteImportClient({ locations, targetHostId, targetLabel, initialUrl }: { locations: LocationOpt[]; targetHostId?: string; targetLabel?: string; initialUrl?: string }) {
+export default function WebsiteImportClient({ locations, targetHostId, targetLabel, initialUrl, submissionId }: { locations: LocationOpt[]; targetHostId?: string; targetLabel?: string; initialUrl?: string; submissionId?: string }) {
   const [url, setUrl] = useState(initialUrl ?? '')
   const autoRan = useRef(false)
   const [phase, setPhase] = useState<'idle' | 'scanning' | 'pages' | 'extracting' | 'review' | 'importing' | 'done'>('idle')
@@ -135,7 +135,7 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
       try {
         const res = await fetch('/api/host/import-website/import', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ boat: picked[i], country, city: city.trim(), countryCode, priceOnRequest, status: publishStatus, targetHostId }),
+          body: JSON.stringify({ boat: picked[i], country, city: city.trim(), countryCode, priceOnRequest, status: publishStatus, targetHostId, submissionId }),
         })
         const json = await res.json()
         out.push(res.ok

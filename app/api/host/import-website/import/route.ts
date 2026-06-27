@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
   const city = String(body?.city ?? '').trim().slice(0, 80)
   const countryCode = (String(body?.countryCode ?? '').trim().toUpperCase().slice(0, 2)) || 'XX'
   const priceOnRequest = body?.priceOnRequest === true
+  const submissionId = String(body?.submissionId ?? '').trim() || null
   const status = body?.status === 'active' ? 'active' : 'draft'
   const name = String(b?.name ?? '').trim().slice(0, 120)
   if (!b || !name) return NextResponse.json({ error: 'Missing boat data' }, { status: 400 })
@@ -107,6 +108,7 @@ export async function POST(req: NextRequest) {
     instant_book: false,
     cancellation_policy: 'flexible',
     status,
+    submission_id: submissionId,
     updated_at: new Date().toISOString(),
   }
 
