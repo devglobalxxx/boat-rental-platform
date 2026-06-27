@@ -35,7 +35,7 @@ interface ExtractedBoat {
   features: string[]; images: string[]; sourceUrl: string
   selected: boolean
 }
-interface ImportResult { name: string; ok: boolean; slug?: string; images?: number; error?: string; updated?: boolean }
+interface ImportResult { name: string; ok: boolean; id?: string; slug?: string; images?: number; error?: string; updated?: boolean }
 
 const inputStyle: React.CSSProperties = {
   background: inputBg, border: `1px solid ${inputBorder}`, borderRadius: '10px',
@@ -139,7 +139,7 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
         })
         const json = await res.json()
         out.push(res.ok
-          ? { name: picked[i].name, ok: true, slug: json.slug, images: json.images, updated: json.updated }
+          ? { name: picked[i].name, ok: true, id: json.boatId, slug: json.slug, images: json.images, updated: json.updated }
           : { name: picked[i].name, ok: false, error: json.error || 'Import failed' })
       } catch (e) {
         out.push({ name: picked[i].name, ok: false, error: (e as Error).message })
@@ -299,19 +299,26 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
 
             {(phase === 'importing' || phase === 'done') && results.length > 0 && (
               <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {phase === 'done' && <div style={{ fontSize: 12, fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2 }}>Imported — click to review</div>}
                 {results.map((r) => (
-                  <div key={r.name} style={{ fontSize: 13, color: r.ok ? '#22c55e' : '#ef4444' }}>
-                    {r.ok
-                      ? <>✓ {r.name} {r.updated ? 'updated' : 'imported'} ({r.images ?? 0} photos)</>
-                      : <>✕ {r.name}: {r.error}</>}
-                  </div>
+                  r.ok && r.id ? (
+                    <Link key={r.name} href={`/host/listings/${r.id}`} style={{ fontSize: 13, color: '#22c55e', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                      ✓ {r.name} {r.updated ? 'updated' : 'imported'} ({r.images ?? 0} photos) <span style={{ color: gold }}>— review →</span>
+                    </Link>
+                  ) : (
+                    <div key={r.name} style={{ fontSize: 13, color: r.ok ? '#22c55e' : '#ef4444' }}>
+                      {r.ok
+                        ? <>✓ {r.name} {r.updated ? 'updated' : 'imported'} ({r.images ?? 0} photos)</>
+                        : <>✕ {r.name}: {r.error}</>}
+                    </div>
+                  )
                 ))}
               </div>
             )}
 
             {phase === 'done' && (
               <div style={{ marginTop: 20, display: 'flex', gap: 12 }}>
-                <Link href="/host/listings" style={{ ...goldBtn, textDecoration: 'none' }}>Review your listings</Link>
+                <Link href={targetHostId ? '/admin/boathire24' : '/host/listings'} style={{ ...goldBtn, textDecoration: 'none' }}>{targetHostId ? 'Back to BoatHire24 managed' : 'All my listings'}</Link>
                 <button style={ghostBtn} onClick={() => { setPhase('idle'); setPages([]); setBoats([]); setResults([]); setUrl('') }}>
                   Import another website
                 </button>
