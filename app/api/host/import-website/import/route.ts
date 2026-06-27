@@ -40,11 +40,15 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json().catch(() => ({}))
   const b = body?.boat
-  const locationId = String(body?.locationId ?? '').trim()
+  let locationId = String(body?.locationId ?? '').trim()
+  const country = String(body?.country ?? '').trim().slice(0, 80)
+  const city = String(body?.city ?? '').trim().slice(0, 80)
+  const countryCode = (String(body?.countryCode ?? '').trim().toUpperCase().slice(0, 2)) || 'XX'
+  const priceOnRequest = body?.priceOnRequest === true
   const status = body?.status === 'active' ? 'active' : 'draft'
   const name = String(b?.name ?? '').trim().slice(0, 120)
   if (!b || !name) return NextResponse.json({ error: 'Missing boat data' }, { status: 400 })
-  if (!locationId) return NextResponse.json({ error: 'Pick a location for the imported boats' }, { status: 400 })
+  if (!locationId && !city) return NextResponse.json({ error: 'Pick a country and write the city for the imported boats' }, { status: 400 })
 
   // Admin concierge: optionally import on behalf of another host (boats land as
   // drafts under that host's account for them to review).
@@ -58,7 +62,28 @@ export async function POST(req: NextRequest) {
     hostId = targetHostId
   }
 
-  const pricing = (Array.isArray(b.pricing) ? b.pricing : [])
+  // Resolve location from a free-text country + city (find-or-create) when no
+  // explicit locationId was passed.
+  if (!locationId && city) {
+    const { data: found } = await admin.from('locations').select('id')
+      .ilike('city', city).ilike('country', country || '%').limit(1)
+    const hit = (found as { id: string }[] | null)?.[0]
+    if (hit) {
+      locationId = hit.id
+    } else {
+      const slug = `${slugify(`${city}-${country || 'loc'}`)}-${Date.now().toString(36)}`
+      const { data: ins, error: locErr } = await admin.from('locations')
+        .insert({ slug, name: city, city, country: country || 'Unknown', country_code: countryCode, lat: 0, lng: 0 })
+        .select('id').single()
+      if (locErr || !ins) return NextResponse.json({ error: locErr?.message ?? 'Could not create location' }, { status: 500 })
+      locationId = (ins as { id: string }).id
+    }
+  }
+  if (!locationId) return NextResponse.json({ error: 'Could not determine a location' }, { status: 400 })
+
+  // When "price on request" is on, skip all pricing — the boat page then shows
+  // an enquiry form instead of a price table.
+  const pricing = priceOnRequest ? [] : (Array.isArray(b.pricing) ? b.pricing : [])
     .map((p: any) => ({ duration_hours: Math.round(Number(p?.duration_hours)), price: Math.round(Number(p?.price)) }))
     .filter((p: any) => p.duration_hours >= 1 && p.duration_hours <= 720 && p.price > 0)
     .slice(0, 6)

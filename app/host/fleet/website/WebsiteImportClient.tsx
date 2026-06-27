@@ -2,6 +2,16 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { COUNTRIES } from '@/lib/listing-options'
+
+// Derive ISO-3166 alpha-2 from a flag emoji (two regional-indicator letters).
+function iso2FromFlag(flag: string): string {
+  const cps = [...flag].map((c) => c.codePointAt(0) ?? 0)
+  if (cps.length === 2 && cps[0] >= 0x1f1e6 && cps[0] <= 0x1f1ff) {
+    return String.fromCharCode(cps[0] - 0x1f1e6 + 65) + String.fromCharCode(cps[1] - 0x1f1e6 + 65)
+  }
+  return 'XX'
+}
 import { Globe, Sparkles, Check, ArrowLeft, Ship, ImageIcon, Loader2 } from 'lucide-react'
 
 /* ── tokens (match the rest of /host) ── */
@@ -49,7 +59,9 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
   const [pages, setPages] = useState<FoundPage[]>([])
   const [progress, setProgress] = useState({ done: 0, total: 0 })
   const [boats, setBoats] = useState<ExtractedBoat[]>([])
-  const [locationId, setLocationId] = useState('')
+  const [country, setCountry] = useState('Spain')
+  const [city, setCity] = useState('')
+  const [priceOnRequest, setPriceOnRequest] = useState(false)
   const [publishStatus, setPublishStatus] = useState<'draft' | 'active'>('draft')
   const [results, setResults] = useState<ImportResult[]>([])
 
@@ -111,8 +123,9 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
   }
 
   async function runImport() {
-    if (!locationId) { setError('Pick the location (city) for these boats first.'); return }
+    if (!city.trim()) { setError('Pick the country and write the city for these boats first.'); return }
     setError(null)
+    const countryCode = iso2FromFlag(COUNTRIES.find((c) => c[1] === country)?.[0] ?? '')
     const picked = boats.filter((b) => b.selected)
     setProgress({ done: 0, total: picked.length })
     setResults([])
@@ -122,7 +135,7 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
       try {
         const res = await fetch('/api/host/import-website/import', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ boat: picked[i], locationId, status: publishStatus, targetHostId }),
+          body: JSON.stringify({ boat: picked[i], country, city: city.trim(), countryCode, priceOnRequest, status: publishStatus, targetHostId }),
         })
         const json = await res.json()
         out.push(res.ok
@@ -256,16 +269,22 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
             </div>
 
             {phase === 'review' && (
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-                <select style={{ ...inputStyle, width: 'auto', minWidth: 220, cursor: 'pointer' }} value={locationId} onChange={(e) => setLocationId(e.target.value)}>
-                  <option value="">Location (city) — required</option>
-                  {locations.map((l) => <option key={l.id} value={l.id}>{l.city}, {l.country}</option>)}
-                </select>
-                <select style={{ ...inputStyle, width: 'auto', cursor: 'pointer' }} value={publishStatus} onChange={(e) => setPublishStatus(e.target.value as 'draft' | 'active')}>
-                  <option value="draft">Import as drafts (review first)</option>
-                  <option value="active">Publish immediately</option>
-                </select>
-                <button style={{ ...goldBtn, opacity: boats.some((b) => b.selected) ? 1 : 0.6 }} disabled={!boats.some((b) => b.selected)} onClick={runImport}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+                  <select style={{ ...inputStyle, width: 'auto', minWidth: 180, cursor: 'pointer' }} value={country} onChange={(e) => setCountry(e.target.value)}>
+                    {COUNTRIES.map(([flag, name]) => <option key={name} value={name}>{name} {flag}</option>)}
+                  </select>
+                  <input style={{ ...inputStyle, width: 'auto', minWidth: 200 }} value={city} onChange={(e) => setCity(e.target.value)} placeholder="City / marina — required" />
+                  <select style={{ ...inputStyle, width: 'auto', cursor: 'pointer' }} value={publishStatus} onChange={(e) => setPublishStatus(e.target.value as 'draft' | 'active')}>
+                    <option value="draft">Import as drafts (review first)</option>
+                    <option value="active">Publish immediately</option>
+                  </select>
+                </div>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 13, color: text, cursor: 'pointer' }}>
+                  <input type="checkbox" checked={priceOnRequest} onChange={(e) => setPriceOnRequest(e.target.checked)} style={{ width: 17, height: 17, accentColor: gold, cursor: 'pointer' }} />
+                  Price on request — no prices on this site (applies to all {boats.filter((b) => b.selected).length} imported boats)
+                </label>
+                <button style={{ ...goldBtn, alignSelf: 'flex-start', opacity: boats.some((b) => b.selected) ? 1 : 0.6 }} disabled={!boats.some((b) => b.selected)} onClick={runImport}>
                   <Check style={{ width: 15, height: 15 }} /> Import {boats.filter((b) => b.selected).length} boat{boats.filter((b) => b.selected).length === 1 ? '' : 's'}
                 </button>
               </div>
