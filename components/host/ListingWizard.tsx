@@ -57,7 +57,7 @@ const inputBorder = 'rgba(255,255,255,0.14)'
 interface FormData {
   name: string; tagline: string; description: string; type: string; locationId: string
   country: string; city: string
-  departurePort: string; capacityPax: number; lengthM: string; cabins: number
+  departurePorts: string[]; capacityPax: number; lengthM: string; cabins: number
   builder: string; modelYear: string; includesSkipper: boolean; includesFuel: boolean
   includesDrinks: boolean; instantBook: boolean; cancellationPolicy: string; cancellationCustom: string; minHours: number
   pricingType: string; selectedFeatures: string[]; pricing: { durationHours: number; price: string }[]
@@ -66,7 +66,7 @@ interface FormData {
 }
 
 const INITIAL: FormData = {
-  name: '', tagline: '', description: '', type: 'motor_yacht', locationId: '', country: '', city: '', departurePort: '',
+  name: '', tagline: '', description: '', type: 'motor_yacht', locationId: '', country: '', city: '', departurePorts: [''],
   capacityPax: 8, lengthM: '', cabins: 0, builder: '', modelYear: '', includesSkipper: true,
   includesFuel: true, includesDrinks: false, instantBook: false, cancellationPolicy: 'moderate', cancellationCustom: '',
   minHours: 2, pricingType: 'hourly', selectedFeatures: [],
@@ -86,7 +86,10 @@ function formFromInitial(d?: any): FormData {
     name: d.name ?? '', tagline: d.tagline ?? '', description: d.description ?? '',
     type: d.type ?? 'motor_yacht', locationId: d.location_id ?? '',
     country: d.locations?.country ?? '', city: d.locations?.city ?? '',
-    departurePort: d.departure_port ?? '', capacityPax: d.capacity_pax ?? 8,
+    departurePorts: (d.departure_port ?? '').split(' · ').map((s: string) => s.trim()).filter(Boolean).length
+      ? (d.departure_port ?? '').split(' · ').map((s: string) => s.trim()).filter(Boolean)
+      : [''],
+    capacityPax: d.capacity_pax ?? 8,
     lengthM: d.length_m ? String(d.length_m) : '', cabins: d.cabins ?? 0,
     builder: d.builder ?? '', modelYear: d.model_year ? String(d.model_year) : '',
     includesSkipper: d.includes_skipper ?? true, includesFuel: d.includes_fuel ?? true,
@@ -234,7 +237,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         body: JSON.stringify({
           name: form.name, type: form.type, lengthM: form.lengthM, capacityPax: form.capacityPax,
           cabins: form.cabins, builder: form.builder, modelYear: form.modelYear,
-          departurePort: form.departurePort, locationName: (form.city && form.country) ? `${form.city}, ${form.country}` : '',
+          departurePort: form.departurePorts.filter(Boolean).join(' · '), locationName: (form.city && form.country) ? `${form.city}, ${form.country}` : '',
           includesSkipper: form.includesSkipper, includesFuel: form.includesFuel,
           includesDrinks: form.includesDrinks, features: form.selectedFeatures,
           existingDescription: form.description,
@@ -349,7 +352,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         length_m: form.lengthM ? Number(form.lengthM) : null, capacity_pax: form.capacityPax,
         cabins: form.cabins || null, builder: form.builder || null,
         model_year: form.modelYear ? Number(form.modelYear) : null,
-        departure_port: form.departurePort || null, includes_skipper: form.includesSkipper,
+        departure_port: form.departurePorts.map((s) => s.trim()).filter(Boolean).join(' · ') || null, includes_skipper: form.includesSkipper,
         includes_fuel: form.includesFuel, includes_drinks: form.includesDrinks,
         min_hours: form.minHours, pricing_type: form.pricingType as any,
         instant_book: form.instantBook,
@@ -556,8 +559,26 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
             <Field label="City" required>
               <DarkInput value={form.city} onChange={(e) => update('city', e.target.value)} placeholder="e.g. Marbella, Dubai, Mykonos…" />
             </Field>
-            <Field label="Departure port / marina">
-              <DarkInput value={form.departurePort} onChange={(e) => update('departurePort', e.target.value)} placeholder="e.g. Puerto Banús, Marbella" />
+            <Field label="Departure ports / marinas">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {form.departurePorts.map((p, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '8px' }}>
+                    <DarkInput
+                      value={p}
+                      onChange={(e) => { const u = [...form.departurePorts]; u[i] = e.target.value; update('departurePorts', u) }}
+                      placeholder="e.g. Puerto Banús, Marbella"
+                    />
+                    {form.departurePorts.length > 1 && (
+                      <button type="button" aria-label="Remove port"
+                        onClick={() => update('departurePorts', form.departurePorts.filter((_, j) => j !== i))}
+                        style={{ flexShrink: 0, width: '40px', borderRadius: '8px', background: 'transparent', border: `1px solid ${inputBorder}`, color: muted, fontSize: '18px', lineHeight: 1, cursor: 'pointer' }}>×</button>
+                    )}
+                  </div>
+                ))}
+                <button type="button"
+                  onClick={() => update('departurePorts', [...form.departurePorts, ''])}
+                  style={{ alignSelf: 'flex-start', padding: '8px 14px', borderRadius: '8px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>+ Add another port</button>
+              </div>
             </Field>
           </>
         )}
