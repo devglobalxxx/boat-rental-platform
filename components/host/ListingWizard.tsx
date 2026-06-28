@@ -59,6 +59,7 @@ interface FormData {
   builder: string; modelYear: string; includesSkipper: boolean; includesFuel: boolean
   includesDrinks: boolean; instantBook: boolean; cancellationPolicy: string; cancellationCustom: string; minHours: number
   pricingType: string; selectedFeatures: string[]; pricing: { durationHours: number; price: string }[]
+  priceOnRequest: boolean
   images: File[]
 }
 
@@ -68,6 +69,7 @@ const INITIAL: FormData = {
   includesFuel: true, includesDrinks: false, instantBook: false, cancellationPolicy: 'moderate', cancellationCustom: '',
   minHours: 2, pricingType: 'hourly', selectedFeatures: [],
   pricing: [{ durationHours: 2, price: '' }, { durationHours: 4, price: '' }, { durationHours: 8, price: '' }],
+  priceOnRequest: false,
   images: [],
 }
 
@@ -95,6 +97,7 @@ function formFromInitial(d?: any): FormData {
     pricing: (d.boat_pricing ?? []).length > 0
       ? (d.boat_pricing ?? []).map((p: any) => ({ durationHours: p.duration_hours, price: String(p.price) }))
       : INITIAL.pricing,
+    priceOnRequest: (d.boat_pricing ?? []).length === 0,
     images: [],
   }
 }
@@ -381,7 +384,8 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         }
       }
 
-      const pricingRecords = form.pricing
+      // "Price on request" → store no pricing rows, so the boat page shows the enquiry form.
+      const pricingRecords = form.priceOnRequest ? [] : form.pricing
         .filter((p) => p.price && Number(p.price) > 0 && p.durationHours && Number(p.durationHours) > 0)
         .map((p) => ({ boat_id: targetBoatId, duration_hours: p.durationHours, price: Number(p.price), currency: 'EUR', season: 'all' as const }))
       if (pricingRecords.length > 0) await supabase.from('boat_pricing').insert(pricingRecords)
@@ -693,6 +697,15 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                 </div>
               )}
             </div>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 14px', borderRadius: '10px', background: form.priceOnRequest ? goldFaint : 'rgba(255,255,255,0.03)', border: `1px solid ${form.priceOnRequest ? goldBorder : inputBorder}`, cursor: 'pointer', marginBottom: '4px' }}>
+              <input type="checkbox" checked={form.priceOnRequest} onChange={(e) => update('priceOnRequest', e.target.checked)} style={{ width: '18px', height: '18px', accentColor: gold, cursor: 'pointer' }} />
+              <span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: text }}>Price on request</span>
+                <span style={{ display: 'block', fontSize: '12px', color: dim, marginTop: '2px' }}>No fixed prices — guests send an enquiry and you quote them. Hides the price tiers below.</span>
+              </span>
+            </label>
+
+            {!form.priceOnRequest && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>Pricing tiers (EUR)</label>
               <p style={{ fontSize: '12px', color: dim, margin: '-6px 0 2px' }}>Add a row for each duration you offer (e.g. 3h, 4h, 7h). Set the hours, then the all-inclusive price.</p>
@@ -745,6 +758,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
               >+ Add duration</button>
               <p style={{ fontSize: '12px', color: dim }}>The price guests pay is exactly what you enter above — all-inclusive. BoatHire24 takes a 15% platform commission from this price, so you receive 85% as your payout.</p>
             </div>
+            )}
           </>
         )}
 
