@@ -101,7 +101,7 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
           </div>
         )}
 
-        <ListingWizard locations={locations ?? []} initialData={boat as any} boatId={id} returnTo={adminConcierge ? '/admin/boathire24' : undefined} />
+        <ListingWizard locations={locations ?? []} initialData={boat as any} boatId={id} returnTo={adminConcierge ? '/admin/boathire24' : undefined} conciergeEdit={adminConcierge} />
       </div>
     </div>
   )

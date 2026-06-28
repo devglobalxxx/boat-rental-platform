@@ -24,6 +24,8 @@ interface WizardProps {
   targetHostId?: string
   /** Where to go after save (defaults to /host). Concierge edits return to the admin hub. */
   returnTo?: string
+  /** Admin editing an existing boat they don't own → save via service-role API (RLS-safe). */
+  conciergeEdit?: boolean
 }
 
 const STEPS = ['Basics', 'Specs & features', 'Pricing', 'Photos', 'Review & publish']
@@ -185,7 +187,7 @@ function DarkSelect({ value, onChange, children }: { value: string; onChange: (v
   )
 }
 
-export default function ListingWizard({ locations, initialData, boatId, targetHostId, returnTo }: WizardProps) {
+export default function ListingWizard({ locations, initialData, boatId, targetHostId, returnTo, conciergeEdit }: WizardProps) {
   const [step, setStep] = useState(0)
   const [form, setForm] = useState<FormData>(() => {
     const f = formFromInitial(initialData)
@@ -364,6 +366,30 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         // 'custom' isn't a DB enum value — store 'strict' as the safe base; the real
         // custom terms live in a boat_features marker row (see below).
         cancellation_policy: (form.cancellationPolicy === 'custom' ? 'strict' : form.cancellationPolicy) as any,
+      }
+
+      // Admin editing a boat they don't own → write via service-role API so RLS
+      // doesn't silently drop the changes.
+      if (conciergeEdit && boatId) {
+        let newImages: { storage_url: string; alt: string; sort_order: number; is_hero: boolean }[] = []
+        if (form.images.length > 0) {
+          const urls = await uploadImages(boatId)
+          const existingCount = initialData?.boat_images?.length ?? 0
+          newImages = urls.map((url, i) => ({ storage_url: url, alt: `${form.name} photo ${existingCount + i + 1}`, sort_order: existingCount + i, is_hero: existingCount === 0 && i === 0 }))
+        }
+        const pricing = form.priceOnRequest ? [] : form.pricing
+          .filter((p) => p.price && Number(p.price) > 0 && p.durationHours && Number(p.durationHours) > 0)
+          .map((p) => ({ duration_hours: p.durationHours, price: Number(p.price), currency: 'EUR', season: 'all' }))
+        const features = [...form.selectedFeatures]
+        if (form.cancellationPolicy === 'custom' && form.cancellationCustom.trim()) features.push(REFUND_MARKER + form.cancellationCustom.trim())
+        const res = await fetch('/api/admin/update-listing', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ boatId, fields: boatFields, pricing, features, newImages }),
+        })
+        const json = await res.json()
+        if (!res.ok) throw new Error(json.error || 'Failed to save listing')
+        router.push(returnTo ?? '/host')
+        return
       }
 
       let targetBoatId: string
