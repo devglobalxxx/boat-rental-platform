@@ -32,6 +32,7 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
       builder, model_year, departure_port, marina_lat, marina_lng,
       includes_skipper, includes_fuel, includes_drinks, admin_note, host_id,
       min_hours, pricing_type, instant_book, cancellation_policy, status, location_id,
+      locations(city, country),
       boat_pricing(id, duration_hours, price, currency, season),
       boat_features(id, feature),
       boat_images(id, storage_url, alt, sort_order, is_hero)

@@ -338,13 +338,18 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       if (!user) throw new Error('Not authenticated')
 
       // Resolve the typed city + country into a locations row (find-or-create).
-      const locRes = await fetch('/api/locations/resolve', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ city: form.city, country: form.country }),
-      })
-      const locJson = await locRes.json()
-      if (!locRes.ok || !locJson.id) throw new Error(locJson.error || 'Could not resolve location')
-      const resolvedLocationId = locJson.id as string
+      // If neither was provided, fall back to the listing's existing location.
+      let resolvedLocationId = form.locationId
+      if (form.city.trim() || form.country.trim()) {
+        const locRes = await fetch('/api/locations/resolve', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ city: form.city, country: form.country }),
+        })
+        const locJson = await locRes.json()
+        if (!locRes.ok || !locJson.id) throw new Error(locJson.error || 'Could not resolve location')
+        resolvedLocationId = locJson.id as string
+      }
+      if (!resolvedLocationId) throw new Error('Please set a country and city for this listing.')
 
       const boatFields = {
         location_id: resolvedLocationId, name: form.name, tagline: form.tagline || null,
