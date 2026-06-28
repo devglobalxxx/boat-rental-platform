@@ -300,51 +300,82 @@ Rules:
 - description: 100-200 words in warm, conversational British English, second person, ONLY facts
   from the page, no em-dashes, no exclamation marks, no invented details.`
 
+// Shared: turn one raw LLM boat object into our validated ExtractedBoat shape.
+function normalizeExtractedBoat(b: any, sourceUrl: string, images: string[]): ExtractedBoat | null {
+  const name = String(b?.name ?? '').trim().slice(0, 120)
+  if (!name) return null
+  const num = (v: unknown) => { const n = Number(v); return Number.isFinite(n) && n > 0 ? n : null }
+  let pricing = (Array.isArray(b.prices) ? b.prices : [])
+    .map((p: any) => ({ duration_hours: Math.round(num(p?.duration_hours) ?? 0), price: Math.round(num(p?.price) ?? 0) }))
+    .filter((p: any) => p.duration_hours >= 1 && p.duration_hours <= 720 && p.price > 0 && p.price < 1_000_000)
+  // A bare hourly rate becomes the standard 2/4/8h tiers.
+  const hourly = pricing.find((p: { duration_hours: number }) => p.duration_hours === 1)
+  if (hourly) {
+    pricing = [
+      ...[2, 4, 8].map((h) => ({ duration_hours: h, price: hourly.price * h })),
+      ...pricing.filter((p: { duration_hours: number }) => p.duration_hours > 8),
+    ]
+  }
+  const seen = new Set<number>()
+  pricing = pricing.filter((p: { duration_hours: number }) => !seen.has(p.duration_hours) && seen.add(p.duration_hours))
+
+  return {
+    name,
+    tagline: String(b?.tagline ?? '').trim().slice(0, 200),
+    description: String(b?.description ?? '').trim().slice(0, 5000),
+    type: mapBoatType(b?.type),
+    length_m: num(b?.length_m),
+    capacity_pax: Math.min(200, Math.max(1, Math.round(num(b?.capacity_pax) ?? 8))),
+    cabins: num(b?.cabins) ? Math.round(num(b?.cabins)!) : null,
+    builder: String(b?.builder ?? '').trim().slice(0, 80) || null,
+    model_year: (() => { const y = Math.round(num(b?.model_year) ?? 0); return y >= 1950 && y <= 2030 ? y : null })(),
+    departure_port: String(b?.departure_port ?? '').trim().slice(0, 120) || null,
+    currency: /^[A-Z]{3}$/.test(String(b?.currency ?? '').toUpperCase()) ? String(b.currency).toUpperCase() : 'EUR',
+    pricing: pricing.slice(0, 6),
+    features: (Array.isArray(b?.features) ? b.features : []).map((f: any) => String(f).trim().slice(0, 60)).filter(Boolean).slice(0, 15),
+    images,
+    sourceUrl,
+  }
+}
+
 export async function extractBoatsFromPage(url: string, html: string): Promise<ExtractedBoat[]> {
   const text = htmlToText(html)
   if (text.length < 200) return []
   const images = extractImages(html, url)
   const out = await aiJson<{ boats?: any[] }>(EXTRACT_SYSTEM, `URL: ${url}\n\nPAGE TEXT:\n${text}`, { maxTokens: 2800 })
   const boats = Array.isArray(out.boats) ? out.boats.slice(0, 3) : []
+  return boats.map((b) => normalizeExtractedBoat(b, url, images)).filter((b): b is ExtractedBoat => b !== null)
+}
 
-  return boats
-    .map((b): ExtractedBoat | null => {
-      const name = String(b?.name ?? '').trim().slice(0, 120)
-      if (!name) return null
-      const num = (v: unknown) => { const n = Number(v); return Number.isFinite(n) && n > 0 ? n : null }
-      let pricing = (Array.isArray(b.prices) ? b.prices : [])
-        .map((p: any) => ({ duration_hours: Math.round(num(p?.duration_hours) ?? 0), price: Math.round(num(p?.price) ?? 0) }))
-        .filter((p: any) => p.duration_hours >= 1 && p.duration_hours <= 720 && p.price > 0 && p.price < 1_000_000)
-      // A bare hourly rate becomes the standard 2/4/8h tiers.
-      const hourly = pricing.find((p: { duration_hours: number }) => p.duration_hours === 1)
-      if (hourly) {
-        pricing = [
-          ...[2, 4, 8].map((h) => ({ duration_hours: h, price: hourly.price * h })),
-          ...pricing.filter((p: { duration_hours: number }) => p.duration_hours > 8),
-        ]
-      }
-      const seen = new Set<number>()
-      pricing = pricing.filter((p: { duration_hours: number }) => !seen.has(p.duration_hours) && seen.add(p.duration_hours))
+const DOC_EXTRACT_SYSTEM = `You extract boat/yacht charter listings from a document an operator sent us
+(a fleet PDF, price list, brochure or similar). The document may describe MANY boats — extract every
+distinct rentable vessel you can find.
+Return JSON: {"boats":[{"name":string,"type":string,"length_m":number|null,"capacity_pax":number,
+"cabins":number|null,"builder":string|null,"model_year":number|null,"departure_port":string|null,
+"currency":string,"prices":[{"duration_hours":number,"price":number}],"features":[string],
+"tagline":string,"description":string}]}
 
-      return {
-        name,
-        tagline: String(b?.tagline ?? '').trim().slice(0, 200),
-        description: String(b?.description ?? '').trim().slice(0, 5000),
-        type: mapBoatType(b?.type),
-        length_m: num(b?.length_m),
-        capacity_pax: Math.min(200, Math.max(1, Math.round(num(b?.capacity_pax) ?? 8))),
-        cabins: num(b?.cabins) ? Math.round(num(b?.cabins)!) : null,
-        builder: String(b?.builder ?? '').trim().slice(0, 80) || null,
-        model_year: (() => { const y = Math.round(num(b?.model_year) ?? 0); return y >= 1950 && y <= 2030 ? y : null })(),
-        departure_port: String(b?.departure_port ?? '').trim().slice(0, 120) || null,
-        currency: /^[A-Z]{3}$/.test(String(b?.currency ?? '').toUpperCase()) ? String(b.currency).toUpperCase() : 'EUR',
-        pricing: pricing.slice(0, 6),
-        features: (Array.isArray(b?.features) ? b.features : []).map((f: any) => String(f).trim().slice(0, 60)).filter(Boolean).slice(0, 15),
-        images,
-        sourceUrl: url,
-      }
-    })
-    .filter((b): b is ExtractedBoat => b !== null)
+Rules:
+- One entry per distinct boat. Up to 25 boats. If the document has no rentable boats, return {"boats":[]}.
+- type: one of motor_yacht, catamaran, sailing, speedboat, fishing, rib, luxury, jet_ski, gulet.
+- length_m in metres (convert feet: ft × 0.3048, one decimal).
+- capacity_pax: max guests as a number (default 8 if truly absent).
+- prices: per-hour → {"duration_hours":1,"price":hourly}. Half day → 4. Full day / per day → 8.
+  Per week → 168. Numbers only, no thousands separators. No price shown → empty array.
+- currency: 3-letter code (EUR if symbol € or unclear in Europe).
+- features: up to 15 short amenity names exactly as stated.
+- tagline: one line, max 90 chars, no exclamation marks.
+- description: 100-200 words, warm conversational British English, second person, ONLY facts from the
+  document, no em-dashes, no exclamation marks, no invented details.`
+
+// Extract boats from arbitrary document text (PDF, pasted brochure, Dropbox file).
+// No images (a text source has none) — the admin adds photos when reviewing the draft.
+export async function extractBoatsFromText(sourceLabel: string, text: string): Promise<ExtractedBoat[]> {
+  const clean = text.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim().slice(0, 24000)
+  if (clean.length < 80) return []
+  const out = await aiJson<{ boats?: any[] }>(DOC_EXTRACT_SYSTEM, `SOURCE: ${sourceLabel}\n\nDOCUMENT TEXT:\n${clean}`, { maxTokens: 6000 })
+  const boats = Array.isArray(out.boats) ? out.boats.slice(0, 25) : []
+  return boats.map((b) => normalizeExtractedBoat(b, sourceLabel, [])).filter((b): b is ExtractedBoat => b !== null)
 }
 
 export function slugify(s: string) {

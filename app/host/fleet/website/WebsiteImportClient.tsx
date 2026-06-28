@@ -12,7 +12,7 @@ function iso2FromFlag(flag: string): string {
   }
   return 'XX'
 }
-import { Globe, Sparkles, Check, ArrowLeft, Ship, ImageIcon, Loader2 } from 'lucide-react'
+import { Globe, Sparkles, Check, ArrowLeft, Ship, ImageIcon, Loader2, Link2, FileText, Package, UploadCloud } from 'lucide-react'
 
 /* ── tokens (match the rest of /host) ── */
 const card = '#0c1828'
@@ -54,6 +54,13 @@ const ghostBtn: React.CSSProperties = {
 export default function WebsiteImportClient({ locations, targetHostId, targetLabel, initialUrl, submissionId }: { locations: LocationOpt[]; targetHostId?: string; targetLabel?: string; initialUrl?: string; submissionId?: string }) {
   const [url, setUrl] = useState(initialUrl ?? '')
   const autoRan = useRef(false)
+  // Where to import from: scan a site, paste boat-page links, upload a PDF, or a Dropbox link.
+  const [mode, setMode] = useState<'website' | 'links' | 'pdf' | 'dropbox'>('website')
+  const [linksText, setLinksText] = useState('')
+  const [dropboxUrl, setDropboxUrl] = useState('')
+  const [dragOver, setDragOver] = useState(false)
+  const fileRef = useRef<HTMLInputElement>(null)
+  const backHref = targetHostId ? '/admin/boathire24' : '/host/fleet'
   const [phase, setPhase] = useState<'idle' | 'scanning' | 'pages' | 'extracting' | 'review' | 'importing' | 'done'>('idle')
   const [error, setError] = useState<string | null>(null)
   const [pages, setPages] = useState<FoundPage[]>([])
@@ -122,6 +129,63 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
     setPhase('review')
   }
 
+  // Paste boat-page links → treat them as the "found pages" list, then extract.
+  function useLinks() {
+    setError(null)
+    const urls = Array.from(new Set(
+      linksText.split(/[\s,]+/).map((s) => s.trim()).filter(Boolean)
+        .map((s) => (/^https?:\/\//i.test(s) ? s : `https://${s}`))
+        .filter((s) => { try { new URL(s); return true } catch { return false } })
+    ))
+    if (urls.length === 0) { setError('Paste at least one boat-page link (one per line).'); return }
+    setPages(urls.map((u) => ({ url: u, title: decodeURIComponent(new URL(u).pathname.split('/').filter(Boolean).pop() || u) })).map((p) => ({ ...p, selected: true })))
+    setPhase('pages')
+  }
+
+  // Upload a fleet PDF → server extracts text + boats → straight to review.
+  async function uploadPdf(file: File) {
+    setError(null)
+    if (!/\.pdf$/i.test(file.name) && !file.type.includes('pdf')) { setError('Please choose a PDF file.'); return }
+    setProgress({ done: 0, total: 1 })
+    setPhase('extracting')
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/host/import-doc', { method: 'POST', body: fd })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Could not read the PDF')
+      const found: ExtractedBoat[] = (json.boats ?? []).map((b: ExtractedBoat) => ({ ...b, selected: true }))
+      if (found.length === 0) { setError(json.error || 'No boats found in that PDF.'); setPhase('idle'); return }
+      setBoats(found)
+      setPhase('review')
+    } catch (e) {
+      setError((e as Error).message)
+      setPhase('idle')
+    }
+  }
+
+  // Paste a Dropbox share link → server downloads + extracts → review.
+  async function importDropbox() {
+    setError(null)
+    if (!dropboxUrl.trim()) { setError('Paste a Dropbox share link.'); return }
+    setProgress({ done: 0, total: 1 })
+    setPhase('extracting')
+    try {
+      const res = await fetch('/api/host/import-dropbox', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: dropboxUrl.trim() }),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Could not read the Dropbox link')
+      const found: ExtractedBoat[] = (json.boats ?? []).map((b: ExtractedBoat) => ({ ...b, selected: true }))
+      if (found.length === 0) { setError(json.error || 'No boats found at that Dropbox link.'); setPhase('idle'); return }
+      setBoats(found)
+      setPhase('review')
+    } catch (e) {
+      setError((e as Error).message)
+      setPhase('idle')
+    }
+  }
+
   async function runImport() {
     if (!city.trim()) { setError('Pick the country and write the city for these boats first.'); return }
     setError(null)
@@ -158,8 +222,8 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
   return (
     <div style={{ minHeight: '100vh', background: '#07101e', padding: '40px 20px' }}>
       <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-        <Link href="/host/fleet" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: muted, fontSize: '13px', textDecoration: 'none', marginBottom: '24px' }}>
-          <ArrowLeft style={{ width: 14, height: 14 }} /> Fleet Manager
+        <Link href={backHref} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: muted, fontSize: '13px', textDecoration: 'none', marginBottom: '24px' }}>
+          <ArrowLeft style={{ width: 14, height: 14 }} /> {targetHostId ? 'BoatHire24 managed' : 'Fleet Manager'}
         </Link>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '10px' }}>
@@ -179,27 +243,121 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
           descriptions and photos — and turn them into BoatHire24 listings. You review everything before it goes live.
         </p>
 
-        {/* ── Step 1: URL ── */}
+        {/* ── Step 1: choose a source ── */}
         <div style={{ background: card, borderRadius: 16, border: `1px solid ${border}`, padding: 24, marginBottom: 20 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: gold, marginBottom: 10 }}>STEP 1 — Your website</div>
-          <div style={{ display: 'flex', gap: 10 }}>
-            <input
-              style={inputStyle}
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="e.g. www.your-charter-company.com"
-              onKeyDown={(e) => { if (e.key === 'Enter' && url.trim() && phase !== 'scanning') scan() }}
-            />
-            <button style={{ ...goldBtn, opacity: phase === 'scanning' || !url.trim() ? 0.6 : 1, whiteSpace: 'nowrap' }} disabled={phase === 'scanning' || !url.trim()} onClick={scan}>
-              {phase === 'scanning' ? <Loader2 style={{ width: 15, height: 15, animation: 'spin 1s linear infinite' }} /> : <Sparkles style={{ width: 15, height: 15 }} />}
-              {phase === 'scanning' ? 'Scanning…' : 'Scan website'}
-            </button>
+          <div style={{ fontSize: 13, fontWeight: 700, color: gold, marginBottom: 12 }}>STEP 1 — Where are the boats?</div>
+
+          {/* Source tabs */}
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
+            {([
+              { key: 'website', label: 'Scan website', Icon: Globe },
+              { key: 'links', label: 'Paste links', Icon: Link2 },
+              { key: 'pdf', label: 'Upload PDF', Icon: FileText },
+              { key: 'dropbox', label: 'Dropbox link', Icon: Package },
+            ] as const).map((t) => {
+              const active = mode === t.key
+              return (
+                <button
+                  key={t.key}
+                  onClick={() => { setMode(t.key); setError(null) }}
+                  disabled={phase === 'scanning' || phase === 'extracting'}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 7, padding: '9px 16px', borderRadius: 99,
+                    fontSize: 13, fontWeight: 700, cursor: 'pointer',
+                    background: active ? goldFaint : 'transparent', color: active ? gold : muted,
+                    border: `1px solid ${active ? goldBorder : inputBorder}`,
+                  }}
+                >
+                  <t.Icon style={{ width: 14, height: 14 }} /> {t.label}
+                </button>
+              )
+            })}
           </div>
-          {phase === 'scanning' && <div style={{ color: muted, fontSize: 13, marginTop: 12 }}>Reading your site and looking for boat pages — this takes up to a minute.</div>}
+
+          {/* Website scan */}
+          {mode === 'website' && (
+            <>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <input
+                  style={inputStyle}
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="e.g. www.your-charter-company.com"
+                  onKeyDown={(e) => { if (e.key === 'Enter' && url.trim() && phase !== 'scanning') scan() }}
+                />
+                <button style={{ ...goldBtn, opacity: phase === 'scanning' || !url.trim() ? 0.6 : 1, whiteSpace: 'nowrap' }} disabled={phase === 'scanning' || !url.trim()} onClick={scan}>
+                  {phase === 'scanning' ? <Loader2 style={{ width: 15, height: 15, animation: 'spin 1s linear infinite' }} /> : <Sparkles style={{ width: 15, height: 15 }} />}
+                  {phase === 'scanning' ? 'Scanning…' : 'Scan website'}
+                </button>
+              </div>
+              {phase === 'scanning' && <div style={{ color: muted, fontSize: 13, marginTop: 12 }}>Reading the site and looking for boat pages — this takes up to a minute.</div>}
+            </>
+          )}
+
+          {/* Paste links */}
+          {mode === 'links' && (
+            <>
+              <p style={{ color: muted, fontSize: 13, margin: '0 0 10px', lineHeight: 1.5 }}>Paste the exact boat-page links, one per line. We read each page and pull in its boat.</p>
+              <textarea
+                style={{ ...inputStyle, minHeight: 110, fontFamily: 'inherit', resize: 'vertical' }}
+                value={linksText}
+                onChange={(e) => setLinksText(e.target.value)}
+                placeholder={'https://example.com/boats/sunseeker-50\nhttps://example.com/boats/axopar-28\nhttps://example.com/boats/lagoon-42'}
+              />
+              <button style={{ ...goldBtn, marginTop: 12, opacity: !linksText.trim() ? 0.6 : 1 }} disabled={!linksText.trim() || phase === 'extracting'} onClick={useLinks}>
+                <Ship style={{ width: 15, height: 15 }} /> Use these links
+              </button>
+            </>
+          )}
+
+          {/* Upload PDF */}
+          {mode === 'pdf' && (
+            <>
+              <input ref={fileRef} type="file" accept="application/pdf,.pdf" style={{ display: 'none' }}
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadPdf(f); e.target.value = '' }} />
+              <div
+                onClick={() => phase !== 'extracting' && fileRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) uploadPdf(f) }}
+                style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  padding: '34px 20px', borderRadius: 12, cursor: phase === 'extracting' ? 'wait' : 'pointer',
+                  border: `2px dashed ${dragOver ? gold : inputBorder}`, background: dragOver ? goldFaint : 'transparent', textAlign: 'center',
+                }}
+              >
+                {phase === 'extracting'
+                  ? <Loader2 style={{ width: 26, height: 26, color: gold, animation: 'spin 1s linear infinite' }} />
+                  : <UploadCloud style={{ width: 26, height: 26, color: gold }} />}
+                <div style={{ color: text, fontSize: 14, fontWeight: 600 }}>{phase === 'extracting' ? 'Reading the PDF…' : 'Drop a PDF here, or click to choose'}</div>
+                <div style={{ color: muted, fontSize: 12 }}>Fleet lists, brochures or price sheets. Text-based PDFs (not scans). Max 25 MB.</div>
+              </div>
+            </>
+          )}
+
+          {/* Dropbox link */}
+          {mode === 'dropbox' && (
+            <>
+              <p style={{ color: muted, fontSize: 13, margin: '0 0 10px', lineHeight: 1.5 }}>Paste a Dropbox share link to a fleet PDF or document. We download it and read the boats.</p>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <input
+                  style={inputStyle}
+                  value={dropboxUrl}
+                  onChange={(e) => setDropboxUrl(e.target.value)}
+                  placeholder="https://www.dropbox.com/s/…/fleet.pdf?dl=0"
+                  onKeyDown={(e) => { if (e.key === 'Enter' && dropboxUrl.trim() && phase !== 'extracting') importDropbox() }}
+                />
+                <button style={{ ...goldBtn, opacity: !dropboxUrl.trim() || phase === 'extracting' ? 0.6 : 1, whiteSpace: 'nowrap' }} disabled={!dropboxUrl.trim() || phase === 'extracting'} onClick={importDropbox}>
+                  {phase === 'extracting' ? <Loader2 style={{ width: 15, height: 15, animation: 'spin 1s linear infinite' }} /> : <Sparkles style={{ width: 15, height: 15 }} />}
+                  {phase === 'extracting' ? 'Reading…' : 'Read Dropbox'}
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
-        {/* ── Step 2: pages found ── */}
-        {(phase === 'pages' || phase === 'extracting') && (
+        {/* ── Step 2: pages found (website scan / pasted links only) ── */}
+        {(phase === 'pages' || phase === 'extracting') && pages.length > 0 && (
           <div style={{ background: card, borderRadius: 16, border: `1px solid ${border}`, padding: 24, marginBottom: 20 }}>
             <div style={{ fontSize: 13, fontWeight: 700, color: gold, marginBottom: 10 }}>
               STEP 2 — {pages.length} boat page{pages.length === 1 ? '' : 's'} found
