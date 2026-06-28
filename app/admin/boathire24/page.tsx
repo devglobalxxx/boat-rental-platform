@@ -135,7 +135,7 @@ export default async function BoatHire24HubPage() {
                 <LeadBoats boats={byLead.get(s.id) ?? []} />
                 <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   <a href={`${managedHostId ? `/host/fleet/website?host=${managedHostId}` : '/host/fleet/website'}${managedHostId ? '&' : '?'}submission=${s.id}${s.website ? `&url=${encodeURIComponent(s.website)}` : ''}`} style={{ fontSize: 12, fontWeight: 700, color: '#07101e', background: gold, textDecoration: 'none', borderRadius: 8, padding: '7px 14px' }}>🔗 Import their site →</a>
-                  <a href={managedHostId ? `/host/listings/new?host=${managedHostId}` : '/host/listings/new'} style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '7px 14px' }}>+ Add listing manually</a>
+                  <a href={managedHostId ? `/host/listings/new?host=${managedHostId}&submission=${s.id}` : '/host/listings/new'} style={{ fontSize: 12, fontWeight: 700, color: gold, textDecoration: 'none', border: `1px solid ${border}`, borderRadius: 8, padding: '7px 14px' }}>+ Add listing manually</a>
                 </div>
               </div>
             ))}

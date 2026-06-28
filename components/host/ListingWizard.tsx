@@ -26,6 +26,12 @@ interface WizardProps {
   returnTo?: string
   /** Admin editing an existing boat they don't own → save via service-role API (RLS-safe). */
   conciergeEdit?: boolean
+  /**
+   * Links a newly-created listing back to the get-listed lead it belongs to
+   * (boats.submission_id). Set when adding manually from a lead card so the boat
+   * shows under that lead on /admin/boathire24. Only applied on create.
+   */
+  submissionId?: string
 }
 
 const STEPS = ['Basics', 'Specs & features', 'Pricing', 'Photos', 'Review & publish']
@@ -190,7 +196,7 @@ function DarkSelect({ value, onChange, children }: { value: string; onChange: (v
   )
 }
 
-export default function ListingWizard({ locations, initialData, boatId, targetHostId, returnTo, conciergeEdit }: WizardProps) {
+export default function ListingWizard({ locations, initialData, boatId, targetHostId, returnTo, conciergeEdit, submissionId }: WizardProps) {
   const [step, setStep] = useState(0)
   const [form, setForm] = useState<FormData>(() => {
     const f = formFromInitial(initialData)
@@ -410,14 +416,14 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
           const res = await fetch('/api/admin/create-listing', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ hostId: targetHostId, slug, status: 'draft', ...boatFields }),
+            body: JSON.stringify({ hostId: targetHostId, slug, status: 'draft', ...(submissionId ? { submission_id: submissionId } : {}), ...boatFields }),
           })
           const json = await res.json()
           if (!res.ok || !json.id) throw new Error(json.error ?? 'Failed to create listing')
           targetBoatId = json.id
         } else {
           const { data: boat, error: boatErr } = await supabase
-            .from('boats').insert({ host_id: user.id, slug, status: 'draft', ...boatFields })
+            .from('boats').insert({ host_id: user.id, slug, status: 'draft', ...(submissionId ? { submission_id: submissionId } : {}), ...boatFields })
             .select('id').single()
           if (boatErr || !boat) throw new Error(boatErr?.message ?? 'Failed to create listing')
           targetBoatId = boat.id

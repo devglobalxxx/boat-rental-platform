@@ -11,7 +11,7 @@ const supabaseAdmin = createAdminClient(
 export default async function NewListingPage({
   searchParams,
 }: {
-  searchParams: Promise<{ host?: string }>
+  searchParams: Promise<{ host?: string; submission?: string }>
 }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -61,6 +61,7 @@ export default async function NewListingPage({
         <ListingWizard
           locations={locations ?? []}
           targetHostId={targetHost?.id}
+          submissionId={targetHost && params.submission ? params.submission : undefined}
           returnTo={targetHost ? '/admin/boathire24' : undefined}
         />
       </div>
