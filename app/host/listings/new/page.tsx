@@ -61,6 +61,7 @@ export default async function NewListingPage({
         <ListingWizard
           locations={locations ?? []}
           targetHostId={targetHost?.id}
+          returnTo={targetHost ? '/admin/boathire24' : undefined}
         />
       </div>
     </div>

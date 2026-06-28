@@ -48,14 +48,14 @@ function BoatRow({ boat, last }: { boat: LeadBoat; last: boolean }) {
   )
 }
 
-export default function LeadBoats({ boats }: { boats: LeadBoat[] }) {
-  const [open, setOpen] = useState(false)
+export default function LeadBoats({ boats, label, defaultOpen = false }: { boats: LeadBoat[]; label?: string; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen)
   if (!boats.length) return null
 
   return (
     <div style={{ marginTop: 10 }}>
       <button onClick={() => setOpen((o) => !o)} style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '6px 14px', borderRadius: 99, background: 'rgba(116,207,232,0.12)', border: `1px solid ${border}`, color: gold, fontSize: 12.5, fontWeight: 700, cursor: 'pointer' }}>
-        🛥 {boats.length} boat{boats.length === 1 ? '' : 's'} listed {open ? '▴' : '▾'}
+        🛥 {label ?? `${boats.length} boat${boats.length === 1 ? '' : 's'} listed`} {open ? '▴' : '▾'}
       </button>
       {open && (
         <div style={{ marginTop: 8, border: `1px solid ${border}`, borderRadius: 10, overflow: 'hidden' }}>

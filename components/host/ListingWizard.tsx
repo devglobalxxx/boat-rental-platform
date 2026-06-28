@@ -22,6 +22,8 @@ interface WizardProps {
    * Server-side checks in the page already validate the caller is an admin.
    */
   targetHostId?: string
+  /** Where to go after save (defaults to /host). Concierge edits return to the admin hub. */
+  returnTo?: string
 }
 
 const STEPS = ['Basics', 'Specs & features', 'Pricing', 'Photos', 'Review & publish']
@@ -180,7 +182,7 @@ function DarkSelect({ value, onChange, children }: { value: string; onChange: (v
   )
 }
 
-export default function ListingWizard({ locations, initialData, boatId, targetHostId }: WizardProps) {
+export default function ListingWizard({ locations, initialData, boatId, targetHostId, returnTo }: WizardProps) {
   const [step, setStep] = useState(0)
   const [form, setForm] = useState<FormData>(() => {
     const f = formFromInitial(initialData)
@@ -413,7 +415,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       if (pricingRecords.length > 0 && !targetHostId) {
         await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
       }
-      router.push('/host')
+      router.push(returnTo ?? '/host')
     } catch (err: any) {
       setError(err.message)
       setLoading(false)
