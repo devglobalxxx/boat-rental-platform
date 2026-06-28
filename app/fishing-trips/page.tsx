@@ -20,7 +20,7 @@ async function getFishingTrips(params: Awaited<PageProps['searchParams']>): Prom
     .from('boats')
     .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url, verification_status)`)
     .eq('status', 'active')
-    .eq('type', 'fishing')
+    .eq('is_fishing_trip', true)
 
   if (params.guests) query = query.gte('capacity_pax', Number(params.guests))
 

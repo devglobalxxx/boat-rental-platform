@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   // Whitelist updatable boat columns.
   const allowed = ['location_id', 'name', 'tagline', 'description', 'type', 'length_m', 'capacity_pax',
     'cabins', 'builder', 'model_year', 'departure_port', 'includes_skipper', 'includes_fuel',
-    'includes_drinks', 'min_hours', 'pricing_type', 'instant_book', 'cancellation_policy']
+    'includes_drinks', 'min_hours', 'pricing_type', 'instant_book', 'cancellation_policy', 'is_fishing_trip']
   const update: Record<string, unknown> = { updated_at: new Date().toISOString() }
   for (const k of allowed) if (k in fields) update[k] = fields[k]
 

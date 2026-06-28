@@ -64,6 +64,7 @@ interface FormData {
   includesDrinks: boolean; instantBook: boolean; cancellationPolicy: string; cancellationCustom: string; minHours: number
   pricingType: string; selectedFeatures: string[]; pricing: { durationHours: number; price: string }[]
   priceOnRequest: boolean
+  isFishingTrip: boolean
   images: File[]
 }
 
@@ -74,6 +75,7 @@ const INITIAL: FormData = {
   minHours: 2, pricingType: 'hourly', selectedFeatures: [],
   pricing: [{ durationHours: 2, price: '' }, { durationHours: 4, price: '' }, { durationHours: 8, price: '' }],
   priceOnRequest: false,
+  isFishingTrip: false,
   images: [],
 }
 
@@ -105,6 +107,7 @@ function formFromInitial(d?: any): FormData {
       ? (d.boat_pricing ?? []).map((p: any) => ({ durationHours: p.duration_hours, price: String(p.price) }))
       : INITIAL.pricing,
     priceOnRequest: (d.boat_pricing ?? []).length === 0,
+    isFishingTrip: d.is_fishing_trip ?? false,
     images: [],
   }
 }
@@ -366,6 +369,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         // 'custom' isn't a DB enum value — store 'strict' as the safe base; the real
         // custom terms live in a boat_features marker row (see below).
         cancellation_policy: (form.cancellationPolicy === 'custom' ? 'strict' : form.cancellationPolicy) as any,
+        is_fishing_trip: form.isFishingTrip,
       }
 
       // Admin editing a boat they don't own → write via service-role API so RLS
@@ -611,6 +615,13 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                   style={{ alignSelf: 'flex-start', padding: '8px 14px', borderRadius: '8px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>+ Add another port</button>
               </div>
             </Field>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 14px', borderRadius: '10px', background: form.isFishingTrip ? goldFaint : 'rgba(255,255,255,0.03)', border: `1px solid ${form.isFishingTrip ? goldBorder : inputBorder}`, cursor: 'pointer' }}>
+              <input type="checkbox" checked={form.isFishingTrip} onChange={(e) => update('isFishingTrip', e.target.checked)} style={{ width: '18px', height: '18px', accentColor: gold, cursor: 'pointer' }} />
+              <span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: text }}>🎣 Fishing trip</span>
+                <span style={{ display: 'block', fontSize: '12px', color: dim, marginTop: '2px' }}>Show this listing only in the Fishing trips section (hidden from the main Explore boats search).</span>
+              </span>
+            </label>
           </>
         )}
 
