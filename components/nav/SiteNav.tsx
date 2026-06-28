@@ -104,6 +104,7 @@ export default function SiteNav() {
             {[
               { href: '/about',         label: translations[locale].nav.about },
               { href: '/search',        label: translations[locale].nav.explore },
+              { href: '/fishing-trips', label: 'Fishing trips' },
               { href: '/jet-ski-marbella', label: 'Jet ski' },
               { href: '/how-it-works',  label: translations[locale].nav.howItWorks },
               { href: '/blog',          label: translations[locale].nav.blog },
@@ -352,6 +353,7 @@ export default function SiteNav() {
             {[
               { href: '/about',         label: translations[locale].nav.about },
               { href: '/search',        label: translations[locale].nav.explore },
+              { href: '/fishing-trips', label: 'Fishing trips' },
               { href: '/jet-ski-marbella', label: 'Jet ski' },
               { href: '/how-it-works',  label: translations[locale].nav.howItWorks },
               { href: '/blog',          label: translations[locale].nav.blog },
