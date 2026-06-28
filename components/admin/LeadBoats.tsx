@@ -42,6 +42,7 @@ function BoatRow({ boat, last }: { boat: LeadBoat; last: boolean }) {
             border: isActive ? '1px solid rgba(255,255,255,0.18)' : 'none' }}>
           {busy ? '…' : isActive ? 'Unpublish' : err ? 'Retry' : 'Publish'}
         </button>
+        <a href={`/boats/${boat.slug}`} target="_blank" rel="noopener" style={{ fontSize: 11.5, color: muted, textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap' }}>Preview ↗</a>
         <a href={`/host/listings/${boat.id}`} style={{ fontSize: 11.5, color: gold, textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap' }}>Edit →</a>
       </div>
     </div>

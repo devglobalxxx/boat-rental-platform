@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { createClient as createSvc } from '@supabase/supabase-js'
 import Gallery from '@/components/listing/Gallery'
 import Reviews from '@/components/listing/Reviews'
 import AvailabilityCalendar from '@/components/listing/AvailabilityCalendar'
@@ -51,6 +52,22 @@ async function getBoat(slug: string): Promise<BoatWithDetails | null> {
   return { ...(data as any), avg_rating: 0, review_count: 0 } as BoatWithDetails
 }
 
+// Preview path for non-active (draft/paused) boats — only admins or the boat's
+// own host may view these. Uses the service-role client to bypass RLS.
+async function getBoatPreview(slug: string, viewerId: string): Promise<BoatWithDetails | null> {
+  const admin = createSvc(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  const { data } = await admin
+    .from('boats')
+    .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url, verification_status)`)
+    .eq('slug', slug).maybeSingle()
+  if (!data) return null
+  const boat = data as any
+  const { data: me } = await admin.from('profiles').select('is_admin').eq('id', viewerId).single()
+  const allowed = (me as { is_admin?: boolean } | null)?.is_admin || boat.host_id === viewerId
+  if (!allowed) return null
+  return { ...boat, avg_rating: 0, review_count: 0 } as BoatWithDetails
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const boat = await getBoat(slug)
@@ -76,7 +93,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function BoatDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const supabase = await createClient()
-  const boat = await getBoat(slug)
+  let boat = await getBoat(slug)
+  let isPreview = false
+  if (!boat) {
+    // Not publicly live — allow admins/owner to preview a draft.
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      boat = await getBoatPreview(slug, user.id)
+      isPreview = !!boat
+    }
+  }
   if (!boat) notFound()
 
   // Get reviews
@@ -113,6 +139,11 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
 
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
+      {isPreview && (
+        <div style={{ background: 'rgba(245,158,11,0.14)', borderBottom: '1px solid rgba(245,158,11,0.35)', color: '#fbbf24', fontSize: '13px', fontWeight: 700, textAlign: 'center', padding: '10px 16px' }}>
+          👁 Preview — this listing is <strong>{boat.status}</strong> and not visible to the public yet.
+        </div>
+      )}
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '36px 24px 96px' }}>
 
         {/* ── Breadcrumb ── */}
