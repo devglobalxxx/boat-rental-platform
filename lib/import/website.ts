@@ -338,11 +338,14 @@ function normalizeExtractedBoat(b: any, sourceUrl: string, images: string[]): Ex
   }
 }
 
-export async function extractBoatsFromPage(url: string, html: string): Promise<ExtractedBoat[]> {
+export async function extractBoatsFromPage(url: string, html: string, note?: string): Promise<ExtractedBoat[]> {
   const text = htmlToText(html)
   if (text.length < 200) return []
   const images = extractImages(html, url)
-  const out = await aiJson<{ boats?: any[] }>(EXTRACT_SYSTEM, `URL: ${url}\n\nPAGE TEXT:\n${text}`, { maxTokens: 2800 })
+  const noteBlock = note && note.trim()
+    ? `\n\nOPERATOR NOTE (a human hint about these listings — apply it, e.g. it may tell you the boat type, that prices are on request, or that they're fishing trips):\n${note.trim()}`
+    : ''
+  const out = await aiJson<{ boats?: any[] }>(EXTRACT_SYSTEM, `URL: ${url}\n\nPAGE TEXT:\n${text}${noteBlock}`, { maxTokens: 2800 })
   const boats = Array.isArray(out.boats) ? out.boats.slice(0, 3) : []
   return boats.map((b) => normalizeExtractedBoat(b, url, images)).filter((b): b is ExtractedBoat => b !== null)
 }

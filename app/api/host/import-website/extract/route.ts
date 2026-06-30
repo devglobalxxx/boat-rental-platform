@@ -22,9 +22,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: (e as Error).message }, { status: 400 })
   }
 
+  const note = String(body?.note ?? '').trim().slice(0, 600)
+
   try {
     const html = await fetchHtml(page.toString())
-    const boats = await extractBoatsFromPage(page.toString(), html)
+    const boats = await extractBoatsFromPage(page.toString(), html, note)
     return NextResponse.json({ ok: true, boats })
   } catch (e) {
     console.error('import-website extract error:', e)

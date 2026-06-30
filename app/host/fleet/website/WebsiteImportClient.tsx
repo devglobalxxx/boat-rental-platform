@@ -57,6 +57,7 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
   // Where to import from: scan a site, paste boat-page links, upload a PDF, or a Dropbox link.
   const [mode, setMode] = useState<'website' | 'links' | 'pdf' | 'dropbox'>('website')
   const [linksText, setLinksText] = useState('')
+  const [note, setNote] = useState('')  // free-text comment passed to the AI extractor
   const [dropboxUrl, setDropboxUrl] = useState('')
   const [dragOver, setDragOver] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
@@ -108,7 +109,7 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
     for (let i = 0; i < picked.length; i++) {
       try {
         const res = await fetch('/api/host/import-website/extract', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: picked[i].url }),
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: picked[i].url, note }),
         })
         const json = await res.json()
         for (const b of json.boats ?? []) {
@@ -129,16 +130,25 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
     setPhase('review')
   }
 
-  // Paste boat-page links → treat them as the "found pages" list, then extract.
+  // Paste boat-page links AND/OR a free-text comment. Real URLs become the
+  // "found pages" list; everything else is kept as a note passed to the AI
+  // extractor (e.g. "these are all fishing trips, 7 of them, same photos").
   function useLinks() {
     setError(null)
-    const urls = Array.from(new Set(
-      linksText.split(/[\s,]+/).map((s) => s.trim()).filter(Boolean)
-        .map((s) => (/^https?:\/\//i.test(s) ? s : `https://${s}`))
-        .filter((s) => { try { new URL(s); return true } catch { return false } })
-    ))
-    if (urls.length === 0) { setError('Paste at least one boat-page link (one per line).'); return }
-    setPages(urls.map((u) => ({ url: u, title: decodeURIComponent(new URL(u).pathname.split('/').filter(Boolean).pop() || u) })).map((p) => ({ ...p, selected: true })))
+    const urls: string[] = []
+    const noteParts: string[] = []
+    for (const tokenRaw of linksText.split(/\s+/)) {
+      const tok = tokenRaw.replace(/[.,;)\]]+$/, '')  // trim trailing punctuation
+      if (!tok) continue
+      // A token is a URL only if it has a scheme or a real domain (name + dot + TLD).
+      const isUrl = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/\S*)?$/i.test(tok)
+      if (isUrl) urls.push(/^https?:\/\//i.test(tok) ? tok : `https://${tok}`)
+      else noteParts.push(tokenRaw)
+    }
+    const uniqueUrls = Array.from(new Set(urls)).filter((s) => { try { new URL(s); return true } catch { return false } })
+    setNote(noteParts.join(' ').trim())
+    if (uniqueUrls.length === 0) { setError('Add at least one boat-page link (a comment alone isn\'t enough).'); return }
+    setPages(uniqueUrls.map((u) => ({ url: u, title: decodeURIComponent(new URL(u).pathname.split('/').filter(Boolean).pop() || u) })).map((p) => ({ ...p, selected: true })))
     setPhase('pages')
   }
 
@@ -297,12 +307,12 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
           {/* Paste links */}
           {mode === 'links' && (
             <>
-              <p style={{ color: muted, fontSize: 13, margin: '0 0 10px', lineHeight: 1.5 }}>Paste the exact boat-page links, one per line. We read each page and pull in its boat.</p>
+              <p style={{ color: muted, fontSize: 13, margin: '0 0 10px', lineHeight: 1.5 }}>Paste the boat-page links — one per line. You can also add a free-text note on its own line (e.g. <em style={{ color: 'rgba(244,244,242,0.7)' }}>&ldquo;these are all fishing trips, same photos&rdquo;</em>) and we&apos;ll pass it to the importer. Links are detected automatically; everything else becomes the note.</p>
               <textarea
-                style={{ ...inputStyle, minHeight: 110, fontFamily: 'inherit', resize: 'vertical' }}
+                style={{ ...inputStyle, minHeight: 130, fontFamily: 'inherit', resize: 'vertical' }}
                 value={linksText}
                 onChange={(e) => setLinksText(e.target.value)}
-                placeholder={'https://example.com/boats/sunseeker-50\nhttps://example.com/boats/axopar-28\nhttps://example.com/boats/lagoon-42'}
+                placeholder={'https://example.com/trips/yellowfin-tuna\nhttps://example.com/trips/inshore-charter\n\nThese are all fishing trips — same photos on each.'}
               />
               <button style={{ ...goldBtn, marginTop: 12, opacity: !linksText.trim() ? 0.6 : 1 }} disabled={!linksText.trim() || phase === 'extracting'} onClick={useLinks}>
                 <Ship style={{ width: 15, height: 15 }} /> Use these links
@@ -362,6 +372,11 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
             <div style={{ fontSize: 13, fontWeight: 700, color: gold, marginBottom: 10 }}>
               STEP 2 — {pages.length} boat page{pages.length === 1 ? '' : 's'} found
             </div>
+            {note && (
+              <div style={{ background: 'rgba(116,207,232,0.08)', border: `1px solid ${goldBorder}`, borderRadius: 10, padding: '10px 14px', marginBottom: 14, fontSize: 13, color: text }}>
+                📝 <strong>Your note</strong> (applied when reading each page): <span style={{ color: muted }}>{note}</span>
+              </div>
+            )}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxHeight: 320, overflowY: 'auto', marginBottom: 16 }}>
               {pages.map((p, i) => (
                 <label key={p.url} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 8, background: p.selected ? goldFaint : 'transparent', cursor: 'pointer' }}>
