@@ -287,7 +287,12 @@ Return JSON: {"boats":[{"name":string,"type":string,"length_m":number|null,"capa
 Rules:
 - Only vessels actually offered for charter/rental ON THIS PAGE. Ignore "similar boats" teasers,
   destination text and company history. If the page is not about a rentable boat, return {"boats":[]}.
-- Usually a detail page describes exactly ONE boat. Never return more than 3.
+- ONE page can list MANY boats. A detail page is usually ONE boat, but a fleet / rentals / "deals" /
+  price-list page often lists many — extract EVERY distinct rentable boat you find (up to 25), each as
+  its own object. Do not merge different boats into one, and do not stop at the first.
+- EXCLUDE land vehicles and non-boats: cars, scooters, mopeds, motorbikes, Vespas, quad bikes/ATVs,
+  bicycles, jet-skis-that-are-actually-scooters. If a "rentals" page mixes boats with cars/scooters,
+  return ONLY the boats.
 - type: one of motor_yacht, catamaran, sailing, speedboat, fishing, rib, luxury, jet_ski, gulet.
 - length_m in metres (convert feet: ft × 0.3048, one decimal).
 - capacity_pax: max guests as a number (default 8 if truly absent).
@@ -302,7 +307,18 @@ Rules:
   from the page, no em-dashes, no exclamation marks, no invented details.`
 
 // Shared: turn one raw LLM boat object into our validated ExtractedBoat shape.
-function normalizeExtractedBoat(b: any, sourceUrl: string, images: string[]): ExtractedBoat | null {
+// When many boats share ONE page, pick the images that belong to THIS boat by
+// matching its name tokens against the image URL path (sites usually namespace
+// photos per boat, e.g. /photos/solemar-175/..). Falls back to the page images.
+function imagesForBoat(nameHint: string | undefined, images: string[]): string[] {
+  if (!nameHint || images.length <= 1) return images.slice(0, 12)
+  const tokens = slugify(nameHint).split('-').filter((t) => t.length >= 3 || /^\d{2,}$/.test(t))
+  if (tokens.length === 0) return images.slice(0, 12)
+  const matched = images.filter((u) => { const p = decodeURI(u).toLowerCase(); return tokens.some((t) => p.includes(t)) })
+  return (matched.length ? matched : images).slice(0, 12)
+}
+
+function normalizeExtractedBoat(b: any, sourceUrl: string, images: string[], nameHint?: string): ExtractedBoat | null {
   const name = String(b?.name ?? '').trim().slice(0, 120)
   if (!name) return null
   const num = (v: unknown) => { const n = Number(v); return Number.isFinite(n) && n > 0 ? n : null }
@@ -334,7 +350,7 @@ function normalizeExtractedBoat(b: any, sourceUrl: string, images: string[]): Ex
     currency: /^[A-Z]{3}$/.test(String(b?.currency ?? '').toUpperCase()) ? String(b.currency).toUpperCase() : 'EUR',
     pricing: pricing.slice(0, 6),
     features: (Array.isArray(b?.features) ? b.features : []).map((f: any) => String(f).trim().slice(0, 60)).filter(Boolean).slice(0, 15),
-    images,
+    images: imagesForBoat(nameHint ?? name, images),
     sourceUrl,
   }
 }
@@ -346,9 +362,10 @@ export async function extractBoatsFromPage(url: string, html: string, note?: str
   const noteBlock = note && note.trim()
     ? `\n\nOPERATOR NOTE (a human hint about these listings — apply it, e.g. it may tell you the boat type, that prices are on request, or that they're fishing trips):\n${note.trim()}`
     : ''
-  const out = await aiJson<{ boats?: any[] }>(EXTRACT_SYSTEM, `URL: ${url}\n\nPAGE TEXT:\n${text}${noteBlock}`, { maxTokens: 2800 })
-  const boats = Array.isArray(out.boats) ? out.boats.slice(0, 3) : []
-  return boats.map((b) => normalizeExtractedBoat(b, url, images)).filter((b): b is ExtractedBoat => b !== null)
+  // Bigger token budget — a fleet/deals page can carry many boats in one response.
+  const out = await aiJson<{ boats?: any[] }>(EXTRACT_SYSTEM, `URL: ${url}\n\nPAGE TEXT:\n${text}${noteBlock}`, { maxTokens: 6000 })
+  const boats = Array.isArray(out.boats) ? out.boats.slice(0, 25) : []
+  return boats.map((b) => normalizeExtractedBoat(b, url, images, b?.name)).filter((b): b is ExtractedBoat => b !== null)
 }
 
 // Extract a listing from a SCREENSHOT (vision) plus optional website text.

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { aiAvailable } from '@/lib/ai/deepseek'
-import { assertPublicUrl, discoverCandidates, classifyBoatPages, looksLikeBoatPage } from '@/lib/import/website'
+import { assertPublicUrl, discoverCandidates, classifyBoatPages } from '@/lib/import/website'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -25,10 +25,12 @@ export async function POST(req: NextRequest) {
   try {
     const candidates = await discoverCandidates(site.toString())
     const pages = await classifyBoatPages(site.toString(), candidates)
-    // Guarantee a host-pasted single-boat URL is always offered, even if the
-    // classifier didn't pick it up.
+    // Always offer the exact URL the host pasted — it's what they chose to
+    // import from. Crucially this covers fleet / rentals / "deals" pages that
+    // list MANY boats inline (no per-boat detail pages), which the classifier
+    // skips. The extractor now returns every boat on such a page.
     const seed = site.toString().replace(/\/$/, '')
-    if (looksLikeBoatPage(seed) && !pages.some((u) => u.replace(/\/$/, '') === seed)) {
+    if (!pages.some((u) => u.replace(/\/$/, '') === seed)) {
       pages.unshift(site.toString())
     }
     return NextResponse.json({
