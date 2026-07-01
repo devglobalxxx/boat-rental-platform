@@ -11,6 +11,7 @@ import { formatPrice } from '@/lib/utils/pricing'
 import { MapPin, Users, Ruler, Anchor, Star, Check, Waves, Zap } from 'lucide-react'
 import VerifiedBadge from '@/components/ui/VerifiedBadge'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
+import SLUG_REDIRECTS from '@/lib/slug-redirects.json'
 import type { BoatWithDetails } from '@/types/database'
 
 const TYPE_LABELS: Record<string, string> = {
@@ -68,17 +69,12 @@ async function getBoatPreview(slug: string, viewerId: string): Promise<BoatWithD
   return { ...boat, avg_rating: 0, review_count: 0 } as BoatWithDetails
 }
 
-// An old (renamed/migrated) slug → the boat's current slug, for a 301. Keeps
-// every URL that was ever shared or indexed alive instead of 404-ing.
-async function resolveRedirect(slug: string): Promise<string | null> {
-  const admin = createSvc(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
-  const { data } = await admin
-    .from('boat_slug_redirects')
-    .select('boats(slug)')
-    .eq('old_slug', slug)
-    .maybeSingle()
-  const current = (data as { boats?: { slug?: string } } | null)?.boats?.slug
-  return current ?? null
+// An old (migrated) slug → the boat's current slug, for a 301. Keeps every URL
+// that was ever shared or indexed alive instead of 404-ing. Slugs never change
+// on rename, so this one-time backfill map is complete; new boats get a fresh
+// unique slug at creation and never need an entry here.
+function resolveRedirect(slug: string): string | null {
+  return (SLUG_REDIRECTS as Record<string, string>)[slug] ?? null
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -118,7 +114,7 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
   }
   if (!boat) {
     // Maybe this is an old slug — 301 forward to the current one before 404.
-    const current = await resolveRedirect(slug)
+    const current = resolveRedirect(slug)
     if (current && current !== slug) permanentRedirect(`/boats/${current}`)
     notFound()
   }

@@ -1,15 +1,18 @@
 #!/usr/bin/env node
-// Backfill pretty slugs for every existing boat and record each old slug in
-// boat_slug_redirects so already-shared/indexed URLs 301 forward forever.
+// Backfill pretty slugs for every existing boat.
+//   • writes lib/slug-redirects.json  (old slug → new slug) so already-shared /
+//     indexed URLs 301 forward forever (no DB table needed)
+//   • PATCHes boats.slug to the new keyword-rich slug via the REST API
 //
 //   node scripts/backfill-slugs.mjs           # dry run — prints the mapping
-//   node scripts/backfill-slugs.mjs --apply   # writes redirects + new slugs
+//   node scripts/backfill-slugs.mjs --apply   # writes the map + updates slugs
 //
 // Reads SUPABASE creds from .env.local.
-import { readFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 
+const root = new URL('../', import.meta.url)
 const env = Object.fromEntries(
-  readFileSync(new URL('../.env.local', import.meta.url), 'utf8')
+  readFileSync(new URL('.env.local', root), 'utf8')
     .split('\n').filter((l) => l.includes('=')).map((l) => {
       const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim()]
     }),
@@ -17,6 +20,7 @@ const env = Object.fromEntries(
 const URL_ = env.NEXT_PUBLIC_SUPABASE_URL
 const KEY = env.SUPABASE_SERVICE_ROLE_KEY
 const APPLY = process.argv.includes('--apply')
+const MAP_ONLY = process.argv.includes('--map-only')  // write the map, don't flip slugs yet
 const H = { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' }
 
 function slugify(s) {
@@ -54,20 +58,24 @@ for (const b of boats) {
 console.log(`${boats.length} boats · ${changes.length} slugs will change\n`)
 for (const c of changes.slice(0, 200)) console.log(`  ${c.old}\n    → ${c.new}`)
 
-if (!APPLY) { console.log('\nDry run. Re-run with --apply to write.'); process.exit(0) }
+if (!APPLY && !MAP_ONLY) { console.log('\nDry run. Re-run with --map-only then --apply.'); process.exit(0) }
 
-let redir = 0, upd = 0
+// 1) Persist the redirect map (merge with any existing entries).
+const mapPath = new URL('lib/slug-redirects.json', root)
+const existing = JSON.parse(readFileSync(mapPath, 'utf8'))
+for (const c of changes) existing[c.old] = c.new
+writeFileSync(mapPath, JSON.stringify(existing, null, 2) + '\n')
+console.log(`\nWrote ${Object.keys(existing).length} redirects → lib/slug-redirects.json`)
+
+if (MAP_ONLY) { console.log('Map written. Deploy, then run --apply to flip slugs.'); process.exit(0) }
+
+// 2) Flip each boat's slug.
+let upd = 0
 for (const c of changes) {
-  // Record the redirect first (idempotent upsert), then flip the slug.
-  const r1 = await fetch(`${URL_}/rest/v1/boat_slug_redirects?on_conflict=old_slug`, {
-    method: 'POST', headers: { ...H, Prefer: 'resolution=merge-duplicates' },
-    body: JSON.stringify({ old_slug: c.old, boat_id: c.id }),
-  })
-  if (r1.ok) redir++; else console.error('redirect fail', c.old, await r1.text())
-  const r2 = await fetch(`${URL_}/rest/v1/boats?id=eq.${c.id}`, {
+  const r = await fetch(`${URL_}/rest/v1/boats?id=eq.${c.id}`, {
     method: 'PATCH', headers: { ...H, Prefer: 'return=minimal' },
     body: JSON.stringify({ slug: c.new }),
   })
-  if (r2.ok) upd++; else console.error('slug update fail', c.id, await r2.text())
+  if (r.ok) upd++; else console.error('slug update fail', c.id, await r.text())
 }
-console.log(`\nApplied: ${upd} slugs updated, ${redir} redirects recorded.`)
+console.log(`Applied: ${upd}/${changes.length} slugs updated.`)
