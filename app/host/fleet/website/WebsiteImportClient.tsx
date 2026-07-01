@@ -55,12 +55,14 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
   const [url, setUrl] = useState(initialUrl ?? '')
   const autoRan = useRef(false)
   // Where to import from: scan a site, paste boat-page links, upload a PDF, or a Dropbox link.
-  const [mode, setMode] = useState<'website' | 'links' | 'pdf' | 'dropbox'>('website')
+  const [mode, setMode] = useState<'website' | 'links' | 'screenshot' | 'pdf' | 'dropbox'>('website')
   const [linksText, setLinksText] = useState('')
   const [note, setNote] = useState('')  // free-text comment passed to the AI extractor
+  const [screenshotUrl, setScreenshotUrl] = useState('')  // optional website link for screenshot mode
   const [dropboxUrl, setDropboxUrl] = useState('')
   const [dragOver, setDragOver] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  const imgRef = useRef<HTMLInputElement>(null)
   const backHref = targetHostId ? '/admin/boathire24' : '/host/fleet'
   const [phase, setPhase] = useState<'idle' | 'scanning' | 'pages' | 'extracting' | 'review' | 'importing' | 'done'>('idle')
   const [error, setError] = useState<string | null>(null)
@@ -174,6 +176,30 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
     }
   }
 
+  // Scan a screenshot (+ optional website link) → vision reads it → review.
+  async function scanScreenshot(file: File) {
+    setError(null)
+    if (!file.type.startsWith('image/')) { setError('Please choose an image (PNG or JPG).'); return }
+    setNote('')
+    setProgress({ done: 0, total: 1 })
+    setPhase('extracting')
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      if (screenshotUrl.trim()) fd.append('url', screenshotUrl.trim())
+      const res = await fetch('/api/host/import-website/screenshot', { method: 'POST', body: fd })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Could not read the screenshot')
+      const found: ExtractedBoat[] = (json.boats ?? []).map((b: ExtractedBoat) => ({ ...b, selected: true }))
+      if (found.length === 0) { setError(json.error || 'No boat details found in that screenshot.'); setPhase('idle'); return }
+      setBoats(found)
+      setPhase('review')
+    } catch (e) {
+      setError((e as Error).message)
+      setPhase('idle')
+    }
+  }
+
   // Paste a Dropbox share link → server downloads + extracts → review.
   async function importDropbox() {
     setError(null)
@@ -262,6 +288,7 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
             {([
               { key: 'website', label: 'Scan website', Icon: Globe },
               { key: 'links', label: 'Paste links', Icon: Link2 },
+              { key: 'screenshot', label: 'Scan screenshot', Icon: ImageIcon },
               { key: 'pdf', label: 'Upload PDF', Icon: FileText },
               { key: 'dropbox', label: 'Dropbox link', Icon: Package },
             ] as const).map((t) => {
@@ -317,6 +344,34 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
               <button style={{ ...goldBtn, marginTop: 12, opacity: !linksText.trim() ? 0.6 : 1 }} disabled={!linksText.trim() || phase === 'extracting'} onClick={useLinks}>
                 <Ship style={{ width: 15, height: 15 }} /> Use these links
               </button>
+            </>
+          )}
+
+          {/* Scan screenshot */}
+          {mode === 'screenshot' && (
+            <>
+              <p style={{ color: muted, fontSize: 13, margin: '0 0 12px', lineHeight: 1.5 }}>Upload a screenshot of the ad or listing (from a website, WhatsApp, social media…). We read the boat&apos;s details straight from the image. Add the website link too and we&apos;ll use both to draft the listing — the screenshot becomes the photo.</p>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: muted, marginBottom: 6 }}>Website link (optional)</label>
+              <input style={{ ...inputStyle, marginBottom: 14 }} value={screenshotUrl} onChange={(e) => setScreenshotUrl(e.target.value)} placeholder="https://theircharters.com/the-boat" />
+              <input ref={imgRef} type="file" accept="image/*" style={{ display: 'none' }}
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) scanScreenshot(f); e.target.value = '' }} />
+              <div
+                onClick={() => phase !== 'extracting' && imgRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) scanScreenshot(f) }}
+                style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  padding: '34px 20px', borderRadius: 12, cursor: phase === 'extracting' ? 'wait' : 'pointer',
+                  border: `2px dashed ${dragOver ? gold : inputBorder}`, background: dragOver ? goldFaint : 'transparent', textAlign: 'center',
+                }}
+              >
+                {phase === 'extracting'
+                  ? <Loader2 style={{ width: 26, height: 26, color: gold, animation: 'spin 1s linear infinite' }} />
+                  : <ImageIcon style={{ width: 26, height: 26, color: gold }} />}
+                <div style={{ color: text, fontSize: 14, fontWeight: 600 }}>{phase === 'extracting' ? 'Reading the screenshot…' : 'Drop a screenshot here, or click to choose'}</div>
+                <div style={{ color: muted, fontSize: 12 }}>PNG or JPG. Max 15 MB.</div>
+              </div>
             </>
           )}
 

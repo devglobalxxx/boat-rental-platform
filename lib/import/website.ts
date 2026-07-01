@@ -2,6 +2,7 @@
 // and extract structured listings (specs, prices, photos) with DeepSeek.
 // Used by /api/host/import-website/* — server-side only.
 import { aiJson } from '@/lib/ai/deepseek'
+import { aiVisionJson } from '@/lib/ai/openai'
 
 const UA = 'Mozilla/5.0 (compatible; BoatHire24Importer/1.0; +https://boathire24.com)'
 
@@ -348,6 +349,21 @@ export async function extractBoatsFromPage(url: string, html: string, note?: str
   const out = await aiJson<{ boats?: any[] }>(EXTRACT_SYSTEM, `URL: ${url}\n\nPAGE TEXT:\n${text}${noteBlock}`, { maxTokens: 2800 })
   const boats = Array.isArray(out.boats) ? out.boats.slice(0, 3) : []
   return boats.map((b) => normalizeExtractedBoat(b, url, images)).filter((b): b is ExtractedBoat => b !== null)
+}
+
+// Extract a listing from a SCREENSHOT (vision) plus optional website text.
+// The image usually carries the ad (name, specs, price); the website adds context.
+export async function extractBoatsFromImageAndSite(
+  imageDataUrls: string[], url: string | null, websiteText: string, images: string[], note?: string,
+): Promise<ExtractedBoat[]> {
+  const parts: string[] = []
+  if (url) parts.push(`WEBSITE: ${url}`)
+  if (websiteText && websiteText.trim().length > 80) parts.push(`WEBSITE TEXT (context):\n${websiteText.slice(0, 8000)}`)
+  if (note && note.trim()) parts.push(`OPERATOR NOTE (apply this hint):\n${note.trim()}`)
+  parts.push('Read the attached screenshot image(s) AND the website text above. Extract the boat / charter / trip listing(s). Prefer details visible in the screenshot; use the website text to fill gaps.')
+  const out = await aiVisionJson<{ boats?: any[] }>(EXTRACT_SYSTEM, parts.join('\n\n'), imageDataUrls, { maxTokens: 3000 })
+  const boats = Array.isArray(out.boats) ? out.boats.slice(0, 5) : []
+  return boats.map((b) => normalizeExtractedBoat(b, url ?? 'screenshot', images)).filter((b): b is ExtractedBoat => b !== null)
 }
 
 const DOC_EXTRACT_SYSTEM = `You extract boat/yacht charter listings from a document an operator sent us
