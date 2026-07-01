@@ -60,9 +60,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!r || r.boats.length === 0) return { title: 'Page not found' }
   const { cat, loc } = r
   const canonical = `${BASE}/${loc.slug}/${cat.slug}`
+  const n = r.boats.length
   return {
-    title: `${cat.label} ${loc.city} — ${r.boats.length} boats from BoatHire24`,
-    description: `Compare ${r.boats.length} ${cat.label.toLowerCase()} options in ${loc.city}, ${loc.country}. Licensed skipper included, instant booking, real prices.`,
+    title: `${cat.label} ${loc.city} — ${n} boat${n !== 1 ? 's' : ''}`,
+    description: `Compare ${n} ${cat.label.toLowerCase()} option${n !== 1 ? 's' : ''} in ${loc.city}, ${loc.country}. Licensed skipper included, instant booking, real prices.`,
     alternates: { canonical },
     openGraph: { title: `${cat.label} in ${loc.city}`, description: `${r.boats.length} ${cat.label.toLowerCase()} options in ${loc.city}.`, type: 'website', siteName: 'BoatHire24' },
   }
