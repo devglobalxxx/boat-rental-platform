@@ -56,7 +56,7 @@ export default function ManagedListings({ hostId }: { hostId: string | null }) {
           No managed boats yet. Add a customer, then import or add their listings.
         </div>
       ) : (
-        <LeadBoats boats={boats} label={`All boats (${count})`} defaultOpen />
+        <LeadBoats boats={boats} label={`All boats (${count})`} />
       )}
     </div>
   )
