@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { createClient } from '@supabase/supabase-js'
+import { buildBoatSlug, uniqueBoatSlug } from '@/lib/slug'
 
 const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
@@ -122,6 +123,10 @@ export async function POST(req: NextRequest) {
   let imported = 0, updated = 0, errors = 0
   const errorList: string[] = []
   const source = new URL(feedUrl).host
+  // City for keyword-rich slugs (feed shares one default location).
+  const feedCity = locationId
+    ? ((await admin.from('locations').select('city').eq('id', locationId).maybeSingle()).data as { city?: string } | null)?.city ?? null
+    : null
 
   for (const raw of list.slice(0, 200)) {
     try {
@@ -140,7 +145,10 @@ export async function POST(req: NextRequest) {
         await admin.from('boat_pricing').delete().eq('boat_id', boatId)
         updated++
       } else {
-        row.slug = `${slugify(b.name)}-${Date.now().toString(36)}-${imported}`
+        row.slug = await uniqueBoatSlug(
+          buildBoatSlug({ city: feedCity, builder: b.builder, name: b.name }),
+          async (c) => !!(await admin.from('boats').select('id').eq('slug', c).maybeSingle()).data,
+        )
         const { data: ins, error } = await admin.from('boats').insert(row).select('id').single()
         if (error || !ins) { errors++; errorList.push(`${b.name}: ${error?.message ?? 'insert failed'}`); continue }
         boatId = ins.id

@@ -11,6 +11,7 @@ import { createClient } from '@/lib/supabase/client'
 import { ChevronRight, ChevronLeft, Check, Sparkles, Globe, Upload, PenLine, ArrowRight } from 'lucide-react'
 import type { Location } from '@/types/database'
 import { COUNTRIES } from '@/lib/countries'
+import { buildBoatSlug } from '@/lib/slug'
 
 interface WizardProps {
   locations: Pick<Location, 'id' | 'name' | 'city' | 'country'>[]
@@ -410,22 +411,30 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         targetBoatId = boatId
         await supabase.from('boat_pricing').delete().eq('boat_id', boatId)
       } else {
-        const slug = form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + Date.now()
+        // Keyword-rich, human-readable slug: <city>-<builder>-<name>.
+        const slugBase = buildBoatSlug({ city: form.city, builder: form.builder, name: form.name })
         // For admin concierge mode, route through API so server-side service role can set arbitrary host_id
         if (targetHostId) {
           const res = await fetch('/api/admin/create-listing', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ hostId: targetHostId, slug, status: 'draft', ...(submissionId ? { submission_id: submissionId } : {}), ...boatFields }),
+            body: JSON.stringify({ hostId: targetHostId, slug: slugBase, status: 'draft', ...(submissionId ? { submission_id: submissionId } : {}), ...boatFields }),
           })
           const json = await res.json()
           if (!res.ok || !json.id) throw new Error(json.error ?? 'Failed to create listing')
           targetBoatId = json.id
         } else {
-          const { data: boat, error: boatErr } = await supabase
-            .from('boats').insert({ host_id: user.id, slug, status: 'draft', ...(submissionId ? { submission_id: submissionId } : {}), ...boatFields })
-            .select('id').single()
-          if (boatErr || !boat) throw new Error(boatErr?.message ?? 'Failed to create listing')
+          // Retry with -2, -3… on the unique-slug constraint (23505).
+          let boat: { id: string } | null = null
+          for (let n = 1; n <= 12 && !boat; n++) {
+            const slug = n === 1 ? slugBase : `${slugBase}-${n}`
+            const r = await supabase
+              .from('boats').insert({ host_id: user.id, slug, status: 'draft', ...(submissionId ? { submission_id: submissionId } : {}), ...boatFields })
+              .select('id').single()
+            if (!r.error) { boat = r.data as { id: string }; break }
+            if (r.error.code !== '23505') throw new Error(r.error.message)
+          }
+          if (!boat) throw new Error('Failed to create listing')
           targetBoatId = boat.id
         }
       }

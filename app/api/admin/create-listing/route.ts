@@ -17,21 +17,31 @@ export async function POST(req: NextRequest) {
   if (!me?.is_admin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const body = await req.json()
-  const { hostId, ...boatFields } = body
+  const { hostId, slug: slugBase, ...boatFields } = body
   if (!hostId) return NextResponse.json({ error: 'Missing hostId' }, { status: 400 })
 
   // Make sure host exists
   const { data: { user: target } } = await supabaseAdmin.auth.admin.getUserById(hostId)
   if (!target) return NextResponse.json({ error: 'Target user not found' }, { status: 404 })
 
-  // Admin-listed boats always start as drafts — host must review & activate.
-  const { data: boat, error } = await supabaseAdmin
-    .from('boats')
-    .insert({ host_id: hostId, ...boatFields, status: 'draft' })
-    .select('id')
-    .single()
+  // Dedupe the (already keyword-rich) slug with -2, -3… on collision.
+  const base = String(slugBase || 'boat')
+  let boat: { id: string } | null = null
+  let error: { message: string } | null = null
+  for (let n = 1; n <= 12 && !boat; n++) {
+    const slug = n === 1 ? base : `${base}-${n}`
+    // Admin-listed boats always start as drafts — host must review & activate.
+    const r = await supabaseAdmin
+      .from('boats')
+      .insert({ host_id: hostId, ...boatFields, slug, status: 'draft' })
+      .select('id')
+      .single()
+    if (!r.error) { boat = r.data as { id: string }; break }
+    error = r.error
+    if ((r.error as { code?: string }).code !== '23505') break
+  }
 
-  if (error || !boat) {
+  if (!boat) {
     return NextResponse.json({ error: error?.message ?? 'Insert failed' }, { status: 500 })
   }
 

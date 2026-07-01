@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { createClient } from '@supabase/supabase-js'
 import { mapBoatType, slugify } from '@/lib/import/website'
+import { buildBoatSlug, uniqueBoatSlug } from '@/lib/slug'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -127,7 +128,10 @@ export async function POST(req: NextRequest) {
     await admin.from('boat_features').delete().eq('boat_id', boatId)
     updated = true
   } else {
-    row.slug = `${slugify(name)}-${Date.now().toString(36)}`
+    row.slug = await uniqueBoatSlug(
+      buildBoatSlug({ city, builder: row.builder, name }),
+      async (c) => !!(await admin.from('boats').select('id').eq('slug', c).maybeSingle()).data,
+    )
     const { data: ins, error } = await admin.from('boats').insert(row).select('id').single()
     if (error || !ins) return NextResponse.json({ error: error?.message ?? 'Could not create the listing' }, { status: 500 })
     boatId = (ins as { id: string }).id

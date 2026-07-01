@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createSvc } from '@supabase/supabase-js'
@@ -68,6 +68,19 @@ async function getBoatPreview(slug: string, viewerId: string): Promise<BoatWithD
   return { ...boat, avg_rating: 0, review_count: 0 } as BoatWithDetails
 }
 
+// An old (renamed/migrated) slug → the boat's current slug, for a 301. Keeps
+// every URL that was ever shared or indexed alive instead of 404-ing.
+async function resolveRedirect(slug: string): Promise<string | null> {
+  const admin = createSvc(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  const { data } = await admin
+    .from('boat_slug_redirects')
+    .select('boats(slug)')
+    .eq('old_slug', slug)
+    .maybeSingle()
+  const current = (data as { boats?: { slug?: string } } | null)?.boats?.slug
+  return current ?? null
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const boat = await getBoat(slug)
@@ -103,7 +116,12 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
       isPreview = !!boat
     }
   }
-  if (!boat) notFound()
+  if (!boat) {
+    // Maybe this is an old slug — 301 forward to the current one before 404.
+    const current = await resolveRedirect(slug)
+    if (current && current !== slug) permanentRedirect(`/boats/${current}`)
+    notFound()
+  }
 
   // Get reviews
   const { data: reviewsRaw } = await supabase
