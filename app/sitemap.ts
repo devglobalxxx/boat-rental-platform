@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { ALL_POSTS } from '@/lib/blog/posts'
 import { LANDING_PAGES } from '@/lib/landing/pages'
 import { LANDING_PAGES_ES, hasEs } from '@/lib/landing/pages-es'
+import { CATEGORIES } from '@/lib/landing/categories'
 
 export const revalidate = 3600
 
@@ -50,6 +51,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/search`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/fishing-trips`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -164,6 +171,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
+  // ── City × type landing pages (only combos that actually have inventory) ──
+  const catBoats = await supabaseFetch<{ location_id: string; type: string; is_fishing_trip: boolean }>(
+    'boats?select=location_id,type,is_fishing_trip&status=eq.active'
+  )
+  const locSlugById = new Map<string, string>()
+  const locSlugs = await supabaseFetch<{ id: string; slug: string }>('locations?select=id,slug')
+  for (const l of locSlugs) locSlugById.set(l.id, l.slug)
+
+  const categoryCombos = new Set<string>() // `${locSlug}/${catSlug}`
+  for (const b of catBoats) {
+    const locSlug = locSlugById.get(b.location_id)
+    if (!locSlug) continue
+    for (const cat of CATEGORIES) {
+      if (cat.types.includes(b.type) && !!b.is_fishing_trip === !!cat.fishing) {
+        categoryCombos.add(`${locSlug}/${cat.slug}`)
+      }
+    }
+  }
+  const categoryEntries: SitemapEntry[] = Array.from(categoryCombos).map((path) => ({
+    url: `${BASE_URL}/${path}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85, // high-intent long-tail — the real ranking pages
+  }))
+
   // ── Keyword landing pages (auto-generated) ────────────────────────────────
   const landingEntries: SitemapEntry[] = LANDING_PAGES.map((lp) => ({
     url: `${BASE_URL}/${lp.slug}`,
@@ -191,6 +223,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...galleryEntries,
     ...tagEntries,
     ...locationEntries,
+    ...categoryEntries,
     ...landingEntries,
     ...esLandingEntries,
   ]

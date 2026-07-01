@@ -424,30 +424,58 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
         </div>
       </div>
 
-      {/* Schema.org JSON-LD */}
+      {/* Schema.org JSON-LD — Product+Offer with real location & specs, plus breadcrumb.
+          Richer entity data is the single biggest lever for being cited by LLM answer engines. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Product',
-            name: boat.name,
-            description: boat.description,
-            image: boat.boat_images.find((i) => i.is_hero)?.storage_url,
-            offers: sortedPricing.map((p) => ({
-              '@type': 'Offer',
-              price: p.price,
-              priceCurrency: p.currency,
-              availability: 'https://schema.org/InStock',
-            })),
-            ...(reviews && reviews.length > 0 ? {
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: avgRating.toFixed(1),
-                reviewCount: reviews.length,
-              },
-            } : {}),
-          }),
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'Product',
+              name: boat.name,
+              description: boat.description ?? boat.tagline ?? undefined,
+              image: boat.boat_images.map((i) => i.storage_url).slice(0, 8),
+              category: TYPE_LABELS[boat.type] ?? boat.type,
+              ...(boat.builder ? { brand: { '@type': 'Brand', name: boat.builder } } : {}),
+              additionalProperty: [
+                { '@type': 'PropertyValue', name: 'Vessel type', value: TYPE_LABELS[boat.type] ?? boat.type },
+                { '@type': 'PropertyValue', name: 'Maximum guests', value: String(boat.capacity_pax) },
+                ...(boat.length_m ? [{ '@type': 'PropertyValue', name: 'Length', value: `${boat.length_m}m` }] : []),
+                ...(boat.model_year ? [{ '@type': 'PropertyValue', name: 'Model year', value: String(boat.model_year) }] : []),
+              ],
+              ...(boat.locations ? {
+                areaServed: {
+                  '@type': 'City',
+                  name: boat.locations.city,
+                  address: { '@type': 'PostalAddress', addressLocality: boat.locations.city, addressCountry: boat.locations.country },
+                },
+              } : {}),
+              ...(sortedPricing.length ? {
+                offers: {
+                  '@type': 'AggregateOffer',
+                  lowPrice: Math.min(...sortedPricing.map((p) => p.price)),
+                  highPrice: Math.max(...sortedPricing.map((p) => p.price)),
+                  priceCurrency: sortedPricing[0].currency,
+                  offerCount: sortedPricing.length,
+                  availability: 'https://schema.org/InStock',
+                  seller: { '@type': 'Organization', name: 'BoatHire24', url: 'https://boathire24.com' },
+                },
+              } : {}),
+              ...(reviews && reviews.length > 0 ? {
+                aggregateRating: { '@type': 'AggregateRating', ratingValue: avgRating.toFixed(1), reviewCount: reviews.length, bestRating: '5', worstRating: '1' },
+              } : {}),
+            },
+            ...(boat.locations ? [{
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://boathire24.com' },
+                { '@type': 'ListItem', position: 2, name: `Boat Rental ${boat.locations.city}`, item: `https://boathire24.com/${boat.locations.slug}` },
+                { '@type': 'ListItem', position: 3, name: boat.name, item: `https://boathire24.com/boats/${boat.slug}` },
+              ],
+            }] : []),
+          ]),
         }}
       />
 

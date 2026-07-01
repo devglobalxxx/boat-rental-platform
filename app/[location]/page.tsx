@@ -6,6 +6,7 @@ import SearchBar from '@/components/search/SearchBar'
 import { MapPin, Anchor, Ship } from 'lucide-react'
 import type { BoatWithDetails, LocationRow } from '@/types/database'
 import { getLandingPage, getLandingSlugs } from '@/lib/landing/pages'
+import { CATEGORIES } from '@/lib/landing/categories'
 import { hasEs } from '@/lib/landing/pages-es'
 import LandingView from '@/components/landing/LandingView'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
@@ -102,6 +103,12 @@ export default async function LocationPage({ params }: Props) {
   const fleetPrices = boats.flatMap((b) => ((b as any).boat_pricing ?? []).map((p: any) => p.price as number)).filter((p) => p > 0)
   const fromPrice = fleetPrices.length ? Math.min(...fleetPrices) : null
 
+  // Which type-landing pages actually have inventory here → link to them
+  // (crawlable internal links, and the highest-intent long-tail keywords).
+  const typeChips = CATEGORIES
+    .map((cat) => ({ cat, n: boats.filter((b) => cat.types.includes((b as any).type) && !!(b as any).is_fishing_trip === !!cat.fishing).length }))
+    .filter((c) => c.n > 0)
+
   const gold = '#74cfe8'
   const goldFaint = 'rgba(116,207,232,0.12)'
   const goldBorder = 'rgba(116,207,232,0.22)'
@@ -155,9 +162,24 @@ export default async function LocationPage({ params }: Props) {
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 24px 96px' }}>
 
         {/* Search bar */}
-        <div style={{ marginBottom: '44px' }}>
+        <div style={{ marginBottom: '28px' }}>
           <SearchBar defaultLocation={loc.city} />
         </div>
+
+        {/* Browse by type — links to /{city}/{type}-rental landing pages */}
+        {typeChips.length > 0 && (
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '44px' }}>
+            {typeChips.map(({ cat, n }) => (
+              <a
+                key={cat.slug}
+                href={`/${loc.slug}/${cat.slug}`}
+                style={{ fontSize: '13px', fontWeight: 600, color: gold, background: goldFaint, border: `1px solid ${goldBorder}`, borderRadius: '99px', padding: '7px 15px', textDecoration: 'none' }}
+              >
+                {cat.label} in {loc.city} ({n})
+              </a>
+            ))}
+          </div>
+        )}
 
         {/* Results header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '12px' }}>

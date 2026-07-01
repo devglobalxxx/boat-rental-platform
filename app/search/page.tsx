@@ -1,10 +1,12 @@
 import { Suspense } from 'react'
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import BoatCard from '@/components/search/BoatCard'
 import Filters from '@/components/search/Filters'
 import SearchBar from '@/components/search/SearchBar'
 import type { BoatWithDetails } from '@/types/database'
 import { MapPin, Ship } from 'lucide-react'
+import { CATEGORIES } from '@/lib/landing/categories'
 
 interface SearchPageProps {
   searchParams: Promise<{
@@ -16,6 +18,32 @@ interface SearchPageProps {
     instant?: string
     sort?: string
   }>
+}
+
+const BASE = 'https://boathire24.com'
+
+// Filtered /search views are near-duplicates of the dedicated landing pages, so
+// they're noindex,follow (crawled for links, not indexed) and canonicalised to
+// the real landing page (city, or city×type) when the filter maps to one.
+export async function generateMetadata({ searchParams }: SearchPageProps): Promise<Metadata> {
+  const p = await searchParams
+  const filtered = !!(p.location || p.type || p.guests || p.capacity || p.instant || p.date || p.sort)
+  if (!filtered) {
+    return { title: 'Explore boats — BoatHire24', alternates: { canonical: `${BASE}/search` } }
+  }
+
+  let canonical = `${BASE}/search`
+  if (p.location) {
+    const supabase = await createClient()
+    const term = p.location.replace(/[,()*]/g, ' ').trim()
+    const { data } = await supabase.from('locations').select('slug').or(`city.ilike.${term},name.ilike.${term}`).limit(1)
+    const locSlug = (data as { slug: string }[] | null)?.[0]?.slug
+    if (locSlug) {
+      const cat = p.type ? (CATEGORIES.find((c) => c.types.length === 1 && c.types[0] === p.type) ?? CATEGORIES.find((c) => c.types.includes(p.type!))) : undefined
+      canonical = cat ? `${BASE}/${locSlug}/${cat.slug}` : `${BASE}/${locSlug}`
+    }
+  }
+  return { robots: { index: false, follow: true }, alternates: { canonical } }
 }
 
 async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promise<BoatWithDetails[]> {
