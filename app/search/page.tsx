@@ -66,7 +66,9 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
     }
   }
 
-  const { data, error } = await query.limit(48)
+  // No hard 48 cap — show every active boat by default (was silently hiding
+  // ~half the fleet once we passed 48 listings). Generous ceiling for safety.
+  const { data, error } = await query.limit(500)
   if (error || !data) return []
   return (data as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
 }
