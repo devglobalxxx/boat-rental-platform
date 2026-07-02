@@ -2635,3 +2635,10 @@
 [2026-07-02 00:09:28] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
 [2026-07-02 00:09:28] === Done: 0 ok, 0 failed ===
 
+[2026-07-03 00:11:06] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-07-03 00:11:07] queue under threshold — fetching real keywords from DataForSEO…
+[2026-07-03 00:11:26] [2026-07-03 00:11:08] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-07-03 00:11:11] DataForSEO: expanding ideas from 14 base seeds
+[2026-07-03 00:11:26] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-03 00:11:26] === Done: 0 ok, 0 failed ===
+
