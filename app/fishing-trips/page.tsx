@@ -32,7 +32,7 @@ async function getFishingTrips(params: Awaited<PageProps['searchParams']>): Prom
     else return []
   }
 
-  const { data, error } = await query.limit(60)
+  const { data, error } = await query.limit(500)
   if (error || !data) return []
   return (data as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
 }
