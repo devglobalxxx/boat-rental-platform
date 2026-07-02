@@ -44,16 +44,30 @@ export default async function BoatHire24HubPage() {
   const { data: subData } = await admin.from('listing_submissions').select('*').order('created_at', { ascending: false }).limit(300)
   const subs = (subData ?? []) as Sub[]
 
-  // Boats grouped per lead (submission_id).
+  // Boats grouped per lead (submission_id) + the location their boats are in
+  // (the ground truth — a lead's typed country is often wrong, e.g. "Spain"
+  // for a Phuket operator).
   const byLead = new Map<string, { id: string; name: string; status: string; slug: string }[]>()
+  const locVotes = new Map<string, Map<string, number>>() // submission_id -> "City, Country" -> count
   const subIds = subs.map((s) => s.id)
   if (subIds.length) {
-    const { data: leadBoats } = await admin.from('boats').select('id, name, status, slug, submission_id').in('submission_id', subIds)
-    for (const bt of (leadBoats ?? []) as { id: string; name: string; status: string; slug: string; submission_id: string }[]) {
+    const { data: leadBoats } = await admin.from('boats').select('id, name, status, slug, submission_id, locations(city, country)').in('submission_id', subIds)
+    for (const bt of (leadBoats ?? []) as { id: string; name: string; status: string; slug: string; submission_id: string; locations: { city?: string; country?: string } | null }[]) {
       const arr = byLead.get(bt.submission_id) ?? []
       arr.push({ id: bt.id, name: bt.name, status: bt.status, slug: bt.slug })
       byLead.set(bt.submission_id, arr)
+      const loc = [bt.locations?.city, bt.locations?.country].filter(Boolean).join(', ')
+      if (loc) {
+        const votes = locVotes.get(bt.submission_id) ?? new Map<string, number>()
+        votes.set(loc, (votes.get(loc) ?? 0) + 1)
+        locVotes.set(bt.submission_id, votes)
+      }
     }
+  }
+  // The most common boat location per lead.
+  const locByLead = new Map<string, string>()
+  for (const [sid, votes] of locVotes) {
+    locByLead.set(sid, [...votes.entries()].sort((a, b) => b[1] - a[1])[0][0])
   }
 
   // Inquiries / bookings on managed boats
@@ -119,7 +133,7 @@ export default async function BoatHire24HubPage() {
                   </span>
                   <span style={{ fontSize: 11, color: muted }}>{new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}</span>
                 </div>
-                <LeadContactEdit id={s.id} website={s.website} email={s.email} phone={s.phone} location={[s.port, s.country].filter(Boolean).join(', ')} />
+                <LeadContactEdit id={s.id} website={s.website} email={s.email} phone={s.phone} location={locByLead.get(s.id) || [s.port, s.country].filter(Boolean).join(', ')} />
                 {s.note && <p style={{ fontSize: 13, color: muted, margin: '0 0 10px', fontStyle: 'italic' }}>{s.note}</p>}
                 {Array.isArray(s.boats) && s.boats.length > 0 && (
                   <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 10 }}>
