@@ -77,11 +77,17 @@ export default async function LeadsPage() {
             {subs.map((s) => (
               <div key={s.id} style={{ background: card, border: `1px solid ${border}`, borderRadius: 14, padding: '16px 18px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', marginBottom: 8 }}>
-                  <div>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                     <span style={{ fontWeight: 700, fontSize: 15 }}>{s.company || s.contact_name || '—'}</span>
                     {s.company && s.contact_name && <span style={{ color: muted, fontSize: 13 }}> · {s.contact_name}</span>}
+                    {(() => {
+                      const manual = s.source === 'admin-manual'
+                      return (
+                        <span title={manual ? 'Added manually by an admin' : 'Came in via the get-listed form'} style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', padding: '2px 8px', borderRadius: 99, color: manual ? gold : '#7fe3aa', background: manual ? 'rgba(116,207,232,0.12)' : 'rgba(94,214,140,0.12)', border: `1px solid ${manual ? 'rgba(116,207,232,0.28)' : 'rgba(94,214,140,0.28)'}` }}>{manual ? '✍ Manual' : '✉ Email'}</span>
+                      )
+                    })()}
                   </div>
-                  <span style={{ fontSize: 11, color: muted }}>{new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}{s.source ? ` · ${s.source}` : ''}</span>
+                  <span style={{ fontSize: 11, color: muted }}>{new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}</span>
                 </div>
                 <LeadContactEdit id={s.id} website={s.website} email={s.email} phone={s.phone} location={[s.port, s.country].filter(Boolean).join(', ')} />
                 {s.note && <p style={{ fontSize: 13, color: muted, margin: '0 0 10px', fontStyle: 'italic' }}>{s.note}</p>}
