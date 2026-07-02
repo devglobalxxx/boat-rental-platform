@@ -147,7 +147,26 @@ const FAQS = [
 ]
 
 /* ══════════════════════════════════════════════════ PAGE ══ */
-export default function HomePage() {
+// Live headline stats — real active-boat and destination counts, so the site
+// never under-reports the fleet (was hardcoded "50 boats / 48 destinations").
+export const revalidate = 3600
+
+async function getStats(): Promise<{ boats: number; destinations: number }> {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/boats?select=location_id&status=eq.active`,
+      { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}` }, next: { revalidate: 3600 } },
+    )
+    const rows: { location_id: string | null }[] = res.ok ? await res.json() : []
+    const destinations = new Set(rows.map((r) => r.location_id).filter(Boolean)).size
+    return { boats: rows.length, destinations }
+  } catch {
+    return { boats: 50, destinations: 48 }
+  }
+}
+
+export default async function HomePage() {
+  const stats = await getStats()
   const websiteSchema = siteJsonLd()
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -211,7 +230,7 @@ export default function HomePage() {
         <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: 'rgba(7,16,30,0.82)', borderTop: '1px solid rgba(116,207,232,0.12)', backdropFilter: 'blur(8px)' }}>
           <div className="container">
             <div className="grid grid-cols-3 pt-8 pb-6 gap-4">
-              {[{ n: '50', l: 'Boats listed' }, { n: '48', l: 'Destinations' }, { n: '4.9 / 5', l: 'Average rating' }].map((s) => (
+              {[{ n: `${stats.boats}`, l: 'Boats listed' }, { n: `${stats.destinations}`, l: 'Destinations' }, { n: '4.9 / 5', l: 'Average rating' }].map((s) => (
                 <div key={s.l} className="text-center">
                   <div className="text-2xl font-bold" style={{ color: '#74cfe8' }}>{s.n}</div>
                   <div className="text-xs mt-0.5" style={{ color: 'rgba(244,244,242,0.50)' }}>{s.l}</div>
