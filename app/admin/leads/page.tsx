@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import LeadContactEdit from '@/components/admin/LeadContactEdit'
 import AddCustomerButton from '@/components/admin/AddCustomerButton'
 import LeadBoats from '@/components/admin/LeadBoats'
+import DeleteLeadButton from '@/components/admin/DeleteLeadButton'
 
 export const metadata: Metadata = { title: 'Listing leads | BoatHire24' }
 export const dynamic = 'force-dynamic'
@@ -87,7 +88,10 @@ export default async function LeadsPage() {
                       )
                     })()}
                   </div>
-                  <span style={{ fontSize: 11, color: muted }}>{new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12 }}>
+                    <span style={{ fontSize: 11, color: muted }}>{new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}</span>
+                    <DeleteLeadButton id={s.id} name={s.company || s.contact_name || 'this lead'} />
+                  </span>
                 </div>
                 <LeadContactEdit id={s.id} website={s.website} email={s.email} phone={s.phone} location={[s.port, s.country].filter(Boolean).join(', ')} />
                 {s.note && <p style={{ fontSize: 13, color: muted, margin: '0 0 10px', fontStyle: 'italic' }}>{s.note}</p>}
