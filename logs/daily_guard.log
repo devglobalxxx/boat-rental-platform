@@ -5169,3 +5169,14 @@ Traceback (most recent call last):
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-07-04 00:14:48] done 2026-07-04
+[2026-07-05 01:23:00] starting daily run for 2026-07-05
+[2026-07-05 01:23:01] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-07-05 01:23:01] queue under threshold — fetching real keywords from DataForSEO…
+[2026-07-05 01:23:02] : URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'sunset boat trip': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-05 01:23:02] === Done: 0 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 504
+cannibalization: 147 variant pages canonicalized to a primary
+relinked: blogs=398 (homepage 398/398), landings=504 (homepage 504/504), affiliate-link pool=9

@@ -406,3 +406,21 @@
 [2026-07-04 00:13:01] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
 [2026-07-04 00:13:05] DataForSEO: expanding ideas from 14 base seeds
 [2026-07-04 00:13:18] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-05 01:23:02] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-07-05 01:23:02]   volume chunk: URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02] DataForSEO: expanding ideas from 14 base seeds
+[2026-07-05 01:23:02]   seed 'boat rental': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'yacht charter': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'boat hire': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'catamaran charter': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'yacht rental': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'sailboat rental': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'speedboat hire': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'boat rental near me': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'luxury yacht charter': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'fishing charter': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'party boat rental': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'pontoon boat rental': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'jet ski rental': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02]   seed 'sunset boat trip': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-07-05 01:23:02] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
