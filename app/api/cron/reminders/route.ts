@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { sendTripReminder, sendPaymentReminder } from '@/lib/email/bookings'
+import { sendDraftPublishReminder } from '@/lib/email/drafts'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -62,5 +63,42 @@ export async function GET(req: NextRequest) {
     paymentReminders++
   }
 
-  return NextResponse.json({ ok: true, tripReminders, paymentReminders })
+  // ── Draft-publish reminders: boats a host left in draft 24h+ after adding,
+  // reminded at most once (draft_reminder_sent_at). One email per host listing
+  // all their unpublished boats. Skips admin + managed accounts (the operator's
+  // own workflow — they publish those from the admin panel).
+  let draftReminders = 0
+  const { data: staleDrafts } = await admin
+    .from('boats')
+    .select('id, name, slug, host_id')
+    .eq('status', 'draft')
+    .is('draft_reminder_sent_at', null)
+    .lt('created_at', ago24h)
+
+  const byHost = new Map<string, { ids: string[]; boats: { name: string; slug: string }[] }>()
+  for (const b of (staleDrafts ?? []) as { id: string; name: string; slug: string; host_id: string }[]) {
+    const g = byHost.get(b.host_id) ?? { ids: [], boats: [] }
+    g.ids.push(b.id); g.boats.push({ name: b.name, slug: b.slug })
+    byHost.set(b.host_id, g)
+  }
+
+  if (byHost.size) {
+    const hostIds = [...byHost.keys()]
+    const { data: profs } = await admin.from('profiles')
+      .select('id, full_name, is_admin, is_managed_account').in('id', hostIds)
+    const profMap = new Map((profs ?? []).map((p) => [(p as { id: string }).id, p as { full_name: string | null; is_admin: boolean; is_managed_account: boolean }]))
+
+    for (const [hostId, g] of byHost) {
+      const p = profMap.get(hostId)
+      if (!p || p.is_admin || p.is_managed_account) continue // real self-serve hosts only
+      // Claim first so a slow/overlapping run never double-sends.
+      await admin.from('boats').update({ draft_reminder_sent_at: new Date().toISOString() }).in('id', g.ids)
+      try {
+        const sent = await sendDraftPublishReminder({ hostId, hostName: p.full_name, boats: g.boats })
+        if (sent) draftReminders++
+      } catch { /* logged in the mailer; flag stays set so we don't retry-spam */ }
+    }
+  }
+
+  return NextResponse.json({ ok: true, tripReminders, paymentReminders, draftReminders })
 }
