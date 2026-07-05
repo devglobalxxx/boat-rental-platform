@@ -424,3 +424,6 @@
 [2026-07-05 01:23:02]   seed 'jet ski rental': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
 [2026-07-05 01:23:02]   seed 'sunset boat trip': URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
 [2026-07-05 01:23:02] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-06 00:31:44] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-07-06 00:31:47] DataForSEO: expanding ideas from 14 base seeds
+[2026-07-06 00:32:01] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
