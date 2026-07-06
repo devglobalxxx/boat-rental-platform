@@ -98,7 +98,28 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
   // ~half the fleet once we passed 48 listings). Generous ceiling for safety.
   const { data, error } = await query.limit(500)
   if (error || !data) return []
-  return (data as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
+  const boats = (data as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
+
+  // Sort — the pills in Filters were previously a no-op.
+  const minPrice = (b: BoatWithDetails) => {
+    const prices = ((b as any).boat_pricing ?? []).map((p: any) => p.price as number).filter((p: number) => p > 0)
+    return prices.length ? Math.min(...prices) : Number.MAX_SAFE_INTEGER // price-on-request sinks to the end
+  }
+  switch (params.sort) {
+    case 'price_asc': boats.sort((a, b) => minPrice(a) - minPrice(b)); break
+    case 'price_desc': boats.sort((a, b) => {
+      const pa = minPrice(a), pb = minPrice(b)
+      return (pb === Number.MAX_SAFE_INTEGER ? -1 : pb) - (pa === Number.MAX_SAFE_INTEGER ? -1 : pa)
+    }); break
+    case 'rating': // no review data yet — deterministic proxy: biggest/most premium first
+      boats.sort((a, b) => ((b as any).length_m ?? 0) - ((a as any).length_m ?? 0)); break
+    default: // recommended: newest listings first, photo-complete boats above photo-less
+      boats.sort((a, b) => {
+        const photos = (x: BoatWithDetails) => Math.min(((x as any).boat_images ?? []).length, 1)
+        return photos(b) - photos(a) || String((b as any).created_at).localeCompare(String((a as any).created_at))
+      })
+  }
+  return boats
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {

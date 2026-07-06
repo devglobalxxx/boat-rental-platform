@@ -40,6 +40,9 @@ export async function generateMetadata({
     title: `#${label} — Boats & Photos | Boat Rental Marbella`,
     description: `Browse all boats and gallery photos tagged with "${label}" on Boat Rental Marbella. Find luxury yachts, catamarans, speedboats and more.`,
     keywords: [label, 'marbella', 'boat rental', 'yacht charter'],
+    // Tag pages are empty shells until the boats.tags migration lands — keep
+    // them crawlable but out of the index so they don't dilute the domain.
+    robots: { index: false, follow: true },
     openGraph: {
       title: `#${label} — Boat Rental Marbella`,
       description: `All boats and photos tagged "${label}"`,

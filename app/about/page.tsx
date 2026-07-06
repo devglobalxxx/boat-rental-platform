@@ -27,8 +27,8 @@ const MILESTONES = [
   { year: '2021', label: '50 boats', desc: 'Fleet grows across the Costa del Sol. First five-star reviews roll in.' },
   { year: '2022', label: 'Ibiza launch', desc: 'Expanded to Ibiza and Mallorca. Stripe Connect payments go live.' },
   { year: '2023', label: '10 destinations', desc: 'Platform spreads to Croatia, Greece, and the Algarve.' },
-  { year: '2024', label: 'Global', desc: 'Miami, Dubai, and Sydney added. 800+ verified boats worldwide.' },
-  { year: '2025', label: 'Today', desc: '48 destinations, 15,000+ guests served, and still growing.' },
+  { year: '2024', label: 'Global', desc: 'The marketplace opens to operators worldwide.' },
+  { year: '2025', label: 'Today', desc: 'A verified fleet across 20+ destinations, and growing every week.' },
 ]
 
 const gold = '#74cfe8'
@@ -36,7 +36,21 @@ const goldFaint = 'rgba(116,207,232,0.12)'
 const goldBorder = 'rgba(116,207,232,0.22)'
 const textMuted = 'rgba(244,244,242,0.55)'
 
-export default function AboutPage() {
+export const revalidate = 3600
+
+async function liveStats(): Promise<{ boats: number; destinations: number }> {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/boats?select=location_id&status=eq.active`,
+      { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}` }, next: { revalidate: 3600 } },
+    )
+    const rows: { location_id: string | null }[] = res.ok ? await res.json() : []
+    return { boats: rows.length, destinations: new Set(rows.map((r) => r.location_id).filter(Boolean)).size }
+  } catch { return { boats: 100, destinations: 20 } }
+}
+
+export default async function AboutPage() {
+  const stats = await liveStats()
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
 
@@ -52,7 +66,7 @@ export default function AboutPage() {
           </h1>
           <p style={{ fontSize: '17px', color: textMuted, lineHeight: 1.75, marginBottom: '0' }}>
             BoatHire24 started in Marbella in 2020 with a simple idea: booking a charter should be as easy as
-            booking a hotel room. Five years later, we&apos;re in 48 destinations and still obsessing over every detail.
+            booking a hotel room. Today we list a verified fleet across 20+ destinations and still obsess over every detail.
           </p>
         </div>
       </section>
@@ -61,10 +75,10 @@ export default function AboutPage() {
       <div style={{ borderTop: `1px solid rgba(116,207,232,0.10)`, borderBottom: `1px solid rgba(116,207,232,0.10)`, background: 'rgba(116,207,232,0.04)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', padding: '28px 24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
           {[
-            { value: '2020',   label: 'Founded' },
-            { value: '200+',   label: 'Boats listed' },
-            { value: '15,000+',label: 'Happy guests' },
-            { value: '48',     label: 'Destinations' },
+            { value: `${stats.boats}`, label: 'Boats listed' },
+            { value: `${stats.destinations}`, label: 'Destinations' },
+            { value: '100%', label: 'Licensed skippers' },
+            { value: '15%', label: 'Flat host commission' },
           ].map((s) => (
             <div key={s.label} style={{ textAlign: 'center' }}>
               <p style={{ fontSize: '22px', fontWeight: 700, color: gold, marginBottom: '4px' }}>{s.value}</p>
@@ -174,7 +188,7 @@ export default function AboutPage() {
             The journey
           </span>
           <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.2 }}>
-            From 3 boats to 48 destinations
+            From 3 boats to a global fleet
           </h2>
         </div>
 
@@ -230,10 +244,10 @@ export default function AboutPage() {
             Ready to sail?
           </p>
           <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.2, marginBottom: '14px' }}>
-            Join 15,000 guests who&apos;ve already cast off
+            Ready to cast off?
           </h2>
           <p style={{ fontSize: '15px', color: textMuted, lineHeight: 1.7, maxWidth: '480px', margin: '0 auto 32px' }}>
-            Browse verified yachts, catamarans, and speedboats across 48 destinations.
+            Browse verified yachts, catamarans, and speedboats across 20+ destinations.
             Instant booking, licensed skippers, no hidden fees.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>

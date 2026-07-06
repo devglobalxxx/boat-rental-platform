@@ -10,7 +10,7 @@ const goldBorder = 'rgba(116,207,232,0.22)'
 const card = '#0c1828'
 
 export const metadata: Metadata = {
-  title: 'Jet Ski Rental in Marbella — Sea-Doo Hire from Puerto Banús | BoatHire24',
+  title: 'Jet Ski Rental in Marbella — Sea-Doo Hire from Puerto Banús',
   description:
     'Rent a Sea-Doo jet ski in Marbella, launching from Puerto Banús. Self-drive, no licence needed. From €250/hour — life jackets, fuel & briefing included.',
   alternates: { canonical: 'https://boathire24.com/jet-ski-marbella' },

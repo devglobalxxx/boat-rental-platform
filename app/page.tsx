@@ -7,12 +7,12 @@ import { siteJsonLd } from '@/lib/seo/structured-data'
 
 export const metadata: Metadata = {
   title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
-  description: 'Find and book verified boats, yachts, catamarans and sailing boats in Marbella, Ibiza, Miami and 45+ destinations. Licensed skippers, instant booking, secure payments. No surprises.',
+  description: 'Find and book verified boats, yachts and catamarans in Marbella, Puerto Banús, Phuket and 20+ destinations. Licensed skippers, instant booking, secure payments. No surprises.',
   keywords: ['boat rental', 'yacht charter', 'boat hire', 'Marbella', 'Ibiza', 'Miami', 'Puerto Banús', 'catamaran charter', 'speedboat hire'],
   alternates: { canonical: 'https://boathire24.com' },
   openGraph: {
     title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
-    description: 'Verified yachts, catamarans & speedboats in 48 destinations. Licensed skippers, instant booking, secure payments.',
+    description: 'Verified yachts, catamarans & speedboats in 20+ destinations. Licensed skippers, instant booking, secure payments.',
     url: 'https://boathire24.com',
     type: 'website',
     siteName: 'BoatHire24',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
-    description: 'Verified yachts, catamarans & speedboats in 48 destinations. Licensed skippers, instant booking.',
+    description: 'Verified yachts, catamarans & speedboats in 20+ destinations. Licensed skippers, instant booking.',
     images: ['/opengraph-image'],
   },
 }
@@ -182,7 +182,7 @@ export default async function HomePage() {
       '@context': 'https://schema.org',
       '@type': 'VideoObject',
       name: 'Luxury yacht & boat charter — Marbella, Costa del Sol',
-      description: 'Charter motor yachts, catamarans and speedboats with BoatHire24 across Marbella and 45+ destinations — licensed skippers included.',
+      description: 'Charter motor yachts, catamarans and speedboats with BoatHire24 across Marbella and 20+ destinations — licensed skippers included.',
       thumbnailUrl: 'https://boathire24.com/video/hero-1.jpg',
       contentUrl: 'https://boathire24.com/video/hero-1.mp4',
       uploadDate: '2026-01-01',
@@ -212,7 +212,7 @@ export default async function HomePage() {
         <HeroSlideshow />
         <div className="relative z-10 container h-full flex flex-col justify-center">
           <div className="max-w-2xl">
-            <p className="eyebrow mb-5">Trusted by 15,000 guests · 48 destinations worldwide</p>
+            <p className="eyebrow mb-5">Verified boats · Licensed skippers · {stats.destinations} destinations worldwide</p>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6" style={{ color: '#f4f4f2' }}>
               Find Your Perfect<br /><Gold>Boat Charter.</Gold>
             </h1>
@@ -230,7 +230,7 @@ export default async function HomePage() {
         <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: 'rgba(7,16,30,0.82)', borderTop: '1px solid rgba(116,207,232,0.12)', backdropFilter: 'blur(8px)' }}>
           <div className="container">
             <div className="grid grid-cols-3 pt-8 pb-6 gap-4">
-              {[{ n: `${stats.boats}`, l: 'Boats listed' }, { n: `${stats.destinations}`, l: 'Destinations' }, { n: '4.9 / 5', l: 'Average rating' }].map((s) => (
+              {[{ n: `${stats.boats}`, l: 'Boats listed' }, { n: `${stats.destinations}`, l: 'Destinations' }, { n: '100%', l: 'Licensed skippers' }].map((s) => (
                 <div key={s.l} className="text-center">
                   <div className="text-2xl font-bold" style={{ color: '#74cfe8' }}>{s.n}</div>
                   <div className="text-xs mt-0.5" style={{ color: 'rgba(244,244,242,0.50)' }}>{s.l}</div>
@@ -268,7 +268,7 @@ export default async function HomePage() {
           <SectionHeader eyebrow="Simple process" title={<>Three Steps to <Gold>Open Water</Gold></>} sub="We removed everything that makes boat charters complicated — brokers, back-and-forth emails, hidden fees, and 48-hour response times. BoatHire24 puts you directly in front of the boat, the price, and the calendar." />
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { n: '01', icon: MapPin,  title: 'Search & Discover',  body: 'Browse over 1,200 verified vessels across 48 destinations. Filter by boat type, guest capacity, departure port, price range, and available dates so you only see boats that match your exact requirements. Every listing carries real photographs, accurate specifications, and honest pricing — no registration required to see what you will actually pay. Genuine reviews from previous guests are visible on every listing page before you commit to anything.' },
+              { n: '01', icon: MapPin,  title: 'Search & Discover',  body: 'Browse our verified fleet across 20+ destinations. Filter by boat type, guest capacity, departure port, price range, and available dates so you only see boats that match your exact requirements. Every listing carries real photographs, accurate specifications, and honest pricing — no registration required to see what you will actually pay.' },
               { n: '02', icon: Shield,  title: 'Book Securely',      body: 'Select your date and duration from the live availability calendar. The price you see is the all-inclusive price you pay — no service fees added at checkout, no surprises. Pay securely with your credit card, Apple Pay, or Google Pay. Funds are held by Stripe and released to the host only after your charter day, protecting your money at every step of the process.' },
               { n: '03', icon: Anchor,  title: 'Set Sail',           body: 'Your confirmation arrives instantly with the captain\'s direct contact number, marina coordinates in Google Maps format, and a pre-departure checklist. Arrive at the marina, meet your fully licensed and locally experienced skipper, and cast off. Navigation, safety, and local knowledge are entirely handled for you from that moment forward. Your only job is to decide where to go next and enjoy every second of it.' },
             ].map((step) => (
@@ -427,7 +427,7 @@ export default async function HomePage() {
               Own a Boat? <Gold>Start Earning.</Gold>
             </h2>
             <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '16px' }}>The most expensive thing about owning a boat is the time it spends tied to a dock. BoatHire24 turns idle marina days into income — without changing your schedule or your relationship with the vessel. You set the dates you want to share and the dates you want to keep. We handle everything else: guest communication, payment processing, and all booking logistics from enquiry to confirmation.</p>
-            <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '16px' }}>More than 800 boat owners across 48 destinations already use BoatHire24 to manage their charter income. The average active host earns between €3,000 and €6,000 per month during peak season — with some high-demand vessels generating over €15,000 in a single July. Your earnings depend on your boat, your availability, and your location.</p>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '16px' }}>Boat owners across 20+ destinations use BoatHire24 to manage their charter income — you set the price, we bring the bookings and handle payment. A well-listed boat in a busy marina can earn several thousand euros per month in peak season. Your earnings depend on your boat, your availability, and your location.</p>
             <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '40px' }}>Listing your boat costs nothing. You pay a 15% commission only when a booking is confirmed and the guest boards. That fee covers Stripe payment processing, guest insurance, and access to BoatHire24&apos;s 24/7 operations support. Connect your bank account via Stripe Express, set your availability calendar, and receive your first booking enquiry within days of going live. Whether you have one Sunseeker or an entire fleet, BoatHire24 is built to grow with your operation.</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px', marginBottom: '48px' }}>
               <GoldBtn href="/become-a-host" large>List Your Boat — It&apos;s Free</GoldBtn>

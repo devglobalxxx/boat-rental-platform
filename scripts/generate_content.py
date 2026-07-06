@@ -345,7 +345,7 @@ def gen_blog(item: dict) -> dict:
     author, role = random.choice(AUTHORS)
     return {
         "slug": item["slug"],
-        "title": item["title"],
+        "title": strip_brand(item["title"]),
         "excerpt": clean_html(data.get("excerpt", ""))[:300],
         "metaDescription": clean_html(data.get("metaDescription") or data.get("excerpt", ""))[:160],
         "tag": data.get("tag", "Destination guide"),
@@ -357,6 +357,12 @@ def gen_blog(item: dict) -> dict:
         "content": content,
         "faqs": [{"q": clean_html(f.get("q", "")), "a": clean_html(f.get("a", ""))} for f in data.get("faqs", [])],
     }
+
+
+def strip_brand(title: str) -> str:
+    """The Next.js layout template appends '| BoatHire24' to every <title>;
+    queue titles that carry it themselves end up doubled in the SERP."""
+    return re.sub(r"\s*[|—-]\s*BoatHire24\s*$", "", title or "").strip()
 
 
 # ---------- semantic dedupe guard ----------
@@ -402,7 +408,7 @@ def gen_landing(item: dict) -> dict:
     body = add_internal_links(body, item)
     return {
         "slug": item["slug"],
-        "title": item["title"],
+        "title": strip_brand(item["title"]),
         "metaDescription": clean_html(data.get("metaDescription", ""))[:200],
         "h1": clean_html(data.get("h1", item["title"])),
         "keyword": item["primary_keyword"],

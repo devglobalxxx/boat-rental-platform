@@ -7,7 +7,7 @@ import AddCustomerButton from '@/components/admin/AddCustomerButton'
 import LeadBoats from '@/components/admin/LeadBoats'
 import DeleteLeadButton from '@/components/admin/DeleteLeadButton'
 
-export const metadata: Metadata = { title: 'Listing leads | BoatHire24' }
+export const metadata: Metadata = { title: 'Listing leads' }
 export const dynamic = 'force-dynamic'
 
 const text = '#f4f4f2', muted = 'rgba(244,244,242,0.55)', gold = '#74cfe8'

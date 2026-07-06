@@ -159,25 +159,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }))
 
-  // ── Location pages ────────────────────────────────────────────────────────
-  const locations = await supabaseFetch<{ slug: string }>(
-    'locations?select=slug'
-  )
-
-  const locationEntries: SitemapEntry[] = locations.map((loc) => ({
-    url: `${BASE_URL}/${loc.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-
-  // ── City × type landing pages (only combos that actually have inventory) ──
+  // ── Active-boat inventory (shared by the location + city×type sections) ──
   const catBoats = await supabaseFetch<{ location_id: string; type: string; is_fishing_trip: boolean }>(
     'boats?select=location_id,type,is_fishing_trip&status=eq.active'
   )
+  const activeLocationIds = new Set(catBoats.map((b) => b.location_id))
+
+  // ── Location pages — only cities with real inventory. Zero-boat locations
+  // render a noindexed "coming soon" shell; submitting 360 of those to Google
+  // is index-bloat that hurts the whole (new) domain.
+  const locations = await supabaseFetch<{ id: string; slug: string }>(
+    'locations?select=id,slug'
+  )
+  const locationEntries: SitemapEntry[] = locations
+    .filter((loc) => activeLocationIds.has(loc.id))
+    .map((loc) => ({
+      url: `${BASE_URL}/${loc.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }))
+
+  // ── City × type landing pages (only combos that actually have inventory) ──
   const locSlugById = new Map<string, string>()
-  const locSlugs = await supabaseFetch<{ id: string; slug: string }>('locations?select=id,slug')
-  for (const l of locSlugs) locSlugById.set(l.id, l.slug)
+  for (const l of locations) locSlugById.set(l.id, l.slug)
 
   const categoryCombos = new Set<string>() // `${locSlug}/${catSlug}`
   for (const b of catBoats) {
@@ -197,18 +202,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   // ── Keyword landing pages (auto-generated) ────────────────────────────────
-  const landingEntries: SitemapEntry[] = LANDING_PAGES.map((lp) => ({
-    url: `${BASE_URL}/${lp.slug}`,
-    lastModified: new Date(lp.date),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-    ...(hasEs(lp.slug) ? {
-      alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}` } },
-    } : {}),
-  }))
+  // Only canonical pages belong in a sitemap: a URL whose own <link rel=canonical>
+  // points elsewhere is a contradictory signal Google has to untangle.
+  const landingEntries: SitemapEntry[] = LANDING_PAGES
+    .filter((lp) => !lp.canonicalSlug || lp.canonicalSlug === lp.slug)
+    .map((lp) => ({
+      url: `${BASE_URL}/${lp.slug}`,
+      lastModified: new Date(lp.date),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+      ...(hasEs(lp.slug) ? {
+        alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}` } },
+      } : {}),
+    }))
 
   // ── Spanish (es) landing pages ────────────────────────────────────────────
-  const esLandingEntries: SitemapEntry[] = LANDING_PAGES_ES.map((lp) => ({
+  const nonCanonicalEn = new Set(
+    LANDING_PAGES.filter((lp) => lp.canonicalSlug && lp.canonicalSlug !== lp.slug).map((lp) => lp.slug),
+  )
+  const esLandingEntries: SitemapEntry[] = LANDING_PAGES_ES
+    .filter((lp) => !nonCanonicalEn.has(lp.slug))
+    .map((lp) => ({
     url: `${BASE_URL}/es/${lp.slug}`,
     lastModified: new Date(lp.date),
     changeFrequency: 'weekly' as const,

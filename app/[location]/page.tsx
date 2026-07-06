@@ -25,18 +25,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = await createClient()
   const { data: locRaw } = await supabase
     .from('locations')
-    .select('name, city, country, description')
+    .select('id, name, city, country, description')
     .eq('slug', location)
     .single()
-  const loc = locRaw as Pick<LocationRow, 'name' | 'city' | 'country' | 'description'> | null
+  const loc = locRaw as (Pick<LocationRow, 'name' | 'city' | 'country' | 'description'> & { id: string }) | null
   if (loc) {
+    // Inventory-driven meta: real count + real from-price. Zero-boat pages are
+    // noindexed (they flip back to indexable automatically when a boat lands)
+    // so 360 identical "coming soon" shells stop polluting the index.
+    const { data: invRaw } = await supabase
+      .from('boats')
+      .select('id, boat_pricing(price)')
+      .eq('location_id', loc.id)
+      .eq('status', 'active')
+    const inv = (invRaw ?? []) as { id: string; boat_pricing: { price: number }[] }[]
+    const prices = inv.flatMap((b) => (b.boat_pricing ?? []).map((p) => p.price)).filter((p) => p > 0)
+    const fromPrice = prices.length ? Math.min(...prices) : null
+    const n = inv.length
+    // Layout template appends "| BoatHire24" — never hardcode it here.
     return {
-      title: `Boat Rental ${loc.city} — Yachts & Catamarans | BoatHire24`,
-      description: loc.description ?? `Find and book boats in ${loc.city}, ${loc.country}. Motor yachts, catamarans, sailing boats and more.`,
+      title: `Boat Rental ${loc.city} — Yachts & Catamarans`,
+      description: n > 0
+        ? `Boat rental in ${loc.city}${fromPrice ? ` from €${fromPrice.toLocaleString('en')}` : ''} — compare ${n} verified boat${n !== 1 ? 's' : ''} with licensed skipper included. Instant booking on BoatHire24.`
+        : loc.description ?? `Boat rental in ${loc.city}, ${loc.country} — launching soon on BoatHire24. Motor yachts, catamarans and speedboats with licensed skipper.`,
+      alternates: { canonical: `https://boathire24.com/${location}` },
+      ...(n === 0 ? { robots: { index: false, follow: true } } : {}),
     }
   }
   const lp = getLandingPage(location)
   if (lp) {
+    const isCanonical = !lp.canonicalSlug || lp.canonicalSlug === lp.slug
     return {
       title: lp.title,
       description: lp.metaDescription,
@@ -44,7 +62,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         // canonicalSlug consolidates near-duplicate variants onto one primary
         // page (kills keyword cannibalization) while keeping the page live.
         canonical: `https://boathire24.com/${lp.canonicalSlug || lp.slug}`,
-        ...(hasEs(lp.slug) ? {
+        // hreflang only on canonical pages — alternates pointing at a page
+        // whose canonical is elsewhere send Google contradictory signals.
+        ...(isCanonical && hasEs(lp.slug) ? {
           languages: {
             'en': `https://boathire24.com/${lp.slug}`,
             'es-ES': `https://boathire24.com/es/${lp.slug}`,

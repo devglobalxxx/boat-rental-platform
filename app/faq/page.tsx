@@ -4,11 +4,11 @@ import { ALL_POSTS } from '@/lib/blog/posts'
 import { LANDING_PAGES } from '@/lib/landing/pages'
 
 export const metadata: Metadata = {
-  title: 'Boat & Yacht Charter FAQ — Marbella | BoatHire24',
+  title: 'Boat & Yacht Charter FAQ — Marbella',
   description: 'Answers to the most common questions about renting boats and yachts in Marbella: prices, licences, skippers, what is included, best times, and how booking works.',
   alternates: { canonical: 'https://boathire24.com/faq' },
   openGraph: {
-    title: 'Boat & Yacht Charter FAQ — Marbella | BoatHire24',
+    title: 'Boat & Yacht Charter FAQ — Marbella',
     description: 'Common questions about chartering a boat in Marbella, answered.',
     type: 'website',
     siteName: 'BoatHire24',

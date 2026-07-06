@@ -7,6 +7,7 @@ import Reviews from '@/components/listing/Reviews'
 import AvailabilityCalendar from '@/components/listing/AvailabilityCalendar'
 import BookingWidget from '@/components/booking/BookingWidget'
 import QuoteRequestCard from '@/components/booking/QuoteRequestCard'
+import MobileBookBar from '@/components/booking/MobileBookBar'
 import { formatPrice } from '@/lib/utils/pricing'
 import { MapPin, Users, Ruler, Anchor, Star, Check, Waves, Zap } from 'lucide-react'
 import VerifiedBadge from '@/components/ui/VerifiedBadge'
@@ -84,13 +85,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const lowestPrice = [...boat.boat_pricing].sort((a, b) => a.price - b.price)[0]
   const heroImg = boat.boat_images.find((i) => i.is_hero) ?? boat.boat_images[0]
   const typeLabel = TYPE_LABELS[boat.type] ?? boat.type
+  // Keyword + price + capacity in the meta — what a buyer scans for in the SERP.
+  const description = [
+    `Rent ${boat.name}, a ${typeLabel.toLowerCase()} in ${boat.locations.city}`,
+    `up to ${boat.capacity_pax} guests`,
+    lowestPrice ? `from ${lowestPrice.currency === 'EUR' ? '€' : lowestPrice.currency + ' '}${lowestPrice.price.toLocaleString('en')}` : null,
+    'licensed skipper included. Book online with instant confirmation.',
+  ].filter(Boolean).join(' · ')
   return {
     title: `${boat.name} — ${typeLabel} in ${boat.locations.city}`,
-    description: boat.tagline ?? boat.description?.slice(0, 160) ?? '',
+    description,
     alternates: { canonical: `https://boathire24.com/boats/${boat.slug}` },
     openGraph: {
-      title: boat.name,
-      description: boat.tagline ?? '',
+      title: `${boat.name} — ${typeLabel} in ${boat.locations.city}`,
+      description: boat.tagline ?? description,
       images: [{
         url: heroImg?.storage_url ?? 'https://boathire24.com/opengraph-image',
         alt: `${boat.name} — ${typeLabel} in ${boat.locations.city}`,
@@ -405,7 +413,7 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
           </div>
 
           {/* ── Booking widget sidebar ── */}
-          <div style={{ flex: '1 1 340px', position: 'sticky', top: '24px' }}>
+          <div id="book" style={{ flex: '1 1 340px', position: 'sticky', top: '24px' }}>
             {sortedPricing.length === 0 ? (
               /* No price set yet → enquiry form that notifies the owner (email + WhatsApp) */
               <QuoteRequestCard boatId={boat.id} boatName={boat.name} />
@@ -419,6 +427,13 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
 
         </div>
       </div>
+
+      {/* Phone-width: price + CTA pinned to the bottom (widget is below the fold) */}
+      <MobileBookBar
+        fromPrice={sortedPricing.length ? sortedPricing.reduce((m, p) => Math.min(m, p.price), Number.MAX_SAFE_INTEGER) : null}
+        currency={sortedPricing[0]?.currency ?? 'EUR'}
+        priceOnRequest={sortedPricing.length === 0}
+      />
 
       {/* Schema.org JSON-LD — Product+Offer with real location & specs, plus breadcrumb.
           Richer entity data is the single biggest lever for being cited by LLM answer engines. */}
