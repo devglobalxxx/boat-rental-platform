@@ -37,6 +37,41 @@ interface ExtractedBoat {
 }
 interface ImportResult { name: string; ok: boolean; id?: string; slug?: string; images?: number; error?: string; updated?: boolean }
 
+// ── Same-boat detection across name variants ─────────────────────────────────
+// Bilingual sites list one boat under several names ("Lancha BlueGrey 21" on a
+// Spanish category page, "BluGrey 21 Open" on its detail page). Two names are
+// the same boat when their NUMBERS match exactly (so "Voyager 17" ≠ "Voyager
+// 18") and they share at least one meaningful word, allowing 1 typo
+// ("blugrey" ≈ "bluegrey").
+const NAME_NOISE = /^(lancha|velero|barco|boat|yacht|alquiler|rental|charter|de|del|la|el|los|las|the|open|nueva?|new)$/
+function nameTokens(name: string): { nums: string; words: string[] } {
+  const toks = name.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ').trim().split(/\s+/).filter(Boolean)
+  return {
+    nums: toks.filter((t) => /^\d+$/.test(t)).sort().join(','),
+    words: toks.filter((t) => !/^\d+$/.test(t) && t.length >= 3 && !NAME_NOISE.test(t)),
+  }
+}
+function closeWord(a: string, b: string): boolean {
+  if (a === b) return true
+  if (Math.abs(a.length - b.length) > 1) return false
+  let i = 0, j = 0, edits = 0
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) { i++; j++; continue }
+    if (++edits > 1) return false
+    if (a.length > b.length) i++
+    else if (b.length > a.length) j++
+    else { i++; j++ }
+  }
+  return edits + (a.length - i) + (b.length - j) <= 1
+}
+function sameBoat(a: string, b: string): boolean {
+  const ta = nameTokens(a), tb = nameTokens(b)
+  if (ta.nums !== tb.nums) return false
+  if (ta.words.length === 0 && tb.words.length === 0) return ta.nums.length > 0
+  return ta.words.some((w) => tb.words.some((v) => closeWord(w, v)))
+}
+
 const inputStyle: React.CSSProperties = {
   background: inputBg, border: `1px solid ${inputBorder}`, borderRadius: '10px',
   color: text, fontSize: '14px', padding: '11px 14px', outline: 'none', width: '100%',
@@ -117,10 +152,17 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
         })
         const json = await res.json()
         for (const b of json.boats ?? []) {
-          // The same boat sometimes appears on two pages — keep the first.
-          if (!found.some((x) => x.name.toLowerCase() === String(b.name).toLowerCase())) {
-            found.push({ ...b, selected: true })
-          }
+          // The same physical boat often appears on several pages under name
+          // variants (detail vs category page, Spanish vs English — "Lancha
+          // BlueGrey 21" vs "BluGrey 21 Open"), so exact-name matching misses
+          // duplicates. sameBoat() compares normalized tokens; keep whichever
+          // copy carries more data (pricing, then photos).
+          const dupIdx = found.findIndex((x) => sameBoat(x.name, String(b.name)))
+          if (dupIdx === -1) { found.push({ ...b, selected: true }); continue }
+          const cur = found[dupIdx]
+          const score = (x: { pricing?: unknown[]; images?: unknown[] }) =>
+            (x.pricing?.length ?? 0) * 100 + (x.images?.length ?? 0)
+          if (score(b) > score(cur)) found[dupIdx] = { ...b, selected: true }
         }
       } catch { /* one bad page shouldn't kill the run */ }
       setProgress({ done: i + 1, total: picked.length })
