@@ -7,6 +7,7 @@ import LeadContactEdit from '@/components/admin/LeadContactEdit'
 import AddCustomerButton from '@/components/admin/AddCustomerButton'
 import LeadBoats from '@/components/admin/LeadBoats'
 import DeleteLeadButton from '@/components/admin/DeleteLeadButton'
+import LeadComment from '@/components/admin/LeadComment'
 
 export const metadata: Metadata = { title: 'BoatHire24 managed | Admin' }
 export const dynamic = 'force-dynamic'
@@ -138,7 +139,7 @@ export default async function BoatHire24HubPage() {
                   </span>
                 </div>
                 <LeadContactEdit id={s.id} website={s.website} email={s.email} phone={s.phone} location={locByLead.get(s.id) || [s.port, s.country].filter(Boolean).join(', ')} />
-                {s.note && <p style={{ fontSize: 13, color: muted, margin: '0 0 10px', fontStyle: 'italic' }}>{s.note}</p>}
+                <LeadComment id={s.id} note={s.note} />
                 {Array.isArray(s.boats) && s.boats.length > 0 && (
                   <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 10 }}>
                     {s.boats.map((b, i) => {
