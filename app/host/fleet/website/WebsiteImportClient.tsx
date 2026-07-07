@@ -43,7 +43,7 @@ interface ImportResult { name: string; ok: boolean; id?: string; slug?: string; 
 // the same boat when their NUMBERS match exactly (so "Voyager 17" ≠ "Voyager
 // 18") and they share at least one meaningful word, allowing 1 typo
 // ("blugrey" ≈ "bluegrey").
-const NAME_NOISE = /^(lancha|velero|barco|boat|yacht|alquiler|rental|charter|de|del|la|el|los|las|the|open|nueva?|new)$/
+const NAME_NOISE = /^(lancha|velero|barco|boat|yacht|alquiler|rental|charter|de|del|la|el|los|las|the|open|nueva?|new|luxury|luxuary|deluxe|premium|private|exclusive)$/
 function nameTokens(name: string): { nums: string; words: string[] } {
   const toks = name.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9]+/g, ' ').trim().split(/\s+/).filter(Boolean)
