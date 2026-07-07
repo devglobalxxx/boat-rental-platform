@@ -12,6 +12,7 @@ import { ChevronRight, ChevronLeft, Check, Sparkles, Globe, Upload, PenLine, Arr
 import type { Location } from '@/types/database'
 import { COUNTRIES } from '@/lib/countries'
 import { buildBoatSlug } from '@/lib/slug'
+import { CURRENCIES, symbolOf } from '@/lib/listing-options'
 
 interface WizardProps {
   locations: Pick<Location, 'id' | 'name' | 'city' | 'country'>[]
@@ -70,6 +71,7 @@ interface FormData {
   builder: string; modelYear: string; includesSkipper: boolean; includesFuel: boolean
   includesDrinks: boolean; instantBook: boolean; cancellationPolicy: string; cancellationCustom: string; minHours: number
   pricingType: string; selectedFeatures: string[]; pricing: { durationHours: number; price: string }[]
+  currency: string
   priceOnRequest: boolean
   isFishingTrip: boolean
   images: File[]
@@ -81,6 +83,7 @@ const INITIAL: FormData = {
   includesFuel: true, includesDrinks: false, instantBook: false, cancellationPolicy: 'moderate', cancellationCustom: '',
   minHours: 2, pricingType: 'hourly', selectedFeatures: [],
   pricing: [{ durationHours: 2, price: '' }, { durationHours: 4, price: '' }, { durationHours: 8, price: '' }],
+  currency: 'EUR',
   priceOnRequest: false,
   isFishingTrip: false,
   images: [],
@@ -113,6 +116,7 @@ function formFromInitial(d?: any): FormData {
     pricing: (d.boat_pricing ?? []).length > 0
       ? (d.boat_pricing ?? []).map((p: any) => ({ durationHours: p.duration_hours, price: String(p.price) }))
       : INITIAL.pricing,
+    currency: (d.boat_pricing ?? [])[0]?.currency ?? 'EUR',
     priceOnRequest: (d.boat_pricing ?? []).length === 0,
     isFishingTrip: d.is_fishing_trip ?? false,
     images: [],
@@ -402,7 +406,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         }
         const pricing = form.priceOnRequest ? [] : form.pricing
           .filter((p) => p.price && Number(p.price) > 0 && p.durationHours && Number(p.durationHours) > 0)
-          .map((p) => ({ duration_hours: p.durationHours, price: Number(p.price), currency: 'EUR', season: 'all' }))
+          .map((p) => ({ duration_hours: p.durationHours, price: Number(p.price), currency: form.currency, season: 'all' }))
         const features = [...form.selectedFeatures]
         if (form.cancellationPolicy === 'custom' && form.cancellationCustom.trim()) features.push(REFUND_MARKER + form.cancellationCustom.trim())
         const res = await fetch('/api/admin/update-listing', {
@@ -454,7 +458,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       // "Price on request" → store no pricing rows, so the boat page shows the enquiry form.
       const pricingRecords = form.priceOnRequest ? [] : form.pricing
         .filter((p) => p.price && Number(p.price) > 0 && p.durationHours && Number(p.durationHours) > 0)
-        .map((p) => ({ boat_id: targetBoatId, duration_hours: p.durationHours, price: Number(p.price), currency: 'EUR', season: 'all' as const }))
+        .map((p) => ({ boat_id: targetBoatId, duration_hours: p.durationHours, price: Number(p.price), currency: form.currency, season: 'all' as const }))
       if (pricingRecords.length > 0) await supabase.from('boat_pricing').insert(pricingRecords)
 
       if (boatId) await supabase.from('boat_features').delete().eq('boat_id', boatId)
@@ -804,7 +808,14 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
 
             {!form.priceOnRequest && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>Pricing tiers (EUR)</label>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+                <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>Pricing tiers</label>
+                <div style={{ width: '230px' }}>
+                  <DarkSelect value={form.currency} onChange={(v) => update('currency', v)}>
+                    {CURRENCIES.map(([code, sym, label]) => <option key={code} value={code}>{code} {sym !== code ? `(${sym})` : ''} — {label}</option>)}
+                  </DarkSelect>
+                </div>
+              </div>
               <p style={{ fontSize: '12px', color: dim, margin: '-6px 0 2px' }}>Add a row for each duration you offer (e.g. 3h, 4h, 7h). Set the hours, then the all-inclusive price.</p>
 
               {/* % markup — recalculates every tier below; the new prices are what renters see on the site */}
@@ -847,7 +858,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                     <span style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', color: muted, fontSize: '13px', pointerEvents: 'none' }}>h</span>
                   </div>
                   <div style={{ flex: 1, position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: muted, fontSize: '14px', pointerEvents: 'none' }}>€</span>
+                    <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: muted, fontSize: '14px', pointerEvents: 'none' }}>{symbolOf(form.currency)}</span>
                     <DarkInput
                       type="number"
                       value={p.price}
