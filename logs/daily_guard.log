@@ -5369,3 +5369,14 @@ Traceback (most recent call last):
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-07-07 00:35:40] done 2026-07-07
+[2026-07-08 00:49:28] starting daily run for 2026-07-08
+[2026-07-08 00:49:28] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-07-08 00:49:29] queue under threshold — fetching real keywords from DataForSEO…
+[2026-07-08 00:49:47] [2026-07-08 00:49:29] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-07-08 00:49:32] DataForSEO: expanding ideas from 14 base seeds
+[2026-07-08 00:49:47] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-08 00:49:47] === Done: 0 ok, 0 failed ===
+
+quarantined 0 thin landings; kept 504
+cannibalization: 147 variant pages canonicalized to a primary
+relinked: blogs=398 (homepage 398/398), landings=504 (homepage 504/504), affiliate-link pool=9
