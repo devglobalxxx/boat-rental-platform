@@ -124,7 +124,8 @@ export default function FleetImportClient({ userId, locations }: Props) {
           pricing_type: boat.hourly_price > 0 ? 'hourly' : 'daily',
           instant_book: false,
           cancellation_policy: 'flexible',
-          status: 'draft',
+          // Self-serve imports publish immediately; the host can delist from My listings.
+          status: 'active',
         })
         .select('id')
         .single()

@@ -463,9 +463,14 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         )
       }
 
-      // Auto-activate only when the actual host is publishing.
-      // Admin concierge listings stay as drafts so the host can review & activate themselves.
-      if (pricingRecords.length > 0 && !targetHostId) {
+      // Self-serve boats publish automatically (price-on-request boats show an
+      // enquiry form, so no pricing is required to go live); the host can delist
+      // any time from My listings. Only new boats and completed drafts are
+      // promoted — editing a deliberately paused/delisted boat never re-lists it.
+      // Admin concierge listings stay as drafts so the operator reviews &
+      // publishes from the admin panel.
+      const wasDelisted = boatId && initialData?.status && initialData.status !== 'draft' && initialData.status !== 'active'
+      if (!targetHostId && !wasDelisted) {
         await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
       }
       router.push(returnTo ?? '/host')

@@ -72,7 +72,9 @@ export default function WebsiteImportClient({ locations, targetHostId, targetLab
   const [country, setCountry] = useState('Spain')
   const [city, setCity] = useState('')
   const [priceOnRequest, setPriceOnRequest] = useState(false)
-  const [publishStatus, setPublishStatus] = useState<'draft' | 'active'>('draft')
+  // Self-serve hosts publish immediately (they can delist afterwards); admin
+  // concierge imports default to drafts for review in the managed panel.
+  const [publishStatus, setPublishStatus] = useState<'draft' | 'active'>(targetHostId ? 'draft' : 'active')
   const [results, setResults] = useState<ImportResult[]>([])
 
   async function scan() {
