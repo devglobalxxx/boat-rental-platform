@@ -59,8 +59,7 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
       locations(*),
       profiles(id, full_name, avatar_url, verification_status)
     `)
-    .eq('status', 'active')
-    .eq('is_fishing_trip', false)  // fishing trips live only on /fishing-trips
+    .eq('status', 'active')  // fishing trips show here too — /fishing-trips is an additional dedicated view
 
   if (params.type && params.type !== 'all') {
     query = query.eq('type', params.type as any)
