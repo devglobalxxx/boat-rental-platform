@@ -217,6 +217,18 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
   const [photoBusy, setPhotoBusy] = useState(false)
   const [aiBusy, setAiBusy] = useState(false)
   const [dragOver, setDragOver] = useState(false)
+  // % markup tool: recalculates every pricing tier (e.g. owner price +15% for
+  // managed listings). The recalculated prices are what get saved & shown live.
+  const [markupPct, setMarkupPct] = useState('15')
+
+  function applyMarkup() {
+    const pct = Number(markupPct)
+    if (!Number.isFinite(pct) || pct === 0) return
+    update('pricing', form.pricing.map((p) => {
+      const n = Number(p.price)
+      return n > 0 ? { ...p, price: String(Math.round(n * (1 + pct / 100))) } : p
+    }))
+  }
 
   // Append image files (from picker or drag-and-drop), de-duped by name+size.
   function addImages(files: FileList | File[] | null) {
@@ -794,6 +806,29 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <label style={{ fontSize: '13px', fontWeight: 600, color: text }}>Pricing tiers (EUR)</label>
               <p style={{ fontSize: '12px', color: dim, margin: '-6px 0 2px' }}>Add a row for each duration you offer (e.g. 3h, 4h, 7h). Set the hours, then the all-inclusive price.</p>
+
+              {/* % markup — recalculates every tier below; the new prices are what renters see on the site */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', borderRadius: '10px', background: 'rgba(116,207,232,0.06)', border: '1px solid rgba(116,207,232,0.16)', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '12.5px', color: muted }}>Adjust all prices by</span>
+                <div style={{ position: 'relative', width: '84px' }}>
+                  <DarkInput
+                    type="number"
+                    value={markupPct}
+                    onChange={(e) => setMarkupPct(e.target.value)}
+                    placeholder="15"
+                    style={{ paddingRight: '26px' }}
+                  />
+                  <span style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', color: muted, fontSize: '13px', pointerEvents: 'none' }}>%</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={applyMarkup}
+                  style={{ padding: '9px 16px', borderRadius: '99px', background: 'rgba(116,207,232,0.14)', border: '1px solid rgba(116,207,232,0.30)', color: gold, fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
+                >
+                  Apply {Number(markupPct) > 0 ? `+${Number(markupPct)}%` : `${Number(markupPct) || 0}%`}
+                </button>
+                <span style={{ fontSize: '11.5px', color: dim }}>Recalculates the tiers below — the new prices are what guests see on the website.</span>
+              </div>
               {form.pricing.map((p, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={{ position: 'relative', width: '92px', flexShrink: 0 }}>
