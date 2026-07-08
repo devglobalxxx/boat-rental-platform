@@ -45,6 +45,10 @@ function BoatRow({ boat, last }: { boat: LeadBoat; last: boolean }) {
       })
       if (!r.ok) throw new Error()
       setStatus(next)
+      // Resync the server-rendered page data — otherwise Next's client router
+      // cache can re-serve the old status ("draft") on the next visit even
+      // though the change saved fine.
+      router.refresh()
     } catch { setErr(true) } finally { setBusy(false) }
   }
 
