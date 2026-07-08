@@ -74,6 +74,7 @@ interface FormData {
   currency: string
   priceOnRequest: boolean
   isFishingTrip: boolean
+  isBoatTour: boolean
   images: File[]
 }
 
@@ -86,6 +87,7 @@ const INITIAL: FormData = {
   currency: 'EUR',
   priceOnRequest: false,
   isFishingTrip: false,
+  isBoatTour: false,
   images: [],
 }
 
@@ -119,6 +121,7 @@ function formFromInitial(d?: any): FormData {
     currency: (d.boat_pricing ?? [])[0]?.currency ?? 'EUR',
     priceOnRequest: (d.boat_pricing ?? []).length === 0,
     isFishingTrip: d.is_fishing_trip ?? false,
+    isBoatTour: d.is_boat_tour ?? false,
     images: [],
   }
 }
@@ -407,6 +410,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
         // custom terms live in a boat_features marker row (see below).
         cancellation_policy: (form.cancellationPolicy === 'custom' ? 'strict' : form.cancellationPolicy) as any,
         is_fishing_trip: form.isFishingTrip,
+        is_boat_tour: form.isBoatTour,
       }
 
       // Admin editing a boat they don't own → write via service-role API so RLS
@@ -669,7 +673,14 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
               <input type="checkbox" checked={form.isFishingTrip} onChange={(e) => update('isFishingTrip', e.target.checked)} style={{ width: '18px', height: '18px', accentColor: gold, cursor: 'pointer' }} />
               <span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: text }}>🎣 Fishing trip</span>
-                <span style={{ display: 'block', fontSize: '12px', color: dim, marginTop: '2px' }}>Show this listing only in the Fishing trips section (hidden from the main Explore boats search).</span>
+                <span style={{ display: 'block', fontSize: '12px', color: dim, marginTop: '2px' }}>Also list this boat in the Fishing trips section (it stays visible in Explore boats too).</span>
+              </span>
+            </label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 14px', borderRadius: '10px', background: form.isBoatTour ? goldFaint : 'rgba(255,255,255,0.03)', border: `1px solid ${form.isBoatTour ? goldBorder : inputBorder}`, cursor: 'pointer' }}>
+              <input type="checkbox" checked={form.isBoatTour} onChange={(e) => update('isBoatTour', e.target.checked)} style={{ width: '18px', height: '18px', accentColor: gold, cursor: 'pointer' }} />
+              <span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: text }}>🗺 Boat tour</span>
+                <span style={{ display: 'block', fontSize: '12px', color: dim, marginTop: '2px' }}>Also list this boat in the Boat tours section — sightseeing cruises, island hopping, sunset trips (it stays visible in Explore boats too).</span>
               </span>
             </label>
           </>
