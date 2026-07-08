@@ -289,15 +289,17 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
   async function setCover(id: string) {
     if (!boatId) return
     setPhotoBusy(true)
-    await supabase.from('boat_images').update({ is_hero: false } as any).eq('boat_id', boatId)
-    await supabase.from('boat_images').update({ is_hero: true } as any).eq('id', id)
-    setExistingImages((imgs) => imgs.map((im) => ({ ...im, is_hero: im.id === id })))
+    // Photo ops go through the server API: browser-side writes under RLS can
+    // fail silently (0 rows, no error) — hosts saw deletes "work" then photos
+    // reappear on reload. The API verifies ownership and reports real errors.
+    const ok = await photoOp({ op: 'cover', imageId: id })
+    if (ok) setExistingImages((imgs) => imgs.map((im) => ({ ...im, is_hero: im.id === id })))
     setPhotoBusy(false)
   }
   async function deletePhoto(id: string) {
     setPhotoBusy(true)
-    await supabase.from('boat_images').delete().eq('id', id)
-    setExistingImages((imgs) => imgs.filter((im) => im.id !== id))
+    const ok = await photoOp({ op: 'delete', imageId: id })
+    if (ok) setExistingImages((imgs) => imgs.filter((im) => im.id !== id))
     setPhotoBusy(false)
   }
   async function movePhoto(id: string, dir: -1 | 1) {
@@ -306,11 +308,23 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
     if (idx < 0 || j < 0 || j >= existingImages.length) return
     const next = [...existingImages]
     ;[next[idx], next[j]] = [next[j], next[idx]]
-    setExistingImages(next)
     setPhotoBusy(true)
-    await supabase.from('boat_images').update({ sort_order: idx } as any).eq('id', next[idx].id)
-    await supabase.from('boat_images').update({ sort_order: j } as any).eq('id', next[j].id)
+    const ok = await photoOp({ op: 'sort', imageId: next[idx].id, sortOrder: idx, otherId: next[j].id, otherSort: j })
+    if (ok) setExistingImages(next)
     setPhotoBusy(false)
+  }
+  async function photoOp(payload: Record<string, unknown>): Promise<boolean> {
+    try {
+      const r = await fetch('/api/host/photos', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+      })
+      const j = await r.json().catch(() => ({}))
+      if (!r.ok) throw new Error(j.error || 'Photo update failed')
+      return true
+    } catch (e) {
+      alert((e as Error).message)
+      return false
+    }
   }
 
   // ── New-upload arranging (before the listing is saved): reorder, choose cover, remove ──
