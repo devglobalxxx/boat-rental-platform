@@ -54,12 +54,14 @@ function BoatRow({ boat, last }: { boat: LeadBoat; last: boolean }) {
 
   const c = STATUS_COLOR[status] ?? muted
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, padding: '9px 14px', borderBottom: last ? 'none' : '1px solid rgba(255,255,255,0.05)' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 9, minWidth: 0 }}>
-        <a href={`/boats/${boat.slug}`} target="_blank" rel="noopener" style={{ color: text, fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>{boat.name}</a>
-        <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99, background: 'rgba(255,255,255,0.06)', color: c, border: '1px solid rgba(255,255,255,0.12)' }}>{status}</span>
+    // flexWrap so the actions drop to their own line on phones instead of
+    // colliding with the status badge (mobile overlap bug).
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px 10px', flexWrap: 'wrap', padding: '9px 14px', borderBottom: last ? 'none' : '1px solid rgba(255,255,255,0.05)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 9, minWidth: 0, flex: '1 1 auto' }}>
+        <a href={`/boats/${boat.slug}`} target="_blank" rel="noopener" style={{ color: text, fontSize: 13, fontWeight: 600, textDecoration: 'none', overflowWrap: 'anywhere' }}>{boat.name}</a>
+        <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99, background: 'rgba(255,255,255,0.06)', color: c, border: '1px solid rgba(255,255,255,0.12)', whiteSpace: 'nowrap', flexShrink: 0 }}>{status}</span>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0, marginLeft: 'auto' }}>
         <button onClick={toggle} disabled={busy}
           style={{ fontSize: 11.5, fontWeight: 700, cursor: 'pointer', borderRadius: 8, padding: '5px 12px', opacity: busy ? 0.6 : 1,
             background: isActive ? 'transparent' : '#22c55e',

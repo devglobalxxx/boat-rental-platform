@@ -41,7 +41,11 @@ export async function mmkFetch<T>(apiKey: string, path: string, params?: Record<
     signal: AbortSignal.timeout(45000),
   })
   if (res.status === 401 || res.status === 403) throw new Error('MMK rejected the API key (401/403). Check the key in Booking Manager → My Account → API Integration.')
-  if (!res.ok) throw new Error(`MMK API ${path} returned HTTP ${res.status}`)
+  // MMK's backend answers invalid keys/requests with a raw 500 (Tomcat) page,
+  // not a clean 401 — surface that as a key problem, not a server crash.
+  if (!res.ok) throw new Error(`MMK returned HTTP ${res.status} for ${path} — this usually means the API key or Company ID is wrong. Double-check both in Booking Manager (My Account → API Integration).`)
+  const ct = res.headers.get('content-type') ?? ''
+  if (!ct.includes('json')) throw new Error('MMK returned a non-JSON response — the API key looks invalid. Re-generate it in Booking Manager → My Account → API Integration.')
   return res.json() as Promise<T>
 }
 
