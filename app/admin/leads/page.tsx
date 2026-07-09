@@ -7,6 +7,7 @@ import AddCustomerButton from '@/components/admin/AddCustomerButton'
 import LeadBoats from '@/components/admin/LeadBoats'
 import DeleteLeadButton from '@/components/admin/DeleteLeadButton'
 import LeadComment from '@/components/admin/LeadComment'
+import LeadVerified2x from '@/components/admin/LeadVerified2x'
 
 export const metadata: Metadata = { title: 'Listing leads' }
 export const dynamic = 'force-dynamic'
@@ -88,6 +89,7 @@ export default async function LeadsPage() {
                         <span title={manual ? 'Added manually by an admin' : 'Came in via the get-listed form'} style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', padding: '2px 8px', borderRadius: 99, color: manual ? gold : '#7fe3aa', background: manual ? 'rgba(116,207,232,0.12)' : 'rgba(94,214,140,0.12)', border: `1px solid ${manual ? 'rgba(116,207,232,0.28)' : 'rgba(94,214,140,0.28)'}` }}>{manual ? '✍ Manual' : '✉ Email'}</span>
                       )
                     })()}
+                    <LeadVerified2x id={s.id} verified={(s as any).verified_2x} />
                   </div>
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12 }}>
                     <span style={{ fontSize: 11, color: muted }}>{new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}</span>

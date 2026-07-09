@@ -24,16 +24,17 @@ export async function PATCH(req: NextRequest) {
   const id = String(body?.id ?? '').trim()
   if (!id) return NextResponse.json({ error: 'id is required' }, { status: 400 })
 
-  const patch: Record<string, string | null> = {}
+  const patch: Record<string, string | boolean | null> = {}
   if ('email' in body) patch.email = String(body.email ?? '').trim().slice(0, 160) || null
   if ('website' in body) patch.website = String(body.website ?? '').trim().slice(0, 300) || null
   if ('phone' in body) patch.phone = String(body.phone ?? '').trim().slice(0, 60) || null
   if ('contact_name' in body) patch.contact_name = String(body.contact_name ?? '').trim().slice(0, 120) || null
   if ('note' in body) patch.note = String(body.note ?? '').trim().slice(0, 2000) || null
+  if ('verified_2x' in body) patch.verified_2x = body.verified_2x === true
   if (Object.keys(patch).length === 0) return NextResponse.json({ error: 'Nothing to update' }, { status: 400 })
 
   const { data, error } = await admin.from('listing_submissions').update(patch).eq('id', id)
-    .select('id, contact_name, email, website, phone, note').single()
+    .select('id, contact_name, email, website, phone, note, verified_2x').single()
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ ok: true, lead: data })
 }

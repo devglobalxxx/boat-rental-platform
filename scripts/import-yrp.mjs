@@ -23,16 +23,7 @@ const urls = readFileSync('/tmp/yrp-urls.txt', 'utf8').split('\n').map((s) => s.
 const NOISE = new Set(['yacht','boat','charter','the','phuket','rental','luxury','private','ft','feet'])
 const toks = (name) => {
   const t = name.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, ' ').split(/\s+/).filter(Boolean)
-  const nums = [], words = []
-  for (const x of t) {
-    // digits inside mixed tokens ("78ft", "s65") count as NUMBERS — footage must
-    // match exactly, never fuzzily ("51ft" ≉ "58ft").
-    const ds = x.match(/\d+/g)
-    if (ds) ds.forEach((d) => nums.push(d))
-    const w = x.replace(/\d+/g, '')
-    if (w.length >= 3 && !NOISE.has(w)) words.push(w)
-  }
-  return { nums: nums.sort().join(','), words }
+  return { nums: t.filter((x) => /^\d+$/.test(x)).sort().join(','), words: t.filter((x) => !/^\d+$/.test(x) && x.length >= 3 && !NOISE.has(x)) }
 }
 const close = (a, b) => {
   if (a === b) return true
@@ -47,10 +38,8 @@ const close = (a, b) => {
 }
 const sameBoat = (a, b) => {
   const ta = toks(a), tb = toks(b)
-  // numbers must agree when BOTH names carry them ("Leopard 50ft" ≠ "Leopard 51ft");
-  // a number-less name can still match its numbered variant ("Song of Songs" = "139ft Song of Songs")
-  if (ta.nums && tb.nums && ta.nums !== tb.nums) return false
-  if (!ta.words.length && !tb.words.length) return ta.nums.length > 0 && ta.nums === tb.nums
+  if (ta.nums !== tb.nums) return false
+  if (!ta.words.length && !tb.words.length) return ta.nums.length > 0
   return ta.words.some((w) => tb.words.some((v) => close(w, v)))
 }
 

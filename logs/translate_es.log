@@ -628,3 +628,6 @@
 [2026-07-08 00:49:50] es: translating 1 landing page(s)
 [2026-07-08 00:50:45]   [1/1] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-07-08 00:50:45] es: 0/1 translated (total es=503)
+[2026-07-09 00:51:50] es: translating 1 landing page(s)
+[2026-07-09 00:52:52]   [1/1] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-07-09 00:52:52] es: 0/1 translated (total es=503)
