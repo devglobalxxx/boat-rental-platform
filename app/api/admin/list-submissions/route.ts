@@ -35,7 +35,7 @@ export async function PATCH(req: NextRequest) {
   if (Object.keys(patch).length === 0) return NextResponse.json({ error: 'Nothing to update' }, { status: 400 })
 
   const { data, error } = await admin.from('listing_submissions').update(patch).eq('id', id)
-    .select('id, contact_name, company, email, website, phone, note').single()
+    .select('id, contact_name, company, email, website, phone, note, verified_2x').single()
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ ok: true, lead: data })
 }
