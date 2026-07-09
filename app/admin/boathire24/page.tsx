@@ -140,7 +140,7 @@ export default async function BoatHire24HubPage() {
                     <DeleteLeadButton id={s.id} name={s.company || s.contact_name || 'this lead'} />
                   </span>
                 </div>
-                <LeadContactEdit id={s.id} website={s.website} email={s.email} phone={s.phone} location={locByLead.get(s.id) || [s.port, s.country].filter(Boolean).join(', ')} />
+                <LeadContactEdit id={s.id} website={s.website} email={s.email} phone={s.phone} contactName={s.contact_name} company={s.company} location={locByLead.get(s.id) || [s.port, s.country].filter(Boolean).join(', ')} />
                 <LeadComment id={s.id} note={s.note} />
                 {Array.isArray(s.boats) && s.boats.length > 0 && (
                   <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 10 }}>
