@@ -47,10 +47,30 @@ const NAME_NOISE = /^(lancha|velero|barco|boat|yacht|alquiler|rental|charter|de|
 function nameTokens(name: string): { nums: string; words: string[] } {
   const toks = name.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9]+/g, ' ').trim().split(/\s+/).filter(Boolean)
-  return {
-    nums: toks.filter((t) => /^\d+$/.test(t)).sort().join(','),
-    words: toks.filter((t) => !/^\d+$/.test(t) && t.length >= 3 && !NAME_NOISE.test(t)),
+  const nums: string[] = []
+  const words: string[] = []
+  for (const t of toks) {
+    // digits inside mixed tokens ("78ft", "s65") are NUMBERS — footage must
+    // match exactly, never fuzzily ("51ft" ≉ "58ft").
+    const ds = t.match(/\d+/g)
+    if (ds) ds.forEach((d) => nums.push(d))
+    const w = t.replace(/\d+/g, '')
+    if (w.length >= 3 && !NAME_NOISE.test(w)) words.push(w)
   }
+  return { nums: nums.sort().join(','), words }
+}
+// Number sets are compatible when one is a subset of the other — "Femis Aqua 24"
+// matches "Femis Aqua 24 T5", but "Leopard 50ft" never matches "Leopard 51ft".
+function numsCompatible(a: string, b: string): boolean {
+  if (!a || !b) return true
+  const small = (a.length <= b.length ? a : b).split(',')
+  const big = (a.length <= b.length ? b : a).split(',')
+  for (const x of small) {
+    const i = big.indexOf(x)
+    if (i === -1) return false
+    big.splice(i, 1)
+  }
+  return true
 }
 function closeWord(a: string, b: string): boolean {
   if (a === b) return true
@@ -67,8 +87,8 @@ function closeWord(a: string, b: string): boolean {
 }
 function sameBoat(a: string, b: string): boolean {
   const ta = nameTokens(a), tb = nameTokens(b)
-  if (ta.nums !== tb.nums) return false
-  if (ta.words.length === 0 && tb.words.length === 0) return ta.nums.length > 0
+  if (!numsCompatible(ta.nums, tb.nums)) return false
+  if (ta.words.length === 0 && tb.words.length === 0) return ta.nums.length > 0 && ta.nums === tb.nums
   return ta.words.some((w) => tb.words.some((v) => closeWord(w, v)))
 }
 
