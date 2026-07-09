@@ -156,7 +156,95 @@ export default function FeedConnectClient({ locations }: { locations: Loc[] }) {
           </div>
         )}
 
+        <MMKSection locations={locations} defaultLocationId={defaultLocationId} />
+
         <style dangerouslySetInnerHTML={{ __html: '@keyframes spin { to { transform: rotate(360deg) } }' }} />
+      </div>
+    </div>
+  )
+}
+
+// ── MMK Booking Manager sync ─────────────────────────────────────────────────
+// Charter fleets managed in booking-manager.com connect with their MMK API key
+// (Booking Manager portal → My Account → API Integration) + company ID. Yachts
+// upsert by external_id mmk:<id>, so re-running keeps the fleet in sync.
+function MMKSection({ locations, defaultLocationId }: { locations: Loc[]; defaultLocationId: string }) {
+  const [apiKey, setApiKey] = useState('')
+  const [companyId, setCompanyId] = useState('')
+  const [locationId, setLocationId] = useState(defaultLocationId)
+  const [status, setStatus] = useState<'active' | 'draft'>('active')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+  const [result, setResult] = useState<{ yachts: number; imported: number; updated: number; photos: number } | null>(null)
+
+  useEffect(() => { if (!locationId && defaultLocationId) setLocationId(defaultLocationId) }, [defaultLocationId, locationId])
+
+  async function sync() {
+    setBusy(true); setError(''); setResult(null)
+    try {
+      const res = await fetch('/api/host/import-mmk', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey, companyId, locationId, status }),
+      })
+      const j = await res.json()
+      if (!res.ok || j.error) { setError(j.error ?? 'Sync failed'); return }
+      setResult(j)
+    } catch { setError('Network error — please try again.') }
+    finally { setBusy(false) }
+  }
+
+  const label: React.CSSProperties = { display: 'block', fontSize: '11px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }
+  const input: React.CSSProperties = { width: '100%', boxSizing: 'border-box', padding: '11px 13px', borderRadius: '10px', background: inputBg, border: `1px solid ${inputBorder}`, color: text, fontSize: '14px', outline: 'none' }
+
+  return (
+    <div style={{ marginTop: '34px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '10px' }}>
+        <div style={{ width: 48, height: 48, borderRadius: '14px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.24)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>⚓</div>
+        <div>
+          <h2 style={{ fontSize: '20px', fontWeight: 800, margin: 0 }}>MMK Booking Manager</h2>
+          <p style={{ fontSize: '14px', color: muted, margin: '2px 0 0' }}>Fleet in Booking Manager? Sync yachts, photos and specs straight from MMK.</p>
+        </div>
+      </div>
+      <div style={{ background: card, border: '1px solid rgba(116,207,232,0.18)', borderRadius: '18px', padding: '24px', marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <p style={{ fontSize: '13px', color: muted, margin: 0, lineHeight: 1.6 }}>
+          In the <strong style={{ color: text }}>Booking Manager portal</strong> go to <strong style={{ color: text }}>My Account → API Integration</strong> and generate an API key, then paste it here with your MMK Company ID. Re-running the sync updates your fleet — no duplicates.
+        </p>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div style={{ flex: '2 1 240px' }}>
+            <label style={label}>MMK API key *</label>
+            <input value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="Bearer key from Booking Manager" autoComplete="off" style={input} />
+          </div>
+          <div style={{ flex: '1 1 140px' }}>
+            <label style={label}>Company ID</label>
+            <input value={companyId} onChange={(e) => setCompanyId(e.target.value)} placeholder="e.g. 4021" style={input} />
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div style={{ flex: '2 1 220px' }}>
+            <label style={label}>Fleet location</label>
+            <select value={locationId} onChange={(e) => setLocationId(e.target.value)} style={{ ...input, cursor: 'pointer', colorScheme: 'dark' }}>
+              {locations.map((l) => <option key={l.id} value={l.id} style={{ background: card }}>{l.city}, {l.country}</option>)}
+            </select>
+          </div>
+          <div style={{ flex: '1 1 140px' }}>
+            <label style={label}>Imported boats are</label>
+            <select value={status} onChange={(e) => setStatus(e.target.value as 'active' | 'draft')} style={{ ...input, cursor: 'pointer', colorScheme: 'dark' }}>
+              <option value="active" style={{ background: card }}>Live (active)</option>
+              <option value="draft" style={{ background: card }}>Drafts (review first)</option>
+            </select>
+          </div>
+        </div>
+        {error && <div style={{ padding: '11px 14px', borderRadius: '10px', background: 'rgba(248,113,113,0.10)', border: '1px solid rgba(248,113,113,0.30)', color: '#fca5a5', fontSize: '13px', display: 'flex', gap: '8px', alignItems: 'flex-start' }}><AlertCircle style={{ width: 15, height: 15, flexShrink: 0, marginTop: 1 }} /> {error}</div>}
+        {result && (
+          <div style={{ padding: '14px 16px', borderRadius: '10px', background: 'rgba(34,197,94,0.10)', border: '1px solid rgba(34,197,94,0.30)', color: '#86efac', fontSize: '13px' }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', fontWeight: 700, marginBottom: '4px' }}><CheckCircle style={{ width: 15, height: 15 }} /> Synced {result.yachts} yachts from MMK</div>
+            <div style={{ color: muted }}>{result.imported} new · {result.updated} updated · {result.photos} photos. <Link href="/host/fleet" style={{ color: gold }}>View fleet →</Link></div>
+          </div>
+        )}
+        <button onClick={sync} disabled={busy || !apiKey}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px', borderRadius: '12px', background: 'linear-gradient(135deg, #8fdcf0 0%, #74cfe8 60%, #4fb8d6 100%)', color: '#07101e', fontSize: '15px', fontWeight: 800, border: 'none', cursor: busy || !apiKey ? 'default' : 'pointer', opacity: busy || !apiKey ? 0.7 : 1 }}>
+          {busy ? <><Loader2 style={{ width: 16, height: 16, animation: 'spin 1s linear infinite' }} /> Syncing from MMK…</> : <>Sync my MMK fleet</>}
+        </button>
       </div>
     </div>
   )
