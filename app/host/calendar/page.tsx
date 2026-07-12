@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import HostCalendarClient from './HostCalendarClient'
+import CalendarSync from './CalendarSync'
 
 export default async function HostCalendarPage({
   searchParams,
@@ -51,6 +52,11 @@ export default async function HostCalendarPage({
           status: b.status,
         }))}
       />
+      {selectedBoat && (
+        <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 16px 40px' }}>
+          <CalendarSync boatId={selectedBoat.id} boatName={selectedBoat.name} />
+        </div>
+      )}
     </Suspense>
   )
 }
