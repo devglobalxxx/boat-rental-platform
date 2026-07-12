@@ -40,7 +40,10 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ tok
     headers: {
       'Content-Type': 'text/calendar; charset=utf-8',
       'Content-Disposition': `inline; filename="boathire24-${token}.ics"`,
-      'Cache-Control': 'public, max-age=1800',
+      // Short cache so another platform / calendar app syncing FROM this feed sees
+      // changes within minutes (Tono's agency-to-agency case), served-stale while
+      // revalidating to keep origin load low.
+      'Cache-Control': 'public, max-age=300, stale-while-revalidate=600',
     },
   })
 }
