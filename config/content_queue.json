@@ -8275,5 +8275,14 @@
       "consumed_at": "2026-06-26"
     }
   ],
-  "queue": []
+  "queue": [
+    {
+      "kind": "landing",
+      "slug": "boat-hire-crete",
+      "primary_keyword": "boat hire crete",
+      "title": "Boat Hire Crete | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 210
+    }
+  ]
 }
