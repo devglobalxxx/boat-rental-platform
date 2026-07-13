@@ -2705,3 +2705,10 @@
 [2026-07-12 06:57:04] DataForSEO: added 1 queue items (1 landing, 0 blog). Queue now 1.
 [2026-07-12 06:57:04] === Done: 0 ok, 0 failed ===
 
+[2026-07-13 12:16:10] === Generate: 0 blog + 1 landing = 1 item(s) (backend=deepseek) ===
+[2026-07-13 12:16:11] [1/1] landing · boat-hire-crete
+[2026-07-13 12:17:17]   ✓ generated
+[2026-07-13 12:17:17] queue under threshold — fetching real keywords from DataForSEO…
+[2026-07-13 12:17:34] [2026-07-13 12:17:18] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-07-13 12:17:21] DataForSEO: expanding ideas from 14 base seeds
+[2026-07-13 12:17:34] DataForSEO: added 1 queue items (1 landing, 0 blog). Queue now 1.

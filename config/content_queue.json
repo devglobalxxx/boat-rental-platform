@@ -8273,16 +8273,25 @@
       "target_words": 2200,
       "search_volume": 210,
       "consumed_at": "2026-06-26"
-    }
-  ],
-  "queue": [
+    },
     {
       "kind": "landing",
       "slug": "boat-hire-crete",
       "primary_keyword": "boat hire crete",
       "title": "Boat Hire Crete | BoatHire24",
       "target_words": 2200,
-      "search_volume": 210
+      "search_volume": 210,
+      "consumed_at": "2026-07-13"
+    }
+  ],
+  "queue": [
+    {
+      "kind": "landing",
+      "slug": "private-yacht-hire",
+      "primary_keyword": "private yacht hire",
+      "title": "Private Yacht Hire | BoatHire24",
+      "target_words": 2200,
+      "search_volume": 4400
     }
   ]
 }
