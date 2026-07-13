@@ -2712,3 +2712,7 @@
 [2026-07-13 12:17:34] [2026-07-13 12:17:18] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
 [2026-07-13 12:17:21] DataForSEO: expanding ideas from 14 base seeds
 [2026-07-13 12:17:34] DataForSEO: added 1 queue items (1 landing, 0 blog). Queue now 1.
+[2026-07-13 12:17:37] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-07-13 12:17:38] reindex ping: 200 {"ok":true,"urls_total":1678,"indexnow":{"ok":true,"status":200,"count":1678},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-07-13T09:
+[2026-07-13 12:17:38] === Done: 1 ok, 0 failed ===
+
