@@ -8282,16 +8282,16 @@
       "target_words": 2200,
       "search_volume": 210,
       "consumed_at": "2026-07-13"
-    }
-  ],
-  "queue": [
+    },
     {
       "kind": "landing",
       "slug": "private-yacht-hire",
       "primary_keyword": "private yacht hire",
       "title": "Private Yacht Hire | BoatHire24",
       "target_words": 2200,
-      "search_volume": 4400
+      "search_volume": 4400,
+      "consumed_at": "2026-07-17"
     }
-  ]
+  ],
+  "queue": []
 }
