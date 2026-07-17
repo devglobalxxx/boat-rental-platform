@@ -5,6 +5,11 @@ machine. **Claude's local `~/.claude` memory does NOT sync between computers —
 does.** So durable knowledge lives here and in `docs/`, not in local memory. When you
 learn something a future session (or the other computer) will need, add it here.
 
+> To carry your **full local Claude memory** across machines, run
+> `./scripts/claude-memory-transfer.sh export` on the source machine, copy the printed
+> `.tgz` over, and run `./scripts/claude-memory-transfer.sh import <bundle>.tgz "$(pwd)"`
+> on the new one — it remaps the notes to this machine's project path.
+
 ---
 
 ## 1. What this is
