@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -37,6 +37,7 @@ interface WizardProps {
 }
 
 const STEPS = ['Basics', 'Specs & features', 'Pricing', 'Photos', 'Review & publish']
+const DRAFT_KEY = 'bh24-listing-draft'
 
 // Custom refund policy is stored as a namespaced boat_features row so it needs
 // no DB migration. Anything after this prefix is the host's free-text policy.
@@ -226,6 +227,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
   )
   const [photoBusy, setPhotoBusy] = useState(false)
   const [photoWarning, setPhotoWarning] = useState<string | null>(null)
+  const [draftAvailable, setDraftAvailable] = useState<Partial<FormData> | null>(null)
   const [aiBusy, setAiBusy] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   // % markup tool: recalculates every pricing tier (e.g. owner price +15% for
@@ -268,6 +270,23 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
   // attributes boats to the logged-in user, not the target host).
   const isNewManual = !boatId && !initialData && !targetHostId
   const [method, setMethod] = useState<'choose' | 'manual'>(isNewManual ? 'choose' : 'manual')
+
+  // Autosave a brand-new listing's text/specs to localStorage (photos can't be
+  // serialized, so they're excluded) — a refresh or timeout never wipes the whole
+  // 5-step form. Offered back via a "Resume your draft?" banner on the chooser.
+  useEffect(() => {
+    // Only once a name exists — skips the empty initial render, so it never
+    // overwrites a saved draft before the restore effect below can read it.
+    if (!isNewManual || !form.name.trim()) return
+    try { const { images: _img, ...rest } = form; localStorage.setItem(DRAFT_KEY, JSON.stringify(rest)) } catch { /* ignore quota/serialisation */ }
+  }, [form, isNewManual])
+  useEffect(() => {
+    if (!isNewManual) return
+    try { const raw = localStorage.getItem(DRAFT_KEY); const p = raw ? JSON.parse(raw) : null; if (p && p.name) setDraftAvailable(p) } catch { /* ignore */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const resumeDraft = () => { if (draftAvailable) { setForm((f) => ({ ...f, ...draftAvailable, images: f.images })); setMethod('manual'); setDraftAvailable(null) } }
+  const discardDraft = () => { try { localStorage.removeItem(DRAFT_KEY) } catch { /* ignore */ } setDraftAvailable(null) }
 
   // "Generate with AI" — writes a tagline + description from the facts already in the form.
   async function generateDescription() {
@@ -542,6 +561,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       if (wantsActive) {
         await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
       }
+      try { if (isNewManual) localStorage.removeItem(DRAFT_KEY) } catch { /* ignore */ }
       router.push(returnTo ?? '/host')
     } catch (err: any) {
       setError(err.message)
@@ -571,6 +591,15 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
     ]
     return (
       <div>
+        {draftAvailable && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', padding: '14px 16px', marginBottom: '18px', borderRadius: '12px', background: goldFaint, border: `1px solid ${goldBorder}` }}>
+            <span style={{ fontSize: '13.5px', color: text }}>📝 You have an unsaved draft{draftAvailable.name ? ` for “${draftAvailable.name}”` : ''}. Resume where you left off?</span>
+            <span style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+              <button type="button" onClick={resumeDraft} style={{ padding: '8px 16px', borderRadius: '9px', background: gold, color: '#07101e', border: 'none', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>Resume</button>
+              <button type="button" onClick={discardDraft} style={{ padding: '8px 14px', borderRadius: '9px', background: 'transparent', border: `1px solid ${inputBorder}`, color: muted, fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>Discard</button>
+            </span>
+          </div>
+        )}
         <p style={{ color: muted, fontSize: '14px', lineHeight: 1.6, margin: '0 0 22px' }}>
           How would you like to add your boat? You can always edit everything afterwards.
         </p>
