@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
 import SearchBar from '@/components/search/SearchBar'
 import { MapPin, Anchor, Ship } from 'lucide-react'
@@ -113,11 +114,7 @@ export default async function LocationPage({ params }: Props) {
     .eq('status', 'active')
     .order('created_at', { ascending: false })
 
-  const boats: BoatWithDetails[] = ((rawBoats ?? []) as any[]).map((b) => ({
-    ...b,
-    avg_rating: 0,
-    review_count: 0,
-  })) as BoatWithDetails[]
+  const boats = await attachRatings(supabase, (rawBoats ?? []) as any[]) as BoatWithDetails[]
 
   // Real "from" price across this location's fleet — a concrete fact for the answer box + AI citation.
   const fleetPrices = boats.flatMap((b) => ((b as any).boat_pricing ?? []).map((p: any) => p.price as number)).filter((p) => p > 0)

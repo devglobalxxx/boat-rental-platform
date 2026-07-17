@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
 import Filters from '@/components/search/Filters'
 import SearchBar from '@/components/search/SearchBar'
@@ -97,7 +98,7 @@ async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promi
   // ~half the fleet once we passed 48 listings). Generous ceiling for safety.
   const { data, error } = await query.limit(500)
   if (error || !data) return []
-  const boats = (data as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
+  const boats = await attachRatings(supabase, (data ?? []) as any[]) as BoatWithDetails[]
 
   // Sort — the pills in Filters were previously a no-op.
   const minPrice = (b: BoatWithDetails) => {

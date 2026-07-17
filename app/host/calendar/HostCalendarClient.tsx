@@ -16,6 +16,12 @@ const dim = 'rgba(244,244,242,0.35)'
 const inputBg = 'rgba(255,255,255,0.05)'
 const inputBorder = 'rgba(255,255,255,0.14)'
 
+// Calendar dates are day-level and must stay in the host's LOCAL day. Using
+// toISOString() would shift to UTC, so a host at a positive offset (Europe/Med/
+// Gulf/Asia) would block the day BEFORE the one they clicked.
+const ymdLocal = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+const parseLocalDate = (s: string) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d) }
+
 interface Boat { id: string; name: string; slug: string }
 interface AvailabilityRow { date: string; status: string }
 interface BookingRow { start: string; end: string; status: string }
@@ -39,7 +45,7 @@ export default function HostCalendarClient({
 
   const blockedDates = availability
     .filter((a) => a.status === 'blocked')
-    .map((a) => new Date(a.date))
+    .map((a) => parseLocalDate(a.date))
 
   const bookedDates: Date[] = []
   for (const b of bookings) {
@@ -63,7 +69,7 @@ export default function HostCalendarClient({
     const supabase = createClient()
     const rows = selected.map((d) => ({
       boat_id: selectedBoat.id,
-      date: d.toISOString().slice(0, 10),
+      date: ymdLocal(d),
       status: 'blocked' as const,
     }))
     const { error } = await supabase.from('availability').upsert(rows, { onConflict: 'boat_id,date' })
@@ -82,7 +88,7 @@ export default function HostCalendarClient({
     setSaving(true)
     setMessage(null)
     const supabase = createClient()
-    const dateStrings = selected.map((d) => d.toISOString().slice(0, 10))
+    const dateStrings = selected.map(ymdLocal)
     const { error } = await supabase
       .from('availability')
       .delete()

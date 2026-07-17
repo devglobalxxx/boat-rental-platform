@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
 import { MapPin, ShieldCheck, Zap, Anchor, Waves } from 'lucide-react'
 import type { BoatWithDetails } from '@/types/database'
@@ -38,7 +39,7 @@ export default async function JetSkiMarbellaPage() {
     .eq('status', 'active')
     .order('created_at', { ascending: false })
 
-  const boats: BoatWithDetails[] = ((rawBoats ?? []) as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
+  const boats = await attachRatings(supabase, (rawBoats ?? []) as any[]) as BoatWithDetails[]
   const heroImg =
     (boats[0]?.boat_images?.find((i: any) => i.is_hero)?.storage_url) ||
     boats[0]?.boat_images?.[0]?.storage_url

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
 import SearchBar from '@/components/search/SearchBar'
 import { MapPin } from 'lucide-react'
@@ -33,7 +34,7 @@ async function resolve(locationSlug: string, categorySlug: string) {
     .in('type', cat.types)
     .order('created_at', { ascending: false })
   const { data: rawBoats } = await q
-  const boats: BoatWithDetails[] = ((rawBoats ?? []) as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
+  const boats = await attachRatings(supabase, (rawBoats ?? []) as any[]) as BoatWithDetails[]
   return { cat, loc, boats }
 }
 

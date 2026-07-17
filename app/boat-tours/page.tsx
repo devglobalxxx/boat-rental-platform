@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
 import FishingSearch from '@/components/search/FishingSearch'
 import type { BoatWithDetails } from '@/types/database'
@@ -34,7 +35,7 @@ async function getBoatTours(params: Awaited<PageProps['searchParams']>): Promise
 
   const { data, error } = await query.limit(500)
   if (error || !data) return []
-  return (data as any[]).map((b) => ({ ...b, avg_rating: 0, review_count: 0 })) as BoatWithDetails[]
+  return await attachRatings(supabase, (data ?? []) as any[]) as BoatWithDetails[]
 }
 
 export default async function BoatToursPage({ searchParams }: PageProps) {
