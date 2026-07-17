@@ -215,6 +215,9 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
     return f
   })
   const [loading, setLoading] = useState(false)
+  // When editing a paused listing, re-activate it on save (default on) so hosts
+  // don't get stuck unable to re-list; they can untick to keep it paused.
+  const [reactivate, setReactivate] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
   const supabase = createClient()
@@ -499,12 +502,13 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
 
       // Self-serve boats publish automatically (price-on-request boats show an
       // enquiry form, so no pricing is required to go live); the host can delist
-      // any time from My listings. Only new boats and completed drafts are
-      // promoted — editing a deliberately paused/delisted boat never re-lists it.
-      // Admin concierge listings stay as drafts so the operator reviews &
-      // publishes from the admin panel.
-      const wasDelisted = boatId && initialData?.status && initialData.status !== 'draft' && initialData.status !== 'active'
-      if (!targetHostId && !wasDelisted) {
+      // any time from My listings. Admin concierge listings stay as drafts so the
+      // operator reviews & publishes from the admin panel. A paused listing is
+      // re-activated only when the host ticks "make it active" in the review step
+      // (default on), so a deliberately-paused boat can be edited without
+      // republishing, but nobody gets stuck unable to re-list.
+      const isPaused = !!(boatId && initialData?.status === 'paused')
+      if (!targetHostId && (!isPaused || reactivate)) {
         await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
       }
       router.push(returnTo ?? '/host')
@@ -1031,6 +1035,16 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                 </div>
               ))}
             </div>
+            {boatId && initialData?.status === 'paused' && (
+              <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '14px', padding: '12px 14px', borderRadius: '10px', cursor: 'pointer',
+                background: reactivate ? 'rgba(94,214,140,0.10)' : 'rgba(255,255,255,0.03)', border: `1px solid ${reactivate ? 'rgba(94,214,140,0.32)' : inputBorder}` }}>
+                <input type="checkbox" checked={reactivate} onChange={(e) => setReactivate(e.target.checked)} style={{ width: '18px', height: '18px', marginTop: '1px', accentColor: '#5ed68c', cursor: 'pointer' }} />
+                <span>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: text }}>⏸ This listing is paused — make it active when I save</span>
+                  <span style={{ display: 'block', fontSize: '12px', color: dim, marginTop: '2px' }}>It's currently hidden from guests. Leave this ticked to publish it again, or untick to keep it paused.</span>
+                </span>
+              </label>
+            )}
             {error && (
               <p style={{ fontSize: '13px', color: '#f87171', background: 'rgba(248,113,113,0.10)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: '10px', padding: '12px 16px' }}>
                 {error}
