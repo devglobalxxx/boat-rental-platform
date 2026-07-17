@@ -518,7 +518,28 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
       // (default on), so a deliberately-paused boat can be edited without
       // republishing, but nobody gets stuck unable to re-list.
       const isPaused = !!(boatId && initialData?.status === 'paused')
-      if (!targetHostId && (!isPaused || reactivate)) {
+      const wasActive = !!(boatId && initialData?.status === 'active')
+
+      // Publish-readiness gate: a listing only goes live with at least one photo, a
+      // real description, and a price (or an explicit "Price on request"). Keeps
+      // imageless / priceless / one-word boats out of search + the sitemap. Only
+      // gates a listing that is BECOMING active — never de-lists an already-live one.
+      const totalImages = (initialData?.boat_images?.length ?? 0) + form.images.length
+      const hasPrice = form.priceOnRequest || form.pricing.some((p) => p.price && Number(p.price) > 0)
+      const hasDesc = (form.description ?? '').trim().length >= 25
+      const missing: string[] = []
+      if (totalImages === 0) missing.push('at least one photo')
+      if (!hasDesc) missing.push('a short description')
+      if (!hasPrice) missing.push('a price (or tick “Price on request”)')
+
+      const wantsActive = !targetHostId && (!isPaused || reactivate)
+      if (wantsActive && !wasActive && missing.length > 0) {
+        setError(`Saved, but not published yet — add ${missing.join(', ')} to go live.`)
+        setLoading(false)
+        router.refresh()
+        return
+      }
+      if (wantsActive) {
         await supabase.from('boats').update({ status: 'active' }).eq('id', targetBoatId)
       }
       router.push(returnTo ?? '/host')
