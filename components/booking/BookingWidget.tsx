@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Calendar, Users, Zap, Shield, Clock, MessageSquare } from 'lucide-react'
 import { formatPrice, calcFees } from '@/lib/utils/pricing'
@@ -61,10 +61,39 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
   const selectedPricing = sortedPricing.find((p) => p.id === selectedPricingId) ?? sortedPricing[0]
   const fees = selectedPricing ? calcFees(selectedPricing.price) : null
 
+  // Restore the booking selection when returning from login (or a shared link),
+  // so a guest who filled the widget while logged out never loses their inputs.
+  // Reads from window.location (client-only) to avoid a useSearchParams Suspense boundary.
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search)
+    const d = sp.get('date'); if (d) setDate(d)
+    const pid = sp.get('pricing_id'); if (pid && sortedPricing.some((p) => p.id === pid)) setSelectedPricingId(pid)
+    const g = sp.get('guests'); if (g && Number(g) > 0) setGuests(Number(g))
+    const t = sp.get('time'); if (t) { setTime(t); if (!TIME_SLOTS.some((s) => s.value === t)) setCustomTime(true) }
+    const oc = sp.get('occasion'); if (oc) setOccasion(oc)
+    const nt = sp.get('notes'); if (nt) setNotes(nt)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   async function handleBook() {
+    // Build the selection params once — carried through login and reused for the
+    // instant-book checkout redirect.
+    const params = new URLSearchParams()
+    if (date) params.set('date', date)
+    if (selectedPricing) params.set('pricing_id', selectedPricing.id)
+    params.set('guests', String(guests))
+    if (time) params.set('time', time)
+    if (occasion) params.set('occasion', occasion)
+    if (notes.trim()) params.set('notes', notes.trim())
+
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
-      router.push(`/login?next=/boats/${boat.slug}/book`)
+      // Preserve every selection through login: instant boats resume at checkout,
+      // request-first boats resume on the listing with the widget pre-filled.
+      const dest = boat.instant_book
+        ? `/boats/${boat.slug}/book?${params.toString()}`
+        : `/boats/${boat.slug}?${params.toString()}`
+      router.push(`/login?next=${encodeURIComponent(dest)}`)
       return
     }
     if (!date || !selectedPricing) return
@@ -89,14 +118,6 @@ export default function BookingWidget({ boat, blockedDates = [] }: BookingWidget
     }
 
     // Instant book: straight to card checkout.
-    const params = new URLSearchParams({
-      date,
-      pricing_id: selectedPricing.id,
-      guests: String(guests),
-      time,
-    })
-    if (occasion) params.set('occasion', occasion)
-    if (notes.trim()) params.set('notes', notes.trim())
     router.push(`/boats/${boat.slug}/book?${params.toString()}`)
   }
 

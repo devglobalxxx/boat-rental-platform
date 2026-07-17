@@ -225,6 +225,7 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
     [...((initialData?.boat_images as any[]) ?? [])].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
   )
   const [photoBusy, setPhotoBusy] = useState(false)
+  const [photoWarning, setPhotoWarning] = useState<string | null>(null)
   const [aiBusy, setAiBusy] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   // % markup tool: recalculates every pricing tier (e.g. owner price +15% for
@@ -242,7 +243,16 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
 
   // Append image files (from picker or drag-and-drop), de-duped by name+size.
   function addImages(files: FileList | File[] | null) {
-    const incoming = Array.from(files ?? []).filter((f) => f.type.startsWith('image/'))
+    const all = Array.from(files ?? [])
+    // HEIC/HEIF (the iPhone default) can't be rendered by most browsers and we
+    // can't transcode it server-side yet — reject with a clear fix instead of
+    // silently storing a broken/unviewable image (or dropping it with no reason).
+    const isHeic = (f: File) => /heic|heif/i.test(f.type) || /\.hei[cf]$/i.test(f.name)
+    const heic = all.filter(isHeic)
+    const incoming = all.filter((f) => !isHeic(f) && f.type.startsWith('image/'))
+    setPhotoWarning(heic.length
+      ? `${heic.length} HEIC photo${heic.length > 1 ? 's were' : ' was'} skipped — most browsers can't show HEIC. On iPhone: Settings → Camera → Formats → Most Compatible (or export as JPEG), then re-upload.`
+      : null)
     if (incoming.length === 0) return
     setForm((f) => {
       const merged = [...f.images]
@@ -820,6 +830,25 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                 </div>
               )}
             </div>
+            {/* Minimum booking length + pricing model — were in state but had no UI, so
+                every manual listing was silently locked to a 2-hour hourly model. */}
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '4px' }}>
+              <div style={{ flex: '1 1 190px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: text, marginBottom: '6px' }}>Minimum booking length</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <DarkInput type="number" min={1} max={720} value={String(form.minHours)} onChange={(e) => update('minHours', Math.max(1, Number(e.target.value) || 1))} style={{ width: '110px' }} />
+                  <span style={{ fontSize: '13px', color: muted }}>hours{form.minHours >= 24 ? ` (${Math.round(form.minHours / 24)} day${form.minHours >= 48 ? 's' : ''})` : ''}</span>
+                </div>
+              </div>
+              <div style={{ flex: '1 1 190px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: text, marginBottom: '6px' }}>Pricing model</label>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  {[{ v: 'hourly', l: 'Per hour' }, { v: 'daily', l: 'Per day' }].map((o) => (
+                    <button key={o.v} type="button" onClick={() => update('pricingType', o.v)} style={{ flex: 1, padding: '10px', borderRadius: '9px', cursor: 'pointer', fontSize: '13px', fontWeight: 700, background: form.pricingType === o.v ? goldFaint : 'transparent', border: `1.5px solid ${form.pricingType === o.v ? gold : inputBorder}`, color: form.pricingType === o.v ? gold : text }}>{o.l}</button>
+                  ))}
+                </div>
+              </div>
+            </div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 14px', borderRadius: '10px', background: form.priceOnRequest ? goldFaint : 'rgba(255,255,255,0.03)', border: `1px solid ${form.priceOnRequest ? goldBorder : inputBorder}`, cursor: 'pointer', marginBottom: '4px' }}>
               <input type="checkbox" checked={form.priceOnRequest} onChange={(e) => update('priceOnRequest', e.target.checked)} style={{ width: '18px', height: '18px', accentColor: gold, cursor: 'pointer' }} />
               <span>
@@ -979,6 +1008,12 @@ export default function ListingWizard({ locations, initialData, boatId, targetHo
                 <div style={{ fontSize: '13px', color: muted }}>Drag &amp; drop or click · JPG, PNG or WebP · up to 10 photos</div>
               </label>
             </div>
+
+            {photoWarning && (
+              <p style={{ fontSize: '13px', color: '#f7b955', background: 'rgba(245,158,11,0.10)', border: '1px solid rgba(245,158,11,0.28)', borderRadius: '10px', padding: '10px 14px', margin: 0 }}>
+                {photoWarning}
+              </p>
+            )}
 
             {/* New photo previews */}
             {form.images.length > 0 && (
