@@ -157,6 +157,12 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
 
   const sortedPricing = [...boat.boat_pricing].sort((a, b) => (a.duration_hours ?? 0) - (b.duration_hours ?? 0))
 
+  // Product.image: real uploaded photos (Supabase bucket) only — stock/hotlinked
+  // shots (Pexels, Unsplash, sister-domain) stay on the page but out of the schema.
+  const STOCK_IMG = /images\.pexels\.com|images\.unsplash\.com|boatrentalinmarbella\.com/
+  const realPhotos = boat.boat_images.filter((i) => !STOCK_IMG.test(i.storage_url))
+  const schemaImages = (realPhotos.length ? realPhotos : boat.boat_images).map((i) => i.storage_url).slice(0, 8)
+
   // Sibling boats in the same location → internal-link rails at the bottom of the
   // page (spreads crawl equity through the location silo, and cross-sells if the
   // boat this visitor landed on is booked). Same boat-type first, then the rest.
@@ -496,7 +502,7 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
               '@type': 'Product',
               name: boat.name,
               description: boat.description ?? boat.tagline ?? undefined,
-              image: boat.boat_images.map((i) => i.storage_url).slice(0, 8),
+              image: schemaImages,
               category: TYPE_LABELS[boat.type] ?? boat.type,
               ...(boat.builder ? { brand: { '@type': 'Brand', name: boat.builder } } : {}),
               additionalProperty: [

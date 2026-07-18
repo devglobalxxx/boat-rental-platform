@@ -259,7 +259,7 @@ export default function CorporatePage() {
             <p style={{ fontSize: '12px', color: muted }}>Our charter specialists are available 08:00–22:00 daily.</p>
           </div>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            <a href="https://wa.me/34600000000" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 16px', borderRadius: '99px', background: 'rgba(37,211,102,0.10)', border: '1px solid rgba(37,211,102,0.25)', color: '#5edb8a', fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}>
+            <a href="https://wa.me/358400406194" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 16px', borderRadius: '99px', background: 'rgba(37,211,102,0.10)', border: '1px solid rgba(37,211,102,0.25)', color: '#5edb8a', fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}>
               WhatsApp
             </a>
             <a href="mailto:corporate@boathire24.com" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 16px', borderRadius: '99px', background: goldFaint, border: `1px solid ${goldBorder}`, color: gold, fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}>

@@ -649,3 +649,7 @@
 [2026-07-17 11:00:08]   [1/2] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-07-17 11:00:57]   [2/2] ✗ private-yacht-hire: JSONDecodeError: Expecting ',' delimiter: line 31 column 6 (char 27204)
 [2026-07-17 11:00:57] es: 0/2 translated (total es=504)
+[2026-07-18 00:02:10] es: translating 2 landing page(s)
+[2026-07-18 00:02:58]   [1/2] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-07-18 00:03:50]   [2/2] ✗ private-yacht-hire: JSONDecodeError: Expecting ',' delimiter: line 31 column 6 (char 27121)
+[2026-07-18 00:03:50] es: 0/2 translated (total es=504)

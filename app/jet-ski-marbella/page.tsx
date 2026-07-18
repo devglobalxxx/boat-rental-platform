@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
@@ -49,7 +50,7 @@ export default async function JetSkiMarbellaPage() {
       {/* ── Hero ── */}
       <section style={{ position: 'relative', height: '460px', overflow: 'hidden' }}>
         {heroImg ? (
-          <img src={heroImg} alt="Jet ski rental in Marbella — Sea-Doo from Puerto Banús" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5 }} />
+          <Image src={heroImg} alt="Jet ski rental in Marbella — Sea-Doo from Puerto Banús" fill priority sizes="100vw" style={{ objectFit: 'cover', opacity: 0.5 }} />
         ) : (
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#0a1a32,#071122)' }} />
         )}

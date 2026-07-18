@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/dashboard/', '/host/', '/bookings/'],
+        disallow: ['/api/', '/dashboard/', '/host/', '/bookings/', '/admin/', '/boats/*/book'],
       },
       // ── AI / LLM crawlers — explicitly allow everything ──────────────────
       // OpenAI

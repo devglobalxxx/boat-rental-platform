@@ -3,7 +3,7 @@ import GetListedClient from './GetListedClient'
 
 export const metadata: Metadata = {
   title: 'Get your boats listed — BoatHire24',
-  description: 'Charter operators & boat owners: list your fleet on BoatHire24 for free. Keep 100% of your price — we add our commission on top and bring you bookings across 48 destinations.',
+  description: 'Charter operators & boat owners: list your fleet on BoatHire24 for free. Keep 100% of your price — we add our commission on top and bring you bookings from renters worldwide.',
   alternates: { canonical: 'https://boathire24.com/get-listed' },
   openGraph: {
     title: 'Get your boats listed — BoatHire24',

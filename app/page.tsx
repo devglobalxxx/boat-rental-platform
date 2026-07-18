@@ -1,29 +1,36 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
 import { prettyCity } from '@/lib/pretty-city'
+import { getSiteStats, heroVideoDescription } from '@/lib/site-stats'
 
-export const metadata: Metadata = {
-  title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
-  description: 'Find and book verified boats, yachts and catamarans in Marbella, Puerto Banús, Phuket and 20+ destinations. Licensed skippers, instant booking, secure payments. No surprises.',
-  keywords: ['boat rental', 'yacht charter', 'boat hire', 'Marbella', 'Ibiza', 'Miami', 'Puerto Banús', 'catamaran charter', 'speedboat hire'],
-  alternates: { canonical: 'https://boathire24.com' },
-  openGraph: {
+// Live fleet counts in the meta/OG description — same source of truth as the
+// hero, footer and sitemap, so the SERP snippet never contradicts the page.
+export async function generateMetadata(): Promise<Metadata> {
+  const stats = await getSiteStats()
+  return {
     title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
-    description: 'Verified yachts, catamarans & speedboats in 20+ destinations. Licensed skippers, instant booking, secure payments.',
-    url: 'https://boathire24.com',
-    type: 'website',
-    siteName: 'BoatHire24',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Luxury yacht charter in Marbella' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
-    description: 'Verified yachts, catamarans & speedboats in 20+ destinations. Licensed skippers, instant booking.',
-    images: ['/opengraph-image'],
-  },
+    description: `Find and book ${stats.boats} verified boats, yachts and catamarans in Marbella, Puerto Banús, Phuket and ${stats.destinations} destinations. Licensed skippers, instant booking, secure payments. No surprises.`,
+    keywords: ['boat rental', 'yacht charter', 'boat hire', 'Marbella', 'Ibiza', 'Miami', 'Puerto Banús', 'catamaran charter', 'speedboat hire'],
+    alternates: { canonical: 'https://boathire24.com' },
+    openGraph: {
+      title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
+      description: `${stats.boats} verified yachts, catamarans & speedboats in ${stats.destinations} destinations. Licensed skippers, instant booking, secure payments.`,
+      url: 'https://boathire24.com',
+      type: 'website',
+      siteName: 'BoatHire24',
+      images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Luxury yacht charter in Marbella' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
+      description: `${stats.boats} verified yachts, catamarans & speedboats in ${stats.destinations} destinations. Licensed skippers, instant booking.`,
+      images: ['/opengraph-image'],
+    },
+  }
 }
 
 /* ── helpers ── */
@@ -107,17 +114,17 @@ const BOAT_TYPES = [
 
 const DESTINATIONS = [
   {
-    slug: 'marbella', city: 'Marbella', country: 'Spain', count: '18+ boats',
+    slug: 'marbella', city: 'Marbella', country: 'Spain', count: 'View fleet',
     image: 'https://images.unsplash.com/photo-1589642073293-d0d511afb66e?w=800&q=80',
     desc: 'Puerto Banús sits at the heart of the Costa del Sol with year-round sunshine, calm Mediterranean water, and a backdrop of the Sierra Blanca mountains. Charter anything from a sleek day speedboat to a 30-metre superyacht, cruise east to the limestone cliffs of Nerja, or anchor off the private beach clubs of Estepona. The season runs April through November — July and August deliver the finest light and the most glamorous sunsets on the coast.',
   },
   {
-    slug: 'ibiza', city: 'Ibiza', country: 'Spain', count: '24+ boats',
+    slug: 'ibiza', city: 'Ibiza', country: 'Spain', count: 'View fleet',
     image: 'https://images.unsplash.com/photo-1677280790582-6d1cfe9fcc51?w=800&q=80',
     desc: 'The Balearic flagship of the European charter scene. Ibiza by boat means discovering sea caves at Cala d\'Hort, floating off the ivory sands of Ses Salines, and reaching the cathedral rock of Es Vedrà by sundown from 200 metres offshore. The island\'s north coast is a different world from the party south — pine-scented silence, anchor-out lunches, and water clarity you only find half a mile from shore. Season: June through September.',
   },
   {
-    slug: 'miami', city: 'Miami', country: 'USA', count: '30+ boats',
+    slug: 'miami', city: 'Miami', country: 'USA', count: 'View fleet',
     image: 'https://images.unsplash.com/photo-1722937293268-62237f5e5435?w=800&q=80',
     desc: 'The year-round charter capital of the Americas. Miami\'s Biscayne Bay offers warm water, access to the Florida Keys, and a skyline backdrop that makes every sunset photographic. Charter a centre console for the Sandbar scene, step up to a sport cruiser for an overnight to Key Largo, or commission a full superyacht for Art Basel week when the world\'s most serious collectors are on the water.',
   },
@@ -147,23 +154,9 @@ const FAQS = [
 ]
 
 /* ══════════════════════════════════════════════════ PAGE ══ */
-// Live headline stats — real active-boat and destination counts, so the site
-// never under-reports the fleet (was hardcoded "50 boats / 48 destinations").
+// Live headline stats — real active-boat and destination counts (shared source
+// of truth in lib/site-stats.ts), so the site never under-reports the fleet.
 export const revalidate = 3600
-
-async function getStats(): Promise<{ boats: number; destinations: number }> {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/boats?select=location_id&status=eq.active`,
-      { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}` }, next: { revalidate: 3600 } },
-    )
-    const rows: { location_id: string | null }[] = res.ok ? await res.json() : []
-    const destinations = new Set(rows.map((r) => r.location_id).filter(Boolean)).size
-    return { boats: rows.length, destinations }
-  } catch {
-    return { boats: 50, destinations: 48 }
-  }
-}
 
 // Live top destinations for the homepage tiles — real cities, real counts, real
 // slugs. Replaces the old hardcoded Marbella/Ibiza/Miami cards (Miami had 0 boats
@@ -202,7 +195,7 @@ async function getTopDestinations(): Promise<TopDest[]> {
 }
 
 export default async function HomePage() {
-  const [stats, topDestinations] = await Promise.all([getStats(), getTopDestinations()])
+  const [stats, topDestinations] = await Promise.all([getSiteStats(), getTopDestinations()])
   // Prefer live inventory; fall back to the curated cards only if the query fails.
   const destTiles = topDestinations.length
     ? topDestinations.map((d, i) => ({
@@ -228,7 +221,7 @@ export default async function HomePage() {
       '@context': 'https://schema.org',
       '@type': 'VideoObject',
       name: 'Luxury yacht & boat charter — Marbella, Costa del Sol',
-      description: 'Charter motor yachts, catamarans and speedboats with BoatHire24 across Marbella and 20+ destinations — licensed skippers included.',
+      description: heroVideoDescription(stats.destinations),
       thumbnailUrl: 'https://boathire24.com/video/hero-1.jpg',
       contentUrl: 'https://boathire24.com/video/hero-1.mp4',
       uploadDate: '2026-01-01',
@@ -313,7 +306,7 @@ export default async function HomePage() {
           <SectionHeader eyebrow="Simple process" title={<>Three Steps to <Gold>Open Water</Gold></>} sub="We removed everything that makes boat charters complicated — brokers, back-and-forth emails, hidden fees, and 48-hour response times. BoatHire24 puts you directly in front of the boat, the price, and the calendar." />
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { n: '01', icon: MapPin,  title: 'Search & Discover',  body: 'Browse our verified fleet across 20+ destinations. Filter by boat type, guest capacity, departure port, price range, and available dates so you only see boats that match your exact requirements. Every listing carries real photographs, accurate specifications, and honest pricing — no registration required to see what you will actually pay.' },
+              { n: '01', icon: MapPin,  title: 'Search & Discover',  body: `Browse our verified fleet across ${stats.destinations} destinations. Filter by boat type, guest capacity, departure port, price range, and available dates so you only see boats that match your exact requirements. Every listing carries real photographs, accurate specifications, and honest pricing — no registration required to see what you will actually pay.` },
               { n: '02', icon: Shield,  title: 'Book Securely',      body: 'Select your date and duration from the live availability calendar. The price you see is the all-inclusive price you pay — no service fees added at checkout, no surprises. Pay securely with your credit card, Apple Pay, or Google Pay. Funds are held by Stripe and released to the host only after your charter day, protecting your money at every step of the process.' },
               { n: '03', icon: Anchor,  title: 'Set Sail',           body: 'Your confirmation arrives instantly with the captain\'s direct contact number, marina coordinates in Google Maps format, and a pre-departure checklist. Arrive at the marina, meet your fully licensed and locally experienced skipper, and cast off. Navigation, safety, and local knowledge are entirely handled for you from that moment forward. Your only job is to decide where to go next and enjoy every second of it.' },
             ].map((step) => (
@@ -340,8 +333,7 @@ export default async function HomePage() {
             {destTiles.map((dest) => (
               <Link key={dest.slug} href={`/${dest.slug}`} className="group glass-card overflow-hidden block">
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ background: '#0a1420' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={dest.image} alt={dest.city} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <Image src={dest.image} alt={dest.city} width={800} height={600} loading="lazy" sizes="(max-width: 768px) 100vw, 33vw" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,16,30,0.80) 0%, transparent 55%)' }} />
                   <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
                     <div>
@@ -477,7 +469,7 @@ export default async function HomePage() {
               Own a Boat? <Gold>Start Earning.</Gold>
             </h2>
             <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '16px' }}>The most expensive thing about owning a boat is the time it spends tied to a dock. BoatHire24 turns idle marina days into income — without changing your schedule or your relationship with the vessel. You set the dates you want to share and the dates you want to keep. We handle everything else: guest communication, payment processing, and all booking logistics from enquiry to confirmation.</p>
-            <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '16px' }}>Boat owners across 20+ destinations use BoatHire24 to manage their charter income — you set the price, we bring the bookings and handle payment. A well-listed boat in a busy marina can earn several thousand euros per month in peak season. Your earnings depend on your boat, your availability, and your location.</p>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '16px' }}>Boat owners across {stats.destinations} destinations use BoatHire24 to manage their charter income — you set the price, we bring the bookings and handle payment. A well-listed boat in a busy marina can earn several thousand euros per month in peak season. Your earnings depend on your boat, your availability, and your location.</p>
             <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.65)', marginBottom: '40px' }}>Listing your boat costs nothing. You pay a 15% commission only when a booking is confirmed and the guest boards. That fee covers Stripe payment processing, guest insurance, and access to BoatHire24&apos;s 24/7 operations support. Connect your bank account via Stripe Express, set your availability calendar, and receive your first booking enquiry within days of going live. Whether you have one Sunseeker or an entire fleet, BoatHire24 is built to grow with your operation.</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px', marginBottom: '48px' }}>
               <GoldBtn href="/become-a-host" large>List Your Boat — It&apos;s Free</GoldBtn>

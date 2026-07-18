@@ -37,14 +37,15 @@ export async function generateMetadata({
   const { tag } = await params
   const label = decodeURIComponent(tag)
   return {
-    title: `#${label} — Boats & Photos | Boat Rental Marbella`,
-    description: `Browse all boats and gallery photos tagged with "${label}" on Boat Rental Marbella. Find luxury yachts, catamarans, speedboats and more.`,
+    // No brand suffix — the layout title template already appends "| BoatHire24".
+    title: `#${label} — Boats & Photos`,
+    description: `Browse all boats and gallery photos tagged with "${label}" on BoatHire24. Find luxury yachts, catamarans, speedboats and more.`,
     keywords: [label, 'marbella', 'boat rental', 'yacht charter'],
     // Tag pages are empty shells until the boats.tags migration lands — keep
     // them crawlable but out of the index so they don't dilute the domain.
     robots: { index: false, follow: true },
     openGraph: {
-      title: `#${label} — Boat Rental Marbella`,
+      title: `#${label} — BoatHire24`,
       description: `All boats and photos tagged "${label}"`,
     },
   }
@@ -122,7 +123,7 @@ export default async function TagPage({
       item: {
         '@type': 'Product',
         name: b.name,
-        url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/boats/${b.slug}`,
+        url: `https://boathire24.com/boats/${b.slug}`,
       },
     })),
   }

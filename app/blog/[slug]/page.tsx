@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Clock, User } from 'lucide-react'
 // ChevronLeft kept for potential back-nav use; Clock+User used in hero meta
 import { getAllPost, getAllPostSlugs, ALL_POSTS } from '@/lib/blog/posts'
@@ -36,6 +37,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const post = getAllPost(slug)
   if (!post) return { title: 'Article not found' }
+  // og:article:published_time must be ISO 8601 — post.date is human-readable ("May 12, 2026").
+  const publishedISO = (() => { const t = Date.parse(post.date); return isNaN(t) ? undefined : new Date(t).toISOString() })()
   return {
     title: post.title,
     description: post.metaDescription ?? post.excerpt,
@@ -46,7 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       images: [{ url: post.heroImage, width: 1400, height: 700, alt: post.title }],
       type: 'article',
       authors: [post.author],
-      publishedTime: post.date,
+      publishedTime: publishedISO,
       siteName: 'BoatHire24',
     },
     twitter: {
@@ -80,11 +83,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       name: post.author,
       jobTitle: post.authorRole,
     },
-    publisher: {
-      '@type': 'Organization',
-      name: 'BoatHire24',
-      logo: { '@type': 'ImageObject', url: 'https://boathire24.com/brand-logo.jpg' },
-    },
+    // Reference the site-wide Organization entity emitted from layout.tsx.
+    publisher: { '@id': 'https://boathire24.com/#organization' },
   }
 
   const faqJsonLd = post.faqs && post.faqs.length > 0
@@ -138,8 +138,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       {/* Hero */}
       <div className="relative" style={{ height: '480px', background: '#0a1420' }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={post.heroImage} alt={post.title} className="absolute inset-0 w-full h-full object-cover" />
+        <Image src={post.heroImage} alt={post.title} fill priority sizes="100vw" className="object-cover" />
         <div
           className="absolute inset-0"
           style={{ background: 'linear-gradient(to bottom, rgba(7,16,30,0.20) 0%, rgba(7,16,30,0.70) 50%, rgba(7,16,30,0.96) 85%, #07101e 100%)' }}

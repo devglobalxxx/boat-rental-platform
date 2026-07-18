@@ -182,7 +182,7 @@ export default function GetListedClient({ source }: { source?: string }) {
           {[
             ['💶', 'You keep your price', 'We add 15% on top — you receive exactly what you charge today.'],
             ['🆓', 'Free to list', 'No setup fee, no monthly cost. We only earn when you get a booking.'],
-            ['📈', 'More reach', 'Your fleet shown to renters searching across 48 destinations.'],
+            ['📈', 'More reach', 'Your fleet shown to renters searching worldwide.'],
           ].map(([icon, t, d]) => (
             <div key={t} style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${border}`, borderRadius: 14, padding: '16px 16px' }}>
               <div style={{ fontSize: 22, marginBottom: 6 }}>{icon}</div>

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getLandingPageEs, getLandingSlugsEs } from '@/lib/landing/pages-es'
+import { getLandingPageEs, getLandingSlugsEs, hasEs } from '@/lib/landing/pages-es'
+import { getLandingPage } from '@/lib/landing/pages'
 import LandingView from '@/components/landing/LandingView'
 
 interface Props {
@@ -15,16 +16,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { location } = await params
   const lp = getLandingPageEs(location)
   if (!lp) return { title: 'Página no encontrada' }
+  // Mirror the EN twin's canonical cluster: the ES translation of a
+  // non-canonical EN variant must consolidate onto the ES canonical too,
+  // and hreflang only belongs on canonical pages — alternates pointing at
+  // a page whose canonical is elsewhere send Google contradictory signals.
+  const canonicalEnSlug = getLandingPage(lp.slug)?.canonicalSlug || lp.slug
+  const isCanonical = canonicalEnSlug === lp.slug
   return {
     title: lp.title,
     description: lp.metaDescription,
     alternates: {
-      canonical: `https://boathire24.com/es/${lp.slug}`,
-      languages: {
-        'en': `https://boathire24.com/${lp.slug}`,
-        'es-ES': `https://boathire24.com/es/${lp.slug}`,
-        'x-default': `https://boathire24.com/${lp.slug}`,
-      },
+      canonical: isCanonical
+        ? `https://boathire24.com/es/${lp.slug}`
+        : hasEs(canonicalEnSlug)
+          ? `https://boathire24.com/es/${canonicalEnSlug}`
+          : `https://boathire24.com/${canonicalEnSlug}`,
+      ...(isCanonical ? {
+        languages: {
+          'en': `https://boathire24.com/${lp.slug}`,
+          'es-ES': `https://boathire24.com/es/${lp.slug}`,
+          'x-default': `https://boathire24.com/${lp.slug}`,
+        },
+      } : {}),
     },
     openGraph: {
       title: lp.title,

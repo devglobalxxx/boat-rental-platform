@@ -116,7 +116,8 @@ export async function generateMetadata({
     `Luxury boat photo: ${title} in ${image.boats.locations.city}`
 
   return {
-    title: `${title} — Boat Gallery Marbella`,
+    // No brand suffix — the layout title template already appends "| BoatHire24".
+    title: `${title} — Boat Gallery`,
     description,
     keywords: image.tags ?? [],
     alternates: { canonical: `https://boathire24.com/gallery/${slug}` },
@@ -170,12 +171,12 @@ export default async function GalleryPage({
     keywords: tags.join(', '),
     author: {
       '@type': 'Organization',
-      name: 'Boat Rental Marbella',
+      name: 'BoatHire24',
     },
     about: {
       '@type': 'Product',
       name: boat.name,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/boats/${boat.slug}`,
+      url: `https://boathire24.com/boats/${boat.slug}`,
     },
   }
 

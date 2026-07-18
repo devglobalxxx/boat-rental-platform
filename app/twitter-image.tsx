@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { getSiteStats } from '@/lib/site-stats'
 
 export const runtime = 'edge'
 export const alt = 'BoatHire24 — Rent Boats & Yachts Worldwide'
@@ -6,6 +7,9 @@ export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export default async function Image() {
+  // Live fleet counts — same source of truth as the hero/footer, so the card
+  // never contradicts the page it previews.
+  const stats = await getSiteStats()
   return new ImageResponse(
     (
       <div
@@ -73,13 +77,13 @@ export default async function Image() {
             textAlign: 'center', maxWidth: '700px', lineHeight: 1.5, marginBottom: '48px',
           }}
         >
-          200+ verified boats · 48 destinations · Instant booking
+          {stats.boats} verified boats · {stats.destinations} destinations · Instant booking
         </div>
         <div style={{ display: 'flex', gap: '16px' }}>
           {[
-            { icon: '🛥️', label: '200+ Boats' },
-            { icon: '🌍', label: '48 Destinations' },
-            { icon: '⭐', label: '4.9 Rating' },
+            { icon: '🛥️', label: `${stats.boats} Boats` },
+            { icon: '🌍', label: `${stats.destinations} Destinations` },
+            { icon: '🧭', label: 'Licensed Skippers' },
             { icon: '✅', label: 'Instant Book' },
           ].map((item) => (
             <div

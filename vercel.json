@@ -23,6 +23,12 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.boathire24.com" }],
+      "destination": "https://boathire24.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.boathire24.com" }],
       "destination": "https://boathire24.com/:path*",

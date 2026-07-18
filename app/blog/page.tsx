@@ -3,26 +3,41 @@ import { ChevronRight } from 'lucide-react'
 import { POSTS, ALL_POSTS } from '@/lib/blog/posts'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: "Charter Guide & Boat Reviews — BoatHire24 Blog",
-  description: "Practical guides, destination deep-dives, and in-depth reviews of every boat in the Marbella fleet from BoatHire24's fleet captains and charter specialists.",
-  alternates: {
-    canonical: 'https://boathire24.com/blog',
-    types: { 'application/rss+xml': 'https://boathire24.com/blog/rss.xml' },
-  },
-  openGraph: {
-    title: 'Charter Guide & Boat Reviews — BoatHire24',
-    description: 'In-depth boat reviews, destination guides, and insider knowledge from the BoatHire24 fleet captains.',
-    url: 'https://boathire24.com/blog',
-    type: 'website',
-    siteName: 'BoatHire24',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Charter Guide & Boat Reviews — BoatHire24',
-    description: 'In-depth boat reviews and destination guides from Marbella charter specialists.',
-  },
+// Posts per page — ~420 posts on a single page shipped a 2 MB HTML document.
+// Every post stays reachable through crawlable ?page=N links.
+const PAGE_SIZE = 24
+
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ page?: string }> }): Promise<Metadata> {
+  const { page: pageParam } = await searchParams
+  const page = Math.max(1, parseInt(pageParam ?? '1', 10) || 1)
+  if (page > 1) {
+    // Archive pages keep every post crawlable (follow) but stay out of the index.
+    return {
+      title: `Charter Guide & Boat Reviews — page ${page}`,
+      robots: { index: false, follow: true },
+    }
+  }
+  return {
+    title: "Charter Guide & Boat Reviews — BoatHire24 Blog",
+    description: "Practical guides, destination deep-dives, and in-depth reviews of every boat in the Marbella fleet from BoatHire24's fleet captains and charter specialists.",
+    alternates: {
+      canonical: 'https://boathire24.com/blog',
+      types: { 'application/rss+xml': 'https://boathire24.com/blog/rss.xml' },
+    },
+    openGraph: {
+      title: 'Charter Guide & Boat Reviews — BoatHire24',
+      description: 'In-depth boat reviews, destination guides, and insider knowledge from the BoatHire24 fleet captains.',
+      url: 'https://boathire24.com/blog',
+      type: 'website',
+      siteName: 'BoatHire24',
+      images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Charter Guide & Boat Reviews — BoatHire24',
+      description: 'In-depth boat reviews and destination guides from Marbella charter specialists.',
+    },
+  }
 }
 
 const gold = '#74cfe8'
@@ -30,12 +45,16 @@ const goldFaint = 'rgba(116,207,232,0.12)'
 const goldBorder = 'rgba(116,207,232,0.22)'
 const textMuted = 'rgba(244,244,242,0.55)'
 
-export default function BlogPage() {
+export default async function BlogPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
+  const { page: pageParam } = await searchParams
   // List ALL posts (including auto-generated), newest first.
   const sorted = [...ALL_POSTS].sort((a, b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0))
   const editorial = sorted.filter((p) => p.tag !== 'Boat review')
-  const [featured, ...rest] = editorial.length ? editorial : POSTS
-  const boatPosts = ALL_POSTS.filter((p) => p.tag === 'Boat review')
+  const featured = (editorial.length ? editorial : POSTS)[0]
+  const rest = sorted.filter((p) => p.slug !== featured.slug)
+  const totalPages = Math.max(1, Math.ceil(rest.length / PAGE_SIZE))
+  const page = Math.min(Math.max(1, parseInt(pageParam ?? '1', 10) || 1), totalPages)
+  const pageItems = rest.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
@@ -57,7 +76,8 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* ── Featured post ── */}
+      {/* ── Featured post (page 1 only) ── */}
+      {page === 1 && (
       <section style={{ padding: '88px 0' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
           <Link
@@ -99,17 +119,18 @@ export default function BlogPage() {
           </Link>
         </div>
       </section>
+      )}
 
       {/* Divider */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
         <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
       </div>
 
-      {/* ── 3 editorial cards ── */}
+      {/* ── Paginated article grid ── */}
       <section style={{ padding: '88px 0' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            {rest.map((post) => (
+            {pageItems.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -142,69 +163,27 @@ export default function BlogPage() {
               </Link>
             ))}
           </div>
+
+          {/* ── Pagination ── */}
+          {totalPages > 1 && (
+            <div style={{ marginTop: '56px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' as const }}>
+              {page > 1 && (
+                <Link href={page === 2 ? '/blog' : `/blog?page=${page - 1}`} style={{ padding: '12px 26px', borderRadius: '99px', fontWeight: 600, fontSize: '14px', background: '#0c1828', border: `1px solid ${goldBorder}`, color: gold, textDecoration: 'none' }}>
+                  ← Newer articles
+                </Link>
+              )}
+              <span style={{ fontSize: '13px', color: 'rgba(244,244,242,0.45)' }}>
+                Page {page} of {totalPages}
+              </span>
+              {page < totalPages && (
+                <Link href={`/blog?page=${page + 1}`} style={{ padding: '12px 26px', borderRadius: '99px', fontWeight: 700, fontSize: '14px', background: gold, color: '#07101e', textDecoration: 'none' }}>
+                  Older articles →
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       </section>
-
-      {/* ── Boat Reviews ── */}
-      {boatPosts.length > 0 && (
-        <>
-          {/* Divider */}
-          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
-            <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
-          </div>
-
-          <section style={{ padding: '88px 0' }}>
-            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
-              <div style={{ textAlign: 'center', marginBottom: '52px' }}>
-                <span style={{ display: 'inline-flex', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.12em', padding: '5px 14px', borderRadius: '99px', background: goldFaint, color: gold, border: `1px solid ${goldBorder}`, marginBottom: '16px' }}>
-                  Fleet Reviews
-                </span>
-                <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.25rem)', fontWeight: 800, color: '#f4f4f2' }}>
-                  Complete Marbella Fleet Reviews
-                </h2>
-                <p style={{ fontSize: '15px', maxWidth: '640px', margin: '12px auto 0', color: textMuted, lineHeight: 1.7 }}>
-                  In-depth reviews of every boat in our Marbella fleet — specs, prices, itineraries, and honest assessments.
-                </p>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '24px' }}>
-                {boatPosts.map((post) => (
-                  <Link
-                    key={post.slug}
-                    href={`/blog/${post.slug}`}
-                    className="group"
-                    style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '18px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.15)', textDecoration: 'none' }}
-                  >
-                    <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', background: '#0a1420' }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={post.heroImage}
-                        alt={post.title}
-                        className="group-hover:scale-105"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
-                      />
-                      <div style={{ position: 'absolute', top: '12px', left: '12px' }}>
-                        <span style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.10em', padding: '3px 8px', borderRadius: '99px', background: 'rgba(7,16,30,0.80)', color: gold, border: `1px solid ${goldBorder}` }}>
-                          Boat review
-                        </span>
-                      </div>
-                    </div>
-                    <div style={{ padding: '20px 24px 24px', display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
-                      <h3 style={{ fontWeight: 700, lineHeight: 1.35, fontSize: '14px', color: '#f4f4f2' }}>{post.title}</h3>
-                      <p style={{ fontSize: '12px', lineHeight: 1.6, color: textMuted, flex: 1, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as const, overflow: 'hidden' }}>
-                        {post.excerpt}
-                      </p>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: 600, color: gold, marginTop: '4px' }}>
-                        Read review <ChevronRight style={{ width: '14px', height: '14px' }} />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        </>
-      )}
 
       {/* Divider */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>

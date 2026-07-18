@@ -21,7 +21,7 @@ export const metadata = {
 
 const RENTER_STEPS = [
   { num: '01', icon: Search,     title: 'Search & discover',   desc: 'Browse boats by destination, date, boat type, and group size. Read verified reviews from real guests.' },
-  { num: '02', icon: CreditCard, title: 'Book & pay securely', desc: 'Choose instant book or send a request. Pay by card — your money is held safely until the day of your trip.' },
+  { num: '02', icon: CreditCard, title: 'Book & pay securely', desc: 'Choose instant book or send a request. Pay by card — Stripe holds your money in escrow until the day of your trip.' },
   { num: '03', icon: Anchor,     title: 'Set sail',            desc: 'Meet your licensed captain at the marina. Skipper, fuel, drinks, and safety gear are all included.' },
   { num: '04', icon: Star,       title: 'Review your trip',    desc: 'After your charter, leave an honest review to help future guests find the perfect boat.' },
 ]
@@ -29,8 +29,39 @@ const RENTER_STEPS = [
 const HOST_STEPS = [
   { icon: Ship,    title: 'List your boat',  desc: 'Create a listing in minutes. Set your own prices, availability, and house rules.',                            badge: 'Free' },
   { icon: Shield,  title: 'We handle guests', desc: 'BoatHire24 verifies renters, handles payments, and provides 24/7 support for you and your guests.',           badge: 'Hands-off' },
-  { icon: CreditCard, title: 'Get paid',      desc: 'Earnings are transferred to your bank account 7 days after each completed charter. You keep 85%.',          badge: '85% yours' },
+  { icon: CreditCard, title: 'Get paid',      desc: 'Earnings are transferred to your bank account 7 days after each completed charter. BoatHire24 takes a flat 15% commission — you keep 85%.', badge: '85% yours' },
 ]
+
+const FAQS = [
+  { q: 'How much does BoatHire24 cost?', a: 'Booking is free for renters — the price you see on a listing is the all-inclusive price you pay, with no service fees added at checkout. Hosts pay a flat 15% commission per completed booking and keep 85% of every charter.' },
+  { q: 'How are payments protected?', a: 'All payments are processed by Stripe and held in escrow until 24 hours after your charter day. If the host cancels for any reason, your full payment is returned automatically.' },
+  { q: 'When do hosts get paid?', a: 'Earnings are transferred to the host’s bank account 7 days after each completed charter — 85% of the booking total, with BoatHire24’s 15% commission already deducted.' },
+  { q: 'Is a skipper included in every charter?', a: 'Yes — every charter booked through BoatHire24 includes a licensed skipper as standard, plus fuel, drinks, and safety gear.' },
+]
+
+// Structured data: the booking flow as HowTo + the money/escrow facts as FAQPage.
+const HOWTO_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to book a boat charter on BoatHire24',
+  description: 'Search verified boats, book securely with Stripe-escrowed payments, and set sail with a licensed skipper — in four steps.',
+  step: RENTER_STEPS.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.title,
+    text: s.desc,
+  })),
+}
+
+const FAQ_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+}
 
 const RENTER_INCLUDES = [
   'Licensed skipper on every boat',
@@ -50,6 +81,10 @@ const card = { background: '#0c1828', border: `1px solid ${goldBorder}`, borderR
 export default function HowItWorksPage() {
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
+
+      {/* JSON-LD: HowTo (booking flow) + FAQPage */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(HOWTO_JSONLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }} />
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '100px', paddingBottom: '80px' }}>
@@ -131,7 +166,7 @@ export default function HowItWorksPage() {
       </div>
 
       {/* ── For Hosts ── */}
-      <section style={{ maxWidth: '900px', margin: '0 auto', padding: '88px 24px 100px' }}>
+      <section style={{ maxWidth: '900px', margin: '0 auto', padding: '88px 24px' }}>
 
         {/* Centered heading */}
         <div style={{ textAlign: 'center', marginBottom: '52px' }}>
@@ -172,6 +207,28 @@ export default function HowItWorksPage() {
           <Link href="/become-a-host" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', borderRadius: '99px', fontSize: '14px', fontWeight: 700, whiteSpace: 'nowrap', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', boxShadow: '0 6px 24px rgba(116,207,232,0.28)', textDecoration: 'none' }}>
             Start hosting <ArrowRight style={{ width: '16px', height: '16px' }} />
           </Link>
+        </div>
+      </section>
+
+      {/* ── Gold divider ── */}
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(116,207,232,0.25), transparent)' }} />
+      </div>
+
+      {/* ── FAQ (server-rendered — mirrors the FAQPage JSON-LD above) ── */}
+      <section style={{ maxWidth: '900px', margin: '0 auto', padding: '88px 24px 100px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '44px' }}>
+          <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.2 }}>
+            Frequently asked questions
+          </h2>
+        </div>
+        <div style={{ display: 'grid', gap: '14px' }}>
+          {FAQS.map((faq) => (
+            <div key={faq.q} style={{ ...card, padding: '24px 28px' }}>
+              <h3 style={{ fontWeight: 700, fontSize: '15px', color: '#f4f4f2', marginBottom: '8px' }}>{faq.q}</h3>
+              <p style={{ fontSize: '14px', lineHeight: 1.7, color: textMuted, margin: 0 }}>{faq.a}</p>
+            </div>
+          ))}
         </div>
       </section>
 

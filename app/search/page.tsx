@@ -7,7 +7,6 @@ import Filters from '@/components/search/Filters'
 import SearchBar from '@/components/search/SearchBar'
 import type { BoatWithDetails } from '@/types/database'
 import { MapPin, Ship } from 'lucide-react'
-import { CATEGORIES } from '@/lib/landing/categories'
 
 interface SearchPageProps {
   searchParams: Promise<{
@@ -18,33 +17,33 @@ interface SearchPageProps {
     capacity?: string
     instant?: string
     sort?: string
+    page?: string
   }>
 }
 
 const BASE = 'https://boathire24.com'
 
+// Cards rendered per page — the full fleet on one page shipped a 5+ MB HTML
+// document. Deeper pages stay reachable through crawlable ?page=N links.
+const PAGE_SIZE = 48
+
 // Filtered /search views are near-duplicates of the dedicated landing pages, so
-// they're noindex,follow (crawled for links, not indexed) and canonicalised to
-// the real landing page (city, or city×type) when the filter maps to one.
+// they're noindex,follow — crawled for links, kept out of the index. No canonical
+// on filtered views: noindex + a cross-page canonical are contradictory signals
+// (a canonical says "index that instead", noindex says "index nothing").
 export async function generateMetadata({ searchParams }: SearchPageProps): Promise<Metadata> {
   const p = await searchParams
   const filtered = !!(p.location || p.type || p.guests || p.capacity || p.instant || p.date || p.sort)
+  const page = Math.max(1, parseInt(p.page ?? '1', 10) || 1)
   if (!filtered) {
-    return { title: 'Explore boats — BoatHire24', alternates: { canonical: `${BASE}/search` } }
-  }
-
-  let canonical = `${BASE}/search`
-  if (p.location) {
-    const supabase = await createClient()
-    const term = p.location.replace(/[,()*]/g, ' ').trim()
-    const { data } = await supabase.from('locations').select('slug').or(`city.ilike.${term},name.ilike.${term}`).limit(1)
-    const locSlug = (data as { slug: string }[] | null)?.[0]?.slug
-    if (locSlug) {
-      const cat = p.type ? (CATEGORIES.find((c) => c.types.length === 1 && c.types[0] === p.type) ?? CATEGORIES.find((c) => c.types.includes(p.type!))) : undefined
-      canonical = cat ? `${BASE}/${locSlug}/${cat.slug}` : `${BASE}/${locSlug}`
+    if (page > 1) {
+      // Deep pages keep every card crawlable (follow) but stay out of the index.
+      return { title: `Explore boats & yachts worldwide — page ${page}`, robots: { index: false, follow: true } }
     }
+    // No brand suffix here — the layout title template already appends "| BoatHire24".
+    return { title: 'Explore boats & yachts worldwide', alternates: { canonical: `${BASE}/search` } }
   }
-  return { robots: { index: false, follow: true }, alternates: { canonical } }
+  return { robots: { index: false, follow: true } }
 }
 
 async function getBoats(params: Awaited<SearchPageProps['searchParams']>): Promise<BoatWithDetails[]> {
@@ -128,9 +127,28 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   const hasFilters = params.location || params.type || params.capacity || params.instant || params.date
 
+  // Server-render one page of cards; the rest sit behind crawlable ?page=N links.
+  const totalPages = Math.max(1, Math.ceil(boats.length / PAGE_SIZE))
+  const page = Math.min(Math.max(1, parseInt(params.page ?? '1', 10) || 1), totalPages)
+  const paged = boats.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  // Pagination links preserve the active filters.
+  const pageHref = (n: number) => {
+    const sp = new URLSearchParams()
+    for (const [k, v] of Object.entries(params)) if (v && k !== 'page') sp.set(k, v)
+    if (n > 1) sp.set('page', String(n))
+    const s = sp.toString()
+    return s ? `/search?${s}` : '/search'
+  }
+
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2', minHeight: '100vh' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '24px 20px 80px' }}>
+
+        {/* ── H1 ── */}
+        <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#f4f4f2', marginBottom: '18px' }}>
+          Explore boats &amp; yachts worldwide
+        </h1>
 
         {/* ── Search bar ── */}
         <div style={{ marginBottom: '16px' }}>
@@ -185,9 +203,28 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
-            {boats.map((boat) => (
+            {paged.map((boat) => (
               <BoatCard key={boat.id} boat={boat} />
             ))}
+          </div>
+        )}
+
+        {/* ── Pagination ── */}
+        {totalPages > 1 && (
+          <div style={{ marginTop: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            {page > 1 && (
+              <a href={pageHref(page - 1)} style={{ padding: '12px 26px', borderRadius: '99px', fontWeight: 600, fontSize: '14px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.25)', color: '#74cfe8', textDecoration: 'none' }}>
+                ← Previous
+              </a>
+            )}
+            <span style={{ fontSize: '13px', color: 'rgba(244,244,242,0.45)' }}>
+              Page {page} of {totalPages}
+            </span>
+            {page < totalPages && (
+              <a href={pageHref(page + 1)} style={{ padding: '12px 26px', borderRadius: '99px', fontWeight: 700, fontSize: '14px', background: '#74cfe8', color: '#07101e', textDecoration: 'none' }}>
+                Next →
+              </a>
+            )}
           </div>
         )}
 

@@ -28,7 +28,7 @@ const MILESTONES = [
   { year: '2022', label: 'Ibiza launch', desc: 'Expanded to Ibiza and Mallorca. Stripe Connect payments go live.' },
   { year: '2023', label: '10 destinations', desc: 'Platform spreads to Croatia, Greece, and the Algarve.' },
   { year: '2024', label: 'Global', desc: 'The marketplace opens to operators worldwide.' },
-  { year: '2025', label: 'Today', desc: 'A verified fleet across 20+ destinations, and growing every week.' },
+  { year: '2025', label: 'Today', desc: 'A verified fleet across destinations worldwide, and growing every week.' },
 ]
 
 const gold = '#74cfe8'
@@ -66,7 +66,7 @@ export default async function AboutPage() {
           </h1>
           <p style={{ fontSize: '17px', color: textMuted, lineHeight: 1.75, marginBottom: '0' }}>
             BoatHire24 started in Marbella in 2020 with a simple idea: booking a charter should be as easy as
-            booking a hotel room. Today we list a verified fleet across 20+ destinations and still obsess over every detail.
+            booking a hotel room. Today we list a verified fleet across destinations worldwide and still obsess over every detail.
           </p>
         </div>
       </section>
@@ -247,7 +247,7 @@ export default async function AboutPage() {
             Ready to cast off?
           </h2>
           <p style={{ fontSize: '15px', color: textMuted, lineHeight: 1.7, maxWidth: '480px', margin: '0 auto 32px' }}>
-            Browse verified yachts, catamarans, and speedboats across 20+ destinations.
+            Browse verified yachts, catamarans, and speedboats across destinations worldwide.
             Instant booking, licensed skippers, no hidden fees.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>

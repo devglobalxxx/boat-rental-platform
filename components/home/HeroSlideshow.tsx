@@ -50,7 +50,7 @@ export default function HeroSlideshow() {
           muted
           loop
           playsInline
-          preload={i === 0 ? 'auto' : 'metadata'}
+          preload="metadata"
           style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             objectFit: 'cover', opacity: i === current ? 1 : 0,

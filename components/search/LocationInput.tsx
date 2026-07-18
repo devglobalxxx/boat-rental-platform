@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { MapPin } from 'lucide-react'
+import { MapPin, Globe } from 'lucide-react'
 
 const gold = '#74cfe8'
 const text = '#f4f4f2'
@@ -42,6 +42,12 @@ interface Props {
   autoFocus?: boolean
 }
 
+// A dropdown row is either a whole country (searches every boat in it) or a
+// single city. Country rows are surfaced first so "spain" → all Spanish boats.
+type Suggestion =
+  | { kind: 'country'; country: string; cities: number }
+  | { kind: 'city'; city: string; country: string }
+
 export default function LocationInput({ value, onChange, onSelect, onEnter, placeholder = 'Destination', inputStyle, autoFocus }: Props) {
   const [all, setAll] = useState<Loc[]>([])
   const [open, setOpen] = useState(false)
@@ -58,23 +64,37 @@ export default function LocationInput({ value, onChange, onSelect, onEnter, plac
     return () => document.removeEventListener('mousedown', onClickOutside)
   }, [])
 
-  const q = value.trim().toLowerCase()
-  const matches = q.length === 0
-    ? []
-    : all
-        .filter((l) => l.city.toLowerCase().includes(q) || l.country.toLowerCase().includes(q))
-        // Prioritise matches that START with the query
-        .sort((a, b) => {
-          const aStart = a.city.toLowerCase().startsWith(q) ? 0 : 1
-          const bStart = b.city.toLowerCase().startsWith(q) ? 0 : 1
-          return aStart - bStart
-        })
-        .slice(0, 8)
+  // Distinct countries with their city counts, derived once from the location list.
+  const countries = useMemo(() => {
+    const m = new Map<string, number>()
+    for (const l of all) m.set(l.country, (m.get(l.country) ?? 0) + 1)
+    return [...m.entries()].map(([country, cities]) => ({ country, cities }))
+  }, [all])
 
-  const choose = useCallback((loc: Loc) => {
-    onChange(loc.city)
+  const q = value.trim().toLowerCase()
+  const matches: Suggestion[] = useMemo(() => {
+    if (q.length === 0) return []
+    const starts = (s: string) => (s.toLowerCase().startsWith(q) ? 0 : 1)
+
+    // Country matches first — selecting one searches every boat in that country.
+    const countryMatches: Suggestion[] = countries
+      .filter((c) => c.country.toLowerCase().includes(q))
+      .sort((a, b) => starts(a.country) - starts(b.country) || b.cities - a.cities)
+      .map((c) => ({ kind: 'country', country: c.country, cities: c.cities }))
+
+    const cityMatches: Suggestion[] = all
+      .filter((l) => l.city.toLowerCase().includes(q) || l.country.toLowerCase().includes(q))
+      .sort((a, b) => starts(a.city) - starts(b.city))
+      .map((l) => ({ kind: 'city', city: l.city, country: l.country }))
+
+    return [...countryMatches, ...cityMatches].slice(0, 8)
+  }, [q, all, countries])
+
+  const choose = useCallback((s: Suggestion) => {
+    const v = s.kind === 'country' ? s.country : s.city
+    onChange(v)
     setOpen(false)
-    onSelect?.(loc.city)
+    onSelect?.(v)
   }, [onChange, onSelect])
 
   return (
@@ -100,22 +120,29 @@ export default function LocationInput({ value, onChange, onSelect, onEnter, plac
 
       {open && matches.length > 0 && (
         <div style={{ position: 'absolute', top: 'calc(100% + 12px)', left: '-12px', right: '-12px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.25)', borderRadius: '14px', padding: '6px', zIndex: 100, boxShadow: '0 16px 48px rgba(0,0,0,0.55)', maxHeight: '320px', overflowY: 'auto' }}>
-          {matches.map((loc, i) => (
-            <button
-              key={`${loc.city}-${loc.country}`}
-              onMouseDown={(e) => { e.preventDefault(); choose(loc) }}
-              onMouseEnter={() => setActive(i)}
-              style={{ display: 'flex', alignItems: 'center', gap: '11px', width: '100%', padding: '10px 12px', borderRadius: '9px', border: 'none', cursor: 'pointer', background: i === active ? 'rgba(116,207,232,0.12)' : 'transparent', textAlign: 'left' }}
-            >
-              <span style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <MapPin style={{ width: 14, height: 14, color: gold }} />
-              </span>
-              <span style={{ minWidth: 0 }}>
-                <span style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{loc.city}</span>
-                <span style={{ display: 'block', fontSize: '12px', color: muted }}>{loc.country}</span>
-              </span>
-            </button>
-          ))}
+          {matches.map((s, i) => {
+            const title = s.kind === 'country' ? s.country : s.city
+            const sub = s.kind === 'country'
+              ? `All boats · ${s.cities} ${s.cities === 1 ? 'city' : 'cities'}`
+              : s.country
+            const Icon = s.kind === 'country' ? Globe : MapPin
+            return (
+              <button
+                key={s.kind === 'country' ? `country-${s.country}` : `city-${s.city}-${s.country}`}
+                onMouseDown={(e) => { e.preventDefault(); choose(s) }}
+                onMouseEnter={() => setActive(i)}
+                style={{ display: 'flex', alignItems: 'center', gap: '11px', width: '100%', padding: '10px 12px', borderRadius: '9px', border: 'none', cursor: 'pointer', background: i === active ? 'rgba(116,207,232,0.12)' : 'transparent', textAlign: 'left' }}
+              >
+                <span style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(116,207,232,0.10)', border: '1px solid rgba(116,207,232,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <Icon style={{ width: 14, height: 14, color: gold }} />
+                </span>
+                <span style={{ minWidth: 0 }}>
+                  <span style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{title}</span>
+                  <span style={{ display: 'block', fontSize: '12px', color: muted }}>{sub}</span>
+                </span>
+              </button>
+            )
+          })}
         </div>
       )}
     </div>

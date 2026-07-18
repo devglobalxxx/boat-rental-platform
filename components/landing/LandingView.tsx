@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { MapPin } from 'lucide-react'
 import TrustBar from '@/components/ui/TrustBar'
 import BoatCard from '@/components/search/BoatCard'
@@ -6,6 +7,7 @@ import { createClient } from '@/lib/supabase/server'
 import { attachRatings } from '@/lib/ratings'
 import { prettyCity } from '@/lib/pretty-city'
 import type { LandingPage } from '@/lib/landing/pages'
+import { hasEs } from '@/lib/landing/pages-es'
 import type { BoatWithDetails } from '@/types/database'
 
 const gold = '#74cfe8'
@@ -78,6 +80,14 @@ const LABELS = {
 export default async function LandingView({ page, lang = 'en' }: { page: LandingPage; lang?: 'en' | 'es' }) {
   const inv = await resolveInventory(page)
   const t = LABELS[lang] ?? LABELS.en
+  const basePath = lang === 'es' ? '/es' : ''
+  // ES bodies are translated from EN and keep EN-shaped internal links
+  // (href="/{slug}/") — rewrite them to the ES twin so the Spanish section
+  // interlinks itself instead of leaking every click back to the EN pages.
+  const bodyHtml = lang === 'es'
+    ? (page.intro + page.bodyHtml).replace(/href="\/([a-z0-9-]+)\/?"/g, (m, slug) =>
+        hasEs(slug) ? `href="/es/${slug}"` : m)
+    : page.intro + page.bodyHtml
   const faqJsonLd = page.faqs?.length
     ? {
         '@context': 'https://schema.org',
@@ -94,8 +104,8 @@ export default async function LandingView({ page, lang = 'en' }: { page: Landing
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://boathire24.com' },
-      { '@type': 'ListItem', position: 2, name: page.h1 || page.title, item: `https://boathire24.com/${page.slug}` },
+      { '@type': 'ListItem', position: 1, name: lang === 'es' ? 'Inicio' : 'Home', item: `https://boathire24.com${basePath}` },
+      { '@type': 'ListItem', position: 2, name: page.h1 || page.title, item: `https://boathire24.com${basePath}/${page.slug}` },
     ],
   }
 
@@ -105,7 +115,7 @@ export default async function LandingView({ page, lang = 'en' }: { page: Landing
       {/* ── Hero ── */}
       <section style={{ position: 'relative', height: '340px', overflow: 'hidden' }}>
         {page.heroImage ? (
-          <img src={page.heroImage} alt={page.h1} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.42 }} />
+          <Image src={page.heroImage} alt={page.h1} fill priority sizes="100vw" style={{ objectFit: 'cover', opacity: 0.42 }} />
         ) : (
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#0a1a32,#071122)' }} />
         )}
@@ -141,7 +151,7 @@ export default async function LandingView({ page, lang = 'en' }: { page: Landing
         <div
           className="landing-prose"
           style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(244,244,242,0.82)' }}
-          dangerouslySetInnerHTML={{ __html: page.intro + page.bodyHtml }}
+          dangerouslySetInnerHTML={{ __html: bodyHtml }}
         />
 
         {page.faqs?.length ? (

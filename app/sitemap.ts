@@ -3,12 +3,18 @@ import { ALL_POSTS } from '@/lib/blog/posts'
 import { LANDING_PAGES } from '@/lib/landing/pages'
 import { LANDING_PAGES_ES, hasEs } from '@/lib/landing/pages-es'
 import { CATEGORIES } from '@/lib/landing/categories'
+import { getSiteStats, heroVideoDescription } from '@/lib/site-stats'
 
 export const revalidate = 3600
 
 const BASE_URL = 'https://boathire24.com'
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+// Stable lastModified for pages without a per-row timestamp. A per-request
+// `new Date()` tells Google "everything changed every crawl", which devalues
+// the signal — bump this when the templates/content actually ship changes.
+const BUILD_DATE = new Date('2026-07-18')
 
 type SitemapEntry = MetadataRoute.Sitemap[number]
 
@@ -26,11 +32,15 @@ async function supabaseFetch<T>(path: string): Promise<T[]> {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Live destination count — same source of truth as the homepage VideoObject
+  // schema, so the two video descriptions can never disagree.
+  const stats = await getSiteStats()
+
   // ── Static pages ────────────────────────────────────────────────────────────
   const staticPages: SitemapEntry[] = [
     {
       url: BASE_URL,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 1.0,
       // Hero videos → <video:video> entries so they're eligible for Google Video / video results.
@@ -38,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
           title: 'Luxury yacht & boat charter — Marbella, Costa del Sol',
           thumbnail_loc: `${BASE_URL}/video/hero-1.jpg`,
-          description: 'Charter motor yachts, catamarans and speedboats with BoatHire24 across Marbella and 45+ destinations — licensed skippers included.',
+          description: heroVideoDescription(stats.destinations),
           content_loc: `${BASE_URL}/video/hero-1.mp4`,
         },
         {
@@ -51,45 +61,106 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/search`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/fishing-trips`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/boat-tours`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/jet-ski-marbella`,
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/how-it-works`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      // Spanish hub — crawl entry point for the /es section.
+      url: `${BASE_URL}/es`,
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
       url: `${BASE_URL}/blog`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
       url: `${BASE_URL}/faq`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
+      url: `${BASE_URL}/list-your-boat`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${BASE_URL}/become-a-host`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/get-listed`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/about`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/contact`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/tags`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'weekly',
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/terms`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${BASE_URL}/privacy`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${BASE_URL}/cookies`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ]
 
@@ -136,37 +207,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((img) => img.slug)
     .map((img) => ({
       url: `${BASE_URL}/gallery/${img.slug}`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }))
 
-  // ── Tags (from image tags; the boats table has no `tags` column) ─────────
-  const imageTagRows = await supabaseFetch<{ tags: string[] }>(
-    'boat_images?select=tags&tags=not.is.null'
-  )
-
-  const allTags = new Set<string>()
-  for (const row of imageTagRows) {
-    if (Array.isArray(row.tags)) {
-      for (const tag of row.tags) {
-        if (tag) allTags.add(tag)
-      }
-    }
-  }
-
-  const tagEntries: SitemapEntry[] = Array.from(allTags).map((tag) => ({
-    url: `${BASE_URL}/tags/${encodeURIComponent(tag)}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
-  }))
+  // NOTE: /tags/{tag} pages are deliberately NOT in the sitemap — they render
+  // with robots noindex,follow (app/tags/[tag]/page.tsx), and submitting
+  // noindexed URLs is a contradictory signal. The /tags index page IS listed
+  // (see staticPages above).
 
   // ── Active-boat inventory (shared by the location + city×type sections) ──
-  const catBoats = await supabaseFetch<{ location_id: string; type: string; is_fishing_trip: boolean }>(
-    'boats?select=location_id,type,is_fishing_trip&status=eq.active'
+  const catBoats = await supabaseFetch<{ location_id: string; type: string; is_fishing_trip: boolean; updated_at: string }>(
+    'boats?select=location_id,type,is_fishing_trip,updated_at&status=eq.active'
   )
   const activeLocationIds = new Set(catBoats.map((b) => b.location_id))
+
+  // Latest boat update per location — a real lastModified signal for the
+  // location and city×type pages (their content is the boat inventory).
+  const latestByLocation = new Map<string, Date>()
+  for (const b of catBoats) {
+    const d = new Date(b.updated_at)
+    const prev = latestByLocation.get(b.location_id)
+    if (!prev || d > prev) latestByLocation.set(b.location_id, d)
+  }
 
   // ── Location pages — only cities with real inventory. Zero-boat locations
   // render a noindexed "coming soon" shell; submitting 360 of those to Google
@@ -178,7 +242,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((loc) => activeLocationIds.has(loc.id))
     .map((loc) => ({
       url: `${BASE_URL}/${loc.slug}`,
-      lastModified: new Date(),
+      lastModified: latestByLocation.get(loc.id) ?? BUILD_DATE,
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     }))
@@ -187,19 +251,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const locSlugById = new Map<string, string>()
   for (const l of locations) locSlugById.set(l.id, l.slug)
 
-  const categoryCombos = new Set<string>() // `${locSlug}/${catSlug}`
+  const categoryCombos = new Map<string, Date>() // `${locSlug}/${catSlug}` → latest boat update
   for (const b of catBoats) {
     const locSlug = locSlugById.get(b.location_id)
     if (!locSlug) continue
+    const d = new Date(b.updated_at)
     for (const cat of CATEGORIES) {
       if (cat.types.includes(b.type) && !!b.is_fishing_trip === !!cat.fishing) {
-        categoryCombos.add(`${locSlug}/${cat.slug}`)
+        const path = `${locSlug}/${cat.slug}`
+        const prev = categoryCombos.get(path)
+        if (!prev || d > prev) categoryCombos.set(path, d)
       }
     }
   }
-  const categoryEntries: SitemapEntry[] = Array.from(categoryCombos).map((path) => ({
+  const categoryEntries: SitemapEntry[] = Array.from(categoryCombos.entries()).map(([path, latest]) => ({
     url: `${BASE_URL}/${path}`,
-    lastModified: new Date(),
+    lastModified: latest,
     changeFrequency: 'weekly' as const,
     priority: 0.85, // high-intent long-tail — the real ranking pages
   }))
@@ -215,7 +282,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.8,
       ...(hasEs(lp.slug) ? {
-        alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}` } },
+        // x-default on every cluster: tells Google which URL serves the
+        // "no matching language" visitor (the EN original).
+        alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}`, 'x-default': `${BASE_URL}/${lp.slug}` } },
       } : {}),
     }))
 
@@ -230,7 +299,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(lp.date),
     changeFrequency: 'weekly' as const,
     priority: 0.7,
-    alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}` } },
+    alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}`, 'x-default': `${BASE_URL}/${lp.slug}` } },
   }))
 
   return [
@@ -238,7 +307,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blogEntries,
     ...boatEntries,
     ...galleryEntries,
-    ...tagEntries,
     ...locationEntries,
     ...categoryEntries,
     ...landingEntries,
