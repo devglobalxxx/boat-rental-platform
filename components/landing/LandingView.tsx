@@ -1,13 +1,61 @@
 import Link from 'next/link'
 import { MapPin } from 'lucide-react'
 import TrustBar from '@/components/ui/TrustBar'
+import BoatCard from '@/components/search/BoatCard'
+import { createClient } from '@/lib/supabase/server'
+import { attachRatings } from '@/lib/ratings'
+import { prettyCity } from '@/lib/pretty-city'
 import type { LandingPage } from '@/lib/landing/pages'
+import type { BoatWithDetails } from '@/types/database'
 
 const gold = '#74cfe8'
 const goldFaint = 'rgba(116,207,232,0.12)'
 const goldBorder = 'rgba(116,207,232,0.22)'
 
-export default function LandingView({ page }: { page: LandingPage }) {
+const deaccent = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '')
+
+// Resolve a landing page's target city to a real inventory location so the page
+// shows bookable boats + a city-filtered CTA instead of dumping high-intent
+// visitors into an unfiltered /search. Conservative: only matches a location that
+// HAS active boats and whose city name (or slug) appears as a whole token in the
+// page's slug/keyword — a miss shows no boats rather than the wrong city's boats.
+interface ResolvedInventory { loc: { id: string; slug: string; city: string; country: string }; boats: BoatWithDetails[] }
+async function resolveInventory(page: LandingPage): Promise<ResolvedInventory | null> {
+  try {
+    const supabase = await createClient()
+    const { data: locs } = await supabase.from('locations').select('id, slug, city, country')
+    const locations = (locs ?? []) as { id: string; slug: string; city: string; country: string }[]
+    if (!locations.length) return null
+
+    // Match against the structured slug + keyword only (never the h1 prose) — prose
+    // like "…for a nice sunset" would false-match common-word cities (Nice, Side…).
+    const hay = ' ' + deaccent(`${page.slug} ${page.keyword ?? ''}`.toLowerCase()).replace(/[^a-z0-9]+/g, ' ').trim() + ' '
+    let best: { loc: typeof locations[number]; score: number } | null = null
+    for (const loc of locations) {
+      for (const cand of [prettyCity(loc.city), loc.slug.replace(/-mr[a-z0-9]+$/i, '')]) {
+        const token = deaccent(cand.toLowerCase()).replace(/[^a-z0-9]+/g, ' ').trim()
+        if (token.length < 4) continue
+        if (hay.includes(' ' + token + ' ') && (!best || token.length > best.score)) best = { loc, score: token.length }
+      }
+    }
+    if (!best) return null
+
+    const { data: rawBoats } = await supabase
+      .from('boats')
+      .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url, verification_status)`)
+      .eq('location_id', best.loc.id)
+      .eq('status', 'active')
+      .order('created_at', { ascending: false })
+      .limit(6)
+    const boats = await attachRatings(supabase, (rawBoats ?? []) as any[]) as BoatWithDetails[]
+    return boats.length ? { loc: best.loc, boats } : null
+  } catch {
+    return null
+  }
+}
+
+export default async function LandingView({ page }: { page: LandingPage }) {
+  const inv = await resolveInventory(page)
   const faqJsonLd = page.faqs?.length
     ? {
         '@context': 'https://schema.org',
@@ -43,13 +91,28 @@ export default function LandingView({ page }: { page: LandingPage }) {
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 100%, rgba(116,207,232,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 24px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(244,244,242,0.65)', marginBottom: '14px' }}>
-            <MapPin style={{ width: '13px', height: '13px' }} /> Costa del Sol, Spain
+            <MapPin style={{ width: '13px', height: '13px' }} /> {inv ? `${prettyCity(inv.loc.city)}, ${inv.loc.country}` : 'Verified boats · Licensed skippers'}
           </div>
           <h1 style={{ fontSize: 'clamp(1.9rem, 5vw, 3rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.12, marginBottom: '12px', maxWidth: '780px' }}>
             {page.h1}
           </h1>
         </div>
       </section>
+
+      {/* ── Available boats (real inventory for this destination) ── */}
+      {inv && (
+        <section style={{ maxWidth: '1100px', margin: '0 auto', padding: '44px 24px 8px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#f4f4f2' }}>Available boats in {prettyCity(inv.loc.city)}</h2>
+            <Link href={`/${inv.loc.slug}`} style={{ fontSize: '13px', fontWeight: 600, color: gold, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              See all boats in {prettyCity(inv.loc.city)} →
+            </Link>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px' }}>
+            {inv.boats.map((b) => <BoatCard key={b.id} boat={b} />)}
+          </div>
+        </section>
+      )}
 
       {/* ── Body ── */}
       <article style={{ maxWidth: '760px', margin: '0 auto', padding: '48px 24px 40px' }}>
@@ -82,14 +145,28 @@ export default function LandingView({ page }: { page: LandingPage }) {
         <div style={{ maxWidth: '760px', margin: '0 auto', padding: '40px 24px', textAlign: 'center' }}>
           <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f4f4f2', marginBottom: '10px' }}>Ready to get on the water?</h2>
           <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.55)', marginBottom: '24px' }}>Browse verified boats — licensed skipper always included.</p>
-          <Link href="/search" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none', border: `1px solid ${goldBorder}` }}>
-            Browse all boats
+          <Link href={inv ? `/${inv.loc.slug}` : '/search'} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none', border: `1px solid ${goldBorder}` }}>
+            {inv ? `Browse boats in ${prettyCity(inv.loc.city)}` : 'Browse all boats'}
           </Link>
         </div>
       </section>
 
       {faqJsonLd && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      )}
+      {inv && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: `Boats in ${prettyCity(inv.loc.city)}`,
+              numberOfItems: inv.boats.length,
+              itemListElement: inv.boats.map((b, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://boathire24.com/boats/${b.slug}`, name: b.name })),
+            }),
+          }}
+        />
       )}
     </div>
   )
