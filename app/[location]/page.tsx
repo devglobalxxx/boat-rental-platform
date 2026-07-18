@@ -7,8 +7,9 @@ import SearchBar from '@/components/search/SearchBar'
 import TrustBar from '@/components/ui/TrustBar'
 import { MapPin, Anchor, Ship } from 'lucide-react'
 import type { BoatWithDetails, LocationRow } from '@/types/database'
-import { getLandingPage, getLandingSlugs } from '@/lib/landing/pages'
+import { getLandingPage, getLandingSlugs, LANDING_PAGES } from '@/lib/landing/pages'
 import { CATEGORIES } from '@/lib/landing/categories'
+import { prettyCity } from '@/lib/pretty-city'
 import { hasEs } from '@/lib/landing/pages-es'
 import LandingView from '@/components/landing/LandingView'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
@@ -127,6 +128,22 @@ export default async function LocationPage({ params }: Props) {
     .map((cat) => ({ cat, n: boats.filter((b) => cat.types.includes((b as any).type) && !!(b as any).is_fishing_trip === !!cat.fishing).length }))
     .filter((c) => c.n > 0)
 
+  // Keyword landing pages that target this city → crawlable "guides" links,
+  // completing the hub: /{city} <-> its landing pages (which already CTA back here).
+  const deaccent = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '')
+  const norm = (s: string) => deaccent(s.toLowerCase()).replace(/[^a-z0-9]+/g, ' ').trim()
+  const cityTokens = [prettyCity(loc.city), loc.slug.replace(/-mr[a-z0-9]+$/i, '')]
+    .map(norm).filter((t) => t.length >= 4)
+  const cityGuides = cityTokens.length
+    ? LANDING_PAGES
+        .filter((p) => !p.canonicalSlug || p.canonicalSlug === p.slug)
+        .filter((p) => {
+          const hay = ' ' + norm(`${p.slug} ${p.keyword ?? ''}`) + ' '
+          return cityTokens.some((t) => hay.includes(' ' + t + ' '))
+        })
+        .slice(0, 8)
+    : []
+
   const gold = '#74cfe8'
   const goldFaint = 'rgba(116,207,232,0.12)'
   const goldBorder = 'rgba(116,207,232,0.22)'
@@ -242,6 +259,19 @@ export default async function LocationPage({ params }: Props) {
               <BoatCard key={boat.id} boat={boat} />
             ))}
           </div>
+        )}
+
+        {cityGuides.length > 0 && (
+          <section style={{ marginTop: '64px' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f4f4f2', marginBottom: '18px' }}>Guides &amp; tips for {prettyCity(loc.city)}</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '12px' }}>
+              {cityGuides.map((g) => (
+                <a key={g.slug} href={`/${g.slug}`} style={{ display: 'block', padding: '14px 16px', borderRadius: '12px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.15)', textDecoration: 'none', color: '#f4f4f2', fontSize: '14px', fontWeight: 600, lineHeight: 1.4 }}>
+                  {g.h1 || g.title}
+                </a>
+              ))}
+            </div>
+          </section>
         )}
       </div>
 
