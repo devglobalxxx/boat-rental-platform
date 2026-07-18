@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
-import { siteJsonLd } from '@/lib/seo/structured-data'
 import { createClient } from '@/lib/supabase/server'
 import { prettyCity } from '@/lib/pretty-city'
 
@@ -213,7 +212,6 @@ export default async function HomePage() {
         desc: d.description || `Compare ${d.count} verified boat${d.count !== 1 ? 's' : ''} in ${prettyCity(d.city)}, ${d.country} — licensed skipper included, all-inclusive pricing and instant online booking.`,
       }))
     : DESTINATIONS
-  const websiteSchema = siteJsonLd()
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -248,8 +246,7 @@ export default async function HomePage() {
 
   return (
     <div style={{ background: '#07101e', color: '#f4f4f2' }}>
-      {/* Structured data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      {/* Structured data (Organization + WebSite are emitted once site-wide from layout.tsx) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
 

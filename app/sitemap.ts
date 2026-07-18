@@ -141,16 +141,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }))
 
-  // ── Tags (distinct from boats + images) ──────────────────────────────────
-  const [boatTagRows, imageTagRows] = await Promise.all([
-    supabaseFetch<{ tags: string[] }>('boats?select=tags&status=eq.active'),
-    supabaseFetch<{ tags: string[] }>(
-      'boat_images?select=tags&tags=not.is.null'
-    ),
-  ])
+  // ── Tags (from image tags; the boats table has no `tags` column) ─────────
+  const imageTagRows = await supabaseFetch<{ tags: string[] }>(
+    'boat_images?select=tags&tags=not.is.null'
+  )
 
   const allTags = new Set<string>()
-  for (const row of [...boatTagRows, ...imageTagRows]) {
+  for (const row of imageTagRows) {
     if (Array.isArray(row.tags)) {
       for (const tag of row.tags) {
         if (tag) allTags.add(tag)

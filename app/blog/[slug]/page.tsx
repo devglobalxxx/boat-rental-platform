@@ -2,9 +2,31 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Clock, User } from 'lucide-react'
 // ChevronLeft kept for potential back-nav use; Clock+User used in hero meta
-import { getAllPost, getAllPostSlugs, POSTS } from '@/lib/blog/posts'
+import { getAllPost, getAllPostSlugs, ALL_POSTS } from '@/lib/blog/posts'
 import ReadingProgress from '@/components/blog/ReadingProgress'
 import type { Metadata } from 'next'
+
+type Post = (typeof ALL_POSTS)[number]
+
+// Topical related posts: shared tag + shared meaningful title/slug tokens (location
+// names like "marbella"/"phuket" survive; generic boat words are stopped). Replaces
+// the old slice(0,2) that dead-ended every one of ~400 articles into the same 2.
+const REL_STOP = new Set(['boat', 'boats', 'yacht', 'yachts', 'charter', 'charters', 'rental', 'rentals', 'hire', 'guide', 'guides', 'best', 'the', 'and', 'for', 'with', 'your', 'how', 'what', 'when', 'where', 'from', 'into', 'trip', 'trips', 'day', 'days', 'tips', 'rent', 'renting'])
+function relatedPosts(post: Post, all: Post[], n = 4): Post[] {
+  const toks = (s: string) => new Set((s.toLowerCase().match(/[a-z]+/g) ?? []).filter((w) => w.length > 3 && !REL_STOP.has(w)))
+  const base = toks(`${post.slug} ${post.title}`)
+  return all
+    .filter((p) => p.slug !== post.slug)
+    .map((p) => {
+      const t = toks(`${p.slug} ${p.title}`)
+      let overlap = 0
+      base.forEach((w) => { if (t.has(w)) overlap++ })
+      return { p, score: overlap * 2 + (p.tag === post.tag ? 1 : 0) }
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, n)
+    .map((x) => x.p)
+}
 
 export async function generateStaticParams() {
   return getAllPostSlugs().map((slug) => ({ slug }))
@@ -41,19 +63,27 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getAllPost(slug)
   if (!post) notFound()
 
-  const related = POSTS.filter((p) => p.slug !== post.slug).slice(0, 2)
+  const related = relatedPosts(post, ALL_POSTS, 4)
 
+  const publishedISO = (() => { const t = Date.parse(post.date); return isNaN(t) ? post.date : new Date(t).toISOString() })()
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
     image: post.heroImage,
-    datePublished: post.date,
+    datePublished: publishedISO,
+    dateModified: publishedISO,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://boathire24.com/blog/${post.slug}` },
     author: {
       '@type': 'Person',
       name: post.author,
       jobTitle: post.authorRole,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'BoatHire24',
+      logo: { '@type': 'ImageObject', url: 'https://boathire24.com/brand-logo.jpg' },
     },
   }
 
