@@ -9,6 +9,7 @@ import LeadBoats from '@/components/admin/LeadBoats'
 import DeleteLeadButton from '@/components/admin/DeleteLeadButton'
 import LeadComment from '@/components/admin/LeadComment'
 import LeadVerified2x from '@/components/admin/LeadVerified2x'
+import EditNameButton from '@/components/admin/EditNameButton'
 
 export const metadata: Metadata = { title: 'BoatHire24 managed | Admin' }
 export const dynamic = 'force-dynamic'
@@ -134,6 +135,7 @@ export default async function BoatHire24HubPage() {
                       )
                     })()}
                     <LeadVerified2x id={s.id} verified={(s as any).verified_2x} />
+                    <EditNameButton id={s.id} />
                   </span>
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12 }}>
                     <span style={{ fontSize: 11, color: muted }}>{new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}</span>
