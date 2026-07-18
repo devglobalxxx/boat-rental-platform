@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 const gold = '#74cfe8', muted = 'rgba(244,244,242,0.55)', text = '#f4f4f2'
@@ -32,6 +32,12 @@ export default function LeadContactEdit({ id, website, email, phone, location, c
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const [cur, setCur] = useState({ website, email, phone })
+
+  useEffect(() => {
+    const open = () => setEditing(true)
+    window.addEventListener(`lead-edit-open:${id}`, open)
+    return () => window.removeEventListener(`lead-edit-open:${id}`, open)
+  }, [id])
 
   async function save() {
     setBusy(true); setErr(null)
