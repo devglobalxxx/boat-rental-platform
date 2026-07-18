@@ -11,15 +11,24 @@ interface ReviewsProps {
   avgRating: number
 }
 
+// Dark palette — matches app/boats/[slug]/page.tsx so the reviews block (which sits
+// right beside the booking CTA) is legible and on-brand instead of light-on-dark.
+const gold = '#74cfe8'
+const text = '#f4f4f2'
+const muted = 'rgba(244,244,242,0.55)'
+const dim = 'rgba(244,244,242,0.35)'
+const border = 'rgba(116,207,232,0.15)'
+const amber = '#fbbf24'
+const trackBg = 'rgba(255,255,255,0.10)'
+
 function RatingStars({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'lg' }) {
+  const px = size === 'lg' ? 20 : 14
   return (
-    <div className="flex items-center gap-0.5">
+    <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
       {[1, 2, 3, 4, 5].map((i) => (
         <Star
           key={i}
-          className={`${size === 'lg' ? 'w-5 h-5' : 'w-3.5 h-3.5'} ${
-            i <= rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'
-          }`}
+          style={{ width: px, height: px, fill: i <= rating ? amber : 'transparent', color: i <= rating ? amber : 'rgba(244,244,242,0.22)' }}
         />
       ))}
     </div>
@@ -29,9 +38,9 @@ function RatingStars({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'l
 export default function Reviews({ reviews, avgRating }: ReviewsProps) {
   if (reviews.length === 0) {
     return (
-      <div className="text-center py-8 text-slate-500">
-        <Star className="w-8 h-8 mx-auto mb-2 text-slate-300" />
-        <p>No reviews yet — be the first to book!</p>
+      <div style={{ textAlign: 'center', padding: '32px 0', color: muted }}>
+        <Star style={{ width: 32, height: 32, margin: '0 auto 8px', color: 'rgba(244,244,242,0.25)' }} />
+        <p style={{ margin: 0 }}>No reviews yet — be the first to book!</p>
       </div>
     )
   }
@@ -39,24 +48,24 @@ export default function Reviews({ reviews, avgRating }: ReviewsProps) {
   return (
     <div>
       {/* Summary */}
-      <div className="flex items-center gap-4 mb-6 p-4 bg-slate-50 rounded-xl">
-        <div className="text-center">
-          <div className="text-4xl font-bold text-slate-900">{avgRating.toFixed(1)}</div>
-          <RatingStars rating={Math.round(avgRating)} size="lg" />
-          <div className="text-xs text-slate-500 mt-1">{reviews.length} review{reviews.length !== 1 ? 's' : ''}</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px', padding: '18px', background: 'rgba(255,255,255,0.03)', border: `1px solid ${border}`, borderRadius: '16px' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '38px', fontWeight: 800, color: text, lineHeight: 1 }}>{avgRating.toFixed(1)}</div>
+          <div style={{ margin: '6px 0 4px' }}><RatingStars rating={Math.round(avgRating)} size="lg" /></div>
+          <div style={{ fontSize: '12px', color: muted }}>{reviews.length} review{reviews.length !== 1 ? 's' : ''}</div>
         </div>
-        <div className="flex-1 space-y-1.5">
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {[5, 4, 3, 2, 1].map((star) => {
             const count = reviews.filter((r) => r.rating === star).length
             const pct = reviews.length > 0 ? (count / reviews.length) * 100 : 0
             return (
-              <div key={star} className="flex items-center gap-2 text-xs">
-                <span className="text-slate-500 w-3">{star}</span>
-                <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                  <div className="h-full bg-amber-400 rounded-full" style={{ width: `${pct}%` }} />
+              <div key={star} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px' }}>
+                <span style={{ color: muted, width: '10px' }}>{star}</span>
+                <Star style={{ width: 12, height: 12, fill: amber, color: amber }} />
+                <div style={{ flex: 1, height: '6px', background: trackBg, borderRadius: '99px', overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${pct}%`, background: amber, borderRadius: '99px' }} />
                 </div>
-                <span className="text-slate-400 w-3">{count}</span>
+                <span style={{ color: dim, width: '10px' }}>{count}</span>
               </div>
             )
           })}
@@ -64,27 +73,27 @@ export default function Reviews({ reviews, avgRating }: ReviewsProps) {
       </div>
 
       {/* Individual reviews */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
         {reviews.map((review) => (
-          <div key={review.id} className="space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#06b6d4] flex items-center justify-center text-white text-sm font-bold shrink-0">
+          <div key={review.id} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ width: 36, height: 36, borderRadius: '99px', background: gold, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#07101e', fontSize: '14px', fontWeight: 700, flexShrink: 0 }}>
                 {review.profiles.full_name?.[0]?.toUpperCase() ?? 'G'}
               </div>
               <div>
-                <div className="text-sm font-semibold text-slate-900">
+                <div style={{ fontSize: '14px', fontWeight: 600, color: text }}>
                   {review.profiles.full_name ?? 'Guest'}
                 </div>
-                <div className="text-xs text-slate-500">
+                <div style={{ fontSize: '12px', color: muted }}>
                   {formatDistanceToNow(new Date(review.created_at), { addSuffix: true })}
                 </div>
               </div>
-              <div className="ml-auto">
+              <div style={{ marginLeft: 'auto' }}>
                 <RatingStars rating={review.rating} />
               </div>
             </div>
             {review.body && (
-              <p className="text-sm text-slate-600 leading-relaxed">{review.body}</p>
+              <p style={{ fontSize: '14px', color: 'rgba(244,244,242,0.72)', lineHeight: 1.6, margin: 0 }}>{review.body}</p>
             )}
           </div>
         ))}

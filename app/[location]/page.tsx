@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
 import SearchBar from '@/components/search/SearchBar'
+import TrustBar from '@/components/ui/TrustBar'
 import { MapPin, Anchor, Ship } from 'lucide-react'
 import type { BoatWithDetails, LocationRow } from '@/types/database'
 import { getLandingPage, getLandingSlugs } from '@/lib/landing/pages'
@@ -177,6 +178,11 @@ export default async function LocationPage({ params }: Props) {
 
       {/* ── Search + Results ── */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 24px 96px' }}>
+
+        {/* All-inclusive / escrow trust bar */}
+        <div style={{ marginBottom: '28px' }}>
+          <TrustBar />
+        </div>
 
         {/* Search bar */}
         <div style={{ marginBottom: '28px' }}>

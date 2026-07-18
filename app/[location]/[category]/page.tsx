@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
 import SearchBar from '@/components/search/SearchBar'
+import TrustBar from '@/components/ui/TrustBar'
 import { MapPin } from 'lucide-react'
 import type { BoatWithDetails, LocationRow } from '@/types/database'
 import { getCategory, type BoatCategory } from '@/lib/landing/categories'
@@ -102,6 +103,9 @@ export default async function CategoryLandingPage({ params }: Props) {
       </section>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '8px 24px 96px' }}>
+        <div style={{ marginBottom: '28px' }}>
+          <TrustBar />
+        </div>
         <div style={{ marginBottom: '40px' }}>
           <SearchBar defaultLocation={loc.city} />
         </div>

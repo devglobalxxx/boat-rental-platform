@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { MapPin } from 'lucide-react'
+import TrustBar from '@/components/ui/TrustBar'
 import type { LandingPage } from '@/lib/landing/pages'
 
 const gold = '#74cfe8'
@@ -70,6 +71,11 @@ export default function LandingView({ page }: { page: LandingPage }) {
           </section>
         ) : null}
       </article>
+
+      {/* All-inclusive / escrow trust bar */}
+      <div style={{ maxWidth: '760px', margin: '0 auto', padding: '0 24px 8px' }}>
+        <TrustBar />
+      </div>
 
       {/* ── CTA ── */}
       <section style={{ borderTop: '1px solid rgba(116,207,232,0.10)', background: goldFaint }}>

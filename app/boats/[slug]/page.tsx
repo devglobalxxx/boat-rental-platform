@@ -13,6 +13,10 @@ import { MapPin, Users, Ruler, Anchor, Star, Check, Waves, Zap } from 'lucide-re
 import VerifiedBadge from '@/components/ui/VerifiedBadge'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import SLUG_REDIRECTS from '@/lib/slug-redirects.json'
+import TrustBar from '@/components/ui/TrustBar'
+import RelatedBoats from '@/components/listing/RelatedBoats'
+import { attachRatings } from '@/lib/ratings'
+import { CATEGORIES } from '@/lib/landing/categories'
 import type { BoatWithDetails } from '@/types/database'
 
 const TYPE_LABELS: Record<string, string> = {
@@ -152,6 +156,22 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
 
   const sortedPricing = [...boat.boat_pricing].sort((a, b) => (a.duration_hours ?? 0) - (b.duration_hours ?? 0))
 
+  // Sibling boats in the same location → internal-link rails at the bottom of the
+  // page (spreads crawl equity through the location silo, and cross-sells if the
+  // boat this visitor landed on is booked). Same boat-type first, then the rest.
+  const { data: siblingRaw } = await supabase
+    .from('boats')
+    .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url, verification_status)`)
+    .eq('status', 'active')
+    .eq('location_id', boat.location_id)
+    .neq('id', boat.id)
+    .limit(12)
+  const siblings = await attachRatings(supabase, (siblingRaw ?? []) as any[]) as BoatWithDetails[]
+  const sameType = siblings.filter((b) => b.type === boat.type && !!(b as any).is_fishing_trip === !!(boat as any).is_fishing_trip)
+  const otherInCity = siblings.filter((b) => !sameType.some((s) => s.id === b.id))
+  const boatCategory = CATEGORIES.find((c) => c.types.includes(boat.type) && !!c.fishing === !!(boat as any).is_fishing_trip)
+  const typeLabelPlural = `${TYPE_LABELS[boat.type] ?? boat.type}s`
+
   const specItems = [
     { icon: Users,  value: String(boat.capacity_pax),  label: 'Guests' },
     ...(boat.length_m   ? [{ icon: Ruler,  value: `${boat.length_m}m`,    label: 'Length'     }] : []),
@@ -213,6 +233,11 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
               </span>
             )}
           </div>
+        </div>
+
+        {/* All-inclusive / escrow trust bar — reinforce the price promise near the CTA */}
+        <div style={{ marginBottom: '28px' }}>
+          <TrustBar />
         </div>
 
         {/* ── Two-column layout (gallery + content left, booking widget right — widget aligns with image top) ── */}
@@ -426,6 +451,28 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
           </div>
 
         </div>
+
+        {/* ── Related / sibling boats — internal-link rails back into the location silo ── */}
+        {siblings.length > 0 && (
+          <div style={{ marginTop: '72px', display: 'flex', flexDirection: 'column', gap: '48px' }}>
+            {sameType.length > 0 && (
+              <RelatedBoats
+                title={`Other ${typeLabelPlural.toLowerCase()} in ${boat.locations.city}`}
+                boats={sameType}
+                viewAll={boatCategory
+                  ? { href: `/${boat.locations.slug}/${boatCategory.slug}`, label: `All ${boatCategory.label.toLowerCase()} in ${boat.locations.city}` }
+                  : { href: `/${boat.locations.slug}`, label: `All boats in ${boat.locations.city}` }}
+              />
+            )}
+            {otherInCity.length > 0 && (
+              <RelatedBoats
+                title={`More boats in ${boat.locations.city}`}
+                boats={otherInCity}
+                viewAll={{ href: `/${boat.locations.slug}`, label: `All boats in ${boat.locations.city}` }}
+              />
+            )}
+          </div>
+        )}
       </div>
 
       {/* Phone-width: price + CTA pinned to the bottom (widget is below the fold) */}
