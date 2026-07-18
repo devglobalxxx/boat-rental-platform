@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
-import { createClient } from '@/lib/supabase/server'
 import { prettyCity } from '@/lib/pretty-city'
 
 export const metadata: Metadata = {
@@ -179,14 +178,17 @@ interface TopDest { slug: string; city: string; country: string; image_url: stri
 
 async function getTopDestinations(): Promise<TopDest[]> {
   try {
-    const supabase = await createClient()
-    const { data } = await supabase
-      .from('boats')
-      .select('location_id, locations(slug, city, country, image_url, description)')
-      .eq('status', 'active')
-      .limit(5000)
+    // Raw REST fetch (not the cookie-based server client) so the homepage stays
+    // statically ISR-cached — createClient() awaits cookies(), which would force
+    // per-request dynamic rendering and defeat `export const revalidate = 3600`.
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/boats?select=location_id,locations(slug,city,country,image_url,description)&status=eq.active&limit=5000`,
+      { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}` }, next: { revalidate: 3600 } },
+    )
+    if (!res.ok) return []
+    const rows = (await res.json()) as { location_id: string | null; locations: { slug: string; city: string; country: string; image_url: string | null; description: string | null } | null }[]
     const map = new Map<string, TopDest>()
-    for (const r of (data ?? []) as any[]) {
+    for (const r of rows) {
       const l = r.locations
       if (!l?.slug) continue
       const e = map.get(l.slug) ?? { slug: l.slug, city: l.city, country: l.country, image_url: l.image_url ?? null, description: l.description ?? null, count: 0 }

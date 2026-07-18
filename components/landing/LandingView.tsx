@@ -30,32 +30,54 @@ async function resolveInventory(page: LandingPage): Promise<ResolvedInventory | 
     // Match against the structured slug + keyword only (never the h1 prose) — prose
     // like "…for a nice sunset" would false-match common-word cities (Nice, Side…).
     const hay = ' ' + deaccent(`${page.slug} ${page.keyword ?? ''}`.toLowerCase()).replace(/[^a-z0-9]+/g, ' ').trim() + ' '
-    let best: { loc: typeof locations[number]; score: number } | null = null
+    // Collect every location whose city/slug appears as a whole token, scored by
+    // token length (most specific wins).
+    const matches: { loc: typeof locations[number]; score: number }[] = []
     for (const loc of locations) {
+      let score = 0
       for (const cand of [prettyCity(loc.city), loc.slug.replace(/-mr[a-z0-9]+$/i, '')]) {
         const token = deaccent(cand.toLowerCase()).replace(/[^a-z0-9]+/g, ' ').trim()
         if (token.length < 4) continue
-        if (hay.includes(' ' + token + ' ') && (!best || token.length > best.score)) best = { loc, score: token.length }
+        if (hay.includes(' ' + token + ' ')) score = Math.max(score, token.length)
+      }
+      if (score) matches.push({ loc, score })
+    }
+    if (!matches.length) return null
+    matches.sort((a, b) => b.score - a.score)
+
+    // Prefer the best-scoring match that actually has active inventory — stops a
+    // same-named 0-boat location (e.g. an empty "Corfu" shell) from shadowing the
+    // live one. Try the top few by score.
+    for (const { loc } of matches.slice(0, 4)) {
+      const { data: rawBoats } = await supabase
+        .from('boats')
+        .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url, verification_status)`)
+        .eq('location_id', loc.id)
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(6)
+      if (rawBoats && rawBoats.length) {
+        const boats = await attachRatings(supabase, rawBoats as any[]) as BoatWithDetails[]
+        return { loc, boats }
       }
     }
-    if (!best) return null
-
-    const { data: rawBoats } = await supabase
-      .from('boats')
-      .select(`*, boat_images(*), boat_pricing(*), boat_features(*), locations(*), profiles(id, full_name, avatar_url, verification_status)`)
-      .eq('location_id', best.loc.id)
-      .eq('status', 'active')
-      .order('created_at', { ascending: false })
-      .limit(6)
-    const boats = await attachRatings(supabase, (rawBoats ?? []) as any[]) as BoatWithDetails[]
-    return boats.length ? { loc: best.loc, boats } : null
+    return null
   } catch {
     return null
   }
 }
 
-export default async function LandingView({ page }: { page: LandingPage }) {
+// LandingView is shared by the EN (/[location]) and ES (/es/[location]) routes,
+// which reuse identical English slugs — so the boat-section chrome is localized
+// here by the `lang` prop the ES route passes.
+const LABELS = {
+  en: { region: 'Verified boats · Licensed skippers', available: 'Available boats in', seeAll: 'See all boats in', browse: 'Browse boats in', browseAll: 'Browse all boats' },
+  es: { region: 'Barcos verificados · Patrón incluido', available: 'Barcos disponibles en', seeAll: 'Ver todos los barcos en', browse: 'Ver barcos en', browseAll: 'Ver todos los barcos' },
+}
+
+export default async function LandingView({ page, lang = 'en' }: { page: LandingPage; lang?: 'en' | 'es' }) {
   const inv = await resolveInventory(page)
+  const t = LABELS[lang] ?? LABELS.en
   const faqJsonLd = page.faqs?.length
     ? {
         '@context': 'https://schema.org',
@@ -91,7 +113,7 @@ export default async function LandingView({ page }: { page: LandingPage }) {
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 100%, rgba(116,207,232,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 24px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(244,244,242,0.65)', marginBottom: '14px' }}>
-            <MapPin style={{ width: '13px', height: '13px' }} /> {inv ? `${prettyCity(inv.loc.city)}, ${inv.loc.country}` : 'Verified boats · Licensed skippers'}
+            <MapPin style={{ width: '13px', height: '13px' }} /> {inv ? `${prettyCity(inv.loc.city)}, ${inv.loc.country}` : t.region}
           </div>
           <h1 style={{ fontSize: 'clamp(1.9rem, 5vw, 3rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.12, marginBottom: '12px', maxWidth: '780px' }}>
             {page.h1}
@@ -103,9 +125,9 @@ export default async function LandingView({ page }: { page: LandingPage }) {
       {inv && (
         <section style={{ maxWidth: '1100px', margin: '0 auto', padding: '44px 24px 8px' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#f4f4f2' }}>Available boats in {prettyCity(inv.loc.city)}</h2>
+            <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#f4f4f2' }}>{t.available} {prettyCity(inv.loc.city)}</h2>
             <Link href={`/${inv.loc.slug}`} style={{ fontSize: '13px', fontWeight: 600, color: gold, textDecoration: 'none', whiteSpace: 'nowrap' }}>
-              See all boats in {prettyCity(inv.loc.city)} →
+              {t.seeAll} {prettyCity(inv.loc.city)} →
             </Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px' }}>
@@ -146,7 +168,7 @@ export default async function LandingView({ page }: { page: LandingPage }) {
           <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f4f4f2', marginBottom: '10px' }}>Ready to get on the water?</h2>
           <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.55)', marginBottom: '24px' }}>Browse verified boats — licensed skipper always included.</p>
           <Link href={inv ? `/${inv.loc.slug}` : '/search'} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 28px', borderRadius: '99px', background: 'linear-gradient(135deg,#8fdcf0,#74cfe8,#4fb8d6)', color: '#07101e', fontWeight: 700, fontSize: '14px', textDecoration: 'none', border: `1px solid ${goldBorder}` }}>
-            {inv ? `Browse boats in ${prettyCity(inv.loc.city)}` : 'Browse all boats'}
+            {inv ? `${t.browse} ${prettyCity(inv.loc.city)}` : t.browseAll}
           </Link>
         </div>
       </section>

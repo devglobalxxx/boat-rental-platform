@@ -17,6 +17,7 @@ import TrustBar from '@/components/ui/TrustBar'
 import RelatedBoats from '@/components/listing/RelatedBoats'
 import { attachRatings } from '@/lib/ratings'
 import { CATEGORIES } from '@/lib/landing/categories'
+import { prettyCity } from '@/lib/pretty-city'
 import type { BoatWithDetails } from '@/types/database'
 
 const TYPE_LABELS: Record<string, string> = {
@@ -171,6 +172,8 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
   const otherInCity = siblings.filter((b) => !sameType.some((s) => s.id === b.id))
   const boatCategory = CATEGORIES.find((c) => c.types.includes(boat.type) && !!c.fishing === !!(boat as any).is_fishing_trip)
   const typeLabelPlural = `${TYPE_LABELS[boat.type] ?? boat.type}s`
+  // Clean display name — 37 locations still store a raw geocoded address as `city`.
+  const cityName = prettyCity(boat.locations.city)
 
   const specItems = [
     { icon: Users,  value: String(boat.capacity_pax),  label: 'Guests' },
@@ -192,7 +195,7 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
         <nav style={{ fontSize: '13px', color: 'rgba(244,244,242,0.40)', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
           <a href="/" style={{ color: 'rgba(244,244,242,0.40)', textDecoration: 'none' }}>Home</a>
           <span>/</span>
-          <a href={`/${boat.locations.slug}`} style={{ color: 'rgba(244,244,242,0.40)', textDecoration: 'none' }}>{boat.locations.city}</a>
+          <a href={`/${boat.locations.slug}`} style={{ color: 'rgba(244,244,242,0.40)', textDecoration: 'none' }}>{cityName}</a>
           <span>/</span>
           <span style={{ color: '#f4f4f2' }}>{boat.name}</span>
         </nav>
@@ -216,7 +219,7 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
               )}
               <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                 <MapPin style={{ width: '14px', height: '14px', color: gold }} />
-                {boat.locations.city}, {boat.locations.country}
+                {cityName}, {boat.locations.country}
               </span>
             </div>
           </div>
@@ -457,18 +460,18 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
           <div style={{ marginTop: '72px', display: 'flex', flexDirection: 'column', gap: '48px' }}>
             {sameType.length > 0 && (
               <RelatedBoats
-                title={`Other ${typeLabelPlural.toLowerCase()} in ${boat.locations.city}`}
+                title={`Other ${typeLabelPlural.toLowerCase()} in ${cityName}`}
                 boats={sameType}
                 viewAll={boatCategory
-                  ? { href: `/${boat.locations.slug}/${boatCategory.slug}`, label: `All ${boatCategory.label.toLowerCase()} in ${boat.locations.city}` }
-                  : { href: `/${boat.locations.slug}`, label: `All boats in ${boat.locations.city}` }}
+                  ? { href: `/${boat.locations.slug}/${boatCategory.slug}`, label: `All ${boatCategory.label.toLowerCase()} in ${cityName}` }
+                  : { href: `/${boat.locations.slug}`, label: `All boats in ${cityName}` }}
               />
             )}
             {otherInCity.length > 0 && (
               <RelatedBoats
-                title={`More boats in ${boat.locations.city}`}
+                title={`More boats in ${cityName}`}
                 boats={otherInCity}
-                viewAll={{ href: `/${boat.locations.slug}`, label: `All boats in ${boat.locations.city}` }}
+                viewAll={{ href: `/${boat.locations.slug}`, label: `All boats in ${cityName}` }}
               />
             )}
           </div>

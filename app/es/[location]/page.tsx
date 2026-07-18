@@ -47,5 +47,5 @@ export default async function EsLandingPage({ params }: Props) {
   const { location } = await params
   const lp = getLandingPageEs(location)
   if (!lp) notFound()
-  return <LandingView page={lp} />
+  return <LandingView page={lp} lang="es" />
 }
