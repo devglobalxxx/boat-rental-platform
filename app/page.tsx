@@ -4,6 +4,8 @@ import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } 
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
 import { siteJsonLd } from '@/lib/seo/structured-data'
+import { createClient } from '@/lib/supabase/server'
+import { prettyCity } from '@/lib/pretty-city'
 
 export const metadata: Metadata = {
   title: 'BoatHire24 — Book Verified Boat Charters Worldwide',
@@ -165,8 +167,52 @@ async function getStats(): Promise<{ boats: number; destinations: number }> {
   }
 }
 
+// Live top destinations for the homepage tiles — real cities, real counts, real
+// slugs. Replaces the old hardcoded Marbella/Ibiza/Miami cards (Miami had 0 boats
+// and a fabricated "30+ boats" count that linked a noindexed shell).
+const FALLBACK_IMAGES = [
+  'https://images.unsplash.com/photo-1589642073293-d0d511afb66e?w=800&q=80',
+  'https://images.unsplash.com/photo-1677280790582-6d1cfe9fcc51?w=800&q=80',
+  'https://images.unsplash.com/photo-1722937293268-62237f5e5435?w=800&q=80',
+]
+
+interface TopDest { slug: string; city: string; country: string; image_url: string | null; description: string | null; count: number }
+
+async function getTopDestinations(): Promise<TopDest[]> {
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase
+      .from('boats')
+      .select('location_id, locations(slug, city, country, image_url, description)')
+      .eq('status', 'active')
+      .limit(5000)
+    const map = new Map<string, TopDest>()
+    for (const r of (data ?? []) as any[]) {
+      const l = r.locations
+      if (!l?.slug) continue
+      const e = map.get(l.slug) ?? { slug: l.slug, city: l.city, country: l.country, image_url: l.image_url ?? null, description: l.description ?? null, count: 0 }
+      e.count++
+      map.set(l.slug, e)
+    }
+    return [...map.values()].sort((a, b) => b.count - a.count).slice(0, 6)
+  } catch {
+    return []
+  }
+}
+
 export default async function HomePage() {
-  const stats = await getStats()
+  const [stats, topDestinations] = await Promise.all([getStats(), getTopDestinations()])
+  // Prefer live inventory; fall back to the curated cards only if the query fails.
+  const destTiles = topDestinations.length
+    ? topDestinations.map((d, i) => ({
+        slug: d.slug,
+        city: prettyCity(d.city),
+        country: d.country,
+        count: `${d.count} boat${d.count !== 1 ? 's' : ''}`,
+        image: d.image_url || FALLBACK_IMAGES[i % FALLBACK_IMAGES.length],
+        desc: d.description || `Compare ${d.count} verified boat${d.count !== 1 ? 's' : ''} in ${prettyCity(d.city)}, ${d.country} — licensed skipper included, all-inclusive pricing and instant online booking.`,
+      }))
+    : DESTINATIONS
   const websiteSchema = siteJsonLd()
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -292,7 +338,7 @@ export default async function HomePage() {
         <div className="container">
           <SectionHeader eyebrow="Active fleet locations" title={<>Where Will <Gold>You Sail?</Gold></>} sub="BoatHire24 maintains an active, inspected fleet in the world's most desirable charter destinations — each curated for water quality, boat availability, and year-round viability." />
           <div className="grid md:grid-cols-3 gap-6">
-            {DESTINATIONS.map((dest) => (
+            {destTiles.map((dest) => (
               <Link key={dest.slug} href={`/${dest.slug}`} className="group glass-card overflow-hidden block">
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ background: '#0a1420' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -314,6 +360,11 @@ export default async function HomePage() {
                 </div>
               </Link>
             ))}
+          </div>
+          <div style={{ textAlign: 'center', marginTop: '40px' }}>
+            <Link href="/destinations" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 700, color: '#74cfe8', textDecoration: 'none' }}>
+              View all {stats.destinations} destinations <ChevronRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

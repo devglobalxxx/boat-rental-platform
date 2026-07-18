@@ -104,6 +104,7 @@ export default function SiteNav() {
             {[
               { href: '/about',         label: translations[locale].nav.about },
               { href: '/search',        label: translations[locale].nav.explore },
+              { href: '/destinations',  label: 'Destinations' },
               { href: '/fishing-trips', label: 'Fishing trips' },
               { href: '/boat-tours', label: 'Boat tours' },
               { href: '/jet-ski-marbella', label: 'Jet ski' },
@@ -354,6 +355,7 @@ export default function SiteNav() {
             {[
               { href: '/about',         label: translations[locale].nav.about },
               { href: '/search',        label: translations[locale].nav.explore },
+              { href: '/destinations',  label: 'Destinations' },
               { href: '/fishing-trips', label: 'Fishing trips' },
               { href: '/boat-tours', label: 'Boat tours' },
               { href: '/jet-ski-marbella', label: 'Jet ski' },

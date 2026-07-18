@@ -275,6 +275,26 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
                 </ul>
               </div>
 
+              {/* Destinations */}
+              <div>
+                <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#74cfe8', marginBottom: '20px' }}>Destinations</h3>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '13px' }}>
+                  {[
+                    { href: '/destinations', label: 'All destinations' },
+                    { href: '/marbella', label: 'Marbella' },
+                    { href: '/boat-tours', label: 'Boat tours' },
+                    { href: '/fishing-trips', label: 'Fishing trips' },
+                    { href: '/jet-ski-marbella', label: 'Jet ski rental' },
+                  ].map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} style={{ fontSize: '13px', color: 'rgba(244,244,242,0.50)', textDecoration: 'none', transition: 'color 0.15s' }} className="hover:text-[#74cfe8]">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               {/* Host */}
               <div>
                 <h3 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#74cfe8', marginBottom: '20px' }}>{tr.footer.forHosts}</h3>
