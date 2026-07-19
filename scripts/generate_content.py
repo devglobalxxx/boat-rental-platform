@@ -421,20 +421,44 @@ def gen_landing(item: dict) -> dict:
 
 
 # ---------- queue refill ----------
+def inventory_target_cities(limit: int = 8) -> list[dict]:
+    """Top under-served destinations that have real, bookable boats (clean names
+    only), from the inventory brain (scripts/inventory_targets.py). Empty if the
+    brain hasn't been generated — the caller then falls back to the core market."""
+    try:
+        rows = json.loads((ROOT / "config" / "brain" / "inventory_targets.json").read_text())
+    except Exception:
+        return []
+    return [r for r in rows if r.get("generatable") and r.get("boats", 0) >= 4 and r.get("landing_pages", 0) <= 3][:limit]
+
+
 def refill_queue(queue_cfg: dict, n: int, existing_slugs: set) -> list[dict]:
     seen = set(existing_slugs)
     for src in (queue_cfg.get("queue", []), queue_cfg.get("consumed", [])):
         for it in src:
             seen.add(it.get("slug"))
-    sys_p = ("You are an SEO content planner for BoatHire24, a boat-rental & yacht-charter marketplace "
-             "in Marbella / Costa del Sol, Spain. Generate diverse, search-driven topics across: "
-             "boat/yacht rental long-tail (port + boat-type modifiers), comparisons, seasonal/event hooks "
+    # Steer topics toward destinations where we actually have boats but little
+    # coverage, instead of endlessly deepening Marbella. (inventory brain)
+    targets = inventory_target_cities()
+    target_clause = ""
+    if targets:
+        tlist = "; ".join(f"{t['city']} ({t['country']}, {t['boats']} boats)" for t in targets)
+        target_clause = (
+            "\n\nPRIORITY — we have real, bookable boats in these UNDER-SERVED destinations but few or no "
+            f"pages yet: {tlist}. Make AT LEAST HALF of the LANDING topics target these cities "
+            "(put the city name in the slug, primary_keyword and title). The rest can cover the core "
+            "Marbella / Costa del Sol market.")
+    sys_p = ("You are an SEO content planner for BoatHire24, a boat-rental & yacht-charter marketplace. "
+             "Core market: Marbella / Costa del Sol, Spain — plus a growing fleet in Turkey, Cyprus, Greece, "
+             "France, Portugal and Thailand. Generate diverse, search-driven topics across: "
+             "boat/yacht rental long-tail (city + port + boat-type modifiers), comparisons, seasonal/event hooks "
              "(Starlite, Feria, NYE, hen/stag, F1), experiential angles (dolphins, sunset, snorkel, fishing, "
              "family, photoshoot), price/licence/weather guides. Specific enough to hit 1000-1500 words.")
     user_p = (f"Produce {n} new topics as a STRICT JSON ARRAY. Each item:\n"
               '{"kind":"blog"|"landing","slug":"<kebab-slug, single path segment, no /blog prefix>",'
               '"primary_keyword":"natural search phrase","title":"<=65-char title with keyword","target_words":1100}\n\n'
-              f"AVOID these slugs (already used): {json.dumps(sorted(s for s in seen if s))}\n\n"
+              f"AVOID these slugs (already used): {json.dumps(sorted(s for s in seen if s))}"
+              f"{target_clause}\n\n"
               "Mix ~50% blog, ~50% landing. Landing = commercial intent (rent/charter/hire/price). "
               "Return JSON array only.")
     arr = extract_json(call_model(sys_p, user_p, timeout_s=300), kind="array")
