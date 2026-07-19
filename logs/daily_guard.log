@@ -6014,3 +6014,8 @@ Traceback (most recent call last):
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-07-19 00:49:43] done 2026-07-19
+[2026-07-20 00:16:45] starting daily run for 2026-07-20
+[2026-07-20 00:16:46] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+quarantined 0 thin landings; kept 506
+cannibalization: 148 variant pages canonicalized to a primary
+relinked: blogs=398 (homepage 398/398), landings=506 (homepage 506/506), affiliate-link pool=9

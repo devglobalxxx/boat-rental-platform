@@ -105,6 +105,19 @@ set it to lock them).
   the **re-import orphan-duplicate trap** (unlinked `submission_id=NULL` base-slug copies
   shadowing the canonical `-2` set). Full playbook: `docs/website-import-playbook.md`.
   `sameBoat` dedupe lives in `app/host/fleet/website/WebsiteImportClient.tsx`.
+  - **Placeholder-logo / contact-photo trap.** An import can grab a source site's *logo*
+    or a *contact-person headshot* as a boat photo when the real gallery is lazy-loaded or
+    in unusual markup (hit the PRIMA BOATS Mallorca batch 2026-07: 20 boats got the
+    ship's-wheel logo `md5 803626b4…` as hero, 7 also got a "simone-contact" selfie
+    `md5 5600a501…`; 5 had *only* those two). **Detect** with
+    `scripts/audit-logo-images.mjs` — hashes every active boat's images and flags an md5
+    shared across >1 boat (real fleet/package galleries share too, so *view* the flagged
+    hash before acting). **Fix**: `scripts/fix-logo-images.mjs --apply` deletes the junk
+    md5s + promotes a real photo to `is_hero`; when a boat is left with 0 real photos,
+    re-scrape the source gallery (`scripts/scrape-prima-galleries.mjs`, a per-boat
+    slug→portfolio-URL map + `<img>` uploads extraction minus logo/contact/topo/flag).
+    Cards pick the hero as `boat_images.find(is_hero) ?? [0]`, so always fix `is_hero`,
+    not just sort_order.
 - **Availability & host calendar** — `availability(boat_id, date, status, source)`;
   `availability_status` = `available|blocked|booked`; `source` = `manual|ical|booking`.
   `/host/calendar` (`HostCalendarClient.tsx`), `/api/availability`.

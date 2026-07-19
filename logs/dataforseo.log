@@ -457,3 +457,76 @@
 [2026-07-19 00:46:24] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
 [2026-07-19 00:46:28] DataForSEO: expanding ideas from 14 base seeds
 [2026-07-19 00:46:51] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-20 00:16:48] DataForSEO: looking up volume for 204 geo keyword candidates (min_vol=30)
+[2026-07-20 00:16:48]   volume chunk: HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-20 00:16:48] DataForSEO: expanding ideas from 14 base seeds
+[2026-07-20 00:16:48]   seed 'boat rental': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 40200,
+    "status_message": "Payment Required.",
+    "time": "0 sec
+[2026-07-20 00:16:48]   seed 'yacht charter': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-20 00:16:49]   seed 'boat hire': HTTP 402 {"version":"0.1.20260717","status_code":20000,"status_message":"Ok.","time":"0 sec.","cost":0,"tasks_count":1,"tasks_err
+[2026-07-20 00:16:49]   seed 'catamaran charter': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-20 00:16:49]   seed 'yacht rental': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-20 00:16:50]   seed 'sailboat rental': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-20 00:16:50]   seed 'speedboat hire': HTTP 402 {"version":"0.1.20260717","status_code":40200,"status_message":"Payment Required.","time":"0 sec.","cost":0,"tasks_count
+[2026-07-20 00:16:50]   seed 'boat rental near me': HTTP 402 {"version":"0.1.20260717","status_code":20000,"status_message":"Ok.","time":"0 sec.","cost":0,"tasks_count":1,"tasks_err
+[2026-07-20 00:16:50]   seed 'luxury yacht charter': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-20 00:16:50]   seed 'fishing charter': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 40200,
+    "status_message": "Payment Required.",
+    "time": "0 sec
+[2026-07-20 00:16:51]   seed 'party boat rental': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-20 00:16:51]   seed 'pontoon boat rental': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 40200,
+    "status_message": "Payment Required.",
+    "time": "0 sec
+[2026-07-20 00:16:51]   seed 'jet ski rental': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 40200,
+    "status_message": "Payment Required.",
+    "time": "0 sec
+[2026-07-20 00:16:51]   seed 'sunset boat trip': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 40200,
+    "status_message": "Payment Required.",
+    "time": "0 sec
+[2026-07-20 00:16:51] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
