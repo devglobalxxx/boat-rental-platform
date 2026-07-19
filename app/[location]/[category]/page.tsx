@@ -8,6 +8,7 @@ import TrustBar from '@/components/ui/TrustBar'
 import { MapPin } from 'lucide-react'
 import type { BoatWithDetails, LocationRow } from '@/types/database'
 import { getCategory, type BoatCategory } from '@/lib/landing/categories'
+import { prettyCity } from '@/lib/pretty-city'
 
 interface Props {
   params: Promise<{ location: string; category: string }>
@@ -63,11 +64,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { cat, loc } = r
   const canonical = `${BASE}/${loc.slug}/${cat.slug}`
   const n = r.boats.length
+  // Clean display name — some locations store a raw geocoded address as `city`.
+  const cityName = prettyCity(loc.city)
   return {
-    title: `${cat.label} ${loc.city} — ${n} boat${n !== 1 ? 's' : ''}`,
-    description: `Compare ${n} ${cat.label.toLowerCase()} option${n !== 1 ? 's' : ''} in ${loc.city}, ${loc.country}. Licensed skipper included, instant booking, real prices.`,
+    title: `${cat.label} ${cityName} — ${n} boat${n !== 1 ? 's' : ''}`,
+    description: `Compare ${n} ${cat.label.toLowerCase()} option${n !== 1 ? 's' : ''} in ${cityName}, ${loc.country}. Licensed skipper included, instant booking, real prices.`,
     alternates: { canonical },
-    openGraph: { title: `${cat.label} in ${loc.city}`, description: `${r.boats.length} ${cat.label.toLowerCase()} options in ${loc.city}.`, type: 'website', siteName: 'BoatHire24' },
+    openGraph: { title: `${cat.label} in ${cityName}`, description: `${r.boats.length} ${cat.label.toLowerCase()} options in ${cityName}.`, type: 'website', siteName: 'BoatHire24' },
   }
 }
 
@@ -80,7 +83,9 @@ export default async function CategoryLandingPage({ params }: Props) {
 
   const fleetPrices = boats.flatMap((b) => ((b as any).boat_pricing ?? []).map((p: any) => p.price as number)).filter((p) => p > 0)
   const fromPrice = fleetPrices.length ? Math.min(...fleetPrices) : null
-  const pageFaqs = faqs(cat, loc.city, fromPrice)
+  // Clean display name — some locations store a raw geocoded address as `city`.
+  const cityName = prettyCity(loc.city)
+  const pageFaqs = faqs(cat, cityName, fromPrice)
   const canonical = `${BASE}/${loc.slug}/${cat.slug}`
 
   return (
@@ -90,13 +95,13 @@ export default async function CategoryLandingPage({ params }: Props) {
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 0%, rgba(116,207,232,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', maxWidth: '820px', margin: '0 auto' }}>
           <a href={`/${loc.slug}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(244,244,242,0.6)', textDecoration: 'none', marginBottom: '14px' }}>
-            <MapPin style={{ width: '13px', height: '13px' }} /> {loc.city}, {loc.country}
+            <MapPin style={{ width: '13px', height: '13px' }} /> {cityName}, {loc.country}
           </a>
           <h1 style={{ fontSize: 'clamp(1.9rem, 5vw, 3rem)', fontWeight: 800, lineHeight: 1.1, marginBottom: '16px' }}>
-            {cat.label} <span style={{ color: gold }}>{loc.city}</span>
+            {cat.label} <span style={{ color: gold }}>{cityName}</span>
           </h1>
           <p style={{ fontSize: '16px', color: 'rgba(244,244,242,0.62)', maxWidth: '620px', margin: '0 auto', lineHeight: 1.65 }}>
-            Compare {boats.length} {cat.label.toLowerCase()} option{boats.length !== 1 ? 's' : ''} in {loc.city}
+            Compare {boats.length} {cat.label.toLowerCase()} option{boats.length !== 1 ? 's' : ''} in {cityName}
             {fromPrice ? <> from <strong style={{ color: gold }}>€{fromPrice.toLocaleString('en')}</strong></> : null}. Licensed skipper included on every boat — book online with instant confirmation.
           </p>
         </div>
@@ -107,11 +112,11 @@ export default async function CategoryLandingPage({ params }: Props) {
           <TrustBar />
         </div>
         <div style={{ marginBottom: '40px' }}>
-          <SearchBar defaultLocation={loc.city} />
+          <SearchBar defaultLocation={cityName} />
         </div>
 
         <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '24px' }}>
-          {boats.length} {cat.label.toLowerCase()} option{boats.length !== 1 ? 's' : ''} in {loc.city}
+          {boats.length} {cat.label.toLowerCase()} option{boats.length !== 1 ? 's' : ''} in {cityName}
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
           {boats.map((boat) => <BoatCard key={boat.id} boat={boat} />)}
@@ -119,7 +124,7 @@ export default async function CategoryLandingPage({ params }: Props) {
 
         {/* ── FAQ (also emitted as FAQPage schema for rich results + LLM citation) ── */}
         <section style={{ marginTop: '72px', maxWidth: '760px' }}>
-          <h2 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '20px' }}>{cat.label} in {loc.city} — FAQ</h2>
+          <h2 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '20px' }}>{cat.label} in {cityName} — FAQ</h2>
           {pageFaqs.map((f) => (
             <details key={f.q} style={{ borderBottom: '1px solid rgba(116,207,232,0.12)', padding: '16px 0' }}>
               <summary style={{ fontSize: '15px', fontWeight: 600, cursor: 'pointer', color: '#f4f4f2' }}>{f.q}</summary>
@@ -138,8 +143,8 @@ export default async function CategoryLandingPage({ params }: Props) {
               '@context': 'https://schema.org',
               '@type': 'Service',
               serviceType: cat.label,
-              name: `${cat.label} in ${loc.city}`,
-              areaServed: { '@type': 'City', name: loc.city, address: { '@type': 'PostalAddress', addressCountry: loc.country } },
+              name: `${cat.label} in ${cityName}`,
+              areaServed: { '@type': 'City', name: cityName, address: { '@type': 'PostalAddress', addressCountry: loc.country } },
               provider: { '@type': 'Organization', name: 'BoatHire24', url: BASE },
               url: canonical,
               ...(fromPrice ? { offers: { '@type': 'Offer', price: fromPrice, priceCurrency: 'EUR', availability: 'https://schema.org/InStock' } } : {}),
@@ -149,7 +154,7 @@ export default async function CategoryLandingPage({ params }: Props) {
               '@type': 'BreadcrumbList',
               itemListElement: [
                 { '@type': 'ListItem', position: 1, name: 'Home', item: BASE },
-                { '@type': 'ListItem', position: 2, name: `Boat Rental ${loc.city}`, item: `${BASE}/${loc.slug}` },
+                { '@type': 'ListItem', position: 2, name: `Boat Rental ${cityName}`, item: `${BASE}/${loc.slug}` },
                 { '@type': 'ListItem', position: 3, name: cat.label, item: canonical },
               ],
             },

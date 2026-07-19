@@ -270,7 +270,7 @@ export default async function LocationPage({ params }: Props) {
 
         {cityGuides.length > 0 && (
           <section style={{ marginTop: '64px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f4f4f2', marginBottom: '18px' }}>Guides &amp; tips for {prettyCity(loc.city)}</h2>
+            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f4f4f2', marginBottom: '18px' }}>Guides &amp; tips for {cityName}</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '12px' }}>
               {cityGuides.map((g) => (
                 <a key={g.slug} href={`/${g.slug}`} style={{ display: 'block', padding: '14px 16px', borderRadius: '12px', background: '#0c1828', border: '1px solid rgba(116,207,232,0.15)', textDecoration: 'none', color: '#f4f4f2', fontSize: '14px', fontWeight: 600, lineHeight: 1.4 }}>
@@ -308,7 +308,7 @@ export default async function LocationPage({ params }: Props) {
               '@type': 'BreadcrumbList',
               itemListElement: [
                 { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://boathire24.com' },
-                { '@type': 'ListItem', position: 2, name: `Boat Rental ${loc.city}`, item: `https://boathire24.com/${loc.slug}` },
+                { '@type': 'ListItem', position: 2, name: `Boat Rental ${cityName}`, item: `https://boathire24.com/${loc.slug}` },
               ],
             },
           ]),
