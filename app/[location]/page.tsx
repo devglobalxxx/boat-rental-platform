@@ -286,6 +286,19 @@ export default async function LocationPage({ params }: Props) {
             </div>
           </section>
         )}
+
+        {loc.city === 'Marbella' && (
+          <section style={{ marginTop: '32px' }}>
+            <a
+              href="https://boatrentalinmarbella.com"
+              target="_blank"
+              rel="noopener"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 18px', borderRadius: '12px', background: '#0c1828', border: `1px solid ${goldBorder}`, textDecoration: 'none', color: 'rgba(244,244,242,0.75)', fontSize: '14px', fontWeight: 600 }}
+            >
+              Read our full local Marbella boat rental guide <span style={{ color: gold }}>→</span>
+            </a>
+          </section>
+        )}
       </div>
 
       {/* Schema.org — destination + service + breadcrumb (hierarchy signal for search + LLMs) */}
