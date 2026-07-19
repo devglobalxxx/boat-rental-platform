@@ -40,12 +40,13 @@ interface TagStat {
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: 'Browse by Tag — Boat Rental Marbella',
+  title: 'Browse by Tag',
+  robots: { index: false, follow: true },
   description:
     'Explore all boat rental categories: luxury yachts, catamarans, sunset cruises, family trips, and more. Find your perfect Marbella charter by tag.',
   openGraph: {
-    title: 'Browse by Tag — Boat Rental Marbella',
-    description: 'Discover boats and photos by category on Boat Rental Marbella.',
+    title: 'Browse by Tag — BoatHire24',
+    description: 'Discover boats and photos by category on BoatHire24.',
   },
 }
 

@@ -18,7 +18,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     }
   }
   return {
-    title: "Charter Guide & Boat Reviews — BoatHire24 Blog",
+    title: "Charter Guide & Boat Reviews",
     description: "Practical guides, destination deep-dives, and in-depth reviews of every boat in the Marbella fleet from BoatHire24's fleet captains and charter specialists.",
     alternates: {
       canonical: 'https://boathire24.com/blog',

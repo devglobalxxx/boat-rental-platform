@@ -157,11 +157,20 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
 
   const sortedPricing = [...boat.boat_pricing].sort((a, b) => (a.duration_hours ?? 0) - (b.duration_hours ?? 0))
 
-  // Product.image: real uploaded photos (Supabase bucket) only — stock/hotlinked
-  // shots (Pexels, Unsplash, sister-domain) stay on the page but out of the schema.
-  const STOCK_IMG = /images\.pexels\.com|images\.unsplash\.com|boatrentalinmarbella\.com/
-  const realPhotos = boat.boat_images.filter((i) => !STOCK_IMG.test(i.storage_url))
-  const schemaImages = (realPhotos.length ? realPhotos : boat.boat_images).map((i) => i.storage_url).slice(0, 8)
+  // Product.image: genuine photos of THIS boat only. Generic stock (Pexels,
+  // Unsplash) never enters the schema. Own uploads first; sister-domain shots
+  // (imported Marbella fleet — real photos of the actual boat) are the fallback
+  // for boats with no Supabase uploads, so stock never wins by default.
+  const GENERIC_STOCK = /images\.pexels\.com|images\.unsplash\.com/
+  const ownPhotos = boat.boat_images.filter(
+    (i) => !GENERIC_STOCK.test(i.storage_url) && !/boatrentalinmarbella\.com/.test(i.storage_url)
+  )
+  const genuinePhotos = ownPhotos.length
+    ? ownPhotos
+    : boat.boat_images.filter((i) => !GENERIC_STOCK.test(i.storage_url))
+  const schemaImages = (genuinePhotos.length ? genuinePhotos : boat.boat_images)
+    .map((i) => i.storage_url)
+    .slice(0, 8)
 
   // Sibling boats in the same location → internal-link rails at the bottom of the
   // page (spreads crawl equity through the location silo, and cross-sells if the

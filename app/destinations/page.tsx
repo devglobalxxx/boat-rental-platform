@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/server'
 import { MapPin, Compass, Anchor, Ship, Fish } from 'lucide-react'
 import TrustBar from '@/components/ui/TrustBar'
 import { prettyCity } from '@/lib/pretty-city'
@@ -23,13 +22,15 @@ interface Row { location_id: string | null; locations: { slug: string; city: str
 interface City { slug: string; city: string; country: string; count: number }
 
 export default async function DestinationsPage() {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from('boats')
-    .select('location_id, locations(slug, city, country)')
-    .eq('status', 'active')
-    .limit(5000)
-  const rows = (data ?? []) as unknown as Row[]
+  // Raw REST fetch (not the cookie-based server client) so this page stays
+  // statically ISR-cached — createClient() awaits cookies(), which would force
+  // per-request dynamic rendering and defeat `export const revalidate = 3600`.
+  // (Same fix as the homepage's getTopDestinations.)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/boats?select=location_id,locations(slug,city,country)&status=eq.active&limit=5000`,
+    { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}` }, next: { revalidate: 3600 } },
+  )
+  const rows = (res.ok ? await res.json() : []) as Row[]
 
   // Aggregate live boat counts per location, then group by country.
   const byLoc = new Map<string, City>()

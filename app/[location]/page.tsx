@@ -46,12 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const prices = inv.flatMap((b) => (b.boat_pricing ?? []).map((p) => p.price)).filter((p) => p > 0)
     const fromPrice = prices.length ? Math.min(...prices) : null
     const n = inv.length
+    // Clean display name — some locations store a raw geocoded address as `city`.
+    const cityName = prettyCity(loc.city)
     // Layout template appends "| BoatHire24" — never hardcode it here.
     return {
-      title: `Boat Rental ${loc.city} — Yachts & Catamarans`,
+      title: `Boat Rental ${cityName} — Yachts & Catamarans`,
       description: n > 0
-        ? `Boat rental in ${loc.city}${fromPrice ? ` from €${fromPrice.toLocaleString('en')}` : ''} — compare ${n} verified boat${n !== 1 ? 's' : ''} with licensed skipper included. Instant booking on BoatHire24.`
-        : loc.description ?? `Boat rental in ${loc.city}, ${loc.country} — launching soon on BoatHire24. Motor yachts, catamarans and speedboats with licensed skipper.`,
+        ? `Boat rental in ${cityName}${fromPrice ? ` from €${fromPrice.toLocaleString('en')}` : ''} — compare ${n} verified boat${n !== 1 ? 's' : ''} with licensed skipper included. Instant booking on BoatHire24.`
+        : loc.description ?? `Boat rental in ${cityName}, ${loc.country} — launching soon on BoatHire24. Motor yachts, catamarans and speedboats with licensed skipper.`,
       alternates: { canonical: `https://boathire24.com/${location}` },
       ...(n === 0 ? { robots: { index: false, follow: true } } : {}),
     }
@@ -123,6 +125,10 @@ export default async function LocationPage({ params }: Props) {
   const fleetPrices = boats.flatMap((b) => ((b as any).boat_pricing ?? []).map((p: any) => p.price as number)).filter((p) => p > 0)
   const fromPrice = fleetPrices.length ? Math.min(...fleetPrices) : null
 
+  // Clean display name — some locations store a raw geocoded address as `city`
+  // (same fix as the boat detail page; see lib/pretty-city.ts).
+  const cityName = prettyCity(loc.city)
+
   // Which type-landing pages actually have inventory here → link to them
   // (crawlable internal links, and the highest-intent long-tail keywords).
   const typeChips = CATEGORIES
@@ -169,10 +175,10 @@ export default async function LocationPage({ params }: Props) {
             <MapPin style={{ width: '13px', height: '13px' }} /> {loc.country}
           </div>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 800, color: '#f4f4f2', lineHeight: 1.1, marginBottom: '14px' }}>
-            Boat Rental <span style={{ color: gold }}>{loc.city}</span>
+            Boat Rental <span style={{ color: gold }}>{cityName}</span>
           </h1>
           <p style={{ fontSize: '16px', color: 'rgba(244,244,242,0.62)', maxWidth: '540px', lineHeight: 1.65 }}>
-            {loc.description ?? `Discover ${boats.length} verified boats in ${loc.city}. Instant book, licensed skipper included.`}
+            {loc.description ?? `Discover ${boats.length} verified boats in ${cityName}. Instant book, licensed skipper included.`}
           </p>
         </div>
       </section>
@@ -204,7 +210,7 @@ export default async function LocationPage({ params }: Props) {
 
         {/* Search bar */}
         <div style={{ marginBottom: '28px' }}>
-          <SearchBar defaultLocation={loc.city} />
+          <SearchBar defaultLocation={cityName} />
         </div>
 
         {/* Browse by type — links to /{city}/{type}-rental landing pages */}
@@ -216,7 +222,7 @@ export default async function LocationPage({ params }: Props) {
                 href={`/${loc.slug}/${cat.slug}`}
                 style={{ fontSize: '13px', fontWeight: 600, color: gold, background: goldFaint, border: `1px solid ${goldBorder}`, borderRadius: '99px', padding: '7px 15px', textDecoration: 'none' }}
               >
-                {cat.label} in {loc.city} ({n})
+                {cat.label} in {cityName} ({n})
               </a>
             ))}
           </div>
@@ -226,9 +232,9 @@ export default async function LocationPage({ params }: Props) {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '12px' }}>
           <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f4f4f2' }}>
             {boats.length > 0 ? (
-              <>{boats.length} boat{boats.length !== 1 ? 's' : ''} in {loc.city}</>
+              <>{boats.length} boat{boats.length !== 1 ? 's' : ''} in {cityName}</>
             ) : (
-              <>Coming soon to {loc.city}</>
+              <>Coming soon to {cityName}</>
             )}
           </h2>
           {boats.length > 0 && (
@@ -245,7 +251,7 @@ export default async function LocationPage({ params }: Props) {
               <Ship style={{ width: '28px', height: '28px', color: gold }} />
             </div>
             <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#f4f4f2', marginBottom: '10px' }}>
-              Coming soon to {loc.city}
+              Coming soon to {cityName}
             </h3>
             <p style={{ fontSize: '15px', color: 'rgba(244,244,242,0.45)', maxWidth: '360px', margin: '0 auto 28px', lineHeight: 1.6 }}>
               We&apos;re onboarding boats in this destination. Check back soon — or explore another location.
@@ -284,7 +290,7 @@ export default async function LocationPage({ params }: Props) {
             {
               '@context': 'https://schema.org',
               '@type': 'TouristDestination',
-              name: `Boat Rental ${loc.city}`,
+              name: `Boat Rental ${cityName}`,
               description: loc.description,
               geo: { '@type': 'GeoCoordinates', latitude: loc.lat, longitude: loc.lng },
             },
@@ -292,8 +298,8 @@ export default async function LocationPage({ params }: Props) {
               '@context': 'https://schema.org',
               '@type': 'Service',
               serviceType: 'Boat & yacht charter',
-              name: `Boat rental in ${loc.city}`,
-              areaServed: { '@type': 'City', name: loc.city, address: { '@type': 'PostalAddress', addressCountry: loc.country } },
+              name: `Boat rental in ${cityName}`,
+              areaServed: { '@type': 'City', name: cityName, address: { '@type': 'PostalAddress', addressCountry: loc.country } },
               provider: { '@type': 'Organization', name: 'BoatHire24', url: 'https://boathire24.com' },
               url: `https://boathire24.com/${loc.slug}`,
             },
