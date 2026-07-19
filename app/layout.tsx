@@ -6,6 +6,7 @@ import SiteNav from '@/components/nav/SiteNav'
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
 import PayoutBadge from '@/components/ui/PayoutBadge'
+import AmbientSoundToggle from '@/components/ui/AmbientSoundToggle'
 import { getLocale, isRTL } from '@/lib/i18n/locale'
 import { t } from '@/lib/i18n/translations'
 import { getSiteStats } from '@/lib/site-stats'
@@ -142,6 +143,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
           }}
         />
         <SiteNav />
+        <AmbientSoundToggle />
         <main className="flex-1">{children}</main>
 
         {/* ── Footer ── */}
