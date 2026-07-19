@@ -1,6 +1,7 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { Metadata } from 'next'
 import Image from 'next/image'
+import locationRedirects from '@/lib/location-redirects.json'
 import { createClient } from '@/lib/supabase/server'
 import { attachRatings } from '@/lib/ratings'
 import BoatCard from '@/components/search/BoatCard'
@@ -107,6 +108,11 @@ export default async function LocationPage({ params }: Props) {
     .single()
   const loc = locDataRaw as LocationRow | null
   if (!loc) {
+    // A retired geocoded-address slug (after the location normalizer runs) →
+    // 301 to its clean slug so the old indexed URL keeps its equity. Dormant
+    // until the normalizer applies: while the old row exists, this never hits.
+    const redir = (locationRedirects as Record<string, string>)[location]
+    if (redir) permanentRedirect(`/${redir}`)
     const lp = getLandingPage(location)
     if (lp) return <LandingView page={lp} />
     notFound()
