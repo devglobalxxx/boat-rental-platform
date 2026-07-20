@@ -105,19 +105,26 @@ set it to lock them).
   the **re-import orphan-duplicate trap** (unlinked `submission_id=NULL` base-slug copies
   shadowing the canonical `-2` set). Full playbook: `docs/website-import-playbook.md`.
   `sameBoat` dedupe lives in `app/host/fleet/website/WebsiteImportClient.tsx`.
-  - **Placeholder-logo / contact-photo trap.** An import can grab a source site's *logo*
-    or a *contact-person headshot* as a boat photo when the real gallery is lazy-loaded or
-    in unusual markup (hit the PRIMA BOATS Mallorca batch 2026-07: 20 boats got the
-    ship's-wheel logo `md5 803626b4…` as hero, 7 also got a "simone-contact" selfie
-    `md5 5600a501…`; 5 had *only* those two). **Detect** with
-    `scripts/audit-logo-images.mjs` — hashes every active boat's images and flags an md5
-    shared across >1 boat (real fleet/package galleries share too, so *view* the flagged
-    hash before acting). **Fix**: `scripts/fix-logo-images.mjs --apply` deletes the junk
-    md5s + promotes a real photo to `is_hero`; when a boat is left with 0 real photos,
-    re-scrape the source gallery (`scripts/scrape-prima-galleries.mjs`, a per-boat
-    slug→portfolio-URL map + `<img>` uploads extraction minus logo/contact/topo/flag).
-    Cards pick the hero as `boat_images.find(is_hero) ?? [0]`, so always fix `is_hero`,
-    not just sort_order.
+  - **Placeholder-logo / badge / contact-photo trap.** An import can grab a source site's
+    *logo*, a *promo badge* ("POR TIEMPO LIMITADO", Tripadvisor "Travelers' Choice"), an
+    *EU-funding banner*, a *deck-plan diagram*, a *price/menu card*, a *contact-person
+    headshot*, or a *blank/black* image as a boat photo when the real gallery is lazy-loaded
+    or in odd markup. Two sweeps hit 2026-07: the PRIMA BOATS Mallorca batch (20 boats, wheel
+    logo `803626b4…` + a "simone-contact" selfie `5600a501…`) and a fleet-wide pass that found
+    ~25 more junk graphics across Valencia / Santorini / Portugal / Greece operators.
+    **Detect**: `scripts/audit-shared-samples.mjs` (hashes every image, saves a thumbnail per
+    md5 shared across >1 boat) AND `scripts/audit-all-pngs.mjs` (junk is almost always PNG,
+    real photos are JPG — catches *unique-per-boat* graphics too). Montage the thumbnails and
+    eyeball — real fleet/package galleries legitimately share photos, so never delete on the
+    shared-hash signal alone. **Fix**: add confirmed junk md5s to the `JUNK` set in
+    `scripts/fix-logo-images.mjs` and run `--apply` (deletes junk rows + storage objects,
+    promotes a real photo to `is_hero`; SKIPs any boat that would be left with 0 images).
+    For boats left empty, re-scrape the source gallery — `scripts/scrape-prima-galleries.mjs`
+    (per-boat slug→portfolio map) and `scripts/scrape-empty-boats.mjs` (per-boat page + keep/
+    drop regex; **screen downloads against the JUNK set** — an early version re-imported EU
+    banners because it didn't). Cards pick the hero as `boat_images.find(is_hero) ?? [0]`, so
+    always fix `is_hero`, not just sort_order; a fleet has boats with the flag unset that fall
+    back to `[0]`.
 - **Availability & host calendar** — `availability(boat_id, date, status, source)`;
   `availability_status` = `available|blocked|booked`; `source` = `manual|ical|booking`.
   `/host/calendar` (`HostCalendarClient.tsx`), `/api/availability`.
