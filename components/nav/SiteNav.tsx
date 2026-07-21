@@ -100,7 +100,7 @@ export default function SiteNav() {
           </Link>
 
           {/* Desktop nav links */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '28px' }} className="hidden-mobile">
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="hidden-mobile">
             {[
               { href: '/about',         label: translations[locale].nav.about },
               { href: '/search',        label: translations[locale].nav.explore },
@@ -116,14 +116,28 @@ export default function SiteNav() {
                 key={l.href}
                 href={l.href}
                 style={{
-                  fontSize: '14px', fontWeight: 500, textDecoration: 'none',
+                  fontSize: '13.5px', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap',
                   color: pathname === l.href ? gold : muted,
-                  transition: 'color 0.15s',
-                  borderBottom: pathname === l.href ? `2px solid ${gold}` : '2px solid transparent',
-                  paddingBottom: '2px',
+                  transition: 'background 0.15s, color 0.15s, border-color 0.15s',
+                  padding: '7px 11px',
+                  borderRadius: '8px',
+                  background: pathname === l.href ? 'rgba(116,207,232,0.16)' : 'rgba(116,207,232,0.06)',
+                  border: `1px solid ${pathname === l.href ? 'rgba(116,207,232,0.40)' : 'rgba(116,207,232,0.14)'}`,
                 }}
-                onMouseEnter={(e) => { if (pathname !== l.href) (e.currentTarget as HTMLElement).style.color = text }}
-                onMouseLeave={(e) => { if (pathname !== l.href) (e.currentTarget as HTMLElement).style.color = muted }}
+                onMouseEnter={(e) => {
+                  if (pathname !== l.href) {
+                    (e.currentTarget as HTMLElement).style.color = text
+                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(116,207,232,0.12)'
+                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.28)'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (pathname !== l.href) {
+                    (e.currentTarget as HTMLElement).style.color = muted
+                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(116,207,232,0.06)'
+                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.14)'
+                  }
+                }}
               >
                 {l.label}
               </Link>
@@ -132,12 +146,15 @@ export default function SiteNav() {
 
           {/* Desktop auth */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="hidden-mobile">
-            {/* Instagram chip — full footer style */}
+            {/* Instagram chip — full footer style. Decorative, not core nav, so it only
+                shows once there's genuine room (>=1500px) — it was the main thing
+                squeezing the nav links into mid-word wrapping at normal desktop widths. */}
             <a
               href="https://www.instagram.com/boathire24"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Follow @BoatHire24 on Instagram"
+              className="hidden-tablet"
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '2px', borderRadius: '50px',
                 background: 'linear-gradient(135deg,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)',
@@ -433,13 +450,20 @@ export default function SiteNav() {
 
       {/* Responsive styles injected */}
       <style>{`
-        @media (min-width: 768px) {
+        /* Full 9-item nav + auth cluster needs real room — below this it wrapped
+           mid-word (e.g. "About"/"us") even at 1440px, so the switch to the
+           hamburger menu happens well above the old 768px breakpoint. */
+        @media (min-width: 1450px) {
           .hidden-mobile { display: flex !important; }
           .show-mobile { display: none !important; }
         }
-        @media (max-width: 767px) {
+        @media (max-width: 1449.98px) {
           .hidden-mobile { display: none !important; }
           .show-mobile { display: flex !important; }
+        }
+        .hidden-tablet { display: none !important; }
+        @media (min-width: 1500px) {
+          .hidden-tablet { display: inline-flex !important; }
         }
       `}</style>
     </header>
