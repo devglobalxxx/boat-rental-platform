@@ -116,26 +116,24 @@ export default function SiteNav() {
                 key={l.href}
                 href={l.href}
                 style={{
-                  fontSize: '13.5px', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap',
-                  color: pathname === l.href ? gold : muted,
+                  fontSize: '13.5px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap',
                   transition: 'background 0.15s, color 0.15s, border-color 0.15s',
                   padding: '7px 11px',
                   borderRadius: '8px',
-                  background: pathname === l.href ? 'rgba(116,207,232,0.16)' : 'rgba(116,207,232,0.06)',
-                  border: `1px solid ${pathname === l.href ? 'rgba(116,207,232,0.40)' : 'rgba(116,207,232,0.14)'}`,
+                  ...(pathname === l.href
+                    ? { color: '#07101e', background: gold, border: '1px solid transparent' }
+                    : { color: gold, background: 'transparent', border: '1px solid rgba(116,207,232,0.18)' }),
                 }}
                 onMouseEnter={(e) => {
                   if (pathname !== l.href) {
-                    (e.currentTarget as HTMLElement).style.color = text
-                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(116,207,232,0.12)'
-                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.28)'
+                    (e.currentTarget as HTMLElement).style.background = 'rgba(116,207,232,0.12)'
+                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.40)'
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (pathname !== l.href) {
-                    (e.currentTarget as HTMLElement).style.color = muted
-                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(116,207,232,0.06)'
-                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.14)'
+                    (e.currentTarget as HTMLElement).style.background = 'transparent'
+                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(116,207,232,0.18)'
                   }
                 }}
               >
