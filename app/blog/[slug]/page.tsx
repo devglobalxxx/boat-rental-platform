@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Clock, User } from 'lucide-react'
 // ChevronLeft kept for potential back-nav use; Clock+User used in hero meta
 import { getAllPost, getAllPostSlugs, ALL_POSTS } from '@/lib/blog/posts'
+import { getAuthor, authorJsonLd, AI_DISCLOSURE } from '@/lib/authors'
 import ReadingProgress from '@/components/blog/ReadingProgress'
 import type { Metadata } from 'next'
 
@@ -67,6 +68,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound()
 
   const related = relatedPosts(post, ALL_POSTS, 4)
+  const postAuthor = getAuthor(post.author)
 
   const publishedISO = (() => { const t = Date.parse(post.date); return isNaN(t) ? post.date : new Date(t).toISOString() })()
   const articleJsonLd = {
@@ -78,11 +80,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     datePublished: publishedISO,
     dateModified: publishedISO,
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://boathire24.com/blog/${post.slug}` },
-    author: {
-      '@type': 'Person',
-      name: post.author,
-      jobTitle: post.authorRole,
-    },
+    // Point at the /authors Person node so the byline resolves to a real,
+    // publicly verifiable identity rather than a bare name string.
+    author: postAuthor
+      ? authorJsonLd(postAuthor)
+      : { '@type': 'Person', name: post.author, jobTitle: post.authorRole },
     // Reference the site-wide Organization entity emitted from layout.tsx.
     publisher: { '@id': 'https://boathire24.com/#organization' },
   }
@@ -275,8 +277,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.author[0]}
             </div>
             <div>
-              <div className="font-semibold" style={{ color: '#f4f4f2' }}>{post.author}</div>
+              <div className="font-semibold" style={{ color: '#f4f4f2' }}>
+                {postAuthor
+                  ? <Link href={`/authors/${postAuthor.slug}`} style={{ color: '#f4f4f2', textDecoration: 'none' }}>{post.author}</Link>
+                  : post.author}
+              </div>
               <div className="text-sm" style={{ color: 'rgba(244,244,242,0.50)' }}>{post.authorRole}</div>
+              <div className="text-xs mt-2" style={{ color: 'rgba(244,244,242,0.38)' }}>{AI_DISCLOSURE}</div>
             </div>
           </div>
         </div>

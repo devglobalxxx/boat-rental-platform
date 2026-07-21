@@ -45,10 +45,13 @@ HERO_IMAGES = [
     "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=1400&q=80",
 ]
 
+# Bylines MUST be real, verifiable people (mirrors lib/authors.ts). Invented
+# author personas are a Google News misrepresentation violation — they get a
+# publication removed, not merely down-ranked. Do not add a name here that has
+# no public profile to back it.
 AUTHORS = [
-    ("Carlos Mendoza", "BoatHire24 Fleet Captain, Marbella"),
-    ("Elena Ruiz", "BoatHire24 Charter Specialist"),
-    ("James Whitfield", "BoatHire24 Editorial Team"),
+    ("Mardo Soo", "Founder & CEO, BoatHire24"),
+    ("Andra Kiirkivi", "Co-Founder, BoatHire24"),
 ]
 
 
@@ -342,7 +345,8 @@ def gen_blog(item: dict) -> dict:
     content = expand_html(system, item, content)
     quality_check(content)
     content = add_internal_links(content, item)
-    author, role = random.choice(AUTHORS)
+    # Deterministic per-slug, so a post's byline is stable across regenerations.
+    author, role = AUTHORS[int(hashlib.sha1(item["slug"].encode()).hexdigest(), 16) % len(AUTHORS)]
     return {
         "slug": item["slug"],
         "title": strip_brand(item["title"]),
@@ -621,17 +625,22 @@ def main():
         dfs_added = 0
         if os.environ.get("DATAFORSEO_LOGIN") and os.environ.get("DATAFORSEO_PASSWORD"):
             log(f"queue under threshold — fetching real keywords from DataForSEO…")
+            before = len(cfg["queue"])
             try:
                 r = subprocess.run(["/usr/bin/python3", str(ROOT / "scripts" / "dataforseo_keywords.py"),
                                     "--limit", str(refill_batch)],
                                    capture_output=True, text=True, cwd=ROOT, timeout=300)
                 log(r.stdout.strip()[-300:] or r.stderr.strip()[-200:])
                 cfg = json.loads(QUEUE_PATH.read_text())
-                dfs_added = 1
+                # Count what DataForSEO ACTUALLY added, not merely that we called it.
+                # A dead account (HTTP 402) returns 0 items; treating the attempt as
+                # success gated off the LLM fallback and left the queue empty for a
+                # month, publishing 0 pages/day.
+                dfs_added = len(cfg["queue"]) - before
             except Exception as e:
                 log(f"DataForSEO refill failed: {type(e).__name__}: {str(e)[:160]}")
-        if len(cfg["queue"]) < threshold and not dfs_added:
-            log("DataForSEO unavailable — falling back to LLM topic invention")
+        if len(cfg["queue"]) < threshold and dfs_added <= 0:
+            log("DataForSEO returned nothing — falling back to LLM topic invention")
             try:
                 added = refill_queue(cfg, refill_batch, all_used_slugs())
                 cfg["queue"].extend(added)

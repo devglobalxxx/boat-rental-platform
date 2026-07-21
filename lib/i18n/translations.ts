@@ -45,7 +45,7 @@ export interface T {
     explore: string
     links: {
       allBoats: string; marbella: string; howItWorks: string
-      charterGuide: string; luxuryYachts: string
+      charterGuide: string; luxuryYachts: string; newsroom: string
     }
     forHosts: string
     hostLinks: {
@@ -126,7 +126,7 @@ const en: T = {
     tagline: 'The global marketplace for verified boat charters. Licensed skippers, transparent prices, instant booking.',
     whatsapp: 'WhatsApp · 08:00–22:00',
     explore: 'Explore',
-    links: { allBoats: 'All boats', marbella: 'Marbella', howItWorks: 'How it works', charterGuide: 'Charter guide', luxuryYachts: 'Luxury yachts' },
+    links: { allBoats: 'All boats', marbella: 'Marbella', howItWorks: 'How it works', charterGuide: 'Charter guide', luxuryYachts: 'Luxury yachts', newsroom: 'Newsroom' },
     forHosts: 'For Hosts',
     hostLinks: { listYourBoat: 'List your boat', hostDashboard: 'Host dashboard', manageCalendar: 'Manage calendar', earnings: 'Earnings & payouts', stripeSetup: 'Stripe setup' },
     company: 'Company',
@@ -181,7 +181,7 @@ const de: T = {
     tagline: 'Der globale Marktplatz für verifizierte Bootscharter. Lizenzierte Skipper, transparente Preise, Sofortbuchung.',
     whatsapp: 'WhatsApp · 08:00–22:00',
     explore: 'Entdecken',
-    links: { allBoats: 'Alle Boote', marbella: 'Marbella', howItWorks: 'So funktioniert es', charterGuide: 'Charter-Guide', luxuryYachts: 'Luxus-Yachten' },
+    links: { allBoats: 'Alle Boote', marbella: 'Marbella', howItWorks: 'So funktioniert es', charterGuide: 'Charter-Guide', luxuryYachts: 'Luxus-Yachten', newsroom: 'Newsroom' },
     forHosts: 'Für Vermieter',
     hostLinks: { listYourBoat: 'Boot eintragen', hostDashboard: 'Vermieter-Dashboard', manageCalendar: 'Kalender verwalten', earnings: 'Einnahmen & Auszahlungen', stripeSetup: 'Stripe-Einrichtung' },
     company: 'Unternehmen',
@@ -236,7 +236,7 @@ const fr: T = {
     tagline: 'Le marché mondial des charters de bateaux vérifiés. Skippers agréés, prix transparents, réservation instantanée.',
     whatsapp: 'WhatsApp · 08h00–22h00',
     explore: 'Explorer',
-    links: { allBoats: 'Tous les bateaux', marbella: 'Marbella', howItWorks: 'Comment ça marche', charterGuide: 'Guide charter', luxuryYachts: 'Yachts de luxe' },
+    links: { allBoats: 'Tous les bateaux', marbella: 'Marbella', howItWorks: 'Comment ça marche', charterGuide: 'Guide charter', luxuryYachts: 'Yachts de luxe', newsroom: 'Actualités' },
     forHosts: 'Pour les hôtes',
     hostLinks: { listYourBoat: 'Listez votre bateau', hostDashboard: 'Tableau de bord', manageCalendar: 'Gérer le calendrier', earnings: 'Revenus & paiements', stripeSetup: 'Configuration Stripe' },
     company: 'Société',
@@ -291,7 +291,7 @@ const ar: T = {
     tagline: 'السوق العالمي للقوارب المؤجرة الموثقة. ربابنة مرخصون، أسعار شفافة، حجز فوري.',
     whatsapp: 'واتساب · ٠٨:٠٠–٢٢:٠٠',
     explore: 'استكشف',
-    links: { allBoats: 'جميع القوارب', marbella: 'ماربيا', howItWorks: 'كيف يعمل', charterGuide: 'دليل التأجير', luxuryYachts: 'يخوت فاخرة' },
+    links: { allBoats: 'جميع القوارب', marbella: 'ماربيا', howItWorks: 'كيف يعمل', charterGuide: 'دليل التأجير', luxuryYachts: 'يخوت فاخرة', newsroom: 'غرفة الأخبار' },
     forHosts: 'للمضيفين',
     hostLinks: { listYourBoat: 'أضف قاربك', hostDashboard: 'لوحة المضيف', manageCalendar: 'إدارة التقويم', earnings: 'الأرباح والمدفوعات', stripeSetup: 'إعداد Stripe' },
     company: 'الشركة',
@@ -346,7 +346,7 @@ const ru: T = {
     tagline: 'Глобальный рынок проверенных яхтенных чартеров. Лицензированные шкиперы, прозрачные цены, мгновенное бронирование.',
     whatsapp: 'WhatsApp · 08:00–22:00',
     explore: 'Исследовать',
-    links: { allBoats: 'Все яхты', marbella: 'Марбелья', howItWorks: 'Как это работает', charterGuide: 'Гид по чартеру', luxuryYachts: 'Люкс яхты' },
+    links: { allBoats: 'Все яхты', marbella: 'Марбелья', howItWorks: 'Как это работает', charterGuide: 'Гид по чартеру', luxuryYachts: 'Люкс яхты', newsroom: 'Новости' },
     forHosts: 'Для владельцев',
     hostLinks: { listYourBoat: 'Добавить яхту', hostDashboard: 'Панель владельца', manageCalendar: 'Управление календарём', earnings: 'Доходы и выплаты', stripeSetup: 'Настройка Stripe' },
     company: 'Компания',
@@ -401,7 +401,7 @@ const sv: T = {
     tagline: 'Den globala marknadsplatsen för verifierade båtcharter. Licensierade skeppare, transparenta priser, direktbokning.',
     whatsapp: 'WhatsApp · 08:00–22:00',
     explore: 'Utforska',
-    links: { allBoats: 'Alla båtar', marbella: 'Marbella', howItWorks: 'Hur det fungerar', charterGuide: 'Charterguide', luxuryYachts: 'Lyxjakter' },
+    links: { allBoats: 'Alla båtar', marbella: 'Marbella', howItWorks: 'Hur det fungerar', charterGuide: 'Charterguide', luxuryYachts: 'Lyxjakter', newsroom: 'Nyhetsrum' },
     forHosts: 'För värdar',
     hostLinks: { listYourBoat: 'Lista din båt', hostDashboard: 'Värddashboard', manageCalendar: 'Hantera kalender', earnings: 'Intäkter & utbetalningar', stripeSetup: 'Stripe-inställning' },
     company: 'Företag',
@@ -456,7 +456,7 @@ const nl: T = {
     tagline: 'De wereldwijde marktplaats voor geverifieerde boottochten. Gediplomeerde schippers, transparante prijzen, directe boeking.',
     whatsapp: 'WhatsApp · 08:00–22:00',
     explore: 'Ontdek',
-    links: { allBoats: 'Alle boten', marbella: 'Marbella', howItWorks: 'Hoe het werkt', charterGuide: 'Chartergids', luxuryYachts: 'Luxe jachten' },
+    links: { allBoats: 'Alle boten', marbella: 'Marbella', howItWorks: 'Hoe het werkt', charterGuide: 'Chartergids', luxuryYachts: 'Luxe jachten', newsroom: 'Nieuwsredactie' },
     forHosts: 'Voor verhuurders',
     hostLinks: { listYourBoat: 'Zet uw boot in', hostDashboard: 'Verhuurder dashboard', manageCalendar: 'Agenda beheren', earnings: 'Inkomsten & uitbetalingen', stripeSetup: 'Stripe-instelling' },
     company: 'Bedrijf',
@@ -511,7 +511,7 @@ const pl: T = {
     tagline: 'Globalny rynek zweryfikowanych czarterów. Licencjonowani kapitanowie, przejrzyste ceny, natychmiastowa rezerwacja.',
     whatsapp: 'WhatsApp · 08:00–22:00',
     explore: 'Odkryj',
-    links: { allBoats: 'Wszystkie łodzie', marbella: 'Marbella', howItWorks: 'Jak to działa', charterGuide: 'Przewodnik czarterowy', luxuryYachts: 'Luksusowe jachty' },
+    links: { allBoats: 'Wszystkie łodzie', marbella: 'Marbella', howItWorks: 'Jak to działa', charterGuide: 'Przewodnik czarterowy', luxuryYachts: 'Luksusowe jachty', newsroom: 'Aktualności' },
     forHosts: 'Dla właścicieli',
     hostLinks: { listYourBoat: 'Dodaj łódź', hostDashboard: 'Panel właściciela', manageCalendar: 'Zarządzaj kalendarzem', earnings: 'Przychody i wypłaty', stripeSetup: 'Konfiguracja Stripe' },
     company: 'Firma',

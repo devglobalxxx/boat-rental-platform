@@ -30,8 +30,14 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: 'Diffbot',          allow: '/' },
       // Bytespider (TikTok)
       { userAgent: 'Bytespider',       allow: '/' },
+      // ── Google News crawler — must be able to reach /news ────────────────
+      { userAgent: 'Googlebot-News',   allow: '/' },
     ],
-    sitemap: 'https://boathire24.com/sitemap.xml',
+    sitemap: [
+      'https://boathire24.com/sitemap.xml',
+      // Read separately by Google News: last 48h of newsroom articles only.
+      'https://boathire24.com/news-sitemap.xml',
+    ],
     host: 'https://boathire24.com',
   }
 }

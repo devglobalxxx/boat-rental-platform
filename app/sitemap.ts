@@ -4,6 +4,8 @@ import { LANDING_PAGES } from '@/lib/landing/pages'
 import { LANDING_PAGES_ES, hasEs } from '@/lib/landing/pages-es'
 import { CATEGORIES } from '@/lib/landing/categories'
 import { getSiteStats, heroVideoDescription } from '@/lib/site-stats'
+import { ALL_NEWS } from '@/lib/news/posts'
+import { AUTHORS } from '@/lib/authors'
 
 export const revalidate = 3600
 
@@ -95,6 +97,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/news`,
+      lastModified: ALL_NEWS[0] ? new Date(ALL_NEWS[0].datePublished) : BUILD_DATE,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/editorial-policy`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'yearly',
+      priority: 0.4,
     },
     {
       url: `${BASE_URL}/faq`,
@@ -290,8 +304,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     alternates: { languages: { en: `${BASE_URL}/${lp.slug}`, 'es-ES': `${BASE_URL}/es/${lp.slug}`, 'x-default': `${BASE_URL}/${lp.slug}` } },
   }))
 
+  // Newsroom articles also belong in the regular sitemap — the news sitemap only
+  // carries the last 48 hours, so this is what keeps older stories discoverable.
+  const newsEntries: SitemapEntry[] = ALL_NEWS.map((n) => ({
+    url: `${BASE_URL}/news/${n.slug}`,
+    lastModified: new Date(n.dateModified),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  const authorEntries: SitemapEntry[] = AUTHORS.map((a) => ({
+    url: `${BASE_URL}/authors/${a.slug}`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'monthly' as const,
+    priority: 0.5,
+  }))
+
   return [
     ...staticPages,
+    ...newsEntries,
+    ...authorEntries,
     ...blogEntries,
     ...boatEntries,
     ...galleryEntries,

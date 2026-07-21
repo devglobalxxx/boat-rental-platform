@@ -2761,3 +2761,13 @@
 [2026-07-21 00:19:31] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
 [2026-07-21 00:19:31] === Done: 0 ok, 0 failed ===
 
+[2026-07-22 00:21:56] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-07-22 00:21:58] queue under threshold — fetching real keywords from DataForSEO…
+[2026-07-22 00:22:02] nt Required.",
+    "time": "0 sec
+[2026-07-22 00:22:02]   seed 'sunset boat trip': HTTP 402 {"version":"0.1.20260717","status_code":40200,"status_message":"Payment Required.","time":"0 sec.","cost":0,"tasks_count
+[2026-07-22 00:22:02] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-22 00:22:02] DataForSEO returned nothing — falling back to LLM topic invention
+[2026-07-22 00:22:44] refill failed: RuntimeError: no JSON found in model output
+[2026-07-22 00:22:44] === Done: 0 ok, 0 failed ===
+

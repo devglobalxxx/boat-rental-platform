@@ -283,6 +283,7 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
                     { href: '/marbella', label: tr.footer.links.marbella },
                     { href: '/how-it-works', label: tr.footer.links.howItWorks },
                     { href: '/blog', label: tr.footer.links.charterGuide },
+                    { href: '/news', label: tr.footer.links.newsroom },
                     { href: '/search?type=luxury', label: tr.footer.links.luxuryYachts },
                   ].map((l) => (
                     <li key={l.href}>
@@ -364,6 +365,9 @@ gtag('config', 'G-PGT6ZGK9Z2');`}
                   { href: '/terms', label: 'Terms' },
                   { href: '/privacy', label: 'Privacy' },
                   { href: '/cookies', label: 'Cookies' },
+                  // Google News expects ownership, authorship and corrections
+                  // policy to be reachable from every page.
+                  { href: '/editorial-policy', label: 'Editorial policy' },
                   { href: '/contact', label: 'Support' },
                   // Crawlable entry into the Spanish section — the language
                   // switcher is cookie+reload buttons Google can't follow.
