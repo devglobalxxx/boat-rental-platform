@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Anchor, Shield, Zap, Star, Users, MapPin, Clock, ChevronRight, Waves } from 'lucide-react'
 import CashDiscountPromo from '@/components/promo/CashDiscountPromo'
 import HeroSlideshow from '@/components/home/HeroSlideshow'
+import HappyCustomersMarquee from '@/components/home/HappyCustomersMarquee'
 import { prettyCity } from '@/lib/pretty-city'
 import { getSiteStats, heroVideoDescription } from '@/lib/site-stats'
 
@@ -278,6 +279,8 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <HappyCustomersMarquee />
 
       {/* ══ 2 · BOAT TYPES ══ */}
       <section className="section">
