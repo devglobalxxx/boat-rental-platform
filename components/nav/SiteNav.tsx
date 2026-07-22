@@ -381,7 +381,13 @@ export default function SiteNav() {
               <Link
                 key={l.href}
                 href={l.href}
-                style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 500, color: pathname === l.href ? gold : 'rgba(244,244,242,0.75)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
+                style={{
+                  display: 'block', padding: '13px 16px', fontSize: '15px', fontWeight: 700,
+                  textDecoration: 'none', borderRadius: '10px', marginBottom: '8px',
+                  ...(pathname === l.href
+                    ? { color: '#07101e', background: gold, border: '1px solid transparent' }
+                    : { color: gold, background: 'transparent', border: '1px solid rgba(116,207,232,0.18)' }),
+                }}
                 onClick={() => setOpen(false)}
               >
                 {l.label}
