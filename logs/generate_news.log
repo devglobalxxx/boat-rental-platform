@@ -1,0 +1,97 @@
+[2026-07-22 21:49:19] === Newsroom run (track=auto, dry-run) ===
+[2026-07-22 21:49:27] Track 1: 0 fresh candidate(s) within 7d
+[2026-07-22 21:49:27] Track 2: snapshot failed: ValueError: unknown url type: '/rest/v1/boats?select=id,price_per_day,length_m,boat_type,with_skipper,instant_book,locations(city,country)&status=eq.act
+[2026-07-22 21:49:27] NO STORY TODAY — skipping rather than padding
+[2026-07-22 21:49:27] === Done: 0 published ===
+
+[2026-07-22 21:51:01] === Newsroom run (track=auto, dry-run) ===
+[2026-07-22 21:51:02] Track 1: 12 fresh candidate(s) within 7d
+[2026-07-22 21:51:02]   trying [en, 0d] Marina PortBlanc opens in Calp after an investment of nearly ten milli
+[2026-07-22 21:51:02]     ✗ could not resolve publisher URL
+[2026-07-22 21:51:02]   trying [es, 0d] Marina d’Empuriabrava lidera el ranking de los mayores puertos deporti
+[2026-07-22 21:51:03]     ✗ could not resolve publisher URL
+[2026-07-22 21:51:03]   trying [es, 0d] Puerto Sotogrande se sitúa como la quinta marina de España y la primer
+[2026-07-22 21:51:03]     ✗ could not resolve publisher URL
+[2026-07-22 21:51:03]   trying [en, 1d] Puerto Sotogrande claims fifth spot among Spain’s largest marinas - Eu
+[2026-07-22 21:51:03]     ✗ could not resolve publisher URL
+[2026-07-22 21:51:03]   trying [es, 2d] Puerto Sotogrande se sitúa como el quinto puerto deportivo de España y
+[2026-07-22 21:51:04]     ✗ could not resolve publisher URL
+[2026-07-22 21:51:04]   trying [es, 2d] Marina d’Empuriabrava se consolida como el mayor puerto deportivo de E
+[2026-07-22 21:51:04]     ✗ could not resolve publisher URL
+[2026-07-22 21:51:04] Track 2: no baseline snapshot 7+ days old — recording one, nothing to report yet
+[2026-07-22 21:51:04] NO STORY TODAY — skipping rather than padding
+[2026-07-22 21:51:04] === Done: 0 published ===
+
+[2026-07-22 21:52:16] === Newsroom run (track=auto, dry-run) ===
+[2026-07-22 21:52:23] Track 1: 12 fresh candidate(s) within 7d
+[2026-07-22 21:52:23]   trying [en, 0d] Marina PortBlanc opens in Calp after an investment of nearly ten milli
+[2026-07-22 21:52:24]     ✗ fetch failed: HTTPError
+[2026-07-22 21:52:24]   trying [es, 0d] Marina d’Empuriabrava lidera el ranking de los mayores puertos deporti
+[2026-07-22 21:52:25]     ✗ fetch failed: HTTPError
+[2026-07-22 21:52:25]   trying [es, 0d] Puerto Sotogrande se sitúa como la quinta marina de España y la primer
+[2026-07-22 21:52:26]     ✗ fetch failed: HTTPError
+[2026-07-22 21:52:26]   trying [en, 1d] Puerto Sotogrande claims fifth spot among Spain’s largest marinas - Eu
+[2026-07-22 21:52:34]     ✗ rejected: ungrounded figures not present in source: ['27']
+[2026-07-22 21:52:34]   trying [es, 2d] Puerto Sotogrande se sitúa como el quinto puerto deportivo de España y
+[2026-07-22 21:52:41]     ✗ rejected: body too thin: 184 words
+[2026-07-22 21:52:41]   trying [es, 2d] Marina d’Empuriabrava se consolida como el mayor puerto deportivo de E
+[2026-07-22 21:52:41]     ✗ source too thin (0 chars)
+[2026-07-22 21:52:42] Track 2: no baseline snapshot 7+ days old — recording one, nothing to report yet
+[2026-07-22 21:52:42] NO STORY TODAY — skipping rather than padding
+[2026-07-22 21:52:42] === Done: 0 published ===
+
+[2026-07-22 21:53:11] === Newsroom run (track=auto, dry-run) ===
+[2026-07-22 21:53:12] Track 1: 12 fresh candidate(s) within 7d
+[2026-07-22 21:53:12]   trying [en, 0d] Marina PortBlanc opens in Calp after an investment of nearly ten milli
+[2026-07-22 21:53:14]     ✗ fetch failed: HTTPError
+[2026-07-22 21:53:14]   trying [es, 0d] Marina d’Empuriabrava lidera el ranking de los mayores puertos deporti
+[2026-07-22 21:53:14]     ✗ fetch failed: HTTPError
+[2026-07-22 21:53:14]   trying [es, 0d] Puerto Sotogrande se sitúa como la quinta marina de España y la primer
+[2026-07-22 21:53:15]     ✗ fetch failed: HTTPError
+[2026-07-22 21:53:15]   trying [en, 1d] Puerto Sotogrande claims fifth spot among Spain’s largest marinas - Eu
+[2026-07-22 21:53:22]     ✗ rejected: ungrounded figures not present in source: ['27']
+[2026-07-22 21:53:22]   trying [es, 2d] Puerto Sotogrande se sitúa como el quinto puerto deportivo de España y
+[2026-07-22 21:53:28]     ✗ rejected: body too thin: 211 words
+[2026-07-22 21:53:28]   trying [es, 2d] Marina d’Empuriabrava se consolida como el mayor puerto deportivo de E
+[2026-07-22 21:53:29]     ✗ source too thin (0 chars)
+[2026-07-22 21:53:29]   trying [es, 2d] Los puertos deportivos con más amarres - Latinpress.es
+[2026-07-22 21:53:29]     ✗ fetch failed: HTTPError
+[2026-07-22 21:53:29]   trying [es, 2d] El Puerto de Sotogrande ya es el quinto mayor puerto deportivo de Espa
+[2026-07-22 21:53:30]     ✗ source too thin (0 chars)
+[2026-07-22 21:53:30]   trying [es, 2d] Puerto Deportivo Sotogrande se cuela entre los gigantes de la náutica 
+[2026-07-22 21:53:42]     ✗ rejected: ungrounded figures not present in source: ['27']
+[2026-07-22 21:53:42]   trying [es, 3d] La Generalitat Valenciana media una tregua en el puerto deportivo de A
+[2026-07-22 21:53:54]     ✓ passed all gates: truce-in-altea-marina-conflict-after-mediation-by-spanish-coast-author
+[2026-07-22 21:53:54] --- DRY RUN DRAFT ---
+[2026-07-22 21:54:56] === Newsroom run (track=auto) ===
+[2026-07-22 21:55:02] Track 1: 13 fresh candidate(s) within 7d
+[2026-07-22 21:55:02]   trying [en, 0d] Marina PortBlanc opens in Calp after an investment of nearly ten milli
+[2026-07-22 21:55:11]     ✗ rejected: ungrounded figures not present in source: ['27']
+[2026-07-22 21:55:11]   trying [es, 0d] Marina d’Empuriabrava lidera el ranking de los mayores puertos deporti
+[2026-07-22 21:55:23]     ✗ rejected: verbatim 15-word run copied from source: marina d empuriabrava marina dels canals de santa margarida port de l escala port de…
+[2026-07-22 21:55:23]   trying [es, 0d] Puerto Sotogrande se sitúa como la quinta marina de España y la primer
+[2026-07-22 21:55:33]     ✗ rejected: ungrounded figures not present in source: ['27']
+[2026-07-22 21:55:33]   trying [es, 0d] El puerto deportivo de Portimão se amplía para dar cabida a los supery
+[2026-07-22 21:55:34]     ✗ fetch failed: HTTPError
+[2026-07-22 21:55:34]   trying [en, 1d] Puerto Sotogrande claims fifth spot among Spain’s largest marinas - Eu
+[2026-07-22 21:55:41]     ✗ rejected: ungrounded figures not present in source: ['27']
+[2026-07-22 21:55:41]   trying [es, 2d] Puerto Sotogrande se sitúa como el quinto puerto deportivo de España y
+[2026-07-22 21:55:52]     ✓ passed all gates: puerto-sotogrande-ranks-fifth-in-spain-first-in-andalusia-for-berth-ca
+[2026-07-22 21:55:52] PUBLISHED: /news/puerto-sotogrande-ranks-fifth-in-spain-first-in-andalusia-for-berth-ca (Marinas & ports, by Mardo Soo)
+[2026-07-22 21:55:52] === Done: 1 published ===
+
+[2026-07-22 21:59:04] === Newsroom run (track=auto) ===
+[2026-07-22 21:59:11] Track 1: 7 fresh candidate(s) within 7d
+[2026-07-22 21:59:11]   trying [es, 2d] Marina d’Empuriabrava se consolida como el mayor puerto deportivo de E
+[2026-07-22 21:59:12]     ✗ source too thin (0 chars)
+[2026-07-22 21:59:12]   trying [es, 2d] Los puertos deportivos con más amarres - Latinpress.es
+[2026-07-22 21:59:24]     ✗ rejected: verbatim 15-word run copied from source: marina d empuriabrava marina dels canals de santa margarida port de l escala port de…
+[2026-07-22 21:59:24]   trying [es, 2d] El Puerto de Sotogrande ya es el quinto mayor puerto deportivo de Espa
+[2026-07-22 21:59:24]     ✗ already covered by /news/puerto-sotogrande-fifth-largest-marina-spain
+[2026-07-22 21:59:24]   trying [es, 2d] Puerto Deportivo Sotogrande se cuela entre los gigantes de la náutica 
+[2026-07-22 21:59:24]     ✗ already covered by /news/puerto-sotogrande-fifth-largest-marina-spain
+[2026-07-22 21:59:24]   trying [es, 3d] La Generalitat Valenciana media una tregua en el puerto deportivo de A
+[2026-07-22 21:59:33]     ✓ passed all gates: truce-in-altea-marina-dispute-over-mooring-fees-until-september
+[2026-07-22 21:59:33] PUBLISHED: /news/truce-in-altea-marina-dispute-over-mooring-fees-until-september (Marinas & ports, by Andra Kiirkivi)
+[2026-07-22 21:59:33] === Done: 1 published ===
+

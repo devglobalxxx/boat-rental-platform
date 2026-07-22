@@ -29,6 +29,10 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] starting daily run for $TODAY" >> "$LOG"
 # day retries on the next wake instead of being marked done.
 if "$PY" "$ROOT/scripts/generate_content.py" >> "$LOG" 2>&1; then
     echo "$TODAY" > "$MARKER"
+    # Newsroom: at most one sourced or first-party-data story per day. Exits 0
+    # having published nothing when no story clears the verification gates —
+    # a skipped day is the designed outcome, never a reason to fail the run.
+    "$PY" "$ROOT/scripts/generate_news.py" >> "$LOG" 2>&1
     # SEO maintenance: quarantine thin, canonical-consolidate dupes, rebuild
     # distributed cross-links + affiliate links across all pages, then push.
     "$PY" "$ROOT/scripts/audit_fix.py" >> "$LOG" 2>&1
