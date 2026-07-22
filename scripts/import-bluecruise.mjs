@@ -44,6 +44,19 @@ const BOATS = [
     features: ['Professional crew of 5', 'Air conditioning in all cabins (24h)', 'En-suite shower & WC', 'TV in all cabins', 'Safe box', 'Unlimited Wi-Fi', 'Jet ski', 'Seabob', 'Water ski & wakeboard', '2 x Paddleboard', '2 x Canoe', 'Ringo & Big Mable', 'PlayStation & Netflix', 'Sound system', 'Snorkelling gear', '10 sun mattresses', 'Deck shower', 'Ice maker & coffee machine', 'Water maker', 'Separate crew cabins'],
     description: `Wicked Felina is a 34-metre traditional gulet, built in 2004 and refitted in 2017. She sleeps up to 10 guests across five en-suite cabins, arranged as one master and four double, each with its own air conditioning, TV, wardrobe, safe box, shower and home-style toilet, with separate crew quarters. A professional crew of five looks after you throughout your blue cruise, cruising at around 10 knots. She is one of the few gulets in Turkey fitted with 24-hour air conditioning, electric toilets, a PlayStation, Netflix and a full sound system. The toy locker holds a jet ski, Seabob, water skis, a wakeboard, two paddleboards, two canoes, a ringo and a big mable, alongside snorkelling gear, ten sun mattresses and a deck shower. ${AREA} Weekly charter runs from €17,500 in May up to €23,800 in high season. A full or half board food and soft-drinks package is available from €400 per person per week. ${CLOSER}`,
   },
+  {
+    // Added 2026-07-19 from the operator's third listing. Unlike the other two,
+    // her page publishes NO weekly rate (the €45.5k/€17.5k/€28k cards on it are a
+    // "other gulets" carousel — the €28k one is labelled BELLA MARE), so she goes
+    // live price-on-request rather than carrying an invented number.
+    name: 'Bodrum Queen', slug: 'bodrum-gulet-bodrum-queen',
+    imgDir: 'bodrum-queen', imgNums: Array.from({ length: 35 }, (_, i) => i + 1),
+    length_m: 27, capacity_pax: 12, cabins: 6, bathrooms: 6, model_year: 1999,
+    weekly_from: null, // price on request — nothing published for this hull
+    tagline: '27m crewed gulet for up to 12 guests in Bodrum',
+    features: ['Professional crew of 4 (incl. chef)', 'Air conditioning (8-10h daily)', 'En-suite shower & WC in every cabin', 'Unlimited Wi-Fi (Turkish coast)', 'Fuel for cruising included', '40hp dinghy', '2 x Canoe', '2 x Paddleboard', 'Fishing equipment', 'Snorkelling equipment', '4 x Smart TV', 'PlayStation, Netflix & YouTube', 'Flybridge', 'Deck shower', 'Freezer & ice machine', 'Coffee & espresso machine', 'Indoor lounge', 'Sea ladder', 'Shade tents', 'Sun beds', 'Washing machine & dishwasher', 'Separate crew cabins'],
+    description: `Bodrum Queen is a 27-metre traditional gulet, built in 1999 and refitted in 2020. She sleeps up to 12 guests across six en-suite cabins, arranged as two master and four double, each with its own shower and WC, with separate crew quarters. A professional crew of four, including a chef, looks after you throughout your blue cruise, with a 7.30-metre beam and a single 480hp Caterpillar for a steady, unhurried ride. On board there is an indoor lounge, a flybridge, sun beds and shade tents, four smart TVs with PlayStation, Netflix and YouTube, a deck shower, freezer, ice machine and coffee and espresso machines. The toy locker holds a 40hp dinghy, two canoes, two paddleboards and fishing and snorkelling equipment. The charter price includes the private yacht, professional crew, fuel for cruising (two to three hours a day on average), air conditioning, unlimited Wi-Fi, bed linen and towels, harbour fees and local taxes. Food is arranged separately: a full-board and soft-drinks package is €450 per person per week, half board €400, and you are welcome to bring your own drinks aboard. ${AREA} Send your dates and group size and the crew will come back with a tailored quote.`,
+  },
 ]
 
 const boatRow = (b) => ({
@@ -89,7 +102,7 @@ for (const b of BOATS) {
     const imgs = await fetchImages(b, 'dry')
     console.log(`\n● ${b.name} → ${b.slug}`)
     console.log(`   ${b.length_m}m · ${b.cabins} cabins · ${b.capacity_pax} guests · gulet · crew/chef`)
-    console.log(`   price: from €${b.weekly_from.toLocaleString()} / 7 days (request-first, no card)`)
+    console.log(`   price: ${b.weekly_from ? `from €${b.weekly_from.toLocaleString()} / 7 days` : 'PRICE ON REQUEST (none published)'} (request-first, no card)`)
     console.log(`   features: ${b.features.length} · photos reachable: ${imgs.length}/${b.imgNums.length}`)
     continue
   }
@@ -99,13 +112,17 @@ for (const b of BOATS) {
   const id = (await ins.json())[0].id
 
   await fetch(`${SB}/rest/v1/boat_features`, { method: 'POST', headers: JH, body: JSON.stringify(b.features.map((f) => ({ boat_id: id, feature: f }))) })
-  await fetch(`${SB}/rest/v1/boat_pricing`, { method: 'POST', headers: JH, body: JSON.stringify([{ boat_id: id, duration_days: 7, duration_hours: null, price: b.weekly_from, currency: 'EUR', season: 'all' }]) })
+  // No published rate → leave boat_pricing empty; the listing then renders as
+  // "Price on request" with the enquiry form instead of an invented price.
+  if (b.weekly_from) {
+    await fetch(`${SB}/rest/v1/boat_pricing`, { method: 'POST', headers: JH, body: JSON.stringify([{ boat_id: id, duration_days: 7, duration_hours: null, price: b.weekly_from, currency: 'EUR', season: 'all' }]) })
+  }
 
   const rows = await fetchImages(b, id)
   if (rows.length) await fetch(`${SB}/rest/v1/boat_images`, { method: 'POST', headers: JH, body: JSON.stringify(rows) })
 
   created++
-  console.log(`  ✓ ${b.name} (${b.slug}) — ${b.features.length} features, ${rows.length} photos, from €${b.weekly_from.toLocaleString()}/wk`)
+  console.log(`  ✓ ${b.name} (${b.slug}) — ${b.features.length} features, ${rows.length} photos, ${b.weekly_from ? `from €${b.weekly_from.toLocaleString()}/wk` : 'price on request'}`)
   console.log(`     BOAT_ID=${id}`)
 }
 console.log(`\nDONE (${DRY ? 'DRY-RUN' : 'LIVE'}): ${created} created of ${BOATS.length}`)
