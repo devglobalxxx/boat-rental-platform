@@ -2787,3 +2787,4 @@
 [2026-07-23 00:26:05] refill (LLM fallback): +100 (queue now 100)
 [2026-07-23 00:26:05] === Done: 0 ok, 0 failed ===
 
+[2026-07-23 00:26:36] reindex ping: 200 {"ok":true,"urls_total":1859,"indexnow":{"ok":true,"status":200,"count":1859},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-07-22T21:
