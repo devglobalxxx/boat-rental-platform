@@ -2771,3 +2771,19 @@
 [2026-07-22 00:22:44] refill failed: RuntimeError: no JSON found in model output
 [2026-07-22 00:22:44] === Done: 0 ok, 0 failed ===
 
+[2026-07-23 00:25:18] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-07-23 00:25:19] queue under threshold — fetching real keywords from DataForSEO…
+[2026-07-23 00:25:25] 
+    "time": "0 sec.",
+    "cost"
+[2026-07-23 00:25:25]   seed 'sunset boat trip': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-23 00:25:25] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-23 00:25:25] DataForSEO returned nothing — falling back to LLM topic invention
+[2026-07-23 00:26:05] refill (LLM fallback): +100 (queue now 100)
+[2026-07-23 00:26:05] === Done: 0 ok, 0 failed ===
+

@@ -6231,3 +6231,29 @@ Traceback (most recent call last):
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-07-22 00:25:17] done 2026-07-22
+[2026-07-23 00:25:18] starting daily run for 2026-07-23
+[2026-07-23 00:25:18] === Generate: 0 blog + 0 landing = 0 item(s) (backend=deepseek) ===
+[2026-07-23 00:25:19] queue under threshold — fetching real keywords from DataForSEO…
+[2026-07-23 00:25:25] 
+    "time": "0 sec.",
+    "cost"
+[2026-07-23 00:25:25]   seed 'sunset boat trip': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "0 sec.",
+    "cost"
+[2026-07-23 00:25:25] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 0.
+[2026-07-23 00:25:25] DataForSEO returned nothing — falling back to LLM topic invention
+[2026-07-23 00:26:05] refill (LLM fallback): +100 (queue now 100)
+[2026-07-23 00:26:05] === Done: 0 ok, 0 failed ===
+
+[2026-07-23 00:26:05] === Newsroom run (track=auto) ===
+[2026-07-23 00:26:14] Track 1: 4 fresh candidate(s) within 7d
+[2026-07-23 00:26:14]   trying [tr, 0d] Göcek'te 83,5 milyon TL'lik mega yat marinasının ÇED süreci başladı - 
+[2026-07-23 00:26:21]     ✗ rejected: body too thin: 214 words
+[2026-07-23 00:26:21]   trying [es, 2d] Marina d’Empuriabrava se consolida como el mayor puerto deportivo de E
+[2026-07-23 00:26:21]     ✗ source too thin (0 chars)
+[2026-07-23 00:26:21]   trying [tr, 3d] Kaleiçi Yat Limanı İçin Kruvaziyer Hamlesi - Akdeniz Gerçek
+[2026-07-23 00:26:31]     ✓ passed all gates: antalya-considers-kaleici-yat-liman-revamp-to-ease-cruise-ship-berth-c
+[2026-07-23 00:26:31] PUBLISHED: /news/antalya-considers-kaleici-yat-liman-revamp-to-ease-cruise-ship-berth-c (Marinas & ports, by Andra Kiirkivi)
