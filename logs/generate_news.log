@@ -106,3 +106,12 @@
 [2026-07-23 00:26:31] PUBLISHED: /news/antalya-considers-kaleici-yat-liman-revamp-to-ease-cruise-ship-berth-c (Marinas & ports, by Andra Kiirkivi)
 [2026-07-23 00:26:36] === Done: 1 published ===
 
+[2026-07-24 01:41:04] === Newsroom run (track=auto) ===
+[2026-07-24 01:41:12] Track 1: 7 fresh candidate(s) within 7d
+[2026-07-24 01:41:12]   trying [en, 0d] Marinas Market Is Going to Boom as Recreational Boating, Marine - open
+[2026-07-24 01:41:12]     ✗ fetch failed: HTTPError
+[2026-07-24 01:41:12]   trying [es, 0d] Marina d’Empuriabrava lidera el ranking de los mayores puertos deporti
+[2026-07-24 01:41:22]     ✗ rejected: ungrounded figures not present in source: ['27']
+[2026-07-24 01:41:22]   trying [tr, 0d] Teos Marina'da Duty Free Dönemi Başladı - Vira Haber
+[2026-07-24 01:41:31]     ✓ passed all gates: duty-free-shopping-launches-at-teos-marina-for-international-passenger
+[2026-07-24 01:41:31] PUBLISHED: /news/duty-free-shopping-launches-at-teos-marina-for-international-passenger (Marinas & ports, by Mardo Soo)

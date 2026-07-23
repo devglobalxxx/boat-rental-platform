@@ -6499,3 +6499,22 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-07-24 01:40:21] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 20.
 [2026-07-24 01:40:21] DataForSEO returned nothing — falling back to LLM topic invention
 [2026-07-24 01:40:57] refill (LLM fallback): +96 (queue now 116)
+[main 4fdcd1f] Daily content: +80 pages (40 blog, 40 landing)
+ 9 files changed, 4883 insertions(+), 317 deletions(-)
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/devglobalxxx/boat-rental-platform.git        
+To https://github.com/mardo89/boat-rental-platform.git
+   97c48be..4fdcd1f  HEAD -> main
+[2026-07-24 01:41:01] pushed — Vercel will deploy; pinging reindex in background is handled by Vercel cron
+[2026-07-24 01:41:03] reindex ping: 200 {"ok":true,"urls_total":1860,"indexnow":{"ok":true,"status":200,"count":1860},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.bing.com":410,"www.google.com":404},"timestamp":"2026-07-23T22:
+[2026-07-24 01:41:03] === Done: 80 ok, 0 failed ===
+
+[2026-07-24 01:41:04] === Newsroom run (track=auto) ===
+[2026-07-24 01:41:12] Track 1: 7 fresh candidate(s) within 7d
+[2026-07-24 01:41:12]   trying [en, 0d] Marinas Market Is Going to Boom as Recreational Boating, Marine - open
+[2026-07-24 01:41:12]     ✗ fetch failed: HTTPError
+[2026-07-24 01:41:12]   trying [es, 0d] Marina d’Empuriabrava lidera el ranking de los mayores puertos deporti
+[2026-07-24 01:41:22]     ✗ rejected: ungrounded figures not present in source: ['27']
+[2026-07-24 01:41:22]   trying [tr, 0d] Teos Marina'da Duty Free Dönemi Başladı - Vira Haber
+[2026-07-24 01:41:31]     ✓ passed all gates: duty-free-shopping-launches-at-teos-marina-for-international-passenger
+[2026-07-24 01:41:31] PUBLISHED: /news/duty-free-shopping-launches-at-teos-marina-for-international-passenger (Marinas & ports, by Mardo Soo)
