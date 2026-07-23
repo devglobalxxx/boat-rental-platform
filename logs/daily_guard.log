@@ -6269,3 +6269,233 @@ To https://github.com/mardo89/boat-rental-platform.git
 quarantined 0 thin landings; kept 506
 cannibalization: 148 variant pages canonicalized to a primary
 relinked: blogs=398 (homepage 398/398), landings=506 (homepage 506/506), affiliate-link pool=9
+[main 97c48be] Daily SEO maintenance (2026-07-23): relink + canonical + affiliate
+ 3 files changed, 15 insertions(+)
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/devglobalxxx/boat-rental-platform.git        
+To https://github.com/mardo89/boat-rental-platform.git
+   07daad1..97c48be  HEAD -> main
+[2026-07-23 00:26:40] es: translating 2 landing page(s)
+[2026-07-23 00:27:30]   [1/2] ✗ private-boat-charter-marbella-day: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-07-23 00:28:20]   [2/2] ✗ private-yacht-hire: JSONDecodeError: Expecting ',' delimiter: line 31 column 6 (char 27241)
+[2026-07-23 00:28:20] es: 0/2 translated (total es=504)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/master/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/master/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+[2026-07-23 00:28:21] Blogger: publishing 40 post(s) + 40 page(s) to blog 4858233363667605156
+[2026-07-23 00:28:21] Blogger WRITE-BLOCKED (quota/rate limit): <HttpError 403 when requesting https://blogger.googleapis.com/v3/blogs/4858233363667605156/posts?isDraft=false&alt=json returned "The caller does not have permi. Stopping; remaining items will publish on the next run.
+[2026-07-23 00:28:21] Blogger: 0/80 published this run
+image pool size: 41
+  post: Hen Party Boat Marbella: Unforgettable Celebr
+  post: Fishing Charter Puerto Banus: Deep Sea Advent
+  post: Snorkeling Spots on Costa del Sol: Hidden Gem
+  post: Sunset Catamaran Marbella: Top Spots for Gold
+  post: Dolphin Watching in Puerto Banus: Best Times 
+  post: Do You Need a Licence to Rent a Boat in Spain
+  post: Photoshoot Boat Marbella: Capture Stunning Se
+  post: Marbella Feria Boat Parties: Celebrate on the
+  post: Planning a Family Boat Day in Marbella
+  post: Stag & Hen Boat Party Ideas in Marbella
+  post: The Best Anchorages and Swimming Spots near M
+  post: Catamaran vs Motor Yacht: Which to Charter in
+  post: What to Pack for a Boat Day on the Costa del 
+  post: Dolphin Watching Boat Trips from Marbella: A 
+  post: How Much Does a Yacht Charter in Marbella Cos
+  post: Marbella vs Puerto Banús: Which Departure Por
+  post: The Best Time to Charter a Boat in Marbella
+  page: Private Boat Party Marbella — Hen, Stag & Bir
+  page: Licence-Free Boat Hire Marbella — No Licence 
+enriched 19 item(s) with UNIQUE distributed images
+[2026-07-23 00:28:59] WP: publishing 40 post(s) + 40 page(s) to boathire24guides.wordpress.com
+Traceback (most recent call last):
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 236, in <module>
+    sys.exit(main())
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 209, in main
+    code, res = wp_post("posts", payload)
+  File "/Users/master/boat-rental-platform/scripts/wp_publish.py", line 83, in wp_post
+    return r.status, json.loads(r.read())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2026-07-23 00:29:02] done 2026-07-23
+[2026-07-24 00:29:03] starting daily run for 2026-07-24
+[2026-07-24 00:29:03] === Generate: 40 blog + 40 landing = 80 item(s) (backend=deepseek) ===
+[2026-07-24 00:29:04] [1/80] blog · best-time-to-visit-marmaris-for-boating
+[2026-07-24 00:29:57]   ✓ generated
+[2026-07-24 00:29:57] [2/80] blog · dolphin-watching-marmaris
+[2026-07-24 00:30:46]   ✓ generated
+[2026-07-24 00:30:46] [3/80] blog · things-to-do-in-latchi-by-boat
+[2026-07-24 00:31:35]   ✓ generated
+[2026-07-24 00:31:35] [4/80] blog · best-coves-near-mandelieu-cannes-by-boat
+[2026-07-24 00:32:33]   ✓ generated
+[2026-07-24 00:32:33] [5/80] blog · best-beaches-near-alanya-by-boat
+[2026-07-24 00:33:21]   ✓ generated
+[2026-07-24 00:33:21] [6/80] blog · snorkeling-spots-near-kemer-by-boat
+[2026-07-24 00:34:19]   ✓ generated
+[2026-07-24 00:34:19] [7/80] blog · marmaris-vs-antalya-boat-rental
+[2026-07-24 00:35:18]   ✓ generated
+[2026-07-24 00:35:18] [8/80] blog · turkey-bareboat-charter-guide
+[2026-07-24 00:36:07]   ✓ generated
+[2026-07-24 00:36:07] [9/80] blog · best-time-to-visit-turkey-for-boating
+[2026-07-24 00:36:55]   ✓ generated
+[2026-07-24 00:36:55] [10/80] blog · latchi-boat-trip-to-blue-lagoon
+[2026-07-24 00:37:44]   ✓ generated
+[2026-07-24 00:37:44] [11/80] blog · cyprus-boat-hire-licence-requirements
+[2026-07-24 00:38:30]   ✓ generated
+[2026-07-24 00:38:30] [12/80] blog · marbella-boat-party-dj-playlist-2025
+[2026-07-24 00:39:25]   ✓ generated
+[2026-07-24 00:39:25] [13/80] blog · marbella-boat-party-decorations-guide
+[2026-07-24 00:40:16]   ✓ generated
+[2026-07-24 00:40:16] [14/80] blog · starlite-festival-boat-transfer-tips
+[2026-07-24 00:41:09]   ✓ generated
+[2026-07-24 00:41:09] [15/80] blog · marbella-f1-boat-party-ideas
+[2026-07-24 00:41:59]   ✓ generated
+[2026-07-24 00:41:59] [16/80] blog · marbella-boat-weather-in-may
+[2026-07-24 00:42:52]   ✓ generated
+[2026-07-24 00:42:52] [17/80] blog · marbella-boat-weather-in-january
+[2026-07-24 00:43:43]   ✓ generated
+[2026-07-24 00:43:43] [18/80] blog · marbella-boat-weather-in-february
+[2026-07-24 00:44:27]   ✓ generated
+[2026-07-24 00:44:27] [19/80] blog · marbella-boat-weather-in-march
+[2026-07-24 00:45:03]   ✓ generated
+[2026-07-24 00:45:03] [20/80] blog · marbella-boat-weather-in-april
+[2026-07-24 00:45:49]   ✓ generated
+[2026-07-24 00:45:49] [21/80] blog · marbella-boat-safety-checklist
+[2026-07-24 00:46:31]   ✓ generated
+[2026-07-24 00:46:31] [22/80] blog · what-to-pack-for-boat-day-marbella-autumn
+[2026-07-24 00:47:18]   ✓ generated
+[2026-07-24 00:47:18] [23/80] blog · marbella-snorkeling-gear-rental
+[2026-07-24 00:47:58]   ✓ generated
+[2026-07-24 00:47:58] [24/80] blog · marbella-snorkeling-tips-for-beginners
+[2026-07-24 00:48:44]   ✓ generated
+[2026-07-24 00:48:44] [25/80] blog · marbella-fishing-season-species-by-month
+[2026-07-24 00:49:37]   ✓ generated
+[2026-07-24 00:49:37] [26/80] blog · deep-sea-fishing-charter-marbella-tips
+[2026-07-24 00:50:24]   ✓ generated
+[2026-07-24 00:50:24] [27/80] blog · marbella-fishing-licence-requirements
+[2026-07-24 00:51:01]   ✓ generated
+[2026-07-24 00:51:01] [28/80] blog · marbella-dolphin-watching-best-camera
+[2026-07-24 00:52:00]   ✓ generated
+[2026-07-24 00:52:00] [29/80] blog · marbella-dolphin-species-guide
+[2026-07-24 00:52:45]   ✓ generated
+[2026-07-24 00:52:45] [30/80] blog · marbella-whale-watching-winter-guide
+[2026-07-24 00:53:35]   ✓ generated
+[2026-07-24 00:53:35] [31/80] blog · marbella-boat-photoshoot-wedding-ideas
+[2026-07-24 00:54:25]   ✓ generated
+[2026-07-24 00:54:25] [32/80] blog · marbella-boat-trip-for-teenagers
+[2026-07-24 00:55:14]   ✓ generated
+[2026-07-24 00:55:14] [33/80] blog · marbella-boat-trip-to-cabo-pino-guide
+[2026-07-24 00:56:13]   ✓ generated
+[2026-07-24 00:56:13] [34/80] blog · marbella-boat-trip-to-puerto-banus-guide
+[2026-07-24 00:57:01]   ✓ generated
+[2026-07-24 00:57:01] [35/80] blog · marbella-boat-trip-to-estepona-guide
+[2026-07-24 00:57:49]   ✓ generated
+[2026-07-24 00:57:49] [36/80] blog · marbella-boat-trip-to-benalmadena-guide
+[2026-07-24 00:58:37]   ✓ generated
+[2026-07-24 00:58:37] [37/80] blog · marbella-boat-trip-to-fuengirola-guide
+[2026-07-24 00:59:34]   ✓ generated
+[2026-07-24 00:59:34] [38/80] blog · marbella-vs-puerto-banus-boat-charter
+[2026-07-24 01:00:35]   ✓ generated
+[2026-07-24 01:00:35] [39/80] blog · marbella-vs-benalmadena-boat-rental
+[2026-07-24 01:01:32]   ✓ generated
+[2026-07-24 01:01:32] [40/80] blog · marbella-vs-estepona-boat-charter
+[2026-07-24 01:02:33]   ✓ generated
+[2026-07-24 01:02:33] [41/80] landing · marmaris-boat-hire
+[2026-07-24 01:03:32]   ✓ generated
+[2026-07-24 01:03:32] [42/80] landing · marmaris-yacht-charter
+[2026-07-24 01:04:35]   ✓ generated
+[2026-07-24 01:04:35] [43/80] landing · marmaris-catamaran-hire
+[2026-07-24 01:05:37]   ✓ generated
+[2026-07-24 01:05:37] [44/80] landing · marmaris-speedboat-rental
+[2026-07-24 01:06:37]   ✓ generated
+[2026-07-24 01:06:37] [45/80] landing · marmaris-private-yacht-charter
+[2026-07-24 01:07:26]   ✓ generated
+[2026-07-24 01:07:26] [46/80] landing · marmaris-fishing-charter
+[2026-07-24 01:08:32]   ✓ generated
+[2026-07-24 01:08:32] [47/80] landing · marmaris-boat-party
+[2026-07-24 01:09:34]   ✓ generated
+[2026-07-24 01:09:34] [48/80] landing · marmaris-sunset-cruise
+[2026-07-24 01:10:31]   ✓ generated
+[2026-07-24 01:10:31] [49/80] landing · latchi-boat-hire
+[2026-07-24 01:11:23]   ✓ generated
+[2026-07-24 01:11:23] [50/80] landing · latchi-yacht-charter
+[2026-07-24 01:12:28]   ✓ generated
+[2026-07-24 01:12:28] [51/80] landing · latchi-catamaran-hire
+[2026-07-24 01:13:37]   ✓ generated
+[2026-07-24 01:13:37] [52/80] landing · latchi-speedboat-rental
+[2026-07-24 01:14:37]   ✓ generated
+[2026-07-24 01:14:37] [53/80] landing · latchi-fishing-charter
+[2026-07-24 01:15:42]   ✓ generated
+[2026-07-24 01:15:42] [54/80] landing · latchi-private-boat-hire
+[2026-07-24 01:16:43]   ✓ generated
+[2026-07-24 01:16:43] [55/80] landing · mandelieu-cannes-boat-hire
+[2026-07-24 01:17:29]   ✓ generated
+[2026-07-24 01:17:29] [56/80] landing · mandelieu-cannes-yacht-charter
+[2026-07-24 01:18:23]   ✓ generated
+[2026-07-24 01:18:23] [57/80] landing · mandelieu-cannes-catamaran-hire
+[2026-07-24 01:19:24]   ✓ generated
+[2026-07-24 01:19:24] [58/80] landing · mandelieu-cannes-speedboat-rental
+[2026-07-24 01:20:28]   ✓ generated
+[2026-07-24 01:20:28] [59/80] landing · mandelieu-cannes-private-yacht-charter
+[2026-07-24 01:21:37]   ✓ generated
+[2026-07-24 01:21:37] [60/80] landing · antalya-boat-hire
+[2026-07-24 01:22:37]   ✓ generated
+[2026-07-24 01:22:37] [61/80] landing · antalya-yacht-charter
+[2026-07-24 01:23:22]   ✓ generated
+[2026-07-24 01:23:22] [62/80] landing · antalya-catamaran-hire
+[2026-07-24 01:24:13]   ✓ generated
+[2026-07-24 01:24:13] [63/80] landing · antalya-speedboat-rental
+[2026-07-24 01:25:16]   ✓ generated
+[2026-07-24 01:25:16] [64/80] landing · antalya-fishing-charter
+[2026-07-24 01:26:13]   ✓ generated
+[2026-07-24 01:26:13] [65/80] landing · antalya-private-yacht-charter
+[2026-07-24 01:27:09]   ✓ generated
+[2026-07-24 01:27:09] [66/80] landing · alanya-boat-hire
+[2026-07-24 01:27:59]   ✓ generated
+[2026-07-24 01:27:59] [67/80] landing · alanya-yacht-charter
+[2026-07-24 01:28:47]   ✓ generated
+[2026-07-24 01:28:47] [68/80] landing · alanya-catamaran-hire
+[2026-07-24 01:29:42]   ✓ generated
+[2026-07-24 01:29:42] [69/80] landing · alanya-speedboat-rental
+[2026-07-24 01:30:35]   ✓ generated
+[2026-07-24 01:30:35] [70/80] landing · alanya-private-boat-hire
+[2026-07-24 01:31:31]   ✓ generated
+[2026-07-24 01:31:31] [71/80] landing · kemer-boat-hire
+[2026-07-24 01:32:30]   ✓ generated
+[2026-07-24 01:32:30] [72/80] landing · kemer-yacht-charter
+[2026-07-24 01:33:17]   ✓ generated
+[2026-07-24 01:33:17] [73/80] landing · kemer-catamaran-hire
+[2026-07-24 01:34:08]   ✓ generated
+[2026-07-24 01:34:08] [74/80] landing · kemer-speedboat-rental
+[2026-07-24 01:34:57]   ✓ generated
+[2026-07-24 01:34:57] [75/80] landing · kemer-fishing-charter
+[2026-07-24 01:35:51]   ✓ generated
+[2026-07-24 01:35:51] [76/80] landing · marbella-motor-yacht-hire-for-hen-do
+[2026-07-24 01:36:49]   ✓ generated
+[2026-07-24 01:36:49] [77/80] landing · marbella-speedboat-hire-for-stag-do
+[2026-07-24 01:37:38]   ✓ generated
+[2026-07-24 01:37:38] [78/80] landing · marbella-catamaran-hire-for-birthday
+[2026-07-24 01:38:32]   ✓ generated
+[2026-07-24 01:38:32] [79/80] landing · marbella-luxury-yacht-charter-for-new-years-eve
+[2026-07-24 01:39:26]   ✓ generated
+[2026-07-24 01:39:26] [80/80] landing · marbella-boat-rental-for-starlite-festival-2025
+[2026-07-24 01:40:16]   ✓ generated
+[2026-07-24 01:40:17] queue under threshold — fetching real keywords from DataForSEO…
+[2026-07-24 01:40:21] ":"0 sec.","cost":0,"tasks_count
+[2026-07-24 01:40:21]   seed 'sunset boat trip': HTTP 402 {
+    "version": "0.1.20260717",
+    "status_code": 40200,
+    "status_message": "Payment Required.",
+    "time": "0 sec
+[2026-07-24 01:40:21] DataForSEO: added 0 queue items (0 landing, 0 blog). Queue now 20.
+[2026-07-24 01:40:21] DataForSEO returned nothing — falling back to LLM topic invention
+[2026-07-24 01:40:57] refill (LLM fallback): +96 (queue now 116)

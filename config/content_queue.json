@@ -8291,387 +8291,649 @@
       "target_words": 2200,
       "search_volume": 4400,
       "consumed_at": "2026-07-17"
-    }
-  ],
-  "queue": [
-    {
-      "kind": "landing",
-      "slug": "marmaris-boat-hire",
-      "primary_keyword": "Marmaris boat hire",
-      "title": "Marmaris Boat Hire: Best Yacht & Boat Rentals 2025",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marmaris-yacht-charter",
-      "primary_keyword": "Marmaris yacht charter",
-      "title": "Marmaris Yacht Charter: Luxury Boat Rental Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marmaris-catamaran-hire",
-      "primary_keyword": "Marmaris catamaran hire",
-      "title": "Marmaris Catamaran Hire: Private Boat Trips & Prices",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marmaris-speedboat-rental",
-      "primary_keyword": "Marmaris speedboat rental",
-      "title": "Marmaris Speedboat Rental: Hire Without Licence",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marmaris-private-yacht-charter",
-      "primary_keyword": "Marmaris private yacht charter",
-      "title": "Marmaris Private Yacht Charter: Exclusive Boat Hire",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marmaris-fishing-charter",
-      "primary_keyword": "Marmaris fishing charter",
-      "title": "Marmaris Fishing Charter: Deep Sea Boat Rentals",
-      "target_words": 1100
     },
     {
       "kind": "blog",
       "slug": "best-time-to-visit-marmaris-for-boating",
       "primary_keyword": "best time to visit Marmaris for boating",
       "title": "Best Time to Visit Marmaris for Boating: Seasonal Guide",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "dolphin-watching-marmaris",
       "primary_keyword": "dolphin watching Marmaris",
       "title": "Dolphin Watching Marmaris: Best Boat Tours & Tips",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marmaris-boat-party",
-      "primary_keyword": "Marmaris boat party",
-      "title": "Marmaris Boat Party: Hire for Hen, Stag & Birthdays",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marmaris-sunset-cruise",
-      "primary_keyword": "Marmaris sunset cruise",
-      "title": "Marmaris Sunset Cruise: Romantic Boat Hire Deals",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "latchi-boat-hire",
-      "primary_keyword": "Latchi boat hire",
-      "title": "Latchi Boat Hire: Rent a Boat in Cyprus Harbour",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "latchi-yacht-charter",
-      "primary_keyword": "Latchi yacht charter",
-      "title": "Latchi Yacht Charter: Luxury Boat Rental Cyprus",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "latchi-catamaran-hire",
-      "primary_keyword": "Latchi catamaran hire",
-      "title": "Latchi Catamaran Hire: Private Boat Trips Cyprus",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "latchi-speedboat-rental",
-      "primary_keyword": "Latchi speedboat rental",
-      "title": "Latchi Speedboat Rental: Hire Without Licence Cyprus",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "latchi-fishing-charter",
-      "primary_keyword": "Latchi fishing charter",
-      "title": "Latchi Fishing Charter: Deep Sea Boat Hire Cyprus",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "things-to-do-in-latchi-by-boat",
       "primary_keyword": "things to do in Latchi by boat",
       "title": "Things to Do in Latchi by Boat: Coves & Beaches Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "latchi-private-boat-hire",
-      "primary_keyword": "Latchi private boat hire",
-      "title": "Latchi Private Boat Hire: Exclusive Cyprus Rentals",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "mandelieu-cannes-boat-hire",
-      "primary_keyword": "Mandelieu Cannes boat hire",
-      "title": "Mandelieu Cannes Boat Hire: Rent a Boat in France",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "mandelieu-cannes-yacht-charter",
-      "primary_keyword": "Mandelieu Cannes yacht charter",
-      "title": "Mandelieu Cannes Yacht Charter: Luxury Boat Rental",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "mandelieu-cannes-catamaran-hire",
-      "primary_keyword": "Mandelieu Cannes catamaran hire",
-      "title": "Mandelieu Cannes Catamaran Hire: French Riviera Trips",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "mandelieu-cannes-speedboat-rental",
-      "primary_keyword": "Mandelieu Cannes speedboat rental",
-      "title": "Mandelieu Cannes Speedboat Rental: No Licence Hire",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "best-coves-near-mandelieu-cannes-by-boat",
       "primary_keyword": "best coves near Mandelieu Cannes by boat",
       "title": "Best Coves Near Mandelieu Cannes by Boat: Snorkel Spots",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "mandelieu-cannes-private-yacht-charter",
-      "primary_keyword": "Mandelieu Cannes private yacht charter",
-      "title": "Mandelieu Cannes Private Yacht Charter: Exclusive Hire",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "antalya-boat-hire",
-      "primary_keyword": "Antalya boat hire",
-      "title": "Antalya Boat Hire: Best Yacht & Boat Rentals 2025",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "antalya-yacht-charter",
-      "primary_keyword": "Antalya yacht charter",
-      "title": "Antalya Yacht Charter: Luxury Boat Rental Turkey",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "antalya-catamaran-hire",
-      "primary_keyword": "Antalya catamaran hire",
-      "title": "Antalya Catamaran Hire: Private Boat Trips Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "antalya-speedboat-rental",
-      "primary_keyword": "Antalya speedboat rental",
-      "title": "Antalya Speedboat Rental: Hire Without Licence",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "antalya-fishing-charter",
-      "primary_keyword": "Antalya fishing charter",
-      "title": "Antalya Fishing Charter: Deep Sea Boat Rentals",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "antalya-private-yacht-charter",
-      "primary_keyword": "Antalya private yacht charter",
-      "title": "Antalya Private Yacht Charter: Exclusive Boat Hire",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "alanya-boat-hire",
-      "primary_keyword": "Alanya boat hire",
-      "title": "Alanya Boat Hire: Best Yacht & Boat Rentals 2025",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "alanya-yacht-charter",
-      "primary_keyword": "Alanya yacht charter",
-      "title": "Alanya Yacht Charter: Luxury Boat Rental Turkey",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "alanya-catamaran-hire",
-      "primary_keyword": "Alanya catamaran hire",
-      "title": "Alanya Catamaran Hire: Private Boat Trips Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "alanya-speedboat-rental",
-      "primary_keyword": "Alanya speedboat rental",
-      "title": "Alanya Speedboat Rental: Hire Without Licence",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "best-beaches-near-alanya-by-boat",
       "primary_keyword": "best beaches near Alanya by boat",
       "title": "Best Beaches Near Alanya by Boat: Hidden Coves Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "alanya-private-boat-hire",
-      "primary_keyword": "Alanya private boat hire",
-      "title": "Alanya Private Boat Hire: Exclusive Turkey Rentals",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "kemer-boat-hire",
-      "primary_keyword": "Kemer boat hire",
-      "title": "Kemer Boat Hire: Best Yacht & Boat Rentals 2025",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "kemer-yacht-charter",
-      "primary_keyword": "Kemer yacht charter",
-      "title": "Kemer Yacht Charter: Luxury Boat Rental Turkey",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "kemer-catamaran-hire",
-      "primary_keyword": "Kemer catamaran hire",
-      "title": "Kemer Catamaran Hire: Private Boat Trips Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "kemer-speedboat-rental",
-      "primary_keyword": "Kemer speedboat rental",
-      "title": "Kemer Speedboat Rental: Hire Without Licence",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "snorkeling-spots-near-kemer-by-boat",
       "primary_keyword": "snorkeling spots near Kemer by boat",
       "title": "Snorkeling Spots Near Kemer by Boat: Top Coves",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "kemer-fishing-charter",
-      "primary_keyword": "Kemer fishing charter",
-      "title": "Kemer Fishing Charter: Deep Sea Boat Rentals",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "marmaris-vs-antalya-boat-rental",
       "primary_keyword": "Marmaris vs Antalya boat rental",
       "title": "Marmaris vs Antalya Boat Rental: Which is Better?",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "turkey-bareboat-charter-guide",
       "primary_keyword": "Turkey bareboat charter guide",
       "title": "Turkey Bareboat Charter Guide: Licence & Costs",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "best-time-to-visit-turkey-for-boating",
       "primary_keyword": "best time to visit Turkey for boating",
       "title": "Best Time to Visit Turkey for Boating: Monthly Guide",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "latchi-boat-trip-to-blue-lagoon",
       "primary_keyword": "Latchi boat trip to Blue Lagoon",
       "title": "Latchi Boat Trip to Blue Lagoon: What to Expect",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "cyprus-boat-hire-licence-requirements",
       "primary_keyword": "Cyprus boat hire licence requirements",
       "title": "Cyprus Boat Hire Licence Requirements: Complete Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marbella-motor-yacht-hire-for-hen-do",
-      "primary_keyword": "Marbella motor yacht hire for hen do",
-      "title": "Marbella Motor Yacht Hire for Hen Do: Party Ideas",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marbella-speedboat-hire-for-stag-do",
-      "primary_keyword": "Marbella speedboat hire for stag do",
-      "title": "Marbella Speedboat Hire for Stag Do: Action-Packed",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marbella-catamaran-hire-for-birthday",
-      "primary_keyword": "Marbella catamaran hire for birthday",
-      "title": "Marbella Catamaran Hire for Birthday: Party Packages",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-party-dj-playlist-2025",
       "primary_keyword": "Marbella boat party DJ playlist 2025",
       "title": "Marbella Boat Party DJ Playlist 2025: Top Tracks",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "marbella-boat-party-decorations-guide",
       "primary_keyword": "Marbella boat party decorations guide",
       "title": "Marbella Boat Party Decorations Guide: Themes & Ideas",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marbella-luxury-yacht-charter-for-new-years-eve",
-      "primary_keyword": "Marbella luxury yacht charter for New Year's Eve",
-      "title": "Marbella Luxury Yacht Charter for New Year's Eve 2025",
-      "target_words": 1100
-    },
-    {
-      "kind": "landing",
-      "slug": "marbella-boat-rental-for-starlite-festival-2025",
-      "primary_keyword": "Marbella boat rental for Starlite Festival 2025",
-      "title": "Marbella Boat Rental for Starlite Festival 2025: Transfers",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
     {
       "kind": "blog",
       "slug": "starlite-festival-boat-transfer-tips",
       "primary_keyword": "Starlite Festival boat transfer tips",
       "title": "Starlite Festival Boat Transfer Tips: Best Routes",
-      "target_words": 1100
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
     },
+    {
+      "kind": "blog",
+      "slug": "marbella-f1-boat-party-ideas",
+      "primary_keyword": "Marbella F1 boat party ideas",
+      "title": "Marbella F1 Boat Party Ideas: Grand Prix on Water",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-weather-in-may",
+      "primary_keyword": "Marbella boat weather in May",
+      "title": "Marbella Boat Weather in May: Sea Conditions Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-weather-in-january",
+      "primary_keyword": "Marbella boat weather in January",
+      "title": "Marbella Boat Weather in January: New Year Boating",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-weather-in-february",
+      "primary_keyword": "Marbella boat weather in February",
+      "title": "Marbella Boat Weather in February: Whale Watching",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-weather-in-march",
+      "primary_keyword": "Marbella boat weather in March",
+      "title": "Marbella Boat Weather in March: Spring Boating Tips",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-weather-in-april",
+      "primary_keyword": "Marbella boat weather in April",
+      "title": "Marbella Boat Weather in April: Easter Boating Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-safety-checklist",
+      "primary_keyword": "Marbella boat safety checklist",
+      "title": "Marbella Boat Safety Checklist: Essential Tips",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "what-to-pack-for-boat-day-marbella-autumn",
+      "primary_keyword": "what to pack for boat day Marbella autumn",
+      "title": "What to Pack for Boat Day Marbella Autumn: Layers",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-snorkeling-gear-rental",
+      "primary_keyword": "Marbella snorkeling gear rental",
+      "title": "Marbella Snorkeling Gear Rental: Where to Get It",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-snorkeling-tips-for-beginners",
+      "primary_keyword": "Marbella snorkeling tips for beginners",
+      "title": "Marbella Snorkeling Tips for Beginners: Boat Trips",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-fishing-season-species-by-month",
+      "primary_keyword": "Marbella fishing season species by month",
+      "title": "Marbella Fishing Season Species by Month: Catch Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "deep-sea-fishing-charter-marbella-tips",
+      "primary_keyword": "deep sea fishing charter Marbella tips",
+      "title": "Deep Sea Fishing Charter Marbella Tips: What to Know",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-fishing-licence-requirements",
+      "primary_keyword": "Marbella fishing licence requirements",
+      "title": "Marbella Fishing Licence Requirements: Complete Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-dolphin-watching-best-camera",
+      "primary_keyword": "Marbella dolphin watching best camera",
+      "title": "Marbella Dolphin Watching Best Camera: Photo Tips",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-dolphin-species-guide",
+      "primary_keyword": "Marbella dolphin species guide",
+      "title": "Marbella Dolphin Species Guide: Common Sightings",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-whale-watching-winter-guide",
+      "primary_keyword": "Marbella whale watching winter guide",
+      "title": "Marbella Whale Watching Winter Guide: Best Spots",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-photoshoot-wedding-ideas",
+      "primary_keyword": "Marbella boat photoshoot wedding ideas",
+      "title": "Marbella Boat Photoshoot Wedding Ideas: Sunset Shots",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-trip-for-teenagers",
+      "primary_keyword": "Marbella boat trip for teenagers",
+      "title": "Marbella Boat Trip for Teenagers: Adventure Ideas",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-trip-to-cabo-pino-guide",
+      "primary_keyword": "Marbella boat trip to Cabo Pino guide",
+      "title": "Marbella Boat Trip to Cabo Pino Guide: Marina Visit",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-trip-to-puerto-banus-guide",
+      "primary_keyword": "Marbella boat trip to Puerto Banus guide",
+      "title": "Marbella Boat Trip to Puerto Banus Guide: Distance",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-trip-to-estepona-guide",
+      "primary_keyword": "Marbella boat trip to Estepona guide",
+      "title": "Marbella Boat Trip to Estepona Guide: Coastal Route",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-trip-to-benalmadena-guide",
+      "primary_keyword": "Marbella boat trip to Benalmadena guide",
+      "title": "Marbella Boat Trip to Benalmadena Guide: Marina Trip",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-boat-trip-to-fuengirola-guide",
+      "primary_keyword": "Marbella boat trip to Fuengirola guide",
+      "title": "Marbella Boat Trip to Fuengirola Guide: Day Trip",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-vs-puerto-banus-boat-charter",
+      "primary_keyword": "Marbella vs Puerto Banus boat charter",
+      "title": "Marbella vs Puerto Banus Boat Charter: Comparison",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-vs-benalmadena-boat-rental",
+      "primary_keyword": "Marbella vs Benalmadena boat rental",
+      "title": "Marbella vs Benalmadena Boat Rental: Which is Best?",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "blog",
+      "slug": "marbella-vs-estepona-boat-charter",
+      "primary_keyword": "Marbella vs Estepona boat charter",
+      "title": "Marbella vs Estepona Boat Charter: Pros & Cons",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-boat-hire",
+      "primary_keyword": "Marmaris boat hire",
+      "title": "Marmaris Boat Hire: Best Yacht & Boat Rentals 2025",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-yacht-charter",
+      "primary_keyword": "Marmaris yacht charter",
+      "title": "Marmaris Yacht Charter: Luxury Boat Rental Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-catamaran-hire",
+      "primary_keyword": "Marmaris catamaran hire",
+      "title": "Marmaris Catamaran Hire: Private Boat Trips & Prices",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-speedboat-rental",
+      "primary_keyword": "Marmaris speedboat rental",
+      "title": "Marmaris Speedboat Rental: Hire Without Licence",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-private-yacht-charter",
+      "primary_keyword": "Marmaris private yacht charter",
+      "title": "Marmaris Private Yacht Charter: Exclusive Boat Hire",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-fishing-charter",
+      "primary_keyword": "Marmaris fishing charter",
+      "title": "Marmaris Fishing Charter: Deep Sea Boat Rentals",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-boat-party",
+      "primary_keyword": "Marmaris boat party",
+      "title": "Marmaris Boat Party: Hire for Hen, Stag & Birthdays",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-sunset-cruise",
+      "primary_keyword": "Marmaris sunset cruise",
+      "title": "Marmaris Sunset Cruise: Romantic Boat Hire Deals",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-boat-hire",
+      "primary_keyword": "Latchi boat hire",
+      "title": "Latchi Boat Hire: Rent a Boat in Cyprus Harbour",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-yacht-charter",
+      "primary_keyword": "Latchi yacht charter",
+      "title": "Latchi Yacht Charter: Luxury Boat Rental Cyprus",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-catamaran-hire",
+      "primary_keyword": "Latchi catamaran hire",
+      "title": "Latchi Catamaran Hire: Private Boat Trips Cyprus",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-speedboat-rental",
+      "primary_keyword": "Latchi speedboat rental",
+      "title": "Latchi Speedboat Rental: Hire Without Licence Cyprus",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-fishing-charter",
+      "primary_keyword": "Latchi fishing charter",
+      "title": "Latchi Fishing Charter: Deep Sea Boat Hire Cyprus",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-private-boat-hire",
+      "primary_keyword": "Latchi private boat hire",
+      "title": "Latchi Private Boat Hire: Exclusive Cyprus Rentals",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-boat-hire",
+      "primary_keyword": "Mandelieu Cannes boat hire",
+      "title": "Mandelieu Cannes Boat Hire: Rent a Boat in France",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-yacht-charter",
+      "primary_keyword": "Mandelieu Cannes yacht charter",
+      "title": "Mandelieu Cannes Yacht Charter: Luxury Boat Rental",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-catamaran-hire",
+      "primary_keyword": "Mandelieu Cannes catamaran hire",
+      "title": "Mandelieu Cannes Catamaran Hire: French Riviera Trips",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-speedboat-rental",
+      "primary_keyword": "Mandelieu Cannes speedboat rental",
+      "title": "Mandelieu Cannes Speedboat Rental: No Licence Hire",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-private-yacht-charter",
+      "primary_keyword": "Mandelieu Cannes private yacht charter",
+      "title": "Mandelieu Cannes Private Yacht Charter: Exclusive Hire",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-boat-hire",
+      "primary_keyword": "Antalya boat hire",
+      "title": "Antalya Boat Hire: Best Yacht & Boat Rentals 2025",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-yacht-charter",
+      "primary_keyword": "Antalya yacht charter",
+      "title": "Antalya Yacht Charter: Luxury Boat Rental Turkey",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-catamaran-hire",
+      "primary_keyword": "Antalya catamaran hire",
+      "title": "Antalya Catamaran Hire: Private Boat Trips Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-speedboat-rental",
+      "primary_keyword": "Antalya speedboat rental",
+      "title": "Antalya Speedboat Rental: Hire Without Licence",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-fishing-charter",
+      "primary_keyword": "Antalya fishing charter",
+      "title": "Antalya Fishing Charter: Deep Sea Boat Rentals",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-private-yacht-charter",
+      "primary_keyword": "Antalya private yacht charter",
+      "title": "Antalya Private Yacht Charter: Exclusive Boat Hire",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-boat-hire",
+      "primary_keyword": "Alanya boat hire",
+      "title": "Alanya Boat Hire: Best Yacht & Boat Rentals 2025",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-yacht-charter",
+      "primary_keyword": "Alanya yacht charter",
+      "title": "Alanya Yacht Charter: Luxury Boat Rental Turkey",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-catamaran-hire",
+      "primary_keyword": "Alanya catamaran hire",
+      "title": "Alanya Catamaran Hire: Private Boat Trips Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-speedboat-rental",
+      "primary_keyword": "Alanya speedboat rental",
+      "title": "Alanya Speedboat Rental: Hire Without Licence",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-private-boat-hire",
+      "primary_keyword": "Alanya private boat hire",
+      "title": "Alanya Private Boat Hire: Exclusive Turkey Rentals",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-boat-hire",
+      "primary_keyword": "Kemer boat hire",
+      "title": "Kemer Boat Hire: Best Yacht & Boat Rentals 2025",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-yacht-charter",
+      "primary_keyword": "Kemer yacht charter",
+      "title": "Kemer Yacht Charter: Luxury Boat Rental Turkey",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-catamaran-hire",
+      "primary_keyword": "Kemer catamaran hire",
+      "title": "Kemer Catamaran Hire: Private Boat Trips Guide",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-speedboat-rental",
+      "primary_keyword": "Kemer speedboat rental",
+      "title": "Kemer Speedboat Rental: Hire Without Licence",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-fishing-charter",
+      "primary_keyword": "Kemer fishing charter",
+      "title": "Kemer Fishing Charter: Deep Sea Boat Rentals",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marbella-motor-yacht-hire-for-hen-do",
+      "primary_keyword": "Marbella motor yacht hire for hen do",
+      "title": "Marbella Motor Yacht Hire for Hen Do: Party Ideas",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marbella-speedboat-hire-for-stag-do",
+      "primary_keyword": "Marbella speedboat hire for stag do",
+      "title": "Marbella Speedboat Hire for Stag Do: Action-Packed",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marbella-catamaran-hire-for-birthday",
+      "primary_keyword": "Marbella catamaran hire for birthday",
+      "title": "Marbella Catamaran Hire for Birthday: Party Packages",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marbella-luxury-yacht-charter-for-new-years-eve",
+      "primary_keyword": "Marbella luxury yacht charter for New Year's Eve",
+      "title": "Marbella Luxury Yacht Charter for New Year's Eve 2025",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    },
+    {
+      "kind": "landing",
+      "slug": "marbella-boat-rental-for-starlite-festival-2025",
+      "primary_keyword": "Marbella boat rental for Starlite Festival 2025",
+      "title": "Marbella Boat Rental for Starlite Festival 2025: Transfers",
+      "target_words": 1100,
+      "consumed_at": "2026-07-24"
+    }
+  ],
+  "queue": [
     {
       "kind": "landing",
       "slug": "marbella-boat-rental-for-f1-weekend-2025",
@@ -8680,136 +8942,10 @@
       "target_words": 1100
     },
     {
-      "kind": "blog",
-      "slug": "marbella-f1-boat-party-ideas",
-      "primary_keyword": "Marbella F1 boat party ideas",
-      "title": "Marbella F1 Boat Party Ideas: Grand Prix on Water",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-weather-in-may",
-      "primary_keyword": "Marbella boat weather in May",
-      "title": "Marbella Boat Weather in May: Sea Conditions Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-weather-in-january",
-      "primary_keyword": "Marbella boat weather in January",
-      "title": "Marbella Boat Weather in January: New Year Boating",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-weather-in-february",
-      "primary_keyword": "Marbella boat weather in February",
-      "title": "Marbella Boat Weather in February: Whale Watching",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-weather-in-march",
-      "primary_keyword": "Marbella boat weather in March",
-      "title": "Marbella Boat Weather in March: Spring Boating Tips",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-weather-in-april",
-      "primary_keyword": "Marbella boat weather in April",
-      "title": "Marbella Boat Weather in April: Easter Boating Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-safety-checklist",
-      "primary_keyword": "Marbella boat safety checklist",
-      "title": "Marbella Boat Safety Checklist: Essential Tips",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "what-to-pack-for-boat-day-marbella-autumn",
-      "primary_keyword": "what to pack for boat day Marbella autumn",
-      "title": "What to Pack for Boat Day Marbella Autumn: Layers",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-snorkeling-gear-rental",
-      "primary_keyword": "Marbella snorkeling gear rental",
-      "title": "Marbella Snorkeling Gear Rental: Where to Get It",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-snorkeling-tips-for-beginners",
-      "primary_keyword": "Marbella snorkeling tips for beginners",
-      "title": "Marbella Snorkeling Tips for Beginners: Boat Trips",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-fishing-season-species-by-month",
-      "primary_keyword": "Marbella fishing season species by month",
-      "title": "Marbella Fishing Season Species by Month: Catch Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "deep-sea-fishing-charter-marbella-tips",
-      "primary_keyword": "deep sea fishing charter Marbella tips",
-      "title": "Deep Sea Fishing Charter Marbella Tips: What to Know",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-fishing-licence-requirements",
-      "primary_keyword": "Marbella fishing licence requirements",
-      "title": "Marbella Fishing Licence Requirements: Complete Guide",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-dolphin-watching-best-camera",
-      "primary_keyword": "Marbella dolphin watching best camera",
-      "title": "Marbella Dolphin Watching Best Camera: Photo Tips",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-dolphin-species-guide",
-      "primary_keyword": "Marbella dolphin species guide",
-      "title": "Marbella Dolphin Species Guide: Common Sightings",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-whale-watching-winter-guide",
-      "primary_keyword": "Marbella whale watching winter guide",
-      "title": "Marbella Whale Watching Winter Guide: Best Spots",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-photoshoot-wedding-ideas",
-      "primary_keyword": "Marbella boat photoshoot wedding ideas",
-      "title": "Marbella Boat Photoshoot Wedding Ideas: Sunset Shots",
-      "target_words": 1100
-    },
-    {
       "kind": "landing",
       "slug": "marbella-family-boat-day-activities",
       "primary_keyword": "Marbella family boat day activities",
       "title": "Marbella Family Boat Day Activities: Fun for Kids",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-trip-for-teenagers",
-      "primary_keyword": "Marbella boat trip for teenagers",
-      "title": "Marbella Boat Trip for Teenagers: Adventure Ideas",
       "target_words": 1100
     },
     {
@@ -8824,62 +8960,6 @@
       "slug": "marbella-boat-rental-for-teen-birthday",
       "primary_keyword": "Marbella boat rental for teen birthday",
       "title": "Marbella Boat Rental for Teen Birthday: Cool Ideas",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-trip-to-cabo-pino-guide",
-      "primary_keyword": "Marbella boat trip to Cabo Pino guide",
-      "title": "Marbella Boat Trip to Cabo Pino Guide: Marina Visit",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-trip-to-puerto-banus-guide",
-      "primary_keyword": "Marbella boat trip to Puerto Banus guide",
-      "title": "Marbella Boat Trip to Puerto Banus Guide: Distance",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-trip-to-estepona-guide",
-      "primary_keyword": "Marbella boat trip to Estepona guide",
-      "title": "Marbella Boat Trip to Estepona Guide: Coastal Route",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-trip-to-benalmadena-guide",
-      "primary_keyword": "Marbella boat trip to Benalmadena guide",
-      "title": "Marbella Boat Trip to Benalmadena Guide: Marina Trip",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-boat-trip-to-fuengirola-guide",
-      "primary_keyword": "Marbella boat trip to Fuengirola guide",
-      "title": "Marbella Boat Trip to Fuengirola Guide: Day Trip",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-vs-puerto-banus-boat-charter",
-      "primary_keyword": "Marbella vs Puerto Banus boat charter",
-      "title": "Marbella vs Puerto Banus Boat Charter: Comparison",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-vs-benalmadena-boat-rental",
-      "primary_keyword": "Marbella vs Benalmadena boat rental",
-      "title": "Marbella vs Benalmadena Boat Rental: Which is Best?",
-      "target_words": 1100
-    },
-    {
-      "kind": "blog",
-      "slug": "marbella-vs-estepona-boat-charter",
-      "primary_keyword": "Marbella vs Estepona boat charter",
-      "title": "Marbella vs Estepona Boat Charter: Pros & Cons",
       "target_words": 1100
     },
     {
@@ -8992,6 +9072,678 @@
       "slug": "antalya-boat-trip-to-kekova",
       "primary_keyword": "Antalya boat trip to Kekova",
       "title": "Antalya Boat Trip to Kekova: Sunken City Tour",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-boat-hire-blue-lagoon",
+      "primary_keyword": "latchi boat hire blue lagoon",
+      "title": "Latchi Boat Hire to Blue Lagoon – Book Your Trip",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-boat-rental",
+      "primary_keyword": "mandelieu cannes boat rental",
+      "title": "Mandelieu Cannes Boat Rental – Top Boats for Hire",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-yacht-charter-for-wedding",
+      "primary_keyword": "antalya yacht charter for wedding",
+      "title": "Antalya Yacht Charter for Wedding – Elegant Ceremonies",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-catamaran-hire-for-group",
+      "primary_keyword": "alanya catamaran hire for group",
+      "title": "Alanya Catamaran Hire for Group – Spacious & Fun",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-speedboat-rental-no-licence",
+      "primary_keyword": "kemer speedboat rental no licence",
+      "title": "Kemer Speedboat Rental No Licence – Easy Booking",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-catamaran-charter-sunset",
+      "primary_keyword": "marmaris catamaran charter sunset",
+      "title": "Marmaris Catamaran Charter Sunset – Unforgettable Views",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-private-yacht-charter",
+      "primary_keyword": "latchi private yacht charter",
+      "title": "Latchi Private Yacht Charter – Exclusive Luxury",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-speedboat-hire",
+      "primary_keyword": "mandelieu cannes speedboat hire",
+      "title": "Mandelieu Cannes Speedboat Hire – Rent Fast Boats",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-boat-hire-for-family",
+      "primary_keyword": "antalya boat hire for family",
+      "title": "Antalya Boat Hire for Family – Kid-Friendly Trips",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-yacht-charter-for-wedding",
+      "primary_keyword": "alanya yacht charter for wedding",
+      "title": "Alanya Yacht Charter for Wedding – Romantic Ceremonies",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-boat-hire-for-fishing",
+      "primary_keyword": "kemer boat hire for fishing",
+      "title": "Kemer Boat Hire for Fishing – Top Charters",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-private-boat-charter",
+      "primary_keyword": "antalya private boat charter",
+      "title": "Antalya Private Boat Charter – Exclusive Experiences",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-speedboat-rental-no-licence",
+      "primary_keyword": "alanya speedboat rental no licence",
+      "title": "Alanya Speedboat Rental No Licence – Quick Hire",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-catamaran-hire-for-group",
+      "primary_keyword": "kemer catamaran hire for group",
+      "title": "Kemer Catamaran Hire for Group – Fun on Water",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-yacht-charter-for-wedding",
+      "primary_keyword": "marmaris yacht charter for wedding",
+      "title": "Marmaris Yacht Charter for Wedding – Dream Ceremony",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-boat-rental-for-stag-do",
+      "primary_keyword": "antalya boat rental for stag do",
+      "title": "Antalya Boat Rental for Stag Do – Party Boats",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-boat-hire-for-family",
+      "primary_keyword": "alanya boat hire for family",
+      "title": "Alanya Boat Hire for Family – Safe & Fun",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-yacht-charter-for-group",
+      "primary_keyword": "kemer yacht charter for group",
+      "title": "Kemer Yacht Charter for Group – Spacious Cruises",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-boat-hire-for-fishing",
+      "primary_keyword": "marmaris boat hire for fishing",
+      "title": "Marmaris Boat Hire for Fishing – Expert Charters",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-catamaran-charter",
+      "primary_keyword": "latchi catamaran charter",
+      "title": "Latchi Catamaran Charter – Book Your Day",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-boat-hire-for-group",
+      "primary_keyword": "mandelieu cannes boat hire for group",
+      "title": "Mandelieu Cannes Boat Hire for Group – Best Deals",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-boat-rental-for-stag-do",
+      "primary_keyword": "alanya boat rental for stag do",
+      "title": "Alanya Boat Rental for Stag Do – Party Boats",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-boat-rental-for-hen-do",
+      "primary_keyword": "kemer boat rental for hen do",
+      "title": "Kemer Boat Rental for Hen Do – Fun Packages",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-boat-hire-for-group",
+      "primary_keyword": "latchi boat hire for group",
+      "title": "Latchi Boat Hire for Group – Best Options",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-private-boat-hire",
+      "primary_keyword": "mandelieu cannes private boat hire",
+      "title": "Mandelieu Cannes Private Boat Hire – Tailored Trips",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-boat-rental-for-hen-do",
+      "primary_keyword": "antalya boat rental for hen do",
+      "title": "Antalya Boat Rental for Hen Do – Party Ideas",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-catamaran-charter-sunset",
+      "primary_keyword": "alanya catamaran charter sunset",
+      "title": "Alanya Catamaran Charter Sunset – Stunning Views",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-speedboat-hire",
+      "primary_keyword": "kemer speedboat hire",
+      "title": "Kemer Speedboat Hire – Rent Fast Boats",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-boat-rental-for-wedding",
+      "primary_keyword": "marmaris boat rental for wedding",
+      "title": "Marmaris Boat Rental for Wedding – Dream Day",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-fishing-charter",
+      "primary_keyword": "mandelieu cannes fishing charter",
+      "title": "Mandelieu Cannes Fishing Charter – Top Trips",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "antalya-boat-hire-for-group",
+      "primary_keyword": "antalya boat hire for group",
+      "title": "Antalya Boat Hire for Group – Spacious Boats",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-boat-rental-for-hen-do",
+      "primary_keyword": "alanya boat rental for hen do",
+      "title": "Alanya Boat Rental for Hen Do – Fun Packages",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "kemer-boat-hire-for-group",
+      "primary_keyword": "kemer boat hire for group",
+      "title": "Kemer Boat Hire for Group – Best Charters",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-sunset-cruise-boat",
+      "primary_keyword": "marmaris sunset cruise boat",
+      "title": "Marmaris Sunset Cruise Boat – Book Your Evening",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-boat-rental-for-wedding",
+      "primary_keyword": "mandelieu cannes boat rental for wedding",
+      "title": "Mandelieu Cannes Boat Rental for Wedding",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "alanya-fishing-charter",
+      "primary_keyword": "alanya fishing charter",
+      "title": "Alanya Fishing Charter – Top Catches",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "marmaris-boat-hire-for-group",
+      "primary_keyword": "marmaris boat hire for group",
+      "title": "Marmaris Boat Hire for Group – Best Options",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "latchi-boat-rental-for-stag-do",
+      "primary_keyword": "latchi boat rental for stag do",
+      "title": "Latchi Boat Rental for Stag Do – Party Boats",
+      "target_words": 1100
+    },
+    {
+      "kind": "landing",
+      "slug": "mandelieu-cannes-boat-rental-for-stag-do",
+      "primary_keyword": "mandelieu cannes boat rental for stag do",
+      "title": "Mandelieu Cannes Boat Rental for Stag Do",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "best-time-for-dolphin-watching-in-marmaris",
+      "primary_keyword": "best time for dolphin watching in marmaris",
+      "title": "Best Time for Dolphin Watching in Marmaris",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "best-snorkeling-coves-near-latchi",
+      "primary_keyword": "best snorkeling coves near latchi",
+      "title": "Best Snorkeling Coves Near Latchi – Top Spots",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "best-anchorages-near-mandelieu-cannes",
+      "primary_keyword": "best anchorages near mandelieu cannes",
+      "title": "Best Anchorages Near Mandelieu Cannes",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "best-time-for-fishing-in-antalya",
+      "primary_keyword": "best time for fishing in antalya",
+      "title": "Best Time for Fishing in Antalya – Season Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "best-sunset-spots-near-kemer-by-boat",
+      "primary_keyword": "best sunset spots near kemer by boat",
+      "title": "Best Sunset Spots Near Kemer by Boat",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "dolphin-species-marmaris-guide",
+      "primary_keyword": "dolphin species marmaris guide",
+      "title": "Dolphin Species Marmaris Guide – What to See",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "what-to-pack-for-boat-day-latchi",
+      "primary_keyword": "what to pack for a boat day in latchi",
+      "title": "What to Pack for a Boat Day in Latchi",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "best-time-to-visit-mandelieu-cannes-for-boating",
+      "primary_keyword": "best time to visit mandelieu cannes for boating",
+      "title": "Best Time to Visit Mandelieu Cannes for Boating",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "best-anchorages-near-antalya-for-overnight",
+      "primary_keyword": "best anchorages near antalya for overnight",
+      "title": "Best Anchorages Near Antalya for Overnight",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-trip-dolphin-watching-tips",
+      "primary_keyword": "alanya boat trip dolphin watching tips",
+      "title": "Alanya Boat Trip Dolphin Watching Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marmaris-boat-weather-guide-by-month",
+      "primary_keyword": "marmaris boat weather guide by month",
+      "title": "Marmaris Boat Weather Guide by Month",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "latchi-boat-trip-safety-checklist",
+      "primary_keyword": "latchi boat trip safety checklist",
+      "title": "Latchi Boat Trip Safety Checklist – Essential Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-boat-photography-tips",
+      "primary_keyword": "mandelieu cannes boat photography tips",
+      "title": "Mandelieu Cannes Boat Photography Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-party-ideas-for-stag-do",
+      "primary_keyword": "alanya boat party ideas for stag do",
+      "title": "Alanya Boat Party Ideas for Stag Do",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "kemer-boat-weather-forecast-apps",
+      "primary_keyword": "kemer boat weather forecast apps",
+      "title": "Kemer Boat Weather Forecast Apps – Best Picks",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marmaris-boat-licence-requirements",
+      "primary_keyword": "marmaris boat licence requirements",
+      "title": "Marmaris Boat Licence Requirements – Full Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "latchi-boat-hire-price-guide",
+      "primary_keyword": "latchi boat hire price guide",
+      "title": "Latchi Boat Hire Price Guide – Costs Explained",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-boat-rental-insurance",
+      "primary_keyword": "mandelieu cannes boat rental insurance",
+      "title": "Mandelieu Cannes Boat Rental Insurance Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-weather-in-september",
+      "primary_keyword": "alanya boat weather in september",
+      "title": "Alanya Boat Weather in September – Perfect Boating",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "kemer-boat-trip-to-olympos-guide",
+      "primary_keyword": "kemer boat trip to olympus guide",
+      "title": "Kemer Boat Trip to Olympos – Complete Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marmaris-vs-antalya-boat-rental-comparison",
+      "primary_keyword": "marmaris vs antalya boat rental comparison",
+      "title": "Marmaris vs Antalya Boat Rental – Which Is Best?",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "latchi-vs-paphos-boat-hire",
+      "primary_keyword": "latchi vs paphos boat hire",
+      "title": "Latchi vs Paphos Boat Hire – Pros & Cons",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-vs-cannes-boat-rental",
+      "primary_keyword": "mandelieu cannes vs cannes boat rental",
+      "title": "Mandelieu Cannes vs Cannes Boat Rental – Compare",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "antalya-boat-trip-to-kekova-guide",
+      "primary_keyword": "antalya boat trip to kekova guide",
+      "title": "Antalya Boat Trip to Kekova – Complete Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-trip-to-caves-guide",
+      "primary_keyword": "alanya boat trip to caves guide",
+      "title": "Alanya Boat Trip to Caves – Explore Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "kemer-boat-trip-snorkeling-tips",
+      "primary_keyword": "kemer boat trip snorkeling tips",
+      "title": "Kemer Boat Trip Snorkeling Tips for Beginners",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marmaris-boat-party-for-new-years-eve",
+      "primary_keyword": "marmaris boat party for new years eve",
+      "title": "Marmaris Boat Party for New Year's Eve",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "latchi-boat-trip-for-family-with-kids",
+      "primary_keyword": "latchi boat trip for family with kids",
+      "title": "Latchi Boat Trip for Family with Kids",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-boat-trip-for-romantic-date",
+      "primary_keyword": "mandelieu cannes boat trip for romantic date",
+      "title": "Mandelieu Cannes Boat Trip for Romantic Date",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-trip-for-sunset-champagne",
+      "primary_keyword": "alanya boat trip for sunset champagne",
+      "title": "Alanya Boat Trip for Sunset Champagne",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "kemer-boat-trip-for-photoshoot",
+      "primary_keyword": "kemer boat trip for photoshoot",
+      "title": "Kemer Boat Trip for Photoshoot – Best Spots",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "latchi-boat-trip-for-dolphin-photography",
+      "primary_keyword": "latchi boat trip for dolphin photography",
+      "title": "Latchi Boat Trip for Dolphin Photography",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-boat-trip-for-wedding-reception",
+      "primary_keyword": "mandelieu cannes boat trip for wedding reception",
+      "title": "Mandelieu Cannes Boat Trip for Wedding Reception",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "antalya-boat-trip-for-teenagers",
+      "primary_keyword": "antalya boat trip for teenagers",
+      "title": "Antalya Boat Trip for Teenagers – Fun Ideas",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "kemer-boat-trip-for-stag-do-activities",
+      "primary_keyword": "kemer boat trip for stag do activities",
+      "title": "Kemer Boat Trip for Stag Do Activities",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marmaris-boat-trip-in-winter",
+      "primary_keyword": "marmaris boat trip in winter",
+      "title": "Marmaris Boat Trip in Winter – What to Do",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-boat-trip-in-autumn",
+      "primary_keyword": "mandelieu cannes boat trip in autumn",
+      "title": "Mandelieu Cannes Boat Trip in Autumn",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "antalya-boat-trip-weather-august",
+      "primary_keyword": "antalya boat trip weather august",
+      "title": "Antalya Boat Trip Weather in August",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-trip-weather-july",
+      "primary_keyword": "alanya boat trip weather july",
+      "title": "Alanya Boat Trip Weather in July",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marmaris-boat-trip-to-clew-bay-guide",
+      "primary_keyword": "marmaris boat trip to clew bay guide",
+      "title": "Marmaris Boat Trip to Clew Bay – Complete Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "latchi-boat-trip-to-aphrodites-rock-guide",
+      "primary_keyword": "latchi boat trip to aphrodites rock guide",
+      "title": "Latchi Boat Trip to Aphrodite's Rock – Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-boat-trip-to-isles-de-lerins-guide",
+      "primary_keyword": "mandelieu cannes boat trip to isles de lerins guide",
+      "title": "Mandelieu Cannes Boat Trip to Isles de Lérins Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "antalya-boat-trip-to-kekova-snorkeling",
+      "primary_keyword": "antalya boat trip to kekova snorkeling",
+      "title": "Antalya Boat Trip to Kekova Snorkeling",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-trip-to-caves-snorkeling",
+      "primary_keyword": "alanya boat trip to caves snorkeling",
+      "title": "Alanya Boat Trip to Caves Snorkeling",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "kemer-boat-trip-to-olympos-snorkeling",
+      "primary_keyword": "kemer boat trip to olympus snorkeling",
+      "title": "Kemer Boat Trip to Olympos Snorkeling",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marmaris-boat-rental-for-f1-weekend",
+      "primary_keyword": "marmaris boat rental for f1 weekend",
+      "title": "Marmaris Boat Rental for F1 Weekend",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "latchi-boat-rental-for-starlite-festival",
+      "primary_keyword": "latchi boat rental for starlite festival",
+      "title": "Latchi Boat Rental for Starlite Festival",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-boat-rental-for-cannes-film-festival",
+      "primary_keyword": "mandelieu cannes boat rental for cannes film festival",
+      "title": "Mandelieu Cannes Boat Rental for Film Festival",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "antalya-boat-rental-for-new-years-eve",
+      "primary_keyword": "antalya boat rental for new years eve",
+      "title": "Antalya Boat Rental for New Year's Eve",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-rental-for-feria",
+      "primary_keyword": "alanya boat rental for feria",
+      "title": "Alanya Boat Rental for Feria – Party Ideas",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "kemer-boat-rental-for-sunset-cruise",
+      "primary_keyword": "kemer boat rental for sunset cruise",
+      "title": "Kemer Boat Rental for Sunset Cruise",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "marmaris-boat-rental-without-licence",
+      "primary_keyword": "marmaris boat rental without licence",
+      "title": "Marmaris Boat Rental Without Licence – Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "latchi-boat-rental-without-licence",
+      "primary_keyword": "latchi boat rental without licence",
+      "title": "Latchi Boat Rental Without Licence – Options",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "mandelieu-cannes-boat-rental-without-licence",
+      "primary_keyword": "mandelieu cannes boat rental without licence",
+      "title": "Mandelieu Cannes Boat Rental Without Licence",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "antalya-boat-rental-without-licence",
+      "primary_keyword": "antalya boat rental without licence",
+      "title": "Antalya Boat Rental Without Licence – Tips",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "alanya-boat-rental-without-licence",
+      "primary_keyword": "alanya boat rental without licence",
+      "title": "Alanya Boat Rental Without Licence – Guide",
+      "target_words": 1100
+    },
+    {
+      "kind": "blog",
+      "slug": "kemer-boat-rental-without-licence",
+      "primary_keyword": "kemer boat rental without licence",
+      "title": "Kemer Boat Rental Without Licence – Options",
       "target_words": 1100
     }
   ]
