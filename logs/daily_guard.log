@@ -6518,3 +6518,15 @@ To https://github.com/mardo89/boat-rental-platform.git
 [2026-07-24 01:41:22]   trying [tr, 0d] Teos Marina'da Duty Free Dönemi Başladı - Vira Haber
 [2026-07-24 01:41:31]     ✓ passed all gates: duty-free-shopping-launches-at-teos-marina-for-international-passenger
 [2026-07-24 01:41:31] PUBLISHED: /news/duty-free-shopping-launches-at-teos-marina-for-international-passenger (Marinas & ports, by Mardo Soo)
+[main 1fe5f6e] Newsroom: Duty-free shopping launches at Teos Marina for international
+ 6 files changed, 60 insertions(+), 2 deletions(-)
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/devglobalxxx/boat-rental-platform.git        
+To https://github.com/mardo89/boat-rental-platform.git
+   4fdcd1f..1fe5f6e  HEAD -> main
+[2026-07-24 01:41:33] reindex ping: 200 {"ok":true,"urls_total":1860,"indexnow":{"ok":true,"status":200,"count":1860},"google":{"skipped":"no GSC_SA_JSON"},"sitemap_ping":{"www.google.com":404,"www.bing.com":410},"timestamp":"2026-07-23T22:
+[2026-07-24 01:41:33] === Done: 1 published ===
+
+quarantined 0 thin landings; kept 546
+cannibalization: 155 variant pages canonicalized to a primary
+relinked: blogs=438 (homepage 438/438), landings=546 (homepage 546/546), affiliate-link pool=9
